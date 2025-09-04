@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="h-full w-full flex flex-col items-center justify-center bg-black text-white">
+  <div class="h-10 w-10 bg-white"></div>
+  <div>{{ profile.full_name|upper }}</div>
+  <p>{{ profile.institution }}</p>
+  <p> {{ profile.course }} | {{ profile.year }} </p>
+  <div hx-get="{% url 'profile_edit' %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-trigger='click' hx-target="#content-body" hx-swap="innerHTML"
+  class=" h-8 w-16 flex items-center justify-center border-1 border-white cursor-grab">
+    <p>Edit</p>
+  </div>
+</div>
+
+{% endblock content %}

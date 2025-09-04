@@ -1,0 +1,16 @@
+{% load django_htmx %}
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django Tailwind{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% htmx_script %}
+</head>
+<body class="bg-black  h-screen w-screen">
+    {% block content %}{% endblock %}
+</body>
+</html>

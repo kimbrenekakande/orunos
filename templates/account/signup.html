@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class=" h-screen w-screen flex flex-col items-center justify-center">
+  <div class="text-orange-500 text-2xl">SIGNUP</div>
+  <form method="post"  action="{% url 'account_signup' %}" class="text-white flex flex-col gap-4 ">
+    {% csrf_token %}
+    <label for="email">Email or Username</label>
+    <input id="email" type="text" name="login" placeholder="username" class="h-10  border-2 border-orange-500 pl-2">
+    <input id="pw" type="password" name="password" placeholder="password" class="h-10  border-2 border-orange-500 pl-2">
+    <div class="flex gap-10 w-72">
+      <button type="submit" class=" h-2 w-4 cursor-grab border-red-600">enter</button>
+      <a href="{% url 'account_login' %}" class=" h-2 w-4 cursor-grab border-red-600">login</a>
+    </div>
+  </form>
+</div>
+{% endblock content %}

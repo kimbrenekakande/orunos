@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="flex  flex-col items-center justify-center h-screen w-screen">
+  
+  <h1 class="text-9xl motion-preset-shrink text-white">DJSPA</h1>
+  <p class="motion-preset-focus text-white">Build Single Page Applications with Django,Tailwind CSS and HTMX.</p>
+  <p class="motion-preset-focus text-white">Template By<span class="text-orange-400 hover:text-cyan-400"><a href="{% url 'dashboard' %}"> @kimbrenekakande</a></span></p>
+  <p class="motion-preset-focus text-white">Version 1.2.0</p>
+  <div class="h-8 w-full flex gap-4 items-center justify-center motion-preset-focus mt-10">
+    <a href="https://github.com/kimbrenekakande" target="_blank">
+      <img class="h-6 w-6 hover:motion-preset-fade-lg" src="{% static 'svgs/GitHub_dark.svg' %}" alt="">
+    </a>
+    <a href="https://x.com/kimbrenekakande" target="_blank">
+      <img class="h-6 w-6 hover:motion-preset-fade-lg" src="{% static 'svgs/x (formerly Twitter)_dark.svg' %}" alt="">
+    </a>
+    <a href="https://www.linkedin.com/in/kimbrene-kakande-939574143/" target="_blank">
+      <img class="h-8 w-8 hover:motion-preset-fade-lg text-red-600" src="{% static 'svgs/linkedin.png' %}" alt="">
+    </a>
+  </div>
+  <a href="{% url 'dashboard' %}" class="motion-preset-focus hover:motion-preset-fade-lg hover mt-10">
+    <img class="h-8 w-8 hover:motion-preset-fade-lg" src="{% static 'svgs/dashboard.svg' %}" alt="">
+  </a>
+</div>
+
+
+{% endblock %}

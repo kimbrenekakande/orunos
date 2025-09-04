@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class=" h-screen w-screen flex flex-col items-center justify-center">
+  <div class="text-orange-500 text-2xl">LOGOUT</div>
+  <form method="post"  action="{% url 'account_logout' %}" class="text-white flex flex-col gap-4 ">
+    {% csrf_token %}
+    <button type="submit" class=" h-2 w-4 cursor-grab border-red-600">enter</button>
+  </form>
+</div>
+{% endblock content %}

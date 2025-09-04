@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="h-full w-full bg-black">
+  <form hx-post="{% url 'profile_edit' %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target='#content-body' hx-swap='outerHTML' >
+
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class=" h-2 w-4 cursor-grab border-red-600">SAVE</button>
+  </form>
+</div>
+
+
+{% endblock content %}

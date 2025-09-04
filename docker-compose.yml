@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    command: honcho -f Procfile.tailwind start
+    volumes:
+      - .:/app
+      # Use an anonymous volume to prevent host node_modules from overwriting the container's
+      - /app/theme/static_src/node_modules
+    ports:
+      - "8000:8000"

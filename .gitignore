@@ -1,0 +1,7 @@
+.venv
+.theme/
+.DS_Store
+__pycache__/
+.python-version
+node_modules/
+requirements.txt

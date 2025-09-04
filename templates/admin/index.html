@@ -1,0 +1,23 @@
+{% extends 'admin/base.html' %}
+
+{% load i18n %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block title %}
+    {% if subtitle %}
+        {{ subtitle }} |
+    {% endif %}
+
+    {{ title }} | {{ site_title|default:_('Django site admin') }}
+{% endblock %}
+
+{% block branding %}
+    {% include "unfold/helpers/site_branding.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center  w-full h-screen ">
+  <h1 class="text-9xl motion-preset-focus motion-duration-2000 text-white">DASHBOARD</h1>
+</div>
+{% endblock %}

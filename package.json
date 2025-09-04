@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "tailwindcss": "^4.1.12",
+    "tailwindcss-motion": "^1.1.1"
+  },
+  "scripts": {
+    "tail": "tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch",
+    "build": "tailwindcss -i ./static/src/input.css -o ./static/src/output.css"
+  }
+}

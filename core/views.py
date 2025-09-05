@@ -26,3 +26,14 @@ class Settings(TemplateView):
 
     
     
+
+def question_view(request):
+    form = QuestionForm(instance=request.user.profile)
+    
+    if request.method == "POST":
+        form = QuestionForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            # return redirect('profile')
+        
+    return render(request, "qn.html", {"form": form},)

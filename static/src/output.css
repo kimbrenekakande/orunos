@@ -19,8 +19,6 @@
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-xs: 20rem;
-    --container-2xl: 42rem;
-    --container-7xl: 80rem;
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-2xl: 1.5rem;
@@ -206,17 +204,8 @@
       max-width: 96rem;
     }
   }
-  .m-4 {
-    margin: calc(var(--spacing) * 4);
-  }
   .mt-1 {
     margin-top: calc(var(--spacing) * 1);
-  }
-  .mt-2 {
-    margin-top: calc(var(--spacing) * 2);
-  }
-  .mt-5 {
-    margin-top: calc(var(--spacing) * 5);
   }
   .mt-10 {
     margin-top: calc(var(--spacing) * 10);
@@ -263,17 +252,11 @@
   .h-screen {
     height: 100vh;
   }
-  .w-2xl {
-    width: var(--container-2xl);
-  }
   .w-4 {
     width: calc(var(--spacing) * 4);
   }
   .w-6 {
     width: calc(var(--spacing) * 6);
-  }
-  .w-7xl {
-    width: var(--container-7xl);
   }
   .w-8 {
     width: calc(var(--spacing) * 8);
@@ -346,9 +329,6 @@
   }
   .gap-10 {
     gap: calc(var(--spacing) * 10);
-  }
-  .gap-40 {
-    gap: calc(var(--spacing) * 40);
   }
   .gap-\[1px\] {
     gap: 1px;

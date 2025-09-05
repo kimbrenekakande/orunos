@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Index, Home, dashboard, List, Billing, Settings
+from .views import Index, Home, dashboard, List, Billing, Settings, question_view
 
 # from .views import Profile
 
@@ -11,4 +11,5 @@ urlpatterns = [
     path("billing/", Billing.as_view(), name = "billing"),
     # path("profile/", Profile.as_view(), name = "profile"),
     path("settings/", Settings.as_view(), name = "settings"),
+    path('question/', question_view, name='question')
 ]

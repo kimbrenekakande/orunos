@@ -1,27 +1,125 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="flex  flex-col items-center justify-center h-screen w-screen">
-  
-  <h1 class="text-9xl motion-preset-shrink text-white">DJSPA</h1>
-  <p class="motion-preset-focus text-white">Build Single Page Applications with Django,Tailwind CSS and HTMX.</p>
-  <p class="motion-preset-focus text-white">Template By<span class="text-orange-400 hover:text-cyan-400"><a href="{% url 'dashboard' %}"> @kimbrenekakande</a></span></p>
-  <p class="motion-preset-focus text-white">Version 1.2.0</p>
-  <div class="h-8 w-full flex gap-4 items-center justify-center motion-preset-focus mt-10">
-    <a href="https://github.com/kimbrenekakande" target="_blank">
-      <img class="h-6 w-6 hover:motion-preset-fade-lg" src="{% static 'svgs/GitHub_dark.svg' %}" alt="">
-    </a>
-    <a href="https://x.com/kimbrenekakande" target="_blank">
-      <img class="h-6 w-6 hover:motion-preset-fade-lg" src="{% static 'svgs/x (formerly Twitter)_dark.svg' %}" alt="">
-    </a>
-    <a href="https://www.linkedin.com/in/kimbrene-kakande-939574143/" target="_blank">
-      <img class="h-8 w-8 hover:motion-preset-fade-lg text-red-600" src="{% static 'svgs/linkedin.png' %}" alt="">
-    </a>
+
+<div id="landing-body" class=" flex flex-col gap-8 bg-white">
+  <div id="hero" class="h-screen w-[100%]  flex flex-col bg-no-repeat bg-cover bg" style="background-image: url('{% static 'images/nature.jpg' %}')">
+    
+    <div id="navigation-bar" class="flex justify-between items-center m-8">
+      <div>
+        <div id="logo" class="h-12 w-12 rounded-full bg-cover" style="background-image: url('{% static 'images/brand/orunos_logo_white.png' %}')"></div>
+        
+      </div>
+      <div id="nav-links">
+        <ul class="flex gap-8 text-2xl text-white">
+          <li><a href="#">[ About </a></li>
+          <li>&#183; </li>
+          <li><a href="#">How it works</a></li>
+          <li>&#183;</li>
+          <li><a href="#">Contact ]</a></li>
+        </ul>
+      </div>
+      <a href="{%  url 'account_login' %}">
+        <div class="h-10 w-30 border-2 border-white bg-black flex flexl-col items-center justify-center text-white cursor-grab ">
+          LOGIN
+        </div>
+      </a>
+    </div>
+
+    <div id="call-to-action" class="flex flex-col gap-6 items-center justify-center h-[100%]">
+      <h1 class="text-6xl motion-preset-focus text-white">Your AI Study Buddy</h1>
+      <h2 class="text-8xl text-black">WRITE &#183; CITE &#183;  LEARN</h2>
+      <p class="text-white">Designed to to help students complete Coursework,to focus on learning.</p>
+      <a href="{%  url 'account_login' %}">
+        <div class="h-10 w-30 border-2 bg-orange-700 flex flexl-col items-center justify-center text-white text-1xl cursor-grab ">
+          LEARN &#8594
+        </div>
+      </a>
+    </div>
+
+    <div class="flex justify-between m-8 text-white">
+      <p>[ Experince Enhanced Learning ]</p>
+      <p>[ &#8595 ]</p>
+    </div>
+
   </div>
-  <a href="{% url 'dashboard' %}" class="motion-preset-focus hover:motion-preset-fade-lg hover mt-10">
-    <img class="h-8 w-8 hover:motion-preset-fade-lg" src="{% static 'svgs/dashboard.svg' %}" alt="">
-  </a>
-</div>
+
+  <div class="h-50 w-fill grid grid-cols-3">
+    <div class="col-span-2 flex">
+      <div class="flex gap-8 items-center align-center">
+        <div id="vertical-line"  class="h-30 ml-8 border-l-3 border-black"></div>
+        <div>
+          <h2 class="text-6xl text-black">Tech Is Changing &there4;<br> So should your <span class="text-orange-700">Learning Flow.</span></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class=" flex items-center justify-center">
+      <p class=" text-black">
+        Lorem ipsum amet exercitation est aliquip sed ut dolor sit
+          anim elit officia sunt. Duis adipiscing laborum pariatur ex
+          veniam cupidatat magna. Ea nulla culpa minim do ad
+          aliqua laboris deserunt quis mollit labore. Esse eiusmod
+          tempor. Ullamco non excepteur do cupidatat.
+      </p>
+    </div>
+
+  </div>    
+  
+  <div id="features" class="h-[70vh] w-fill flex gap-2 ml-8 mr-8">
+    <div class="h-full w-full bg-black"></div>
+    <div class="h-full w-full bg-black"></div>
+    <div class="h-full w-full bg-black"></div>
+  </div>
+
+  <div class="h-50 w-fill grid grid-cols-3 ml-8 mr-8">
+
+    <div class=" flex items-center justify-center">
+      <p class=" text-black">
+        Lorem ipsum amet exercitation est aliquip sed ut dolor sit
+          anim elit officia sunt. Duis adipiscing laborum pariatur ex
+          veniam cupidatat magna. Ea nulla culpa minim do ad
+          aliqua laboris deserunt quis mollit labore. Esse eiusmod
+          tempor. Ullamco non excepteur do cupidatat.
+      </p>
+    </div>
+
+    <div class=" flex items-center justify-center col-start-3">
+      <p class=" text-black">
+        Lorem ipsum amet exercitation est aliquip sed ut dolor sit
+          anim elit officia sunt. Duis adipiscing laborum pariatur ex
+          veniam cupidatat magna. Ea nulla culpa minim do ad
+          aliqua laboris deserunt quis mollit labore. Esse eiusmod
+          tempor. Ullamco non excepteur do cupidatat.
+      </p>
+    </div>
+
+  </div>
+
+  <div id="trusted-brands" class=" h-[20vh] w-full flex p-8">
+    
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_2.png' %}"></div>
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_3.png' %}"></div>
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_4.png' %}"></div>
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_6.png' %}"></div>
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_7.png' %}"></div>
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_8.png' %}"></div>
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_9.png' %}"></div>
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_10.png' %}"></div>
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_11.png' %}"></div>
+    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_12.png' %}"></div>
+
+  </div>
+  
+  <div id="displines" class="relative h-[70vh] overflow-hidden bg-cover" style="background-image: url('{% static 'images/civilization.jpg' %}"></div>
+  <div class="z-10 -mt-[860px]">
+    <img src="{% static 'images/growth.png' %}" class="drop-shadow-2xl  transition-shadow duration-300 hover:drop-shadow-orange-900" alt="">
+  </div>
+
+  <footer class="h-[50vh] bg-black">
+
+  </footer>
 
 
-{% endblock %}
+
+{% endblock content %}

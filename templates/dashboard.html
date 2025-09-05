@@ -3,7 +3,9 @@
 {% block content %}
 <div id="dash" class=" flex h-screen w-screen bg-gray-400 gap-[1px]">
   <div id="sidebar" class=" flex flex-col h-screen w-[70px] bg-gray-400 gap-[1px]">
-    <div class="h-[70px] w-fill bg-black"></div>
+    <div class="h-[70px] w-fill bg-black bg-cover flex items-center justify-center">
+      <div class="h-12 w-12 bg-contain bg-no-repeat" style="background-image: url('{% static 'images/brand/orunos_logo_white.png' %}')"></div>
+    </div>
     <div class=" flex flex-col items-center justify-between text-white h-[100%] w-fill bg-black">
       <div id="upper-icons" class="flex flex-col mt-10 gap-[15px]">
         <div hx-get=" {% url 'home' %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-trigger="click" hx-target="#content-body" hx-swap="innerHTML" class="hover:cursor-pointer hover:motion-preset-fade-lg">

@@ -23,7 +23,7 @@ unfold = {
     # "SITE_LOGO": lambda request: static("logo.svg"),  # both modes, optimise for 32px height
     "SITE_LOGO": {
         "light": lambda request: static("svgs/settings.svg"),  # light mode
-        "dark": lambda request: static("svgs/settings.svg"),  # dark mode
+        "dark": lambda request: static("images/brand/orunos_logo_white.png"),  # dark mode
     },
     "SITE_SYMBOL": "speed",  # symbol from icon set
     "SITE_FAVICONS": [
@@ -65,7 +65,7 @@ unfold = {
     },
     "SIDEBAR": {
         "show_search": True,  # Search in applications and models names
-        "command_search": True,  # Replace the sidebar search with the command search
+        "command_search": False,  # Replace the sidebar search with the command search
         "show_all_applications": True,  # Dropdown with all applications and models
         "navigation": [
             {

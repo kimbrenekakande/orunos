@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
+from .forms import QuestionForm
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -11,8 +13,17 @@ class Index(TemplateView):
 def dashboard(request):
     return render(request, 'dashboard.html')
 
-class Home(TemplateView):
-    template_name = "home.html"
+def home(request):
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user  # associate the question with the current user
+            form.save()
+            return redirect('editor')
+    else:
+        form = QuestionForm()
+        
+    return render(request, "home.html", {"form": form},)
 
 class List(TemplateView):
     template_name = "list.html"
@@ -24,16 +35,5 @@ class Billing(TemplateView):
 class Settings(TemplateView):
     template_name = "settings.html"
 
-    
-    
-
-def question_view(request):
-    form = QuestionForm(instance=request.user.profile)
-    
-    if request.method == "POST":
-        form = QuestionForm(request.POST, request.FILES, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            # return redirect('profile')
-        
-    return render(request, "qn.html", {"form": form},)
+class Editor(TemplateView):
+    template_name = "editor.html"

@@ -92,7 +92,7 @@ unfold = {
                     },
                     {
                         "title": _("CourseWorks"),
-                        "icon": "data_object",
+                        "icon": "files",
                         "link": reverse_lazy("admin:core_coursework_changelist"),
                     },
                 ],

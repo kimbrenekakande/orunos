@@ -1,3 +1,32 @@
-<c-_home>
-  
-</c-_home>
+<div class="h-full flex items-center justify-center">
+        
+  <form action=" {% url 'home' %}" method="post" class="flex flex-col items-center justify-center bg-black text-white gap-8">
+    {% csrf_token %}
+    <h2 class="text-2xl">CourseWork Question(s)</h2>
+    <div class="h-20 w-full flex flex-col gap-4">
+      <div class="flex flex-col items-center">
+        <p>Institute</p>
+        <p>Victoria University</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <p>Name</p>
+        <p>Kimbrene Kakande</p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-2 pt-4">
+      <label for="id_question" class="hidden">Question</label>
+      <textarea name="question" id="id_question" placeholder="question" class="h-50 w-96 border-2 border-orange-900 pl-2 "></textarea>
+    </div>
+    <div class="h-full w-full flex justify-between">
+      <p>Upload File Instead</p>
+      <label for="file" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-4">
+        Choose File
+        <input type="file" name="file" id="file" class="hidden">
+      </label>
+    </div>
+    
+
+    <button type="submit" class="bg-orange-500 hover:bg-orange-600 h-20 w-20 rounded-full cursor-grab motion-preset-fade-lg 
+    hover:motion-preset-pulse hover:loop-once-1">Submit</button>
+  </form>
+</div>

@@ -12,6 +12,7 @@ dependencies = [
   "django-htmx>=1.23.2",
   "django-import-export>=4.3.9",
   "django-tailwind>=4.2.0",
+  "django-template-partials>=25.1",
   "django-unfold>=0.65.0",
   "honcho>=2.0.0",
 ]

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-from .forms import QuestionForm
+from .forms import QuestionForm, AnswerEditorForm
 from django.shortcuts import redirect
 
 # Create your views here.
@@ -35,5 +35,13 @@ class Billing(TemplateView):
 class Settings(TemplateView):
     template_name = "settings.html"
 
-class Editor(TemplateView):
-    template_name = "editor.html"
+def editor_view(request):
+    form = AnswerEditorForm()
+    
+    if request.method == "POST":
+        form = AnswerEditorForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user  # associate the question with the current user
+            form.save(update_fields=["answer"]) # update the specific field, not the entire object
+            return redirect('list')
+    return render(request, "editor.html", {"form": form},)

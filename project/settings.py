@@ -25,6 +25,10 @@ UNFOLD = unfold
 #     "DASHBOARD_CALLBACK": "app.views.dashboard_callback",
 # }
 
+# from .ckeditor import * #<--CKEditor Settings | turns default text editor to word processor like
+
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -49,7 +53,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     #Third Party Apps
-    'allauth',"allauth.account","django_cotton","django_htmx",'import_export',
+    'allauth',"allauth.account","django_cotton","django_htmx",'import_export','django_ckeditor_5',
     #Local Apps
     "accounts.apps.AccountsConfig","core.apps.CoreConfig",
 ]
@@ -143,8 +147,11 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "static"
 ]
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

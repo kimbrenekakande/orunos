@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Index, home, dashboard, List, Billing, Settings, Editor
+from .views import Index, home, dashboard, List, Billing, Settings, editor_view
 
 # from .views import Profile
 
@@ -11,5 +11,5 @@ urlpatterns = [
     path("billing/", Billing.as_view(), name = "billing"),
     # path("profile/", Profile.as_view(), name = "profile"),
     path("settings/", Settings.as_view(), name = "settings"),
-    path("editor/", Editor.as_view(), name = "editor"),
+    path("editor/", editor_view, name = "editor"),
 ]

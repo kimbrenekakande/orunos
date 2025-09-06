@@ -7,3 +7,8 @@ class QuestionForm(ModelForm):
     class Meta:
         model = CourseWork
         fields = ['question', 'answer']
+
+class AnswerEditorForm(ModelForm):
+    class Meta:
+        model = CourseWork
+        fields = ['answer']

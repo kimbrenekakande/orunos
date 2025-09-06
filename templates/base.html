@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'src/output.css' %}">
     {% htmx_script %}
 </head>
-<body class="bg-black  h-screen w-screen">
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-black  h-screen w-screen">
     {% block content %}{% endblock %}
 </body>
 </html>

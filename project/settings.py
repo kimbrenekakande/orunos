@@ -173,7 +173,7 @@ AUTHENTICATION_BACKENDS=[
 ]
 
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
-ACCOUNT_LOGOUT_ON_GET = True #skips logout confirmation page
+ACCOUNT_LOGOUT_ON_GET = False #skips logout confirmation page
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

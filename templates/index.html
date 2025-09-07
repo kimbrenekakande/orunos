@@ -12,34 +12,36 @@
       </div>
       <div id="nav-links">
         <ul class="flex gap-8 text-2xl text-white">
-          <li><a href="#">[ About </a></li>
+          <li><a href="#" class="">[ <span class="hover:text-orange-600">About </span></a></li>
           <li>&#183; </li>
-          <li><a href="#">How it works</a></li>
+          <li><a href="#" class="hover:text-orange-600">How it works</a></li>
           <li>&#183;</li>
-          <li><a href="#">Contact ]</a></li>
-        </ul>
+          <li><a href="#" class="hover:text-orange-600">Contact <span class="text-white">]</span></a></li>
+        </ul> 
       </div>
       <a href="{%  url 'account_login' %}">
-        <div class="h-10 w-30 border-2 border-white bg-black flex flexl-col items-center justify-center text-white cursor-grab ">
+        <div class="h-10 w-30 border-2 border-white bg-black hover:transition-colors duration-300 hover:bg-orange-600 flex flexl-col items-center justify-center text-white cursor-grab ">
           LOGIN
         </div>
       </a>
     </div>
 
     <div id="call-to-action" class="flex flex-col gap-6 items-center justify-center h-[100%]">
-      <h1 class="text-6xl motion-preset-focus text-white">Your AI Study Buddy</h1>
-      <h2 class="text-8xl text-black">WRITE &#183; CITE &#183;  LEARN</h2>
+      <h1 class="text-6xl text-white">Your AI Study Buddy</h1>
+      <h2 class="text-8xl text-black font-crimson-text motion-preset-focus motion-duration-1000">WRITE &#183; CITE &#183; LEARN</h2>
       <p class="text-white">Designed to to help students complete Coursework,to focus on learning.</p>
       <a href="{%  url 'account_login' %}">
-        <div class="h-10 w-30 border-2 bg-orange-700 flex flexl-col items-center justify-center text-white text-1xl cursor-grab ">
-          LEARN &#8594
+        <div class="h-10 w-30 border-2 bg-orange-600 hover:transition-colors duration-300 hover:bg-black flex flexl-col items-center justify-center text-white text-1xl cursor-grab ">
+          LEARN  <span class="hover:motion-preset-slide-right  hover:motion-duration-800"> &#8594</span>
         </div>
       </a>
     </div>
 
     <div class="flex justify-between m-8 text-white">
       <p>[ Experince Enhanced Learning ]</p>
-      <p>[ &#8595 ]</p>
+      <a href="#features " class="hover:text-orange-600">
+        <p class="flex gap-1">[ <span class="motion-preset-bounce ">&#8595</span> ]</p>
+      </a>
     </div>
 
   </div>
@@ -49,7 +51,7 @@
       <div class="flex gap-8 items-center align-center">
         <div id="vertical-line"  class="h-30 ml-8 border-l-3 border-black"></div>
         <div>
-          <h2 class="text-6xl text-black">Tech Is Changing &there4;<br> So should your <span class="text-orange-700">Learning Flow.</span></h2>
+          <h2 class="text-6xl text-black">Tech Is Changing <span class="motion-preset-pulse">&there4;</span><br> So should your <span class="text-orange-600">Learning Flow.</span></h2>
         </div>
       </div>
     </div>
@@ -67,9 +69,58 @@
   </div>    
   
   <div id="features" class="h-[70vh] w-fill flex gap-2 ml-8 mr-8">
-    <div class="h-full w-full bg-black"></div>
-    <div class="h-full w-full bg-black"></div>
-    <div class="h-full w-full bg-black"></div>
+    <div class="h-full w-full bg-black bg-cover bg-center" style="background-image: url('{% static 'images/globe_ft.png' %}')">
+      <div class="h-[100%] w-full flex flex-col justify-between p-8">
+        <h2>FEATURE</h2>
+        <div>
+
+        </div>
+        <div class="gap-4 flex flex-col">
+          <p>
+            Lorem ipsum amet adipiscing id magna qui quis
+            commodo minim anim excepteur. Fugiat est officia
+            reprehenderit enim consectetur. Nisi exercitation
+            deserunt nostrud.
+          </p>
+          <a href="" class="text-orange-600">Read More &#8594</a>
+        </div>
+      </div>
+    </div>
+    <div class="h-full w-full bg-black bg-cover bg-center" style="background-image: url('{% static 'images/book_ft.png' %}')">
+      <div class="h-[100%] w-full flex flex-col justify-between p-8">
+        <h2>FEATURE</h2>
+        <div>
+
+        </div>
+        <div class="gap-4 flex flex-col">
+          <p>
+            Lorem ipsum amet adipiscing id magna qui quis
+            commodo minim anim excepteur. Fugiat est officia
+            reprehenderit enim consectetur. Nisi exercitation
+            deserunt nostrud.
+          </p>
+          <a href="" class="text-orange-600">Read More &#8594</a>
+        </div>
+      </div>
+    </div>
+    <div class="h-full w-full bg-black bg-cover bg-center" style="background-image: url('{% static 'images/circle_ft.png' %}')">
+      <div class="h-[100%] w-full flex flex-col justify-between p-8">
+        <h2>FEATURE</h2>
+        <div>
+
+        </div>
+        <div class="gap-4 flex flex-col">
+          <p>
+            Lorem ipsum amet adipiscing id magna qui quis
+            commodo minim anim excepteur. Fugiat est officia
+            reprehenderit enim consectetur. Nisi exercitation
+            deserunt nostrud.
+          </p>
+          <a href="" class="text-orange-600">Read More &#8594</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="h-50 w-fill grid grid-cols-3 ml-8 mr-8">
@@ -113,12 +164,27 @@
   
   <div id="displines" class="relative h-[70vh] overflow-hidden bg-cover" style="background-image: url('{% static 'images/civilization.jpg' %}"></div>
   <div class="z-10 -mt-[860px]">
-    <img src="{% static 'images/growth.png' %}" class="drop-shadow-2xl  transition-shadow duration-300 hover:drop-shadow-orange-900" alt="">
+    <img src="{% static 'images/growth.png' %}" class="drop-shadow-2xl  transition-shadow duration-300 hover:drop-shadow-orange-600 " alt="">
   </div>
 
-  <footer class="h-[50vh] bg-black">
-
+    
+  <footer class=" h-[70vh] flex flex-col content-between bg-black p-8 bg-contain bg-blend-difference" style="background-image: url('{% static 'images/toned_bg.png' %}')">
+    <div class="h-[10vh] flex justify-between">
+      <a href="#" class="hover:text-orange-600">[ ABOUT US ]</a>
+      <a href="#" class="hover:text-orange-600">[ TERM OF USE ]  </a>
+      <a href="#" class="hover:text-orange-600">[PRIVACY POLICY ]</a>
+      <a href="#" class="hover:text-orange-600">[ CONTACT US ]</a>
+    </div>
+    <div class="h-full w-full text-white text-[400px] flex justify-center font-bold font-stretch-50%">orunos</div>
+    <div class="h-[10vh] flex justify-between">
+      <a href="#" class="hover:text-orange-600">[ FAQs ]</a>
+      <a href="#" class="hover:text-orange-600">[ PRICING ]</a>
+      <a href="#" class="hover:text-orange-600">[ BLOG ]</a>
+      <a href="#" class="hover:text-orange-600">[ SOCIALS ]</a>
+    </div>
   </footer>
+
+  
 
 
 

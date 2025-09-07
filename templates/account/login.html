@@ -2,20 +2,41 @@
 {% load static %}
 
 {% block content %}
-<div class=" h-screen w-screen flex flex-col items-center justify-center">
-  <div class="text-orange-500 text-2xl">LOGIN</div>
-  <form method="post"  action="{% url 'account_login' %}" class="text-white flex flex-col gap-4 ">
+<div class=" h-screen w-screen flex flex-col items-center justify-center gap-8">
+  <div class="mb-10">
+    <div class="text-2xl flex flex-col items-center mb-6 font-montserrat">LOG IN</div>
+    <p>Log in with your email and password</p>
+  </div>
+  <form method="post"  action="{% url 'account_login' %}" class=" w-[20%] text-white flex flex-col gap-4 ">
     {% csrf_token %}
-    <label for="email">Email or Username</label>
-    <input id="email" type="text" name="login" placeholder="username" class="h-10  border-2 border-orange-500 pl-2">
-    <input id="pw" type="password" name="password" placeholder="password" class="h-10  border-2 border-orange-500 pl-2">
-    <div class="flex gap-10 w-72">
-      <button type="submit" class=" h-2 w-4 cursor-grab border-red-600">enter</button>
-      <a href="{% url 'account_signup' %}" class=" h-2 w-4 cursor-grab border-red-600">signup</a>
+
+    <div class="flex flex-col gap-2">
+      <label for="email" class="hidden">Email</label>
+      <input id="email" type="text" name="login" placeholder="Email" class="h-12  border-1 pl-2">
     </div>
-    <div>
-      <a href="{% url 'account_reset_password' %}">Forgot Password?</a>
+
+    <div class="flex flex-col gap-2">
+      <label for="pw" class="hidden">Password</label>
+      <input id="pw" type="password" name="password" placeholder="Password" class="h-12  border-1  pl-2">
     </div>
+
+    <button type="submit" class=" h-12 w-full cursor-grab bg-white text-black font-montserrat">Log In</button>
+    
   </form>
+
+  <div class="flex h-10 w-[20%] items-center gap-2">
+    <div class=" flex-grow h-[1px] bg-white"></div>
+    <p>OR </p>
+    <div class=" flex-grow h-[1px] bg-white"></div>
+  </div>
+
+  <div class="h-12 w-[20%] cursor-grab border-1 border-white flex items-center justify-center gap-4 p-4 ">
+    <div class="h-6 w-6 bg-contain bg-no-repeat" style="background-image: url('{% static 'svgs/google.svg' %}')"></div>
+    <p class="text-white text-2xl font-montserrat">Login with Google</p>
+  </div>
+
+  <div>
+    <p>Don't have an account? <a href="{% url 'account_signup' %}" class="text-orange-600">Sign Up</a></p>
+  </div>
 </div>
 {% endblock content %}

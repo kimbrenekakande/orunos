@@ -6,7 +6,7 @@ from django.db import models
 class CourseWork(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     question = models.TextField(max_length=500, blank = True, null=True)
-    answer = models.TextField(max_length=500, blank = True , null=True)
+    answer = models.TextField(blank = True , null=True)
     created = models.DateTimeField(auto_now_add = True,)
     
     def __str__(self) -> str:

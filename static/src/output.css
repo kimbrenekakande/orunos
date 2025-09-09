@@ -11,13 +11,11 @@
     --color-orange-500: oklch(70.5% 0.213 47.604);
     --color-orange-600: oklch(64.6% 0.222 41.116);
     --color-orange-700: oklch(55.3% 0.195 38.402);
-    --color-amber-600: oklch(66.6% 0.179 58.318);
+    --color-green-800: oklch(44.8% 0.119 151.328);
     --color-indigo-500: oklch(58.5% 0.233 277.117);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
-    --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-gray-800: oklch(27.8% 0.033 256.848);
-    --color-gray-900: oklch(21% 0.034 264.665);
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
@@ -429,11 +427,17 @@
   .static {
     position: static;
   }
-  .isolate {
-    isolation: isolate;
+  .-z-50 {
+    z-index: calc(50 * -1);
   }
   .z-10 {
     z-index: 10;
+  }
+  .z-20 {
+    z-index: 20;
+  }
+  .col-span-1 {
+    grid-column: span 1 / span 1;
   }
   .col-span-2 {
     grid-column: span 2 / span 2;
@@ -509,6 +513,15 @@
         }
       }
     }
+  }
+  .-mt-10 {
+    margin-top: calc(var(--spacing) * -10);
+  }
+  .-mt-20 {
+    margin-top: calc(var(--spacing) * -20);
+  }
+  .-mt-40 {
+    margin-top: calc(var(--spacing) * -40);
   }
   .-mt-\[860px\] {
     margin-top: calc(860px * -1);
@@ -591,6 +604,9 @@
   .ml-8 {
     margin-left: calc(var(--spacing) * 8);
   }
+  .ml-16 {
+    margin-left: calc(var(--spacing) * 16);
+  }
   .status {
     display: inline-block;
     aspect-ratio: 1 / 1;
@@ -664,6 +680,9 @@
   .h-2 {
     height: calc(var(--spacing) * 2);
   }
+  .h-5 {
+    height: calc(var(--spacing) * 5);
+  }
   .h-6 {
     height: calc(var(--spacing) * 6);
   }
@@ -709,6 +728,15 @@
   .h-\[100\%\] {
     height: 100%;
   }
+  .h-\[100\] {
+    height: 100;
+  }
+  .h-\[100vh\] {
+    height: 100vh;
+  }
+  .h-\[full\] {
+    height: full;
+  }
   .h-full {
     height: 100%;
   }
@@ -735,6 +763,9 @@
   }
   .w-30 {
     width: calc(var(--spacing) * 30);
+  }
+  .w-50 {
+    width: calc(var(--spacing) * 50);
   }
   .w-\[20\%\] {
     width: 20%;
@@ -818,6 +849,9 @@
   .cursor-grab {
     cursor: grab;
   }
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -890,6 +924,18 @@
     border-style: var(--tw-border-style);
     border-width: 2px;
   }
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
+  .border-b-1 {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
+  .border-b-2 {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 2px;
+  }
   .border-l-3 {
     border-left-style: var(--tw-border-style);
     border-left-width: 3px;
@@ -921,11 +967,17 @@
   .bg-gray-400 {
     background-color: var(--color-gray-400);
   }
+  .bg-green-800 {
+    background-color: var(--color-green-800);
+  }
   .bg-orange-500 {
     background-color: var(--color-orange-500);
   }
   .bg-orange-600 {
     background-color: var(--color-orange-600);
+  }
+  .bg-red-600 {
+    background-color: var(--color-red-600);
   }
   .bg-white {
     background-color: var(--color-white);
@@ -966,6 +1018,12 @@
   .pl-2 {
     padding-left: calc(var(--spacing) * 2);
   }
+  .pl-8 {
+    padding-left: calc(var(--spacing) * 8);
+  }
+  .pl-16 {
+    padding-left: calc(var(--spacing) * 16);
+  }
   .text-center {
     text-align: center;
   }
@@ -993,8 +1051,17 @@
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
+  .text-\[300px\] {
+    font-size: 300px;
+  }
   .text-\[400px\] {
     font-size: 400px;
+  }
+  .text-\[450px\] {
+    font-size: 450px;
+  }
+  .text-\[600px\] {
+    font-size: 600px;
   }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
@@ -1015,9 +1082,6 @@
   }
   .italic {
     font-style: italic;
-  }
-  .font-stretch-50\% {
-    font-stretch: 50%;
   }
   .underline {
     text-decoration-line: underline;
@@ -1176,11 +1240,6 @@
   .focus\:ring-indigo-500 {
     &:focus {
       --tw-ring-color: var(--color-indigo-500);
-    }
-  }
-  .active\:border-orange-600 {
-    &:active {
-      border-color: var(--color-orange-600);
     }
   }
   .sm\:text-sm {

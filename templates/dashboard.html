@@ -31,7 +31,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-question-mark-icon lucide-circle-question-mark"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
         </div>
         <a href=" {% url 'account_logout' %}" class="hover:cursor-pointer hover:motion-preset-fade-lg"">
-          <svg width="46" height="46" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg width="40" height="40" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 6a7.75 7.75 0 1 0 10 0"></path>
             <path d="M12 4v8"></path>
           </svg>
@@ -44,7 +44,8 @@
     <div id="header" class="h-[70px] w-fill bg-black"></div>
     <div id="content-body" class="h-full w-fill bg-black">
       <!-- form sandbox -->
-      {% include 'home.html' %}
+      {% comment %} {% include 'home.html' %} {% endcomment %}
+      {% include 'profile.html' %}
       <!-- end form sandbox -->
     </div>
   </div>

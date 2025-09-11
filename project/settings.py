@@ -177,3 +177,9 @@ ACCOUNT_LOGOUT_ON_GET = False #skips logout confirmation page
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+#Celery Config
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_CONNECTION_RETRY_ON_START = True

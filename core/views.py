@@ -3,8 +3,6 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from .forms import QuestionForm, AnswerEditorForm
 from django.shortcuts import redirect
-import threading
-
 # Create your views here.
 
 class Index(TemplateView):
@@ -16,27 +14,14 @@ def dashboard(request):
 
 def home(request):
     if request.method == "POST":
+        from project.celery_tasks import crew_task
         form = QuestionForm(request.POST)
         if form.is_valid():
             form.instance.user = request.user  # associate the question with the current user
-            #access the question from the form
-            form.instance.question = form.cleaned_data['question']
-            print(form.instance.question)
-            #pass it to the crew
+            form.instance.question = form.cleaned_data['question'] #access the question from the form
             form.save()
-
-            def crew_task():
-                from .crewai_config.crews import crew
-                input = {
-                    "coursework_question": form.instance.question,
-                }
-                form.instance.answer = crew.kickoff(input)
-                print(form.instance.answer)
-            
-            
-            
-            thread = threading.Thread(target=crew_task)
-            thread.start()
+            print(form.instance.question)
+            crew_task.delay(form.instance.id, form.instance.question) #pass it to the crew
             return redirect('editor')
     else:
         form = QuestionForm()
@@ -45,6 +30,10 @@ def home(request):
 
 class List(TemplateView):
     template_name = "list.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["courseworks"] = CourseWork.objects.all()
+        return context
 
 class Billing(TemplateView):
     template_name = "billing.html"

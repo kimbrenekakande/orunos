@@ -1,6 +1,6 @@
 from crewai import Crew
-from tasks import TasksAll
-from agents import AgentsAll
+from .tasks import TasksAll
+from .agents import AgentsAll
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,7 +23,7 @@ editor_task = tasks.editor_task(editor)
 
 #crew
 
-def get_crew(input):
+def get_crew():
     return Crew(
     name="Coursework Crew",
     agents=[analyzer, researcher, writer, editor],
@@ -32,5 +32,5 @@ def get_crew(input):
 )
 
 
-result = get_crew(input={"question": "What is the impact of afrofuturism to the non black community"}).kickoff()
-print(result)
+# result = get_crew(input={"question": "What is the impact of afrofuturism to the non black community"}).kickoff()
+# print(result)

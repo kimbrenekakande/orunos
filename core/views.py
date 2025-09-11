@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from .forms import QuestionForm, AnswerEditorForm
 from django.shortcuts import redirect
-from .crewai_config.crews import crew
+import threading
 
 # Create your views here.
 
@@ -18,11 +18,26 @@ def home(request):
     if request.method == "POST":
         form = QuestionForm(request.POST)
         if form.is_valid():
-            return redirect('editor')
             form.instance.user = request.user  # associate the question with the current user
-            form.instance.question = question
-            form.instance.answer = result
+            #access the question from the form
+            form.instance.question = form.cleaned_data['question']
+            print(form.instance.question)
+            #pass it to the crew
             form.save()
+
+            def crew_task():
+                from .crewai_config.crews import crew
+                input = {
+                    "coursework_question": form.instance.question,
+                }
+                form.instance.answer = crew.kickoff(input)
+                print(form.instance.answer)
+            
+            
+            
+            thread = threading.Thread(target=crew_task)
+            thread.start()
+            return redirect('editor')
     else:
         form = QuestionForm()
         
@@ -45,6 +60,7 @@ def editor_view(request):
         form = AnswerEditorForm(request.POST)
         if form.is_valid():
             form.instance.user = request.user  # associate the question with the current user
+            
             form.save(update_fields=["answer"]) # update the specific field, not the entire object
             return redirect('list')
     return render(request, "editor.html", {"form": form},)

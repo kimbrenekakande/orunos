@@ -2,7 +2,7 @@
         
   <form action=" {% url 'home' %}" method="post" class="flex flex-col items-center justify-center bg-black text-white gap-16">
     {% csrf_token %}
-    <h2 class="text-2xl">CourseWork Question(s)</h2>
+    {% comment %} <h2 class="text-2xl">CourseWork Question(s)</h2> {% endcomment %}
     
     <div class="flex flex-col gap-2 pt-4">
       <label for="id_question" class="hidden">Question</label>

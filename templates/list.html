@@ -1,1 +1,15 @@
-<h1 class="flex items-center justify-center motion-preset-focus text-orange-600 text-2xl h-full w-full">LIST</h1>  
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="h-full w-full p-16 flex flex-col gap-4">
+  {% for coursework in object_list %}
+  <div class="flex justify-between">
+    <p class="text-white"> {{ coursework.question | title}} </p>
+    <p class="text-white"> {{ coursework.created }} </p>
+  </div>
+  {% endfor %}
+
+</div>
+</div>
+
+{% endblock content %}

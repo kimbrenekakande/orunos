@@ -32,7 +32,7 @@ def home(request):
             ]  # access the question from the form
             form.save()
             print(form.instance.question)
-            # crew_task.delay(form.instance.id, form.instance.question) #pass it to the crew
+            crew_task.delay(form.instance.id, form.instance.question) #pass it to the crew
             return redirect("editor")
     else:
         form = QuestionForm()

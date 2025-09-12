@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load partials %}
 {% block content %}
 <div id="dash" class=" flex h-screen w-screen bg-gray-400 gap-[1px]">
   <div id="sidebar" class=" flex flex-col h-screen w-[70px] bg-gray-400 gap-[1px]">
@@ -16,9 +17,6 @@
         </div>
         <div hx-get=" {% url 'billing' %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-trigger="click" hx-target="#content-body" hx-swap="innerHTML" class="hover:cursor-pointer hover:motion-preset-fade-lg">
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card-icon lucide-credit-card"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-        </div>
-        <div hx-get=" {% url 'profile' %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-trigger="click" hx-target="#content-body" hx-swap="innerHTML" class="hover:cursor-pointer hover:motion-preset-fade-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>
         </div>
         <div hx-get=" {% url 'settings' %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-trigger="click" hx-target="#content-body" hx-swap="innerHTML" class="hover:cursor-pointer hover:motion-preset-fade-lg">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
@@ -42,9 +40,9 @@
 
   <div id="main-content" class=" flex flex-col h-screen w-screen gap-[1px]">
     <div id="header" class="h-[70px] w-fill bg-black"></div>
-    <div id="content-body" class="h-full w-fill bg-black">
+    <div id="content-body" class="h-full w-fill bg-black flex  flex-col items-center justify-center">
       <!-- form sandbox -->
-      {% include 'list.html' %}
+      
       <!-- end form sandbox -->
     </div>
   </div>

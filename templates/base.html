@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="{% static 'src/output.css' %}">
     {% htmx_script %}
 </head>
-<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-black  h-screen w-screen">
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-black h-screen w-screen">
     {% block content %}{% endblock %}
+    <!-- chartjs -->
+    <script src="{% static 'js/chart.umd.min.js' %}"></script>
+    <script src="{% static 'js/chats.js' %}"></script>
 </body>
 </html>

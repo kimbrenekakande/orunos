@@ -1,15 +1,33 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="h-full w-full p-16 flex flex-col gap-4">
-  {% for coursework in object_list %}
-  <div class="flex justify-between">
-    <p class="text-white"> {{ coursework.question | title}} </p>
-    <p class="text-white"> {{ coursework.created }} </p>
+<div class="h-full w-full p-8 flex flex-col gap-8">
+  <!-- Coursework List -->
+  <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold text-white mb-4">Recent Coursework</h2>
+    {% for coursework in object_list %}
+    <div class="flex justify-between py-3 border-b border-gray-700">
+      <p class="text-gray-300">{{ coursework.question | title}} </p>
+      <p class="text-gray-400 text-sm">{{ coursework.created|date:"M d, Y" }} </p>
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
 
-</div>
+  <!-- Chart Container -->
+  <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold text-white mb-4">Coursework Overview</h2>
+    <div class="h-80">
+      <canvas id="courseworkChart" 
+              data-chart-data='[
+                {% for coursework in object_list %}
+                  {"label": "{{ coursework.created|date:'M d' }}", "value": {{ forloop.counter|default:0 }}}{% if not forloop.last %},{% endif %}
+                {% endfor %}
+              ]'>
+      </canvas>
+    </div>
+  </div>
 </div>
 
+<!-- Load the chart component -->
 {% endblock content %}

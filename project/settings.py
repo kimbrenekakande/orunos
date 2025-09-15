@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     #Third Party Apps
-    'allauth',"allauth.account","django_cotton","django_htmx",'import_export','django_ckeditor_5','template_partials',
+    'allauth',"allauth.account","django_cotton","django_htmx",'import_export','django_ckeditor_5',
     #Local Apps
     "accounts.apps.AccountsConfig","core.apps.CoreConfig",
 ]

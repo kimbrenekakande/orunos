@@ -1,8 +1,6 @@
-{% extends 'base.html' %}
 {% load static %}
-{% block content %}
-
-<div id="landing-body" class=" flex flex-col gap-8 bg-white">
+<c-base>
+  <div id="landing-body" class=" flex flex-col gap-8 bg-white">
   <div id="hero" class="h-screen w-[100%]  flex flex-col bg-no-repeat bg-cover bg" style="background-image: url('{% static 'images/nature.jpg' %}')">
     
     <div id="navigation-bar" class="flex justify-between items-center m-8">
@@ -185,8 +183,7 @@
     </div>
   </footer>
 
-  
+</c-base>
 
 
 
-{% endblock content %}

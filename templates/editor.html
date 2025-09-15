@@ -3,10 +3,10 @@
 <c-base>
   <div class="flex h-full w-full bg-gray-400 gap-[2px]">
     <div id="editor-body" class=" w-full">
-      <form action="{% url 'editor' %}" method="post">
+      <form action="{% url 'editor' pk=coursework.id %}" method="post">
         {% csrf_token %}
         <label for="id_answer">
-          <textarea name="answer" id="id_answer" class="bg-white text-black h-full w-full p-8"></textarea>
+          <textarea name="answer" id="id_answer" class="bg-white text-black h-full w-full p-8">{{coursework.answer.value|default:''}}</textarea>
         </label>
       </form>
     </div>
@@ -15,7 +15,7 @@
         <div class="flex flex-col gap-2 pt-4">
           <h2 class="text-white">Edit Question</h2>
           <label for="id_question" class="hidden">Question</label>
-          <textarea name="question" id="id_question" placeholder="Enter The Question Here..." class="h-[30vh] w-[full] border-2 border-gray-400 text-white pl-2 "></textarea>
+          <textarea name="question" id="id_question" placeholder="Enter The Question Here..." class="h-[30vh] w-[full] border-2 border-gray-400 text-black pl-2 ">{{ form.question.value }}</textarea>
         </div>
       </div>
       <div id="ai-chat" class="h-full w-full border-2 border-gray-400 text-white">
@@ -24,5 +24,3 @@
     </div>
   </div>
 </c-base>
-
-

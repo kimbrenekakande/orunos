@@ -1,10 +1,11 @@
 # from pyexpat import model
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView
+from .crewai_config.crews import get_crew
 
 
 from django.contrib.auth.decorators import login_required
-from .forms import QuestionForm, AnswerEditorForm
+from .forms import CourseWorkForm
 from django.shortcuts import redirect
 from .models import CourseWork
 
@@ -22,7 +23,7 @@ def home(request):
     if request.method == "POST":
         from project.celery_tasks import crew_task
 
-        form = QuestionForm(request.POST)
+        form = CourseWorkForm(request.POST)
         if form.is_valid():
             form.instance.user = (
                 request.user
@@ -32,16 +33,25 @@ def home(request):
             ]  # access the question from the form
             form.save()
             print(form.instance.question)
-            crew_task.delay(form.instance.id, form.instance.question) #pass it to the crew
-            return redirect("editor")
+            get_crew(form.instance.id, form.instance.question)
+            # crew_task.delay(form.instance.id, form.instance.question) #pass it to the crew
+            return redirect("editor", pk=form.instance.id)
     else:
-        form = QuestionForm()
+        form = CourseWorkForm()
+    return render(request, "home.html", {"form": form})
 
-    return render(
-        request,
-        "home.html",
-        {"form": form},
-    )
+
+
+def editor_view(request, pk):
+    coursework = get_object_or_404(CourseWork, pk=pk)
+    form = CourseWorkForm(instance=coursework)
+
+    if request.method == "POST":
+        form = CourseWorkForm(request.POST, instance=coursework)
+        if form.is_valid():
+            form.save()
+            return redirect("list")  # This now correctly redirects to the list view
+    return render(request, "editor.html", {"form": form, "coursework": coursework})
 
 
 class List(ListView):
@@ -55,24 +65,3 @@ class Billing(TemplateView):
 
 class Settings(TemplateView):
     template_name = "settings.html"
-
-
-def editor_view(request):
-    form = AnswerEditorForm()
-
-    if request.method == "POST":
-        form = AnswerEditorForm(request.POST)
-        if form.is_valid():
-            form.instance.user = (
-                request.user
-            )  # associate the question with the current user
-
-            form.save(
-                update_fields=["answer"]
-            )  # update the specific field, not the entire object
-            return redirect("list")
-    return render(
-        request,
-        "editor.html",
-        {"form": form},
-    )

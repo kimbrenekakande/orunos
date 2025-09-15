@@ -11,5 +11,5 @@ urlpatterns = [
     path("billing/", Billing.as_view(), name = "billing"),
     # path("profile/", Profile.as_view(), name = "profile"),
     path("settings/", Settings.as_view(), name = "settings"),
-    path("editor/", editor_view, name = "editor"),
+    path("editor/<int:pk>", editor_view, name = "editor"),
 ]

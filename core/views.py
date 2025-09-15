@@ -1,6 +1,9 @@
 # from pyexpat import model
+from dataclasses import fields
+from os import name
+from pyexpat import model
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView,UpdateView
 from .crewai_config.crews import get_crew
 
 
@@ -21,7 +24,7 @@ def dashboard(request):
 
 def home(request):
     if request.method == "POST":
-        from project.celery_tasks import crew_task
+        from project.celerytasks import crew_task
 
         form = CourseWorkForm(request.POST)
         if form.is_valid():
@@ -33,7 +36,7 @@ def home(request):
             ]  # access the question from the form
             form.save()
             print(form.instance.question)
-            get_crew(form.instance.id, form.instance.question)
+            # get_crew(form.instance.id, form.instance.question)
             # crew_task.delay(form.instance.id, form.instance.question) #pass it to the crew
             return redirect("editor", pk=form.instance.id)
     else:
@@ -42,19 +45,24 @@ def home(request):
 
 
 
-def editor_view(request, pk):
-    coursework = get_object_or_404(CourseWork, pk=pk)
-    form = CourseWorkForm(instance=coursework)
+class CoursewokDetailView(DetailView):
+    model = CourseWork
+    context_object_name = "coursework"
+    template_name = "coursework.html"
 
-    if request.method == "POST":
-        form = CourseWorkForm(request.POST, instance=coursework)
-        if form.is_valid():
-            form.save()
-            return redirect("list")  # This now correctly redirects to the list view
-    return render(request, "editor.html", {"form": form, "coursework": coursework})
+    
+
+class EditView(UpdateView):
+    form = CourseWorkForm
+    fields = ['question', 'answer']
+    model = CourseWork
+    template_name = 'editor.html'
+    sucess_url = 'home'
+        
 
 
 class List(ListView):
+    name = "coursework_list"
     model = CourseWork
     template_name = "list.html"
 

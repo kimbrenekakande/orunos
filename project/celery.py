@@ -16,7 +16,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 # Explicitly import the tasks module to ensure it's registered
-import project.celery_tasks
+import project.celerytasks
 
 @app.task(bind=True, ignore_result=True)
 def debug_task(self):

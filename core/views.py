@@ -3,6 +3,7 @@ from dataclasses import fields
 from os import name
 from pyexpat import model
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView,UpdateView
 from .crewai_config.crews import get_crew
 
@@ -53,11 +54,12 @@ class CoursewokDetailView(DetailView):
     
 
 class EditView(UpdateView):
-    form = CourseWorkForm
-    fields = ['question', 'answer']
+    form_class = CourseWorkForm
     model = CourseWork
     template_name = 'editor.html'
-    sucess_url = 'home'
+    
+    def get_success_url(self):
+        return reverse_lazy('editor', kwargs={'pk': self.object.pk})
         
 
 

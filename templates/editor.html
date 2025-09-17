@@ -1,28 +1,89 @@
 {% load static %}
+{% block header %}
+{{ form.media }}
+{% endblock header %}
 
 <c-base>
   <div class="flex h-full w-fullgap-[2px]">
-    <div id="editor-body" class=" h-full w-full">
+    <div id="editor-body" class="h-full w-full">
       <form action="{% url 'editor' pk=object.pk %}" method="post" class="bg-black text-white flex flex-col gap-8">
         {% csrf_token %}
-        {{ form.media}}
-        <div class="flex-col gap-2 pt-4 hidden ">
+        <div class="flex-col gap-2 pt-4 hidden">
           <label for="id_question">Question</label>
-          <textarea name="question" id="id_question" placeholder="Enter The Question Here..." class="h-[100vh] w-[full] pl-2 ">{{ form.question.value|default:'' }}</textarea>
+          <textarea name="question" id="id_question" placeholder="Enter The Question Here..." class="h-[100vh] w-[full] pl-2">{{ form.question.value|default:'' }}</textarea>
         </div>
         <label for="id_answer">
-          <textarea name="answer" id="id_answer" class="w-full p-16 hover:motion-present-spin  h-screen">{{ form.answer.value|default:'' }}</textarea>
+          <textarea name="answer" id="id_answer" class="w-full p-16 hover:motion-present-spin h-screen">{{ form.answer.value|default:'' }}</textarea>
         </label>
         <div></div>
         <div class="w-full flex justify-between fixed bottom-20 flex-col items-center shadow-4xl shadow-amber-700">
-          <button type="submit" class="h-12 w-50 z-10 cursor-grab bg-white hover:bg-orange-600 text-black font-montserrat mt-8 rounded-sm ">Save</button>
+          <button type="submit" class="h-12 w-50 z-10 cursor-grab bg-white hover:bg-orange-600 text-black font-montserrat mt-8 rounded-sm">Save</button>
         </div>
-        
       </form>
     </div>
   </div>
-  <!-- TRIALS-->
 
+  <!-- Load CKEditor 5 from static files -->
+  <script src="{% static 'ckeditor5-builder/ckeditor5/ckeditor.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'ckeditor5-builder/ckeditor5/ckeditor5.css' %}">
+  <link rel="stylesheet" href="{% static 'ckeditor5-builder/ckeditor5/ckeditor5-content.css' %}">
 
+  <script>
+    // Initialize CKEditor 5 with custom configuration
+    document.addEventListener('DOMContentLoaded', function() {
+      const editorElement = document.querySelector('#id_answer');
+      if (editorElement) {
+        ClassicEditor
+          .create(editorElement, {
+            toolbar: [
+              'heading', '|',
+              'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', '|',
+              'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', '|',
+              'alignment', 'indent', 'outdent', '|',
+              'undo', 'redo'
+            ],
+            language: 'en',
+            image: {
+              toolbar: [
+                'imageTextAlternative',
+                'imageStyle:inline',
+                'imageStyle:block',
+                'imageStyle:side',
+                'linkImage'
+              ]
+            },
+            table: {
+              contentToolbar: [
+                'tableColumn',
+                'tableRow',
+                'mergeTableCells',
+                'tableProperties',
+                'tableCellProperties'
+              ]
+            },
+            link: {
+              decorators: {
+                openInNewTab: {
+                  mode: 'manual',
+                  label: 'Open in a new tab',
+                  defaultValue: true,
+                  attributes: {
+                    target: '_blank',
+                    rel: 'noopener noreferrer'
+                  }
+                }
+              }
+            }
+          })
+          .then(editor => {
+            console.log('CKEditor 5 initialized successfully');
+            window.editor = editor; // Make editor available in console for debugging
+          })
+          .catch(error => {
+            console.error('Error initializing CKEditor 5:', error);
+          });
+      }
+    });
+  </script>
 
 </c-base>

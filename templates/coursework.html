@@ -1,5 +1,9 @@
 {% load static %}
 
+{% block header %}
+{{ form.media }}
+{% endblock header %}
+
 <c-base>
   <div class="p-16 flex flex-col gap-8 h-[100%] items-center">
     <h1 class="text-white font-montserrat text-4xl">{{coursework.question}}</h1>

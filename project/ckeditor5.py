@@ -43,6 +43,17 @@ CKEDITOR_5_CONFIGS = {
             ],
         }
     },
+    # 'kakande_config': {
+    #     "external_plugin_resources": [
+    #         {
+    #             "src": "/static/ckeditor5/ckeditor5.js",
+    #             "id": "my_custom_editor",
+    #             "tag": "script",
+    #             "type": "text/javascript",
+    #         },
+    #     ],
+    # },
+    
     'extends': {
         'blockToolbar': [
             'paragraph',

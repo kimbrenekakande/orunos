@@ -1,0 +1,62 @@
+
+@import "tailwindcss";
+@plugin "tailwindcss-motion";
+@plugin "daisyui";
+
+@layer base {
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/static/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+    font-weight: 200 900;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Geist Mono';
+    src: url('/static/fonts/Geist_Mono/GeistMono-VariableFont_coOR.ttf') format('truetype');
+    font-weight: 200 900;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Crimson Text';
+    src: url('/static/fonts/Crimson_Text/CrimsonText-regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Lavishly Yours';
+    src: url('/static/fonts/Lavishly_Yours/LavishlyYours-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --font-montserrat: 'Montserrat', sans-serif;
+    --font-geist-mono: 'Geist Mono', monospace;
+    --font-crimson-text: 'Crimson Text', serif;
+    --font-lavishly: 'Lavishly Yours', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-montserrat {
+    font-family: var(--font-montserrat);
+  }
+  
+  .font-geist-mono {
+    font-family: var(--font-geist-mono);
+  }
+  
+  .font-crimson-text {
+    font-family: var(--font-crimson-text);
+  }
+
+  .font-lavishly {
+    font-family: var(--font-lavishly);
+  }
+}
+
+    

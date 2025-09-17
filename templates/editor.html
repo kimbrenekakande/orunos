@@ -2,18 +2,20 @@
 
 <c-base>
   <div class="flex h-full w-fullgap-[2px]">
-    <div id="editor-body" class=" h-screen w-full">
+    <div id="editor-body" class=" h-full w-full">
       <form action="{% url 'editor' pk=object.pk %}" method="post" class="bg-black text-white flex flex-col gap-8">
         {% csrf_token %}
-        <div class="flex flex-col gap-2 pt-4 ">
+        {{ form.media}}
+        <div class="flex-col gap-2 pt-4 hidden ">
           <label for="id_question">Question</label>
-          <textarea name="question" id="id_question" placeholder="Enter The Question Here..." class="h-[30vh] w-[full] border-2  pl-2 ">{{ form.question.value|default:'' }}</textarea>
+          <textarea name="question" id="id_question" placeholder="Enter The Question Here..." class="h-[100vh] w-[full] pl-2 ">{{ form.question.value|default:'' }}</textarea>
         </div>
         <label for="id_answer">
-          <textarea name="answer" id="id_answer" class="w-full p-8 border-2 border-white h-[50vh]">{{ form.answer.value|default:'' }}</textarea>
+          <textarea name="answer" id="id_answer" class="w-full p-16 hover:motion-present-spin  h-screen">{{ form.answer.value|default:'' }}</textarea>
         </label>
-        <div class="w-full flex justify-between">
-          <button type="submit" class="h-12 w-full cursor-grab bg-white hover:bg-orange-600 text-black font-montserrat mt-8">Save</button>
+        <div></div>
+        <div class="w-full flex justify-between fixed bottom-20 flex-col items-center shadow-4xl shadow-amber-700">
+          <button type="submit" class="h-12 w-50 z-10 cursor-grab bg-white hover:bg-orange-600 text-black font-montserrat mt-8 rounded-sm ">Save</button>
         </div>
         
       </form>

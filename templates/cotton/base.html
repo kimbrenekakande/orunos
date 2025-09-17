@@ -9,6 +9,7 @@
       <title>{% block title %}Django Tailwind{% endblock %}</title>
       <link rel="stylesheet" href="{% static 'src/output.css' %}">
       {% htmx_script %}
+      {{ form.media }}
   </head>
   <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-black h-[100%] w-[100%]">
     {{ slot }}

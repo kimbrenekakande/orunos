@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 from django.conf.global_settings import AUTHENTICATION_BACKENDS, LOGIN_REDIRECT_URL, LOGIN_URL, LOGOUT_REDIRECT_URL
@@ -25,7 +26,7 @@ UNFOLD = unfold
 #     "DASHBOARD_CALLBACK": "app.views.dashboard_callback",
 # }
 
-# from .ckeditor import * #<--CKEditor Settings | turns default text editor to word processor like
+from .ckeditor5 import * #<--CKEditor Settings | turns default text editor to word processor like
 
 
 
@@ -146,6 +147,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]

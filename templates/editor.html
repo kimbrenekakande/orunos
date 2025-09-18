@@ -4,29 +4,30 @@
 {% endblock header %}
 
 <c-base>
-  <div class="flex h-full w-fullgap-[2px]">
+  <div id="form-2" class="flex h-full w-full gap-[2px] bg-white lg:pl-56 lg:pr-56 lg:pt-16 ">
     <div id="editor-body" class="h-full w-full">
-      <form action="{% url 'editor' pk=object.pk %}" method="post" class="bg-black text-white flex flex-col gap-8">
+      <form action="{% url 'editor' pk=object.pk %}" method="post" class="bg-white text-white flex flex-col gap-8 items-center relative">
         {% csrf_token %}
-        <div class="flex-col gap-2 pt-4 hidden">
-          <label for="id_question">Question</label>
-          <textarea name="question" id="id_question" placeholder="Enter The Question Here..." class="h-[100vh] w-[full] pl-2">{{ form.question.value|default:'' }}</textarea>
-        </div>
-        <label for="id_answer">
-          <textarea name="answer" id="id_answer" class="w-full p-16 hover:motion-present-spin h-screen">{{ form.answer.value|default:'' }}</textarea>
+        {% comment %} <div class="flex-col gap-2 pt-4 hidden">
+          <label for="{{ form.question.id_for_label }}">Question</label>
+          {{ form.question }}
+        </div> {% endcomment %}
+        <label for="{{ form.answer.id_for_label }}" class="text-black">
+          {{ form.answer }}
         </label>
-        <div></div>
-        <div class="w-full flex justify-between fixed bottom-20 flex-col items-center shadow-4xl shadow-amber-700">
-          <button type="submit" class="h-12 w-50 z-10 cursor-grab bg-white hover:bg-orange-600 text-black font-montserrat mt-8 rounded-sm">Save</button>
+        <div class="w-full flex justify-between fixed bottom-30 flex-col items-center shadow-4xl shadow-amber-700">
+          <button type="submit" class="h-12 w-50 cursor-grab bg-black hover:bg-orange-600 text-white font-montserrat mt-8 rounded-sm">Save</button>
         </div>
       </form>
     </div>
   </div>
 
+
   <!-- Load CKEditor 5 from static files -->
   <script src="{% static 'ckeditor5-builder/ckeditor5/ckeditor.js' %}"></script>
   <link rel="stylesheet" href="{% static 'ckeditor5-builder/ckeditor5/ckeditor5.css' %}">
   <link rel="stylesheet" href="{% static 'ckeditor5-builder/ckeditor5/ckeditor5-content.css' %}">
+  <link rel="stylesheet" href="{% static 'ck.css' %}">
 
   <script>
     // Initialize CKEditor 5 with custom configuration

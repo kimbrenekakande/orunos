@@ -10,8 +10,7 @@ class CourseWorkForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["question"].required = False
         self.fields["answer"].required = False
-        self.fields["answer"].widget = CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="extends")
-    
+        self.fields["answer"].widget = CKEditor5Widget(attrs={"class": "django_ckeditor_5", "rows": 10}, config_name="extends")
     class Meta:
         model = CourseWork
         fields = ['question', 'answer']

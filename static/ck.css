@@ -1,0 +1,93 @@
+/* CKEditor Container */
+.ck-editor-container {
+    background-color: #ffffff;
+}
+
+/* Editor Wrapper */
+.ck.ck-editor {
+    max-width: 100%;
+    margin: 0 auto;
+    height: 90vh; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    margin-top: 0px;
+}
+
+/* Toolbar Styling */
+.ck.ck-toolbar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ck.ck-toolbar__items {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+}
+
+/* Editor Content Area */
+.ck.ck-editor__main {
+    flex: 1;
+    border: 0;
+    background: #ffffff; /* Containing area the editor */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-left: 100px;
+    padding-right: 100px;
+    margin: 5px;
+}
+
+@media (max-width: 768px) {
+    .ck.ck-editor__main {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+
+
+
+
+/* Editable Content */
+.ck.ck-content,
+.ck-editor__editable {
+  flex: 1;
+  min-height: 200px;
+  overflow-y: auto;
+  resize: none;
+  padding: 1rem;
+  border-radius: 0 0 4px 4px;
+  border: 1px solid #ff0000; /* Add border color */
+}
+
+/* Ensure proper scrolling */
+.ck-editor__editable_inline {
+    overflow: auto !important;
+}
+
+/* Form Field */
+.ckeditor5-field {
+    width: 100%;
+    margin-bottom: 1rem;
+    background: #fff;
+    color: #000;
+}
+
+.editor-body {
+    background: #ff0000;
+    padding-bottom: -500px;
+}
+
+
+.ck-word-count {
+    margin-top: 10px;
+    text-align: center;
+    color: white;
+    display: none;
+}

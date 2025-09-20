@@ -1,0 +1,19 @@
+{% load static %}
+<div class="h-full w-full bg-black bg-cover bg-center" style="background-image: url('{{bg_image}}')">
+  <div class="h-[100%] w-full flex flex-col justify-between p-8">
+    <h2>FEATURE</h2>
+    <div>
+
+    </div>
+    <div class="gap-4 flex flex-col">
+      <p>
+        Lorem ipsum amet adipiscing id magna qui quis
+        commodo minim anim excepteur. Fugiat est officia
+        reprehenderit enim consectetur. Nisi exercitation
+        deserunt nostrud.
+        {{slot}}
+      </p>
+      <a href="" class="text-orange-600">Read More &#8594</a>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView,UpdateView
 from .crewai_config.crews import get_crew
+from .data import features
 
 
 from django.contrib.auth.decorators import login_required
@@ -14,8 +15,12 @@ from django.shortcuts import redirect
 from .models import CourseWork
 
 
-class Index(TemplateView):
+def index(request):
     template_name = "index.html"
+    context = {
+        "features": features
+    }
+    return render(request, template_name, context)
 
 
 @login_required

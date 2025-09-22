@@ -67,13 +67,11 @@
 
   </div>    
   
-  <div id="features" class="h-[70vh] w-fill flex gap-2 ml-8 mr-8">
-    <c-feature_card bg_image="{% static 'images/globe_ft.png' %}"></c-feature_card>
-    <c-feature_card bg_image="{% static 'images/globe_ft.png' %}"></c-feature_card>
-    <c-feature_card bg_image="{% static 'images/globe_ft.png' %}"></c-feature_card>
-
+  <div id="features" class=" h-[70vh] w-fill grid grid-cols-3 gap-2 ml-8 mr-8">
+    {% for feature in features %}
+    <c-feature_card :feat='feature'></c-feature_card>
+    {% endfor %}  
   </div>
-
   <div class="h-50 w-fill grid grid-cols-3 ml-8 mr-8">
 
     <div class=" flex items-center justify-center">

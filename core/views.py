@@ -43,7 +43,7 @@ def home(request):
             form.save()
             print(form.instance.question)
             # get_crew(form.instance.id, form.instance.question)
-            # crew_task.delay(form.instance.id, form.instance.question) #pass it to the crew
+            crew_task.delay(form.instance.id, form.instance.question) #pass it to the crew
             return redirect("editor", pk=form.instance.id)
     else:
         form = CourseWorkForm()

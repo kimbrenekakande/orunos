@@ -13,8 +13,23 @@ def crew_task(instance_id, question):
     input = {
         "question": question,
     }
-    answer = get_crew().kickoff(input)
-    instance = CourseWork.objects.get(id=instance_id)
-    instance.answer = answer
-    instance.save()
-    return answer
+    
+    try:
+        # Get the crew output
+        crew_output = get_crew().kickoff(input)
+        
+        # Convert to string if it's not already
+        answer_str = str(crew_output) if crew_output is not None else ""
+        
+        # Update the instance
+        instance = CourseWork.objects.get(id=instance_id)
+        instance.answer = answer_str
+        instance.save()
+        return answer_str
+    except Exception as e:
+        # Log the error and update the instance with error message if needed
+        error_msg = f"Error processing request: {str(e)}"
+        instance = CourseWork.objects.get(id=instance_id)
+        instance.answer = error_msg
+        instance.save()
+        return error_msg

@@ -52,21 +52,58 @@ class TasksAll():
 
     def editor_task(self, agent):
         return Task(
-            description="""Review and refine the response to ensure it fully answers the {question}
+            description="""Review, refine and format the response to ensure it fully answers the {question} and is properly formatted in HTML
             
-            Check for:
-            1. Accuracy and completeness
-            2. Clarity and coherence
-            3. Proper formatting and style
-            4. Grammar and spelling
-            5. Academic integrity and citations
-            6. University coursework essay standards and structure""",
-            expected_output="""A polished final response that is:
-            1. Accurate and complete
-            2. Clear and well-structured
-            3. Properly formatted
-            4. Free of errors""",
+            Your tasks:
+            1. Ensure the content is accurate and complete
+            2. Check for clarity and coherence
+            3. Format the entire document in clean, semantic HTML with:
+               - Proper heading hierarchy (h1 for title, h2 for main sections, h3 for subsections)
+               - Well-structured paragraphs with <p> tags
+               - Proper spacing between sections using CSS margin/padding
+               - Ordered and unordered lists where appropriate
+               - Blockquotes for important quotes or excerpts
+               - Proper citation formatting
+               - Clean, readable typography
+            4. Ensure academic integrity and proper citations
+            5. Maintain university coursework essay standards and structure
+            
+            HTML Formatting Guidelines:
+            - Wrap the entire content in a <div class="essay">
+            - Use proper heading hierarchy
+            - Add appropriate spacing between sections
+            - Ensure all text is properly wrapped in <p> tags
+            - Use <strong> for important terms, not <b>
+            - Use <em> for emphasis, not <i>
+            - Include a proper title in an <h1> at the top
+            - Add section headers with <h2> and <h3> as needed
+            - Format lists with <ul> or <ol> with <li> items
+            - Add appropriate classes for styling (e.g., <p class="introduction">)""",
+            expected_output="""A polished final response in clean HTML that includes:
+            1. Proper HTML5 document structure
+            2. Semantic HTML elements
+            3. Well-formatted headings and paragraphs
+            4. Properly formatted lists and blockquotes
+            5. Clean, maintainable code with appropriate spacing
+            6. Properly formatted citations and references
+            
+            Example structure:
+            <div class="essay">
+                <h1>Essay Title</h1>
+                <p class="introduction">Introduction text...</p>
+                <h2>Section Title</h2>
+                <p>Body text...</p>
+                <h3>Subsection</h3>
+                <p>More detailed content...</p>
+                <ul>
+                    <li>List item 1</li>
+                    <li>List item 2</li>
+                </ul>
+                <blockquote>Important quote or excerpt</blockquote>
+                <h2>Conclusion</h2>
+                <p>Concluding remarks...</p>
+            </div>""",
             agent=agent,
             verbose=True,
-            output_file="editor_output.md"
+            output_file="editor_output.html"
         )

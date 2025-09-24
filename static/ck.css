@@ -1,93 +1,89 @@
-/* CKEditor Container */
-.ck-editor-container {
-    background-color: #ffffff;
+/* static/ck.css */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #fff; /* Uniform white background */
+    overflow: hidden; /* Prevent scrolling on the body */
 }
 
-/* Editor Wrapper */
+/* Ensure the c-base and form-2 elements do not add extra space or scrolling */
+c-base, #form-2 {
+    height: 100vh;
+    width: 100vw;
+    padding: 0 !important; /* Override tailwind padding */
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#editor-body {
+    height: 100%;
+    width: 100%;
+}
+
+/* Editor Wrapper - Full screen height */
 .ck.ck-editor {
-    max-width: 100%;
-    margin: 0 auto;
-    height: 90vh; /* Fixed height */
+    height: 100vh; /* Full viewport height */
     display: flex;
     flex-direction: column;
-    background-color: #ffffff;
-    margin-top: 0px;
+    border: none; /* No border for a minimalist look */
+    box-shadow: none; /* No shadow */
+    padding-top: 2rem; /* Add space above the toolbar */
+    box-sizing: border-box; /* Ensure padding is included in the element's total height */
 }
 
 /* Toolbar Styling */
 .ck.ck-toolbar {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.ck.ck-toolbar__items {
-    margin-top: 20px;
-    padding-bottom: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 100%;
+    border-bottom: 1px solid #dadce0; /* Light separator line */
+    background: #ffffff;
+    padding: 0.5rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 /* Editor Content Area */
 .ck.ck-editor__main {
-    flex: 1;
-    border: 0;
-    background: #ffffff; /* Containing area the editor */
-    overflow: hidden;
+    flex-grow: 1;
+    overflow: hidden; /* Hide outer overflow */
     display: flex;
     flex-direction: column;
-    padding-left: 100px;
-    padding-right: 100px;
-    margin: 5px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    box-sizing: border-box; /* Ensure padding is included in the element's total height */
 }
 
-@media (max-width: 768px) {
-    .ck.ck-editor__main {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-}
-
-
-
-
-
-/* Editable Content */
-.ck.ck-content,
+/* Editable Content - Scrollable Area */
 .ck-editor__editable {
-  flex: 1;
-  min-height: 200px;
-  overflow-y: auto;
-  resize: none;
-  padding: 1rem;
-  border-radius: 0 0 4px 4px;
-  border: 1px solid #ff0000; /* Add border color */
+    height: 100%; /* Take full height of the main area */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 2.54cm; /* 1-inch margins */
+    box-sizing: border-box;
+    border: none;
+    line-height: 1.6;
+    font-family: Arial, sans-serif; /* Google Docs default font */
+    font-size: 11pt; /* Google Docs default font size */
+    color: #202124; /* Google Docs text color */
+    background: #ffffff;
+    width: 21cm; /* A4 width */
+    margin: 0 auto; /* Center the document */
 }
 
-/* Ensure proper scrolling */
-.ck-editor__editable_inline {
-    overflow: auto !important;
-}
-
-/* Form Field */
-.ckeditor5-field {
-    width: 100%;
-    margin-bottom: 1rem;
-    background: #fff;
-    color: #000;
-}
-
-.editor-body {
-    background: #ff0000;
-    padding-bottom: -500px;
-}
-
-
+/* Word count */
 .ck-word-count {
-    margin-top: 10px;
-    text-align: center;
-    color: white;
-    display: none;
+    text-align: right;
+    padding: 0 1rem;
+    color: #5f6368; /* Google Docs-like color */
+    font-size: 9pt;
+    border-top: 1px solid #dadce0;
+    padding-top: 5px;
+    background: #fff;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 900px) {
+    .ck-editor__editable {
+        width: 100%;
+        padding: 1rem; /* Reduce padding on smaller screens */
+    }
 }

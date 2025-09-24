@@ -51,15 +51,18 @@ c-base, #form-2 {
     padding-top: 2rem;
     padding-bottom: 2rem;
     box-sizing: border-box; /* Ensure padding is included in the element's total height */
+    border: 1px solid #dadce0;
 }
 
 /* Editable Content - Scrollable Area */
 .ck-editor__editable {
     height: 100%; /* Take full height of the main area */
     overflow-y: auto; /* Enable vertical scrolling */
-    padding: 2.54cm; /* 1-inch margins */
+    /* padding: 3cm 4cm; */ /* Removed padding from here */
     box-sizing: border-box;
-    border: none;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
     line-height: 1.6;
     font-family: Arial, sans-serif; /* Google Docs default font */
     font-size: 11pt; /* Google Docs default font size */
@@ -67,6 +70,11 @@ c-base, #form-2 {
     background: #ffffff;
     width: 21cm; /* A4 width */
     margin: 0 auto; /* Center the document */
+}
+
+/* Add padding to the actual content area within the editable element */
+.ck-editor__editable .ck-content {
+    padding: 3cm 4cm;
 }
 
 /* Word count */

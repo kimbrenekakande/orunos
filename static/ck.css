@@ -72,9 +72,43 @@ c-base, #form-2 {
     padding: 2.54cm; /* A4 standard margins */
     line-height: 1.6;
     font-family: Arial, sans-serif; /* Google Docs default font */
-    font-size: 11pt; /* Google Docs default font size */
     color: #202124; /* Google Docs text color */
     background: #ffffff; /* White background for the paper */
+
+    /* Academic Document Layout - Font Sizes */
+    p {
+        font-size: 12pt;
+    }
+
+    h1 {
+        font-size: 20pt;
+        font-weight: bold;
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
+
+    h2 {
+        font-size: 16pt;
+        font-weight: bold;
+        margin-top: 1.5em;
+        margin-bottom: 0.75em;
+    }
+
+    h3 {
+        font-size: 14pt;
+        font-weight: bold;
+        margin-top: 1.2em;
+        margin-bottom: 0.6em;
+    }
+
+    h4,
+    h5,
+    h6 {
+        font-size: 12pt;
+        font-weight: bold;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+    }
 }
 
 /* Word count */

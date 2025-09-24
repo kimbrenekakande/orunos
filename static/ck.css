@@ -46,19 +46,20 @@ c-base, #form-2 {
 /* Editor Content Area */
 .ck.ck-editor__main {
     flex-grow: 1;
-    overflow: hidden; /* Hide outer overflow */
     display: flex;
     flex-direction: column;
     padding-top: 2rem;
     padding-bottom: 2rem;
     box-sizing: border-box; /* Ensure padding is included in the element's total height */
     border: 1px solid #dadce0;
+    width: 100%; /* Ensure it takes full width */
+    overflow-y: auto; /* Make this container scrollable */
 }
 
 /* Editable Content - Scrollable Area */
 .ck-editor__editable {
-    height: 100%; /* Take full height of the main area */
-    overflow-y: auto; /* Enable vertical scrolling */
+    /* height: 100%; */ /* No longer needed here */
+    /* overflow-y: auto; */ /* No longer needed here */
     box-sizing: border-box;
     border: none !important;
     outline: none !important;

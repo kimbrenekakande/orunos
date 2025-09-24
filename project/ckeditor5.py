@@ -33,10 +33,14 @@ CKEDITOR_5_CONFIGS = {
             'items': [
                 'heading',
                 '|',
+                'alignment',
+                '|',
                 'bold',
                 'italic',
                 'underline',
                 'strikethrough',
+                'subscript',
+                'superscript',
                 '|',
                 'fontFamily',
                 'fontSize',
@@ -44,13 +48,12 @@ CKEDITOR_5_CONFIGS = {
                 'fontBackgroundColor',
                 'highlight',
                 '|',
-                'alignment',
-                'indent',
-                'outdent',
-                '|',
                 'bulletedList',
                 'numberedList',
                 'todoList',
+                '|',
+                'indent',
+                'outdent',
                 '|',
                 'link',
                 'blockQuote',
@@ -66,18 +69,19 @@ CKEDITOR_5_CONFIGS = {
                 'undo',
                 'redo',
                 '|',
-                'findAndReplace',
-                'selectAll',
-                'removeFormat',
-                '|',
-                'sourceEditing',
                 'code',
                 'codeBlock',
-                'htmlEmbed'
+                'htmlEmbed',
+                '|',
+                'sourceEditing',
+                'restrictedEditingException',
+                '|',
+                'findAndReplace',
+                'selectAll',
+                '|',
+                'removeFormat'
             ],
-            'shouldNotGroupWhenFull': True,
-            'viewportTopOffset': 50,
-            'viewportBottomOffset': 50
+            'shouldNotGroupWhenFull': True
         },
         'image': {
             'toolbar': [
@@ -165,12 +169,6 @@ CKEDITOR_5_CONFIGS = {
                         'rel': 'noopener noreferrer'
                     }
                 }
-            }
-        },
-        'ui': {
-            'viewportOffset': {
-                'top': 50,
-                'bottom': 50
             }
         },
         'codeBlock': {

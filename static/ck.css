@@ -34,12 +34,13 @@ c-base, #form-2 {
 
 /* Toolbar Styling */
 .ck.ck-toolbar {
-    border-bottom: 1px solid #dadce0; /* Light separator line */
+    border-bottom: none; /* Light separator line */
     background: #ffffff;
     padding: 0.5rem 1rem;
     position: sticky;
     top: 0;
     z-index: 1000;
+
 }
 
 /* Editor Content Area */
@@ -62,9 +63,17 @@ c-base, #form-2 {
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
-    width: 22cm; /* A4 width */
+    max-width: 22cm; /* Maximum width for the A4 paper */
+    width: 90%; /* Allow it to shrink on smaller screens */
     margin: 0 auto; /* Center the document */
     padding: 1rem 2rem 1rem 1rem; /* Added padding around the A4 paper content, with more on the right */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .ck-editor__editable .ck-content {
+        padding: 1rem; /* Reduce padding on smaller screens */
+    }
 }
 
 /* Add padding to the actual content area within the editable element */

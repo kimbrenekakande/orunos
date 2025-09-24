@@ -68,47 +68,74 @@ c-base, #form-2 {
 }
 
 /* Add padding to the actual content area within the editable element */
-.ck-editor__editable .ck-content {
+.ck.ck-editor__editable {
     padding: 2.54cm; /* A4 standard margins */
     line-height: 1.6;
-    font-family: Arial, sans-serif; /* Google Docs default font */
-    color: #202124; /* Google Docs text color */
+    font-family: 'Times New Roman', Times, serif; /* Academic standard font */
+    color: #202124;
     background: #ffffff; /* White background for the paper */
+    font-size: 12pt;
+}
 
-    /* Academic Document Layout - Font Sizes */
-    p {
-        font-size: 12pt;
-    }
+/* Academic Document Layout - Headings */
+.ck.ck-editor__editable h1,
+.ck.ck-editor__editable h2,
+.ck.ck-editor__editable h3,
+.ck.ck-editor__editable h4,
+.ck.ck-editor__editable h5,
+.ck.ck-editor__editable h6 {
+    font-family: 'Times New Roman', Times, serif;
+    color: #000000;
+    font-weight: bold;
+    line-height: 1.3;
+}
 
-    h1 {
-        font-size: 20pt;
-        font-weight: bold;
-        margin-top: 2em;
-        margin-bottom: 1em;
-    }
+.ck.ck-editor__editable h1 {
+    font-size: 20pt;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    text-align: center;
+    text-transform: uppercase;
+}
 
-    h2 {
-        font-size: 16pt;
-        font-weight: bold;
-        margin-top: 1.5em;
-        margin-bottom: 0.75em;
-    }
+.ck.ck-editor__editable h2 {
+    font-size: 16pt;
+    margin-top: 1.2em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.2em;
+}
 
-    h3 {
-        font-size: 14pt;
-        font-weight: bold;
-        margin-top: 1.2em;
-        margin-bottom: 0.6em;
-    }
+.ck.ck-editor__editable h3 {
+    font-size: 14pt;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    font-style: italic;
+}
 
-    h4,
-    h5,
-    h6 {
-        font-size: 12pt;
-        font-weight: bold;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-    }
+.ck.ck-editor__editable h4,
+.ck.ck-editor__editable h5,
+.ck.ck-editor__editable h6 {
+    font-size: 12pt;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+/* Paragraph spacing */
+.ck.ck-editor__editable p {
+    margin: 0 0 1em 0;
+    text-align: justify;
+    text-indent: 1.25cm;
+}
+
+/* First paragraph after heading should not be indented */
+.ck.ck-editor__editable h1 + p,
+.ck.ck-editor__editable h2 + p,
+.ck.ck-editor__editable h3 + p,
+.ck.ck-editor__editable h4 + p,
+.ck.ck-editor__editable h5 + p,
+.ck.ck-editor__editable h6 + p {
+    text-indent: 0;
 }
 
 /* Word count */

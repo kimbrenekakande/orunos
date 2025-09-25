@@ -72,8 +72,13 @@ c-base, #form-2 {
 
 /* Media query for smaller screens */
 @media (max-width: 768px) {
-    .ck-editor__editable .ck-content {
-        padding: 1rem; /* Reduce padding on smaller screens */
+    .ck.ck-editor__editable {
+        padding: 0.75rem !important;
+    }
+    
+    .ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
+        border: 1px solid var(--ck-color-focus-border) !important;
+        box-shadow: var(--ck-focus-ring) !important;
     }
 }
 

@@ -1,123 +1,127 @@
 {% load static %}
 <c-base>
-  <div id="landing-body" class=" flex flex-col gap-8 bg-white">
-  <div id="hero" class="h-screen w-[100%]  flex flex-col bg-no-repeat bg-cover bg" style="background-image: url('{% static 'images/nature.jpg' %}')">
-    
-    <div id="navigation-bar" class="flex justify-between items-center m-8">
-      <div>
-        <div id="logo" class="h-12 w-12 rounded-full bg-cover" style="background-image: url('{% static 'images/brand/orunos_logo_white.png' %}')"></div>
-        
+  <div id="landing-body" class=" flex flex-col gap-8 bg-white overflow-hidden">
+    <div id="hero" class="h-screen w-[100%]  flex flex-col bg-no-repeat bg-cover bg" style="background-image: url('{% static 'images/nature.jpg' %}')">
+      <header id="navigation-bar" class="">
+        <nav class="flex items-center justify-between w-[95%] mx-auto mt-8">
+          <div>
+            <img src="{% static 'images/brand/orunos_logo_white.png' %}" class="h-12 w-12 rounded-full bg-cover" alt="">
+          </div>
+          <div class="hidden md:flex md:items-center md:justify-center md:gap-8 text-white">
+            <a href="#" class="hover:text-orange-600 transition-colors duration-300">About</a>
+            <a href="#" class="hover:text-orange-600 transition-colors duration-300">How it works</a>
+            <a href="#" class_="hover:text-orange-600 transition-colors duration-300">Contact</a>
+          </div>
+          <a href="{% url 'account_login' %}" class="ml-8>
+            <button class="h-10 w-30 border-2 border-white bg-black hover:transition-colors duration-300 hover:bg-orange-600 flex flexl-col items-center justify-center text-white cursor-grab">
+              LOGIN
+            </button>
+          </a>
+          <div class="md:hidden">
+            <button id="menu-btn" class="h-10 w-10 flex flex-col items-center justify-center text-white cursor-pointer">
+                <div id='cross' class='hidden'>
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x text-white"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+                </div>
+                <div id='burger'>
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6l16 0" /><path d="M4 12l16 0" /><path d="M4 18l16 0" /></svg>
+                </div>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <div id="fullscreen-nav" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 z-40">
+        <ul class="flex flex-col items-center justify-center h-full text-white text-4xl gap-8">
+          <li><a href="#" class="hover:text-orange-600 transition-colors duration-300">About</a></li>
+          <li><a href="#" class="hover:text-orange-600 transition-colors duration-300">How it works</a></li>
+          <li><a href="#" class="hover:text-orange-600 transition-colors duration-300">Contact</a></li>
+          <li>
+            <a href="{% url 'account_login' %}" class="mt-8 inline-block">
+              <button class="h-12 w-40 border-2 border-white text-white hover:bg-orange-600 hover:border-orange-600 transition-colors duration-300">
+                LOGIN
+              </button>
+            </a>
+          </li>
+        </ul>
       </div>
-      <div id="nav-links">
-        <ul class="flex gap-8 text-2xl text-white">
-          <li><a href="#" class="">[ <span class="hover:text-orange-600">About </span></a></li>
-          <li>&#183; </li>
-          <li><a href="#" class="hover:text-orange-600">How it works</a></li>
-          <li>&#183;</li>
-          <li><a href="#" class="hover:text-orange-600">Contact <span class="text-white">]</span></a></li>
-        </ul> 
+
+      <div id="call-to-action" class="flex flex-col gap-6 items-center justify-center h-[100%]">
+        <h1 class="text-2xl text-white">Your AI Study Buddy</h1>
+        <h2 class="text-8xl text-black font-crimson-text motion-preset-focus motion-duration-1000">WRITE &#183; CITE &#183; LEARN</h2>
+        <p class="text-white">Designed to to help students complete Coursework,to focus on learning.</p>
+        <a href="{%  url 'account_login' %}">
+          <div class="h-10 w-30 border-2 bg-orange-600 hover:transition-colors duration-300 hover:bg-black flex flexl-col items-center justify-center text-white text-1xl cursor-grab ">
+            LEARN  <span class="hover:motion-preset-slide-right  hover:motion-duration-800"> &#8594</span>
+          </div>
+        </a>
       </div>
-      <a href="{%  url 'account_login' %}">
-        <div class="h-10 w-30 border-2 border-white bg-black hover:transition-colors duration-300 hover:bg-orange-600 flex flexl-col items-center justify-center text-white cursor-grab ">
-          LOGIN
-        </div>
-      </a>
-    </div>
-
-    <div id="call-to-action" class="flex flex-col gap-6 items-center justify-center h-[100%]">
-      <h1 class="text-6xl text-white">Your AI Study Buddy</h1>
-      <h2 class="text-8xl text-black font-crimson-text motion-preset-focus motion-duration-1000">WRITE &#183; CITE &#183; LEARN</h2>
-      <p class="text-white">Designed to to help students complete Coursework,to focus on learning.</p>
-      <a href="{%  url 'account_login' %}">
-        <div class="h-10 w-30 border-2 bg-orange-600 hover:transition-colors duration-300 hover:bg-black flex flexl-col items-center justify-center text-white text-1xl cursor-grab ">
-          LEARN  <span class="hover:motion-preset-slide-right  hover:motion-duration-800"> &#8594</span>
-        </div>
-        
-      </a>
-    </div>
-
-    <div class="flex justify-between m-8 text-white">
-      <p>[ Experince Enhanced Learning ]</p>
-      <a href="#features " class="hover:text-orange-600">
-        <p class="flex gap-1">[ <span class="motion-preset-bounce ">&#8595</span> ]</p>
-      </a>
-    </div>
-
-  </div>
-
-  <div class="h-50 w-fill grid grid-cols-3">
-    <div class="col-span-2 flex">
-      <div class="flex gap-8 items-center align-center">
-        <div id="vertical-line"  class="h-30 ml-8 border-l-3 border-black"></div>
-        <div>
-          <h2 class="text-6xl text-black">Tech Is Changing <span class="motion-preset-pulse">&there4;</span><br> So should your <span class="text-orange-600">Learning Flow.</span></h2>
-        </div>
+      <div class="flex justify-between m-8 text-white">
+        <p>[ Experince Enhanced Learning ]</p>
+        <a href="#features " class="hover:text-orange-600">
+          <p class="flex gap-1">[ <span class="motion-preset-bounce ">&#8595</span> ]</p>
+        </a>
       </div>
     </div>
-
-    <div class=" flex items-center justify-center">
-      <p class=" text-black">
-        Lorem ipsum amet exercitation est aliquip sed ut dolor sit
-          anim elit officia sunt. Duis adipiscing laborum pariatur ex
-          veniam cupidatat magna. Ea nulla culpa minim do ad
-          aliqua laboris deserunt quis mollit labore. Esse eiusmod
-          tempor. Ullamco non excepteur do cupidatat.
-      </p>
+    <div class="h-50 w-fill grid grid-cols-3">
+      <div class="col-span-2 flex">
+        <div class="flex gap-8 items-center align-center">
+          <div id="vertical-line"  class="h-30 ml-8 border-l-3 border-black"></div>
+          <div>
+            <h2 class="text-6xl text-black">Tech Is Changing <span class="motion-preset-pulse">&there4;</span><br> So should your <span class="text-orange-600">Learning Flow.</span></h2>
+          </div>
+        </div>
+      </div>
+      <div class=" flex items-center justify-center">
+        <p class=" text-black">
+          Lorem ipsum amet exercitation est aliquip sed ut dolor sit
+            anim elit officia sunt. Duis adipiscing laborum pariatur ex
+            veniam cupidatat magna. Ea nulla culpa minim do ad
+            aliqua laboris deserunt quis mollit labore. Esse eiusmod
+            tempor. Ullamco non excepteur do cupidatat.
+        </p>
+      </div>
     </div>
-
-  </div>    
-  
-  <div id="features" class=" h-[70vh] w-fill grid grid-cols-3 gap-2 ml-8 mr-8">
-    {% for feature in features %}
-    <c-feature_card :feat='feature'></c-feature_card>
-    {% endfor %}  
-  </div>
-  <div class="h-50 w-fill grid grid-cols-3 ml-8 mr-8">
-
-    <div class=" flex items-center justify-center">
-      <p class=" text-black">
-        Lorem ipsum amet exercitation est aliquip sed ut dolor sit
-          anim elit officia sunt. Duis adipiscing laborum pariatur ex
-          veniam cupidatat magna. Ea nulla culpa minim do ad
-          aliqua laboris deserunt quis mollit labore. Esse eiusmod
-          tempor. Ullamco non excepteur do cupidatat.
-      </p>
+    <div id="features" class=" h-[70vh] w-fill grid grid-cols-3 gap-2 ml-8 mr-8">
+      {% for feature in features %}
+      <c-feature_card :feat='feature'></c-feature_card>
+      {% endfor %}
     </div>
-
-    <div class=" flex items-center justify-center col-start-3">
-      <p class=" text-black">
-        Lorem ipsum amet exercitation est aliquip sed ut dolor sit
-          anim elit officia sunt. Duis adipiscing laborum pariatur ex
-          veniam cupidatat magna. Ea nulla culpa minim do ad
-          aliqua laboris deserunt quis mollit labore. Esse eiusmod
-          tempor. Ullamco non excepteur do cupidatat.
-      </p>
+    <div class="h-50 w-fill grid grid-cols-3 ml-8 mr-8">
+      <div class=" flex items-center justify-center">
+        <p class=" text-black">
+          Lorem ipsum amet exercitation est aliquip sed ut dolor sit
+            anim elit officia sunt. Duis adipiscing laborum pariatur ex
+            veniam cupidatat magna. Ea nulla culpa minim do ad
+            aliqua laboris deserunt quis mollit labore. Esse eiusmod
+            tempor. Ullamco non excepteur do cupidatat.
+        </p>
+      </div>
+      <div class=" flex items-center justify-center col-start-3">
+        <p class=" text-black">
+          Lorem ipsum amet exercitation est aliquip sed ut dolor sit
+            anim elit officia sunt. Duis adipiscing laborum pariatur ex
+            veniam cupidatat magna. Ea nulla culpa minim do ad
+            aliqua laboris deserunt quis mollit labore. Esse eiusmod
+            tempor. Ullamco non excepteur do cupidatat.
+        </p>
+      </div>
     </div>
-
+    <div id="trusted-brands" class=" h-[20vh] w-full flex p-8">
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_2.png' %}')"></div>
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_3.png' %}')"></div>
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_4.png' %}')"></div>
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_6.png' %}')"></div>
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_7.png' %}')"></div>
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_8.png' %}')"></div>
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_9.png' %}')"></div>
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_10.png' %}')"></div>
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_11.png' %}')"></div>
+      <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_12.png' %}')"></div>
+    </div>
+    <div id="displines" class="relative h-[70vh] overflow-hidden bg-cover" style="background-image: url('{% static 'images/civilization.jpg' %}')"></div>
+    <div class="z-10 -mt-[860px]">
+      <img src="{% static 'images/growth.png' %}" class="drop-shadow-2xl  transition-shadow duration-300 hover:drop-shadow-orange-600 " alt="">
+    </div>
   </div>
-
-  <div id="trusted-brands" class=" h-[20vh] w-full flex p-8">
-    
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_2.png' %}"></div>
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_3.png' %}"></div>
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_4.png' %}"></div>
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_6.png' %}"></div>
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_7.png' %}"></div>
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_8.png' %}"></div>
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_9.png' %}"></div>
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_10.png' %}"></div>
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_11.png' %}"></div>
-    <div class="h-20 w-full bg-contain bg-no-repeat " style="background-image: url('{% static 'images/uniz/unis_12.png' %}"></div>
-
-  </div>
-  
-  <div id="displines" class="relative h-[70vh] overflow-hidden bg-cover" style="background-image: url('{% static 'images/civilization.jpg' %}"></div>
-  <div class="z-10 -mt-[860px]">
-    <img src="{% static 'images/growth.png' %}" class="drop-shadow-2xl  transition-shadow duration-300 hover:drop-shadow-orange-600 " alt="">
-  </div>
-
-  </div>
-    
   <footer class=" h-[70vh] flex flex-col content-between bg-black p-8 bg-contain bg-blend-difference" style="background-image: url('{% static 'images/toned_bg.png' %}')">
     <div class="h-[10vh] flex justify-between">
       <a href="#" class="hover:text-orange-600">[ ABOUT US ]</a>
@@ -125,7 +129,7 @@
       <a href="#" class="hover:text-orange-600">[PRIVACY POLICY ]</a>
       <a href="#" class="hover:text-orange-600">[ CONTACT US ]</a>
     </div>
-    <div class="h-full w-full text-white text-[400px] flex justify-center font-bold font-crimson-text text">orunos</div>
+    <div class="h-full w-full text-white text-[400px] flex justify-center font-bold font-crimson-text text hidden">orunos</div>
     <div class="h-[10vh] flex justify-between">
       <a href="#" class="hover:text-orange-600">[ FAQs ]</a>
       <a href="#" class="hover:text-orange-600">[ PRICING ]</a>
@@ -133,8 +137,5 @@
       <a href="#" class="hover:text-orange-600">[ SOCIALS ]</a>
     </div>
   </footer>
-
+  <script src="{% static 'js/index.js' %}"></script>
 </c-base>
-
-
-

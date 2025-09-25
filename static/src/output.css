@@ -4021,6 +4021,11 @@
       display: none;
     }
   }
+  .md\:inline-block {
+    @media (width >= 48rem) {
+      display: inline-block;
+    }
+  }
   .md\:items-center {
     @media (width >= 48rem) {
       align-items: center;

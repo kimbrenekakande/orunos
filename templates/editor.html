@@ -13,7 +13,7 @@
           {{ form.question }}
         </div> {% endcomment %}
         <label for="{{ form.answer.id_for_label }}" class="text-black">
-          {{ form.answer }}
+          {{ form.answer  | safe }}
         </label>
         <div class="w-full flex justify-between fixed bottom-30 flex-col items-center shadow-4xl shadow-amber-700">
           <button type="submit" class="h-12 w-50 cursor-grab bg-black hover:bg-orange-600 text-white font-montserrat mt-8 rounded-sm">Save</button>
@@ -43,8 +43,48 @@
               'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
               'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', '|',
               'alignment', 'indent', 'outdent', '|',
+              'insertTable', '|',
               'undo', 'redo'
             ],
+            table: {
+              contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ],
+              defaultHeadings: { rows: 1, columns: 1 },
+              defaultProperties: {
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: '#000',
+                width: '100%',
+                tableLayout: 'fixed'
+              },
+              tableCell: {
+                borderColors: [
+                  {
+                    color: 'black',
+                    label: 'Black',
+                    hasBorder: true
+                  },
+                  {
+                    color: 'transparent',
+                    label: 'No border',
+                    hasBorder: false
+                  }
+                ]
+              },
+              // Ensure new tables have equal column widths
+              onTableCreation: (model, writer) => {
+                const table = model.document.selection.getFirstPosition().findAncestor('table');
+                if (table) {
+                  writer.setAttribute('tableLayout', 'fixed', table);
+                  
+                  // Set equal width for all cells
+                  for (const row of table.getChildren()) {
+                    for (const cell of row.getChildren()) {
+                      writer.setAttribute('width', '1%', cell);
+                    }
+                  }
+                }
+              }
+            },
             image: {
               toolbar: [
                 'imageTextAlternative',

@@ -174,6 +174,68 @@ c-base, #form-2 {
     background: #fff;
 }
 
+/* Table Styling */
+.ck-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    border: 1px solid #000;
+}
+
+.ck-content table,
+.ck-content table td,
+.ck-content table th {
+    border: 1px solid #000 !important;
+}
+
+.ck-content td,
+.ck-content th {
+    padding: 0.5em;
+    color: #000 !important;
+    background-color: #fff !important;
+    border: 1px solid #000 !important;
+}
+
+.ck-content th {
+    background-color: #f0f0f0 !important;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Force table cell borders to be visible */
+.ck.ck-editor__editable .ck-widget.table td,
+.ck.ck-editor__editable .ck-widget.table th,
+.ck.ck-editor__editable .table td,
+.ck.ck-editor__editable .table th {
+    border: 1px solid #000 !important;
+}
+
+/* Ensure equal column widths */
+.ck-content table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.ck-content table td,
+.ck-content table th {
+    width: 1%; /* This makes columns equal width */
+    min-width: 50px; /* Minimum width for columns */
+    word-wrap: break-word; /* Ensure text wraps properly */
+}
+
+/* Ensure table content is visible */
+.ck.ck-editor__editable {
+    color: #000;
+}
+
+.ck.ck-editor__editable.ck-blurred {
+    color: #000;
+}
+
+.ck.ck-editor__editable.ck-focused {
+    color: #000;
+}
+
 /* Media query for smaller screens */
 @media (max-width: 900px) {
     .ck-editor__editable {

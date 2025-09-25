@@ -36,14 +36,15 @@
       if (editorElement) {
         ClassicEditor
           .create(editorElement, {
+            language: 'en',
+            removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'CKBox', 'EasyImage', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed'],
             toolbar: [
               'heading', '|',
-              'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', '|',
+              'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
               'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', '|',
               'alignment', 'indent', 'outdent', '|',
               'undo', 'redo'
             ],
-            language: 'en',
             image: {
               toolbar: [
                 'imageTextAlternative',

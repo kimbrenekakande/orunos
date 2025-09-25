@@ -1,5 +1,15 @@
 /* static/ck.css */
 
+/* Hide 'Powered by CKEditor' label */
+.ck.ck-editor__editable .ck-source-editing-area .ck-source-editing-area__source {
+    display: none !important;
+}
+
+/* Hide the bottom bar with the label */
+.ck.ck-editor__editable .ck.ck-editor__editable__ck-powered-by-nowrap {
+    display: none !important;
+}
+
 body, html {
     margin: 0;
     padding: 0;

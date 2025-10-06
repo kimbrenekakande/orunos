@@ -702,6 +702,18 @@ wheels = [
 ]
 
 [[package]]
+name = "django-extensions"
+version = "4.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6d/b3/ed0f54ed706ec0b54fd251cc0364a249c6cd6c6ec97f04dc34be5e929eac/django_extensions-4.1.tar.gz", hash = "sha256:7b70a4d28e9b840f44694e3f7feb54f55d495f8b3fa6c5c0e5e12bcb2aa3cdeb", size = 283078, upload-time = "2025-04-11T01:15:39.617Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/64/96/d967ca440d6a8e3861120f51985d8e5aec79b9a8bdda16041206adfe7adc/django_extensions-4.1-py3-none-any.whl", hash = "sha256:0699a7af28f2523bf8db309a80278519362cd4b6e1fd0a8cd4bf063e1e023336", size = 232980, upload-time = "2025-04-11T01:15:37.701Z" },
+]
+
+[[package]]
 name = "django-htmx"
 version = "1.23.2"
 source = { registry = "https://pypi.org/simple" }
@@ -726,6 +738,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/d0/4c/caaf012e437faa260e7aee97847279e80e088855d2574e08aa9282f47a6d/django_import_export-4.3.9.tar.gz", hash = "sha256:966e01c2cbd6acda710a0a0097cd99b28d4f9883abbfbbf712f34a2e8eea8809", size = 2226734, upload-time = "2025-07-21T19:17:36.519Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/33/20/8502f3985b91befb3e771c258b7e2a3fa916bdb834e960da307ecc359d66/django_import_export-4.3.9-py3-none-any.whl", hash = "sha256:3d83b1c28f30935240ef9d914a1d4845c6fcaf5c7e5454889dda800eb5d374fb", size = 148545, upload-time = "2025-07-21T19:17:35.035Z" },
+]
+
+[[package]]
+name = "django-ninja"
+version = "1.4.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "pydantic" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cd/1a/f0d051f54375cfd2310f803925993fdc4172e41e627d63ece48194b07892/django_ninja-1.4.3.tar.gz", hash = "sha256:e46d477ca60c228d2a5eb3cc912094928ea830d364501f966661eeada67cb038", size = 3709571, upload-time = "2025-06-04T15:11:13.408Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/08/ec/0cfa9b817f048cdec354354ae0569d7c0fd63907e5b1f927a7ee04a18635/django_ninja-1.4.3-py3-none-any.whl", hash = "sha256:f3204137a059437b95677049474220611f1cf9efedba9213556474b75168fa01", size = 2426185, upload-time = "2025-06-04T15:11:11.314Z" },
 ]
 
 [[package]]
@@ -1974,8 +1999,10 @@ dependencies = [
     { name = "django-browser-reload" },
     { name = "django-ckeditor-5" },
     { name = "django-cotton" },
+    { name = "django-extensions" },
     { name = "django-htmx" },
     { name = "django-import-export" },
+    { name = "django-ninja" },
     { name = "django-tailwind" },
     { name = "django-unfold" },
     { name = "honcho" },
@@ -1990,8 +2017,10 @@ requires-dist = [
     { name = "django-browser-reload", specifier = ">=1.18.0" },
     { name = "django-ckeditor-5", specifier = ">=0.2.18" },
     { name = "django-cotton", specifier = ">=2.1.3" },
+    { name = "django-extensions", specifier = ">=4.1" },
     { name = "django-htmx", specifier = ">=1.23.2" },
     { name = "django-import-export", specifier = ">=4.3.9" },
+    { name = "django-ninja", specifier = ">=1.4.3" },
     { name = "django-tailwind", specifier = ">=4.2.0" },
     { name = "django-unfold", specifier = ">=0.65.0" },
     { name = "honcho", specifier = ">=2.0.0" },

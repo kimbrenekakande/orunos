@@ -1,0 +1,38 @@
+{% load static %}
+<nav class="flex items-center justify-between w-[95%] mx-auto mt-8">
+  <div>
+    <img src="{% static 'images/brand/orunos_logo_white.png' %}" class="h-12 w-12 rounded-full bg-cover" alt="">
+  </div>
+  <div class="hidden md:flex md:items-center md:justify-center md:gap-8 text-white">
+    <a href="#" class="hover:text-orange-600 transition-colors duration-300">About</a>
+    <a href="#" class="hover:text-orange-600 transition-colors duration-300">How it works</a>
+    <a href="#" class_="hover:text-orange-600 transition-colors duration-300">Contact</a>
+  </div>
+  <a href="{% url 'account_login' %}" class="ml-8 hidden md:inline-block">
+    <button class="h-10 w-30 border-2 border-white bg-black hover:transition-colors duration-300 hover:bg-orange-600 flex flexl-col items-center justify-center text-white cursor-grab">
+      LOGIN
+    </button>
+  </a>
+  <div class="md:hidden">
+    <button id="menu-btn-open" class="h-10 w-10 flex flex-col items-center justify-center text-white cursor-pointer">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6l16 0" /><path d="M4 12l16 0" /><path d="M4 18l16 0" /></svg>
+    </button>
+  </div>
+</nav>
+<div id="fullscreen-nav" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 z-40">
+  <button id="menu-btn-close" class="h-10 w-10 flex flex-col items-center justify-center text-white cursor-pointer absolute top-8 right-4">
+      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+  </button>
+  <ul class="flex flex-col items-center justify-center h-full text-white text-4xl gap-8">
+    <li><a href="#" class="hover:text-orange-600 transition-colors duration-300">About</a></li>
+    <li><a href="#" class="hover:text-orange-600 transition-colors duration-300">How it works</a></li>
+    <li><a href="#" class="hover:text-orange-600 transition-colors duration-300">Contact</a></li>
+    <li>
+      <a href="{% url 'account_login' %}" class="mt-8 inline-block">
+        <button class="h-12 w-40 border-2 border-white text-white hover:bg-orange-600 hover:border-orange-600 transition-colors duration-300">
+          LOGIN
+        </button>
+      </a>
+    </li>
+  </ul>
+</div>

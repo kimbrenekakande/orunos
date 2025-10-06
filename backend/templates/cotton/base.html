@@ -1,0 +1,21 @@
+{% load django_htmx %}
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>{% block title %}Django Tailwind{% endblock %}</title>
+      <link rel="stylesheet" href="{% static 'src/output.css' %}">
+      {% htmx_script %}
+      {{ form.media }}
+  </head>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-black h-[100%] w-[100%]">
+    {{ slot }}
+    <!-- chartjs -->
+    <script src="{% static 'js/chart.umd.min.js' %}"></script>
+    <script src="{% static 'js/chats.js' %}"></script>
+
+  </body>
+</html>

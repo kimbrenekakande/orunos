@@ -1,0 +1,51 @@
+
+{% load static %}
+
+<c-base>
+  <div class="h-screen w-screen flex flex-col items-center justify-center gap-8">
+    <div class="mb-10">
+      <div class="text-2xl flex flex-col items-center mb-6">SIGN UP</div>
+      <p>Create an account to get started</p>
+    </div>
+    <form method="post" action="{% url 'account_signup' %}" class="w-[20%] text-white flex flex-col gap-4">
+      {% csrf_token %}
+      
+      <div class="flex flex-col gap-2">
+        <label for="username" class="hidden">Username</label>
+        <input id="username" type="text" name="username" placeholder="Username" class="h-12 border-1 pl-2">
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="email" class="hidden">Email</label>
+        <input id="email" type="email" name="email" placeholder="Email" class="h-12 border-1 pl-2">
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="password1" class="hidden">Password</label>
+        <input id="password1" type="password" name="password1" placeholder="Password" class="h-12 border-1 pl-2">
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="password2" class="hidden">Confirm Password</label>
+        <input id="password2" type="password" name="password2" placeholder="Confirm Password" class="h-12 border-1 pl-2">
+      </div>
+
+      <button type="submit" class="h-12 w-full cursor-grab bg-white text-black mt-4 font-montserrat">Sign Up</button>
+    </form>
+
+    <div class="flex h-10 w-[20%] items-center gap-2">
+      <div class="flex-grow h-[1px] bg-white"></div>
+      <p>OR</p>
+      <div class="flex-grow h-[1px] bg-white"></div>
+    </div>
+
+    <div class="h-12 w-[20%] cursor-grab border-1 border-white flex items-center justify-center gap-4 p-4">
+      <div class="h-6 w-6 bg-contain bg-no-repeat" style="background-image: url('{% static 'svgs/google.svg' %}')"></div>
+      <p class="text-white text-2xl font-montserrat">Sign up with Google</p>
+    </div>
+
+    <div>
+      <p>Already have an account? <a href="{% url 'account_login' %}" class="text-orange-600">Log In</a></p>
+    </div>
+  </div>
+</c-base>

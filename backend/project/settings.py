@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     #Third Party Apps
-    'allauth',"allauth.account","django_cotton","django_htmx",'import_export','django_ckeditor_5',
+    "django_cotton","django_htmx",'import_export','django_ckeditor_5',
     #Local Apps
     "accounts.apps.AccountsConfig","core.apps.CoreConfig",
 ]
@@ -69,7 +69,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
-    "allauth.account.middleware.AccountMiddleware",
 ]
 
 if DEBUG:
@@ -167,21 +166,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #Custom User Model
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-LOGIN_URL='account_login'
-LOGIN_REDIRECT_URL='dashboard'
+LOGIN_URL = 'login'  # Points to Django's built-in login view
+LOGIN_REDIRECT_URL = 'dashboard'  # Update this to your desired dashboard URL
 
 
 
-#All Auth Settings
-AUTHENTICATION_BACKENDS=[
+# Authentication Settings
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-ACCOUNT_LOGOUT_REDIRECT_URL = '/'
-ACCOUNT_LOGOUT_ON_GET = False #skips logout confirmation page
-ACCOUNT_LOGIN_METHODS = {'email', 'username'}
-
+# Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 

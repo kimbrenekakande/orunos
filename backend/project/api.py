@@ -1,6 +1,6 @@
 from ninja import NinjaAPI
-from .schemas import CourseWorkSchema
-from .models import CourseWork
+from .schema import CourseWorkSchema
+from core.models import CourseWork
 
 api = NinjaAPI()
 

@@ -1,21 +1,19 @@
 
 
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from django.conf import settings
-from django.conf.urls.static import static #<--CKEditor Settings | turns default text editor to word processor like
-from core.api import api
+from django.conf.urls.static import static  # For serving media files
+from .api import api
 
 urlpatterns = [
-    #django admin
+    # Django admin
     path("admin/", admin.site.urls),
-    #user management
     
-    #local apps
+    # Local apps
     path("accounts/", include("accounts.urls")),
-    path("",include("core.urls")),
-    path('accounts/', include('allauth.urls')),
-    path("api/", api.urls),#<--django apis
+    path("", include("core.urls")),
+    path("api/", api.urls),  # Django APIs
 ]
 
 if settings.DEBUG:

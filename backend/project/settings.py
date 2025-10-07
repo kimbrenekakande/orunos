@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     #Third Party Apps
     "django_cotton","django_htmx",'import_export','django_ckeditor_5',
+    "ninja_extra", "ninja_jwt",
     #Local Apps
     "accounts.apps.AccountsConfig","core.apps.CoreConfig",
 ]

@@ -2,3 +2,13 @@ scripts :
   dev: python manage.py runserver
   migrate : python manage.py makemigrations && python manage.py migrate
   collectstatic : python manage.py collectstatic --noinput
+  curl : |
+    curl \ -X POST \
+    -H "Content-Type: application/json" \
+    -d '{"username": "kakande", "password": "1234"}' \
+    http://localhost:8000/api/token/pair
+
+  curl-me : |
+    curl \ -X GET \
+    -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5ODM2MTQ0LCJpYXQiOjE3NTk4MzU4NDQsImp0aSI6IjNlMTk2N2FlN2FjOTRhZmM5MjMzZmU1MDExZDJkNWNhIiwidXNlcl9pZCI6MX0.d8xugSnRZZRksTr8Yg1rjIp3MQc4M8den0_-DmJPMUw" \
+    http://localhost:8000/api/me

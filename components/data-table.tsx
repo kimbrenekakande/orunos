@@ -54,15 +54,15 @@ import { toast } from "sonner"
 import { z } from "zod"
 
 import { useIsMobile } from "@/hooks/use-mobile"
-import { Badge } from "@/components/tiptapui/badge"
-import { Button } from "@/components/tiptapui/button"
+import { Badge } from "@/components/dashboard/badge"
+import { Button } from "@/components/dashboard/button"
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/tiptapui/chart"
-import { Checkbox } from "@/components/tiptapui/checkbox"
+} from "@/components/dashboard/chart"
+import { Checkbox } from "@/components/dashboard/checkbox"
 import {
   Drawer,
   DrawerClose,
@@ -72,7 +72,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/tiptapui/drawer"
+} from "@/components/dashboard/drawer"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -80,17 +80,17 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/tiptapui/dropdown-menu"
-import { Input } from "@/components/tiptapui/input"
-import { Label } from "@/components/tiptapui/label"
+} from "@/components/dashboard/dropdown-menu"
+import { Input } from "@/components/dashboard/input"
+import { Label } from "@/components/dashboard/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/tiptapui/select"
-import { Separator } from "@/components/tiptapui/separator"
+} from "@/components/dashboard/select"
+import { Separator } from "@/components/dashboard/separator"
 import {
   Table,
   TableBody,
@@ -98,13 +98,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/tiptapui/table"
+} from "@/components/dashboard/table"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/tiptapui/tabs"
+} from "@/components/dashboard/tabs"
 
 export const schema = z.object({
   id: z.number(),

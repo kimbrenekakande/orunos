@@ -7,23 +7,23 @@ import { PanelLeftIcon } from "lucide-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/tiptapui/button"
-import { Input } from "@/components/tiptapui/input"
-import { Separator } from "@/components/tiptapui/separator"
+import { Button } from "@/components/dashboard/button"
+import { Input } from "@/components/dashboard/input"
+import { Separator } from "@/components/dashboard/separator"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/tiptapui/sheet"
-import { Skeleton } from "@/components/tiptapui/skeleton"
+} from "@/components/dashboard/sheet"
+import { Skeleton } from "@/components/dashboard/skeleton"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/tiptapui/tooltip"
+} from "@/components/dashboard/tooltip"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -608,7 +608,7 @@ function SidebarMenuSkeleton({
 }) {
   // Random width between 50 to 90%.
   const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
+    // return `${Math.floor(Math.random() * 40) + 50}%`
   }, [])
 
   return (

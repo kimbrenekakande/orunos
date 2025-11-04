@@ -1,6 +1,6 @@
-import { Button } from "@/components/tiptapui/button"
-import { Separator } from "@/components/tiptapui/separator"
-import { SidebarTrigger } from "@/components/tiptapui/sidebar"
+import { Button } from "@/components/dashboard/button"
+import { Separator } from "@/components/dashboard/separator"
+import { SidebarTrigger } from "@/components/dashboard/sidebar"
 
 export function SiteHeader() {
   return (

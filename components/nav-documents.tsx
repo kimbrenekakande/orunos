@@ -14,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/tiptapui/dropdown-menu"
+} from "@/components/dashboard/dropdown-menu"
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -23,7 +23,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/tiptapui/sidebar"
+} from "@/components/dashboard/sidebar"
 
 export function NavDocuments({
   items,

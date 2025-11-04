@@ -11,24 +11,24 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/tiptapui/card"
+} from "@/components/dashboard/card"
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/tiptapui/chart"
+} from "@/components/dashboard/chart"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/tiptapui/select"
+} from "@/components/dashboard/select"
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@/components/tiptapui/toggle-group"
+} from "@/components/dashboard/toggle-group"
 
 export const description = "An interactive area chart"
 

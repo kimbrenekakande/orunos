@@ -1,6 +1,6 @@
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react"
 
-import { Badge } from "@/components/tiptapui/badge"
+import { Badge } from "@/components/dashboard/badge"
 import {
   Card,
   CardAction,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/tiptapui/card"
+} from "@/components/dashboard/card"
 
 export function SectionCards() {
   return (

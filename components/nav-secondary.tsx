@@ -9,7 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/tiptapui/sidebar"
+} from "@/components/dashboard/sidebar"
 
 export function NavSecondary({
   items,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { DataTable } from "@/components/data-table"
+import { DataTable } from "@/components/dashboard/data-table"
 import data from "./data.json"
 
 function courseworks() {

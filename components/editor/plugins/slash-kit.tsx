@@ -3,7 +3,7 @@
 import { SlashInputPlugin, SlashPlugin } from '@platejs/slash-command/react';
 import { KEYS } from 'platejs';
 
-import { SlashInputElement } from '@/components/tiptapui/slash-node';
+import { SlashInputElement } from '@/components/platejs/slash-node';
 
 export const SlashKit = [
   SlashPlugin.configure({

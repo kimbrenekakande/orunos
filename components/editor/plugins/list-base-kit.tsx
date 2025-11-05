@@ -2,7 +2,7 @@ import { BaseListPlugin } from '@platejs/list';
 import { KEYS } from 'platejs';
 
 import { BaseIndentKit } from '@/components/editor/plugins/indent-base-kit';
-import { BlockListStatic } from '@/components/tiptapui/block-list-static';
+import { BlockListStatic } from '@/components/platejs/block-list-static';
 
 export const BaseListKit = [
   ...BaseIndentKit,

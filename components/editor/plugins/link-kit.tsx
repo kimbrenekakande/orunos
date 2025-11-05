@@ -2,8 +2,8 @@
 
 import { LinkPlugin } from '@platejs/link/react';
 
-import { LinkElement } from '@/components/tiptapui/link-node';
-import { LinkFloatingToolbar } from '@/components/tiptapui/link-toolbar';
+import { LinkElement } from '@/components/platejs/link-node';
+import { LinkFloatingToolbar } from '@/components/platejs/link-toolbar';
 
 export const LinkKit = [
   LinkPlugin.configure({

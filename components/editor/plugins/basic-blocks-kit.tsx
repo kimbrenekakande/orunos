@@ -12,7 +12,7 @@ import {
 } from '@platejs/basic-nodes/react';
 import { ParagraphPlugin } from 'platejs/react';
 
-import { BlockquoteElement } from '@/components/tiptapui/blockquote-node';
+import { BlockquoteElement } from '@/components/platejs/blockquote-node';
 import {
   H1Element,
   H2Element,
@@ -20,9 +20,9 @@ import {
   H4Element,
   H5Element,
   H6Element,
-} from '@/components/tiptapui/heading-node';
-import { HrElement } from '@/components/tiptapui/hr-node';
-import { ParagraphElement } from '@/components/tiptapui/paragraph-node';
+} from '@/components/platejs/heading-node';
+import { HrElement } from '@/components/platejs/hr-node';
+import { ParagraphElement } from '@/components/platejs/paragraph-node';
 
 export const BasicBlocksKit = [
   ParagraphPlugin.withComponent(ParagraphElement),

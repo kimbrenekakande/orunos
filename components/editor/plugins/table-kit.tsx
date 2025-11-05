@@ -12,7 +12,7 @@ import {
   TableCellHeaderElement,
   TableElement,
   TableRowElement,
-} from '@/components/tiptapui/table-node';
+} from '@/components/platejs/table-node';
 
 export const TableKit = [
   TablePlugin.withComponent(TableElement),

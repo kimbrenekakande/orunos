@@ -11,7 +11,7 @@ import {
   CodeBlockElement,
   CodeLineElement,
   CodeSyntaxLeaf,
-} from '@/components/tiptapui/code-block-node';
+} from '@/components/platejs/code-block-node';
 
 const lowlight = createLowlight(all);
 

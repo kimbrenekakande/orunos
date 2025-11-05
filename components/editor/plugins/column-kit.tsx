@@ -2,7 +2,7 @@
 
 import { ColumnItemPlugin, ColumnPlugin } from '@platejs/layout/react';
 
-import { ColumnElement, ColumnGroupElement } from '@/components/tiptapui/column-node';
+import { ColumnElement, ColumnGroupElement } from '@/components/platejs/column-node';
 
 export const ColumnKit = [
   ColumnPlugin.withComponent(ColumnGroupElement),

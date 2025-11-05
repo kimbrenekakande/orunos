@@ -2,6 +2,6 @@
 
 import { CalloutPlugin } from '@platejs/callout/react';
 
-import { CalloutElement } from '@/components/tiptapui/callout-node';
+import { CalloutElement } from '@/components/platejs/callout-node';
 
 export const CalloutKit = [CalloutPlugin.withComponent(CalloutElement)];

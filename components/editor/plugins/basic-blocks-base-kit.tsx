@@ -10,7 +10,7 @@ import {
 } from '@platejs/basic-nodes';
 import { BaseParagraphPlugin } from 'platejs';
 
-import { BlockquoteElementStatic } from '@/components/tiptapui/blockquote-node-static';
+import { BlockquoteElementStatic } from '@/components/platejs/blockquote-node-static';
 import {
   H1ElementStatic,
   H2ElementStatic,
@@ -18,9 +18,9 @@ import {
   H4ElementStatic,
   H5ElementStatic,
   H6ElementStatic,
-} from '@/components/tiptapui/heading-node-static';
-import { HrElementStatic } from '@/components/tiptapui/hr-node-static';
-import { ParagraphElementStatic } from '@/components/tiptapui/paragraph-node-static';
+} from '@/components/platejs/heading-node-static';
+import { HrElementStatic } from '@/components/platejs/hr-node-static';
+import { ParagraphElementStatic } from '@/components/platejs/paragraph-node-static';
 
 export const BaseBasicBlocksKit = [
   BaseParagraphPlugin.withComponent(ParagraphElementStatic),

@@ -11,8 +11,8 @@ import {
 import { getPluginType, KEYS, PathApi } from 'platejs';
 import { usePluginOption } from 'platejs/react';
 
-import { AILoadingBar, AIMenu } from '@/components/tiptapui/ai-menu';
-import { AIAnchorElement, AILeaf } from '@/components/tiptapui/ai-node';
+import { AILoadingBar, AIMenu } from '@/components/platejs/ai-menu';
+import { AIAnchorElement, AILeaf } from '@/components/platejs/ai-node';
 
 import { useChat } from '../use-chat';
 import { CursorOverlayKit } from './cursor-overlay-kit';

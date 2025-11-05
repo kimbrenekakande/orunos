@@ -3,7 +3,7 @@
 import { TogglePlugin } from '@platejs/toggle/react';
 
 import { IndentKit } from '@/components/editor/plugins/indent-kit';
-import { ToggleElement } from '@/components/tiptapui/toggle-node';
+import { ToggleElement } from '@/components/platejs/toggle-node';
 
 export const ToggleKit = [
   ...IndentKit,

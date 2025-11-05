@@ -11,14 +11,14 @@ import {
 } from '@platejs/media/react';
 import { KEYS } from 'platejs';
 
-import { AudioElement } from '@/components/tiptapui/media-audio-node';
-import { MediaEmbedElement } from '@/components/tiptapui/media-embed-node';
-import { FileElement } from '@/components/tiptapui/media-file-node';
-import { ImageElement } from '@/components/tiptapui/media-image-node';
-import { PlaceholderElement } from '@/components/tiptapui/media-placeholder-node';
-import { MediaPreviewDialog } from '@/components/tiptapui/media-preview-dialog';
-import { MediaUploadToast } from '@/components/tiptapui/media-upload-toast';
-import { VideoElement } from '@/components/tiptapui/media-video-node';
+import { AudioElement } from '@/components/platejs/media-audio-node';
+import { MediaEmbedElement } from '@/components/platejs/media-embed-node';
+import { FileElement } from '@/components/platejs/media-file-node';
+import { ImageElement } from '@/components/platejs/media-image-node';
+import { PlaceholderElement } from '@/components/platejs/media-placeholder-node';
+import { MediaPreviewDialog } from '@/components/platejs/media-preview-dialog';
+import { MediaUploadToast } from '@/components/platejs/media-upload-toast';
+import { VideoElement } from '@/components/platejs/media-video-node';
 
 export const MediaKit = [
   ImagePlugin.configure({

@@ -2,7 +2,7 @@
 
 import { BlockMenuPlugin } from '@platejs/selection/react';
 
-import { BlockContextMenu } from '@/components/tiptapui/block-context-menu';
+import { BlockContextMenu } from '@/components/platejs/block-context-menu';
 
 import { BlockSelectionKit } from './block-selection-kit';
 

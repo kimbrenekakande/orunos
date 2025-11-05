@@ -6,7 +6,7 @@ import { faker } from '@faker-js/faker';
 import { CopilotPlugin } from '@platejs/ai/react';
 import { serializeMd, stripMarkdown } from '@platejs/markdown';
 
-import { GhostText } from '@/components/tiptapui/ghost-text';
+import { GhostText } from '@/components/platejs/ghost-text';
 
 import { MarkdownKit } from './markdown-kit';
 

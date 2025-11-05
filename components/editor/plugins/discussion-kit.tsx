@@ -1,10 +1,10 @@
 'use client';
 
-import type { TComment } from '@/components/tiptapui/comment';
+import type { TComment } from '@/components/platejs/comment';
 
 import { createPlatePlugin } from 'platejs/react';
 
-import { BlockDiscussion } from '@/components/tiptapui/block-discussion';
+import { BlockDiscussion } from '@/components/platejs/block-discussion';
 
 export interface TDiscussion {
   id: string;

@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { useEditorRef } from 'platejs/react';
 
-import { Button } from '@/components/tiptapui/button';
+import { Button } from '@/components/platejs/button';
 import {
   Command,
   CommandEmpty,
@@ -24,7 +24,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/tiptapui/command';
+} from '@/components/platejs/command';
 import {
   Dialog,
   DialogContent,
@@ -32,13 +32,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/tiptapui/dialog';
-import { Input } from '@/components/tiptapui/input';
+} from '@/components/platejs/dialog';
+import { Input } from '@/components/platejs/input';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/tiptapui/popover';
+} from '@/components/platejs/popover';
 import { cn } from '@/lib/utils';
 
 import { aiChatPlugin } from './plugins/ai-kit';

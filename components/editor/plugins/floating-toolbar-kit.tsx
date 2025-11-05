@@ -2,8 +2,8 @@
 
 import { createPlatePlugin } from 'platejs/react';
 
-import { FloatingToolbar } from '@/components/tiptapui/floating-toolbar';
-import { FloatingToolbarButtons } from '@/components/tiptapui/floating-toolbar-buttons';
+import { FloatingToolbar } from '@/components/platejs/floating-toolbar';
+import { FloatingToolbarButtons } from '@/components/platejs/floating-toolbar-buttons';
 
 export const FloatingToolbarKit = [
   createPlatePlugin({

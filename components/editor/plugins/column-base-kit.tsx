@@ -3,7 +3,7 @@ import { BaseColumnItemPlugin, BaseColumnPlugin } from '@platejs/layout';
 import {
   ColumnElementStatic,
   ColumnGroupElementStatic,
-} from '@/components/tiptapui/column-node-static';
+} from '@/components/platejs/column-node-static';
 
 export const BaseColumnKit = [
   BaseColumnPlugin.withComponent(ColumnGroupElementStatic),

@@ -9,7 +9,7 @@ import {
   CodeBlockElementStatic,
   CodeLineElementStatic,
   CodeSyntaxLeafStatic,
-} from '@/components/tiptapui/code-block-node-static';
+} from '@/components/platejs/code-block-node-static';
 
 const lowlight = createLowlight(all);
 

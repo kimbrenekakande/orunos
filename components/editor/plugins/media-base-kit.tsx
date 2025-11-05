@@ -9,10 +9,10 @@ import {
 } from '@platejs/media';
 import { KEYS } from 'platejs';
 
-import { AudioElementStatic } from '@/components/tiptapui/media-audio-node-static';
-import { FileElementStatic } from '@/components/tiptapui/media-file-node-static';
-import { ImageElementStatic } from '@/components/tiptapui/media-image-node-static';
-import { VideoElementStatic } from '@/components/tiptapui/media-video-node-static';
+import { AudioElementStatic } from '@/components/platejs/media-audio-node-static';
+import { FileElementStatic } from '@/components/platejs/media-file-node-static';
+import { ImageElementStatic } from '@/components/platejs/media-image-node-static';
+import { VideoElementStatic } from '@/components/platejs/media-video-node-static';
 
 export const BaseMediaKit = [
   BaseImagePlugin.withComponent(ImageElementStatic),

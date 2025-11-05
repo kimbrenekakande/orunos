@@ -1,6 +1,7 @@
-import { Button } from "@/components/dashboard/button"
+// import { Button } from "@/components/dashboard/button"
 import { Separator } from "@/components/dashboard/separator"
 import { SidebarTrigger } from "@/components/dashboard/sidebar"
+import { ModeToggle} from "@/components/ui/theme-toggle"
 
 export function SiteHeader() {
   return (
@@ -13,7 +14,10 @@ export function SiteHeader() {
         />
         <h1 className="text-base font-medium">Documents</h1>
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
+          <ModeToggle/>
+
+          
+          {/* <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
             <a
               href="https://github.com/shadcn-ui/ui/tree/main/apps/v4/app/(examples)/dashboard"
               rel="noopener noreferrer"
@@ -22,7 +26,7 @@ export function SiteHeader() {
             >
               GitHub
             </a>
-          </Button>
+          </Button> */}
         </div>
       </div>
     </header>

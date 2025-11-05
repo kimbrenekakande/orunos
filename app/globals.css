@@ -1,4 +1,6 @@
 @import "tailwindcss";
+
+@plugin "tailwind-scrollbar-hide";
 @import "tw-animate-css";
 
 /* tiptap editor */
@@ -46,6 +48,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --color-brand: var(--brand);
+  --color-highlight: var(--highlight);
 }
 
 :root {
@@ -82,6 +85,7 @@
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --brand: oklch(0.623 0.214 259.815);
+  --highlight: oklch(0.852 0.199 91.936);
 }
 
 .dark {
@@ -117,6 +121,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
   --brand: oklch(0.707 0.165 254.624);
+  --highlight: oklch(0.852 0.199 91.936);
 }
 
 @layer base {

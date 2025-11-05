@@ -8,7 +8,7 @@ const CardNav = ({
   items,
   className = '',
   ease = 'power3.out',
-  baseColor = '#ffff',
+  // baseColor = '#ffff',
   menuColor,
   buttonBgColor,
   buttonTextColor

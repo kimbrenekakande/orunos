@@ -18,7 +18,7 @@ export function PlateEditor() {
   return (
     <Plate editor={editor}>
       <EditorContainer>
-        <Editor variant="demo" />
+        <Editor variant="default" />
       </EditorContainer>
 
       <SettingsDialog />

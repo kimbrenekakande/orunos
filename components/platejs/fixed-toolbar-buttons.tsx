@@ -3,7 +3,6 @@
 import * as React from 'react';
 
 import {
-  ArrowUpToLineIcon,
   BaselineIcon,
   BoldIcon,
   Code2Icon,
@@ -21,11 +20,9 @@ import { AIToolbarButton } from './ai-toolbar-button';
 import { AlignToolbarButton } from './align-toolbar-button';
 import { CommentToolbarButton } from './comment-toolbar-button';
 import { EmojiToolbarButton } from './emoji-toolbar-button';
-import { ExportToolbarButton } from './export-toolbar-button';
 import { FontColorToolbarButton } from './font-color-toolbar-button';
 import { FontSizeToolbarButton } from './font-size-toolbar-button';
 import { RedoToolbarButton, UndoToolbarButton } from './history-toolbar-button';
-import { ImportToolbarButton } from './import-toolbar-button';
 import {
   IndentToolbarButton,
   OutdentToolbarButton,
@@ -44,126 +41,99 @@ import { ModeToolbarButton } from './mode-toolbar-button';
 import { MoreToolbarButton } from './more-toolbar-button';
 import { TableToolbarButton } from './table-toolbar-button';
 import { ToggleToolbarButton } from './toggle-toolbar-button';
-import { ToolbarGroup } from './toolbar';
+import { ToolbarGroup, ToolbarSeparator } from './toolbar';
 import { TurnIntoToolbarButton } from './turn-into-toolbar-button';
 
 export function FixedToolbarButtons() {
   const readOnly = useEditorReadOnly();
 
+  if (readOnly) return null;
+
   return (
-    <div className="flex w-full">
-      {!readOnly && (
-        <>
-          <ToolbarGroup>
-            <UndoToolbarButton />
-            <RedoToolbarButton />
-          </ToolbarGroup>
+    <>
+      {/* First Row - Main Formatting */}
+      <div className="flex w-full flex-wrap items-center gap-1">
+        {/* Undo/Redo */}
+        <ToolbarGroup>
+          <UndoToolbarButton />
+          <RedoToolbarButton />
+        </ToolbarGroup>
 
-          <ToolbarGroup>
-            <AIToolbarButton tooltip="AI commands">
-              <WandSparklesIcon />
-            </AIToolbarButton>
-          </ToolbarGroup>
+        <ToolbarSeparator />
 
-          <ToolbarGroup>
-            <ExportToolbarButton>
-              <ArrowUpToLineIcon />
-            </ExportToolbarButton>
+        {/* Text Formatting */}
+        <ToolbarGroup className="flex-nowrap overflow-x-auto pb-1 scrollbar-hide">
+          <MarkToolbarButton nodeType={KEYS.bold} tooltip="Bold (⌘+B)">
+            <BoldIcon className="size-4" />
+          </MarkToolbarButton>
+          <MarkToolbarButton nodeType={KEYS.italic} tooltip="Italic (⌘+I)">
+            <ItalicIcon className="size-4" />
+          </MarkToolbarButton>
+          <MarkToolbarButton nodeType={KEYS.underline} tooltip="Underline (⌘+U)">
+            <UnderlineIcon className="size-4" />
+          </MarkToolbarButton>
+          <MarkToolbarButton nodeType={KEYS.strikethrough} tooltip="Strikethrough">
+            <StrikethroughIcon className="size-4" />
+          </MarkToolbarButton>
+          <MarkToolbarButton nodeType={KEYS.code} tooltip="Code (⌘+E)">
+            <Code2Icon className="size-4" />
+          </MarkToolbarButton>
+          <MarkToolbarButton nodeType={KEYS.highlight} tooltip="Highlight">
+            <HighlighterIcon className="size-4" />
+          </MarkToolbarButton>
+          
+          <ToolbarSeparator />
+          
+          <FontColorToolbarButton nodeType={KEYS.color} tooltip="Text color">
+            <BaselineIcon className="size-4" />
+          </FontColorToolbarButton>
+          <FontColorToolbarButton nodeType={KEYS.backgroundColor} tooltip="Background color">
+            <PaintBucketIcon className="size-4" />
+          </FontColorToolbarButton>
+          
+          <ToolbarSeparator />
+          
+          <FontSizeToolbarButton />
+          <LineHeightToolbarButton />
+        </ToolbarGroup>
 
-            <ImportToolbarButton />
-          </ToolbarGroup>
+        <ToolbarSeparator />
 
-          <ToolbarGroup>
-            <InsertToolbarButton />
-            <TurnIntoToolbarButton />
-            <FontSizeToolbarButton />
-          </ToolbarGroup>
+        {/* Lists & Alignment */}
+        <ToolbarGroup>
+          <BulletedListToolbarButton />
+          <NumberedListToolbarButton />
+          <TodoListToolbarButton />
+          <ToggleToolbarButton />
+          <AlignToolbarButton />
+          <OutdentToolbarButton />
+          <IndentToolbarButton />
+        </ToolbarGroup>
 
-          <ToolbarGroup>
-            <MarkToolbarButton nodeType={KEYS.bold} tooltip="Bold (⌘+B)">
-              <BoldIcon />
-            </MarkToolbarButton>
+        <ToolbarSeparator />
 
-            <MarkToolbarButton nodeType={KEYS.italic} tooltip="Italic (⌘+I)">
-              <ItalicIcon />
-            </MarkToolbarButton>
+        {/* Insert Menu */}
+        <ToolbarGroup>
+          <InsertToolbarButton />
+          <LinkToolbarButton />
+          <TableToolbarButton />
+          <MediaToolbarButton nodeType={KEYS.img} />
+          <EmojiToolbarButton />
+        </ToolbarGroup>
 
-            <MarkToolbarButton
-              nodeType={KEYS.underline}
-              tooltip="Underline (⌘+U)"
-            >
-              <UnderlineIcon />
-            </MarkToolbarButton>
+        <div className="flex-1" />
 
-            <MarkToolbarButton
-              nodeType={KEYS.strikethrough}
-              tooltip="Strikethrough (⌘+⇧+M)"
-            >
-              <StrikethroughIcon />
-            </MarkToolbarButton>
+        {/* Right-aligned actions */}
+        <ToolbarGroup>
+          <AIToolbarButton tooltip="AI commands">
+            <WandSparklesIcon className="size-4" />
+          </AIToolbarButton>
+          <CommentToolbarButton />
+          <ModeToolbarButton />
+          <MoreToolbarButton />
+        </ToolbarGroup>
+      </div>
 
-            <MarkToolbarButton nodeType={KEYS.code} tooltip="Code (⌘+E)">
-              <Code2Icon />
-            </MarkToolbarButton>
-
-            <FontColorToolbarButton nodeType={KEYS.color} tooltip="Text color">
-              <BaselineIcon />
-            </FontColorToolbarButton>
-
-            <FontColorToolbarButton
-              nodeType={KEYS.backgroundColor}
-              tooltip="Background color"
-            >
-              <PaintBucketIcon />
-            </FontColorToolbarButton>
-          </ToolbarGroup>
-
-          <ToolbarGroup>
-            <AlignToolbarButton />
-
-            <NumberedListToolbarButton />
-            <BulletedListToolbarButton />
-            <TodoListToolbarButton />
-            <ToggleToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup>
-            <LinkToolbarButton />
-            <TableToolbarButton />
-            <EmojiToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup>
-            <MediaToolbarButton nodeType={KEYS.img} />
-            <MediaToolbarButton nodeType={KEYS.video} />
-            <MediaToolbarButton nodeType={KEYS.audio} />
-            <MediaToolbarButton nodeType={KEYS.file} />
-          </ToolbarGroup>
-
-          <ToolbarGroup>
-            <LineHeightToolbarButton />
-            <OutdentToolbarButton />
-            <IndentToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup>
-            <MoreToolbarButton />
-          </ToolbarGroup>
-        </>
-      )}
-
-      <div className="grow" />
-
-      <ToolbarGroup>
-        <MarkToolbarButton nodeType={KEYS.highlight} tooltip="Highlight">
-          <HighlighterIcon />
-        </MarkToolbarButton>
-        <CommentToolbarButton />
-      </ToolbarGroup>
-
-      <ToolbarGroup>
-        <ModeToolbarButton />
-      </ToolbarGroup>
-    </div>
+    </>
   );
 }

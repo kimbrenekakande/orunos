@@ -3,19 +3,10 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
-}
-
-
-model Coursework {
-  id        String  @id @default(cuid())
-  question  String
-  answer    String
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
 }

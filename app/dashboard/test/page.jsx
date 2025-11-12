@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { prisma } from "@/prisma/db";
+import { PrismaClient } from "@/lib/generated/prisma/client";
+
+const prisma = new PrismaClient();
 
 export default async function name() {
 	const works = await prisma.coursework.findMany();
@@ -8,9 +9,7 @@ export default async function name() {
 			<h1>All Courses</h1>
 			<ul>
 				{works.map((w) => (
-					<Link key={w.id} href={"#"}>
-						<li>{w.question}</li>
-					</Link>
+					<li key={w.id}>{w.question}</li>
 				))}
 			</ul>
 		</div>

@@ -6,7 +6,7 @@ export async function GET () {
   const prisma = new PrismaClient
   const work = await prisma.coursework.findUnique({
     where : {
-      id : 'cmhz4g8cf0003oce9qkazgpx2'
+      id : 'cmhzzyk160000occmezjk1u5g'
     }
   })
   return NextResponse.json(work)

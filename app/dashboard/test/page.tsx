@@ -1,22 +1,14 @@
-import { PrismaClient } from "@prisma/client";
-import Link from "next/link";
+import React from 'react'
 
-const prisma = new PrismaClient();
-
-export default async function name() {
-	const works = await prisma.coursework.findMany();
-	return (
-		<div className="h-20 bg-red-600">
-			<h1>All Courses(0)</h1>
-			<ul>
-				{works.map((w) => (
-          <Link href={`/dashboard/test/${w.question}`} key={w.id}>
-            <li>
-            {w.question} : {w.answer}
-          </li>
-          </Link>
-				))}
-			</ul>
-		</div>
-	);
+function page() {
+  return (
+    <div className=' h-screen w-screen flex flex-col items-center justify-center'>
+      <form action="" className='w-60%'>
+        <label htmlFor="discount" className='block'> discount </label>
+        <input type="text" name='discount' id='discount' defaultValue={70} className='border border-white' />
+      </form>
+    </div>
+  )
 }
+
+export default page 

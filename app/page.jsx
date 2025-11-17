@@ -1,10 +1,9 @@
 "use client"
 import CardNav from '@/components/react-bits/CardNav'
-import {items} from './items_list'
+import {items} from '../lib/items_list'
 import Link from 'next/link'
 
 const App = () => {
-  
   return (
     <div className='h-screen w-screen bg-amber-700'>
       <CardNav items={items} baseColor="#fff" menuColor="#000" buttonBgColor="#111" buttonTextColor="#fff" ease="power3.out" />

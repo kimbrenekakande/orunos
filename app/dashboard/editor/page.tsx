@@ -1,6 +1,6 @@
 import { Toaster } from "sonner";
 import { PlateEditor } from "@/components/editor/plate-editor";
-import {sample} from "./flx";
+import {sample} from "../../../archive/sand/flx";
 // import markdownit as xer from 'markdown-it'
 
 

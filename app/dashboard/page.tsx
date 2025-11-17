@@ -1,8 +1,7 @@
-'use server'
+import { addShit } from '../../lib/actions/creator'
 
-import { addShit } from './creator'
+export default async function Home() {
 
-function Home() {
   return (
     <div className='flex flex-col items-center justify-center h-full'>
       <form action={addShit} className=' border border-gray-500 p-10 flex flex-col gap-2 w-[70%]'>
@@ -18,5 +17,3 @@ function Home() {
     </div>
   )
 }
-
-export default Home

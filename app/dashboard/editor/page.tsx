@@ -1,19 +1,17 @@
 import { Toaster } from "sonner";
 import { PlateEditor } from "@/components/editor/plate-editor";
-import { sample } from "./flx";
+import {sample} from "./flx";
+// import markdownit as xer from 'markdown-it'
+
 
 export default async function Page() {
-	// const { content, setContent } = usePlateText();
+	const response = await fetch("http://localhost:3000/api/works/paper");
+	const work = await response.json();
+	const answer =`${ work.answer }`
 
-  const response = await fetch("http://localhost:3000/api/works");
-  const work = await response.json();
-  const an = work.answer
-  const answer = an
-	
 	return (
 		<div className="h-screen w-full">
-			<PlateEditor md={answer}/>
-
+			<PlateEditor md={answer} />
 			<Toaster />
 		</div>
 	);

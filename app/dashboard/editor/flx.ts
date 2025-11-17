@@ -1,4 +1,5 @@
-export const sample = `# Getting Started with Our Project
+export const sample = `
+# Getting Started with Our Project
 
 ## Introduction
 Welcome to our project! This document will guide you through the essential aspects of our application. Whether you're a developer, contributor, or user, this guide will help you get started quickly.

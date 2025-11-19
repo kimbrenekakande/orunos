@@ -1,19 +1,15 @@
-import { addShit } from '../../lib/actions/creator'
+import TemplateGallery from '@/components/ui/templates'
+import { DataTable } from "@/components/dashboard/data-table"
+import data from "@/lib/data.json"
 
-export default async function Home() {
 
+function Home() {
   return (
-    <div className='flex flex-col items-center justify-center h-full'>
-      <form action={addShit} className=' border border-gray-500 p-10 flex flex-col gap-2 w-[70%]'>
-        <label htmlFor="qn"></label>
-        <input type="text"  id='qn' name='qn' placeholder='Whats Your Question Lad' className='border border-gray-500 w-full h-8 p-2'/>
-
-        <label htmlFor="ans"></label>
-        <textarea rows={60} id='ans' name='ans' placeholder="Paste Your Answer Here Good Sir" className='border border-gray-500 w-full h-8' />
-
-        <button className='bg-white hover:bg-orange-600 text-black px-4 py-2 rounded cursor-grab'>CREATE</button>
-      </form>
-
+    <div className='px-4'>
+      <TemplateGallery/>
+      <DataTable data={data} />
     </div>
   )
 }
+
+export default Home

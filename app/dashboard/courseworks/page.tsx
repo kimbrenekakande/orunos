@@ -1,6 +1,6 @@
 import React from 'react'
 import { DataTable } from "@/components/dashboard/data-table"
-import data from "./data.json"
+import data from "@/lib/data.json"
 
 function courseworks() {
   return (

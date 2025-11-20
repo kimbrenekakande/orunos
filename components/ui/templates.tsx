@@ -6,6 +6,7 @@ import {
 	CarouselItem,
 } from "@/components/ui/carousel";
 import { templates } from "@/lib/templates";
+import Link from "next/link";
 
 function TemplatesGallery() {
 	return (
@@ -22,14 +23,16 @@ function TemplatesGallery() {
 							className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
 						>
 							<div className="p-4">
-								<div
-									className="w-full aspect-3/4 rounded-lg bg-muted border border-border overflow-hidden"
-									style={{
-										backgroundImage: `url(${template.image})`,
-										backgroundSize: "cover",
-										backgroundPosition: "center",
-									}}
-								></div>
+                <Link href={`dashboad/${template.type}`} className="cursor-pointer">
+                  <div
+                    className="w-full aspect-3/4 rounded-lg bg-muted border border-border overflow-hidden"
+                    style={{
+                      backgroundImage: `url(${template.image})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  ></div>
+                </Link>
 								<div className="mt-3 text-center">
 									<div className="text-sm text-muted-foreground">
 										{template.type}

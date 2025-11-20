@@ -2,61 +2,51 @@ export const templates = [
 	{
 		name: "Coursework",
 		type: "coursework",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image: "images/largepreview.png",
 	},
 	{
 		name: "Research Paper",
 		type: "research",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image: "images/largepreview.png"
 	},
 	{
 		name: "Essay",
 		type: "essay",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image : "images/largepreview.png"
 	},
 	{
 		name: "Lab Report",
 		type: "lab",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image: "images/largepreview.png"
 	},
 	{
 		name: "Thesis",
 		type: "thesis",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image: "images/largepreview.png"
 	},
 	{
 		name: "Dissertation",
 		type: "dissertation",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image:"images/largepreview.png"
 	},
 	{
 		name: "Case Study",
 		type: "case-study",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image:"images/largepreview.png"
 	},
 	{
 		name: "Literature Review",
 		type: "literature-review",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image:"images/largepreview.png"
 	},
 	{
 		name: "Proposal",
 		type: "proposal",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image:"images/largepreview.png"
 	},
 	{
 		name: "Presentation",
 		type: "presentation",
-		image:
-			"https://img.yumpu.com/22886652/1/500x640/proper-format-for-a-scientific-paper-university-of-miami.jpg",
+		image:"images/largepreview.png"
 	},
 ];

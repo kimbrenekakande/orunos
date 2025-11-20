@@ -8,10 +8,12 @@ export default async function Page(params : Promise<{id : string}>) {
 	const response = await fetch("http://localhost:3000/api/works/paper");
 	const work = await response.json();
 	const answer = `${work.answer}`;
+  console.log('start......')
+  console.log(id)
 
 	return (
 		<div className="h-screen w-full">
-      <h1 className="text-5xl">Editor {id} </h1>
+      <h1 className="text-9xl text-white">Customize : {id}</h1>
 			<PlateEditor md={answer} />
 			<Toaster />
 		</div>

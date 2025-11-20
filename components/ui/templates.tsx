@@ -23,7 +23,7 @@ function TemplatesGallery() {
 							className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
 						>
 							<div className="p-4">
-                <Link href={`dashboad/${template.type}`} className="cursor-pointer">
+                <Link href={`dashboard/${template.type}`} className="cursor-pointer">
                   <div
                     className="w-full aspect-3/4 rounded-lg bg-muted border border-border overflow-hidden"
                     style={{

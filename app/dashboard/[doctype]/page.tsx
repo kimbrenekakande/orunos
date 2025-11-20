@@ -6,6 +6,7 @@ import { addShit } from "@/lib/actions/creator";
 
 export default async function paper({params} : {params : Promise<{doctype : string}>}) {
   const {doctype} = await params;
+
   return (
     <div className='h-full w-full flex flex-col items-center justify-center gap-10'>
       <h1>Start {doctype}</h1>

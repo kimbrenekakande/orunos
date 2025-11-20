@@ -1,12 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { NextRequest,NextResponse } from "next/server";
 
+const prisma = new PrismaClient
 
-export async function GET () {
-  const prisma = new PrismaClient
+export async function GET (request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams
+  const id = searchParams.get('id')
   const work = await prisma.coursework.findUnique({
     where : {
-      id : 'cmi3fb55e000foctaw2d96f3d'
+      id : id || ""
     }
   })
   return NextResponse.json(work)

@@ -8,8 +8,6 @@ import { MarkdownPlugin } from "@platejs/markdown";
 
 export function PlateEditor({md} : {md : string}) {
 
-  console.log(`now_content : ${md}`);
-
 	const editor = usePlateEditor({
 		plugins: EditorKit,
 		value: (editor) =>
@@ -27,6 +25,7 @@ export function PlateEditor({md} : {md : string}) {
 			</EditorContainer>
 
 			<SettingsDialog />
+      <h1 className="text-7xl">Plate shitty</h1>
 		</Plate>
 	);
 }

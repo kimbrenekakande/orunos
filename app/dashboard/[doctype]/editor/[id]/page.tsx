@@ -8,7 +8,7 @@ export default async function Page({params }: {params : Promise<{ doctype : stri
 	const answer = `${work.question}`;
 
 	return (
-		<div className="h-screen w-full">
+		<div className="h-full w-full">
       <h1 className=" ">{doctype} | {id}</h1>
 			<PlateEditor md={answer} />
 			<Toaster />

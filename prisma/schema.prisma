@@ -2,8 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -11,11 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Coursework {
-  id        String  @id @default(cuid())
-  question  String
-  answer    String
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  id    String @id @default(cuid())
+  question String
+  answer String
 }

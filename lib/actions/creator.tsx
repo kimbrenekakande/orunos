@@ -1,9 +1,7 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
+import {prisma} from "@/lib/prisma-client"
 import { redirect } from "next/navigation";
-
-const prisma = new PrismaClient();
 
 export async function addShit(formData : FormData) {
   const doctype = formData.get("doctype") as string;

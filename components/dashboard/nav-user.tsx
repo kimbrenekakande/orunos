@@ -28,17 +28,20 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/dashboard/sidebar"
-
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}) {
+import { authClient } from "@/lib/auth-client"
+import { redirect } from "next/navigation"
+export function NavUser({user}: {user: {name: string, email: string, avatar: string}}) {
+  
   const { isMobile } = useSidebar()
+
+  async function logout(){
+    const{error} = await authClient.signOut()
+    if (error){
+      console.log(`Out Errror : ${error}`)
+    }
+    console.log("Logout Successful")
+    redirect('/login')
+  }
 
   return (
     <SidebarMenu>
@@ -94,7 +97,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               <IconLogout />
               Log out
             </DropdownMenuItem>

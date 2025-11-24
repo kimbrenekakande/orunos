@@ -30,7 +30,8 @@ import {
 } from "@/components/dashboard/sidebar"
 import { authClient } from "@/lib/auth-client"
 import { redirect } from "next/navigation"
-export function NavUser({user}: {user: {name: string, email: string, avatar: string}}) {
+
+export function NavUser({user}: {user: {name: string, email: string}}) {
   
   const { isMobile } = useSidebar()
 

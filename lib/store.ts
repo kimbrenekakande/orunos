@@ -6,6 +6,6 @@ type PlateText = {
 }
 
 export const usePlateText = create<PlateText>()((set) => ({
-  content: 'Looooooding',
+  content: 'kkkkk',
   setContent: (content: string) => set({ content }),
 }))

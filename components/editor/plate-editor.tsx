@@ -7,16 +7,34 @@ import { MarkdownPlugin } from "@platejs/markdown";
 import { FloatingDock } from "@/components/ui/floating-dock";
 import { links } from "@/lib/floater";
 import { Button } from "../platejs/button";
+import { redirect } from "next/navigation";
 
-export function PlateEditor({ md }: { md: string }) {
+interface Mdprops {
+  id : string
+  data : string
+}
+
+export function PlateEditor({md} : {md : Mdprops}) {
+  const {data, id } = md
+  console.log(`The ID is ${id}`)
 
 	const editor = usePlateEditor({
 		plugins: EditorKit,
-		value: (editor) => editor.getApi(MarkdownPlugin).markdown.deserialize(md),
+		value: (editor) => editor.getApi(MarkdownPlugin).markdown.deserialize(data),
 	});
 
-  function SaveEditorText(){
-    console.log(editor.api.markdown.serialize())
+  async function SaveEditorText(){
+    const newData = editor.api.markdown.serialize()
+    const res = await fetch(`http://localhost:3000/api/papers/update?id=${id}` , 
+      {
+        method :'POST',
+        headers : {'content-type' : 'application/json'},
+        body : JSON.stringify({'body' : newData})
+      });
+      
+    console.log(`new data : ${newData}`)
+    console.log(res)
+    redirect('/dashboard')
   }
 
 	return (

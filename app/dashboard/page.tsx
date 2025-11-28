@@ -1,4 +1,5 @@
 import TemplateGallery from '@/components/ui/templates'
+import{ TableView} from './table'
 
 
 
@@ -8,7 +9,7 @@ function Home() {
       <TemplateGallery/>
       <div className='mt-4 mx-8'>
         <h2>Recent Papers</h2>
-        
+        <TableView/>
       </div>
     </div>
   )

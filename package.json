@@ -100,6 +100,7 @@
     "react-dom": "19.2.0",
     "react-hotkeys-hook": "^5.2.1",
     "react-lite-youtube-embed": "^2.5.6",
+    "react-markdown": "^10.1.0",
     "react-player": "3.3.1",
     "react-textarea-autosize": "^8.5.9",
     "react-tweet": "^3.2.2",

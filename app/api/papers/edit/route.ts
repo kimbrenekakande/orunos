@@ -5,9 +5,12 @@ const prisma = new PrismaClient
 
 export async function POST (request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
-  const id = searchParams.get('id')
-  const {answer} = await req.json();
+  const paperID = searchParams.get('id')
+  const {question} = await request.formData()
 
-  const work = await prisma.coursework.update()
+  const work = await prisma.coursework.update({
+    where : { id : paperID },
+    data : {question : answer}
+  })
   return NextResponse.json(work)
 }

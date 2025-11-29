@@ -1,5 +1,5 @@
 import TemplateGallery from '@/components/ui/templates'
-import{ TableView} from '@/components/ui/table-view'
+import{TableView} from '@/components/ui/table-view'
 
 
 

@@ -12,7 +12,7 @@ export async function POST (request: NextRequest) {
 
   await prisma.coursework.update({
     where : { id : paperID || ""},
-    data : {question : newData}
+    data : {answer : newData}
   })
   return NextResponse.json({status : true})
 }

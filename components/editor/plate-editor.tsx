@@ -5,10 +5,13 @@ import { EditorKit } from "@/components/editor/editor-kit";
 import { Editor, EditorContainer } from "@/components/platejs/editor";
 import { MarkdownPlugin } from "@platejs/markdown";
 import { Button } from "../platejs/button";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Mdprops } from "@/lib/schemas";
 
+
+
 export function PlateEditor({md} : {md : Mdprops}) {
+  const router = useRouter();
   const {data, id } = md
   console.log(`The ID is ${id}`)
 
@@ -26,7 +29,7 @@ export function PlateEditor({md} : {md : Mdprops}) {
         body : JSON.stringify({'body' : newData})
       });
       
-    redirect('/dashboard')
+    router.push('/dashboard')
   }
 
 	return (

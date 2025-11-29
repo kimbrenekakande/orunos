@@ -9,14 +9,12 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import Link from "next/link"
-import {PrismaClient} from "@prisma/client"
+import prisma from "@/lib/prisma"
 
 
 export async function TableView() {
   
-  const prisma = new PrismaClient()
 	const all = await prisma.coursework.findMany() // all papers array
-  console.log(all)
 
   return (
     <Table>

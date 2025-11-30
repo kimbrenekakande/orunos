@@ -1,14 +1,16 @@
 'use client'
 import { authClient } from "@/lib/auth-client"
-import { redirect } from "next/navigation"
+import { useRouter} from "next/navigation"
 import { useState } from "react"
 
 export default function SignUp() {
+  const router = useRouter()
   const [email, setEmail ] = useState("")
   const [name, setName ] = useState("")
   const [password, setPassword ] = useState("")
   
   async function signUpNow(){
+
     const {error} = await authClient.signUp.email({ email, name, password})
 
     if (error) {
@@ -16,7 +18,7 @@ export default function SignUp() {
       return;
     }
     console.log("User Created Successfully")
-    redirect('/dashboard')
+    router.push('/dashboard')
 
   }
 

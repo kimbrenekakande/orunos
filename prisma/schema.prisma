@@ -29,6 +29,7 @@ model User {
   email         String
   emailVerified Boolean   @default(false)
   image         String?
+  institution    String? //Custom field
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]

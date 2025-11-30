@@ -1,24 +1,26 @@
-import TemplateGallery from '@/components/ui/templates'
-import { DataTable } from "@/components/dashboard/data-table"
-import data from "@/lib/data.json"
-import { userSession } from '@/lib/session'
-import { unauthorized } from 'next/navigation'
-
-
+import TemplateGallery from "@/components/ui/templates";
+import { DataTable } from "@/components/dashboard/data-table";
+import data from "@/lib/data.json";
+import { serverSession } from "@/lib/server-session";
+import { unauthorized } from "next/navigation";
 
 async function Home() {
-  const session = await userSession()
-  const user = session?.user;
-  if (!user) unauthorized()
-  console.log(user)
+	const session = await serverSession();
+	const user = session?.user;
+	if (!user) unauthorized();
 
-  return (
-    <div className='px-4'>
-      <h2>Welcome {user.name}</h2>
-      <TemplateGallery/>
-      <DataTable data={data} />
-    </div>
-  )
+	console.log(user);
+
+	return (
+		<div className="px-4">
+			<h2>
+				Ni hao, {user.name} of {user.institution}
+			</h2>
+			{!user.emailVerified && <h1>verify this shit bruh</h1>}
+			<TemplateGallery />
+			<DataTable data={data} />
+		</div>
+	);
 }
 
-export default Home 
+export default Home;

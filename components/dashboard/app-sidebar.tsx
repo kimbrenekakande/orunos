@@ -7,7 +7,11 @@ import { NavSecondary } from "@/components/dashboard/nav-secondary"
 import { NavUser } from "@/components/dashboard/nav-user"
 import {Sidebar,SidebarContent,SidebarFooter,SidebarHeader,SidebarMenu,SidebarMenuButton,SidebarMenuItem,} from "@/components/dashboard/sidebar"
 
-const data = {
+//Fetch session Client Side
+import { authClient } from "@/lib/auth-client"
+
+
+const tabsData = {
   user: {
     name:'ntondo',
     email: "m@example.com",
@@ -93,9 +97,14 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const {data, isPending, error, refetch} = authClient.useSession() // Fetching the session from the client side
+  const userInfo = data?.user
+  console.log(`client side user`)
+  console.log(userInfo)
+
   const user =  {
-    name: "fukkkkk",
-    email: "m@example.com",
+    name: `${userInfo?.name}`,
+    email: `${userInfo?.email}`,
     avatar: "/avatars/shadcn.jpg",
   }
   return (
@@ -116,9 +125,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={tabsData.navMain} />
         {/* <NavDocuments items={data.documents} /> */}
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavSecondary items={tabsData.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

@@ -1,0 +1,25 @@
+import { betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import {prisma} from "@/lib/prisma-client"
+
+export const auth = betterAuth({
+  database: prismaAdapter(prisma, {
+      provider: "sqlite", // or "mysql", "postgresql", ...etc
+  }),
+
+  emailAndPassword : {
+    enabled : true
+  },
+
+  user : {
+    additionalFields : {
+      role : {type : 'string', input : false},
+      institution : { type : 'string', input : true }
+    }
+  }
+  
+});
+
+
+export type Session = typeof auth.$Infer.Session
+export type User = typeof auth.$Infer.Session.user

@@ -28,17 +28,20 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/dashboard/sidebar"
+import { authClient } from "@/lib/auth-client"
+import { redirect } from "next/navigation"
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}) {
+export function NavUser({user}: {user: {name: string, email: string}}) {
+  
   const { isMobile } = useSidebar()
+
+  async function logout(){
+    const{error} = await authClient.signOut()
+    if (error){
+      console.log(`Out Errror : ${error}`)
+    }
+    redirect('/')
+  }
 
   return (
     <SidebarMenu>
@@ -49,7 +52,7 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg grayscale">
+              <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
@@ -94,7 +97,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               <IconLogout />
               Log out
             </DropdownMenuItem>

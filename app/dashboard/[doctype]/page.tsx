@@ -2,11 +2,16 @@
 import { Textarea } from "@/components/ui/textarea"
 import {Button} from "@/components/ui/button"
 import { addShit } from "@/lib/actions/creator";
-
+import { serverSession } from "@/lib/server-session";
+import { redirect } from "next/navigation"; //or use unauthorized
 
 export default async function paper({params} : {params : Promise<{doctype : string}>}) {
   const {doctype} = await params;
 
+  const session = await serverSession();
+  const user = session?.user;
+  if (!user) redirect('/login')
+  
   return (
     <div className='h-full w-full flex flex-col items-center justify-center gap-10'>
       <h1>Start {doctype}</h1>

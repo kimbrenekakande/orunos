@@ -1,41 +1,19 @@
 "use client"
 
 import * as React from "react"
-import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react"
-
-import { NavDocuments } from "@/components/dashboard/nav-documents"
+import {IconCamera,IconDashboard,IconFileAi,IconFileDescription,IconFolder,IconHelp,IconSearch,IconSettings,} from "@tabler/icons-react"
 import { NavMain } from "@/components/dashboard/nav-main"
 import { NavSecondary } from "@/components/dashboard/nav-secondary"
 import { NavUser } from "@/components/dashboard/nav-user"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/dashboard/sidebar"
+import {Sidebar,SidebarContent,SidebarFooter,SidebarHeader,SidebarMenu,SidebarMenuButton,SidebarMenuItem,} from "@/components/dashboard/sidebar"
 
-const data = {
+//Fetch session Client Side
+import { authClient } from "@/lib/auth-client"
+
+
+const tabsData = {
   user: {
-    name: "shadcn",
+    name:'ntondo',
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
@@ -116,26 +94,17 @@ const data = {
       icon: IconSearch,
     },
   ],
-  // documents: [
-  //   {
-  //     name: "Data Library",
-  //     url: "#",
-  //     icon: IconDatabase,
-  //   },
-  //   {
-  //     name: "Reports",
-  //     url: "#",
-  //     icon: IconReport,
-  //   },
-  //   {
-  //     name: "Word Assistant",
-  //     url: "#",
-  //     icon: IconFileWord,
-  //   },
-  // ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const {data, isPending, error, refetch} = authClient.useSession() // Fetching the session from the client side
+  const userInfo = data?.user
+
+  const user =  {
+    name: `${userInfo?.name}`,
+    email: `${userInfo?.email}`,
+    avatar: "/images/tree.jpg",
+  }
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -146,20 +115,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:p-1.5"
             >
               <a href="#">
-                <IconInnerShadowTop className="size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                {/* <IconInnerShadowTop className="size-5" /> */}
+                <span className="text-base font-semibold">orunos</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={tabsData.navMain} />
         {/* <NavDocuments items={data.documents} /> */}
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavSecondary items={tabsData.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   )

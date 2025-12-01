@@ -1,9 +1,14 @@
+import { serverSession } from "@/lib/server-session";
+import { redirect } from "next/navigation";
 import TemplateGallery from '@/components/ui/templates'
 import{TableView} from '@/components/ui/table-view'
 
 
+export default async function Home() {
+	const session = await serverSession();
+	const user = session?.user;
+	if (!user) redirect('/login')
 
-function Home() {
   return (
     <div className='px-4'>
       <TemplateGallery/>
@@ -14,5 +19,3 @@ function Home() {
     </div>
   )
 }
-
-export default Home

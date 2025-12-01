@@ -2,12 +2,13 @@ import TemplateGallery from "@/components/ui/templates";
 import { DataTable } from "@/components/dashboard/data-table";
 import data from "@/lib/data.json";
 import { serverSession } from "@/lib/server-session";
-import { unauthorized } from "next/navigation";
+import { redirect } from "next/navigation"; //or use unauthorized
+
 
 async function Home() {
 	const session = await serverSession();
 	const user = session?.user;
-	if (!user) unauthorized();
+	if (!user) redirect('/login')
 
 	console.log(user);
 

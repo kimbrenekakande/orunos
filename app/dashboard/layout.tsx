@@ -44,8 +44,9 @@ export default function RootLayout({
           <SidebarInset>
             <SiteHeader />
             <div className="flex flex-1 flex-col">
-              
+
               {children}
+              
             </div>
           </SidebarInset>
         </SidebarProvider>

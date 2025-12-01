@@ -1,7 +1,14 @@
 import { Toaster } from "sonner";
 import { PlateEditor } from "@/components/editor/plate-editor";
+import { serverSession } from "@/lib/server-session";
+import { redirect } from "next/navigation"; //or use unauthorized
 
 export default async function Page({params }: {params : Promise<{ doctype : string; id : string}>}) {
+  
+  const session = await serverSession();
+  const user = session?.user;
+  if (!user) redirect('/login')
+
 	const {doctype , id} = await params;
 	const response = await fetch(`http://localhost:3000/api/works/paper?id=${id}`);
 	const work = await response.json()

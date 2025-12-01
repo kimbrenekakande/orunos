@@ -1,27 +1,21 @@
-import TemplateGallery from "@/components/ui/templates";
-import { DataTable } from "@/components/dashboard/data-table";
-import data from "@/lib/data.json";
 import { serverSession } from "@/lib/server-session";
-import { redirect } from "next/navigation"; //or use unauthorized
+import { redirect } from "next/navigation";
+import TemplateGallery from '@/components/ui/templates'
+import{TableView} from '@/components/ui/table-view'
 
 
-async function Home() {
+export default async function Home() {
 	const session = await serverSession();
 	const user = session?.user;
 	if (!user) redirect('/login')
 
-	console.log(user);
-
-	return (
-		<div className="px-4">
-			<h2>
-				Ni hao, {user.name} of {user.institution}
-			</h2>
-			{!user.emailVerified && <h1>verify this shit bruh</h1>}
-			<TemplateGallery />
-			<DataTable data={data} />
-		</div>
-	);
+  return (
+    <div className='px-4'>
+      <TemplateGallery/>
+      <div className='mt-4 mx-8'>
+        <h2>Recent Papers</h2>
+        <TableView/>
+      </div>
+    </div>
+  )
 }
-
-export default Home;

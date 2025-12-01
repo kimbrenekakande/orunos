@@ -18,7 +18,7 @@ export default async function paper({params} : {params : Promise<{doctype : stri
       <form action={addShit} className="w-[70%] flex flex-col gap-4 items-center">
 
         <input type="text" value={doctype} name="doctype" id="doctype" className="hidden"/>
-        <input type="text" name="ans" id="ans" value="answers nigga" className="hidden"/>
+        <input type="text" name="ans" id="ans" value="answer from LLM" className="hidden"/>
         <Textarea name="qn" placeholder="Type your message here." className="h-[200px]" />
 
         <Button type="submit" className="w-40 cursor-pointer">Submit</Button>

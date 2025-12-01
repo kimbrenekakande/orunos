@@ -99,8 +99,6 @@ const tabsData = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const {data, isPending, error, refetch} = authClient.useSession() // Fetching the session from the client side
   const userInfo = data?.user
-  console.log(`client side user`)
-  console.log(userInfo)
 
   const user =  {
     name: `${userInfo?.name}`,

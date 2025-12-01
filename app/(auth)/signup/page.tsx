@@ -17,9 +17,7 @@ export default function SignUp() {
       console.error("Sign up error:", error.message);
       return;
     }
-    console.log("User Created Successfully")
     router.push('/dashboard')
-
   }
 
   return (

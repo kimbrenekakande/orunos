@@ -13,10 +13,6 @@ export function PlateEditor({ md }: { md: string }) {
 		value: (editor) => editor.getApi(MarkdownPlugin).markdown.deserialize(md),
 	});
 
-	// Assuming `editor` is your Plate editor instance with content
-	// const markdownOutput = editor.api.markdown.serialize();
-	// console.log(markdownOutput);
-
 	return (
 		<Plate editor={editor}>
 			<EditorContainer>

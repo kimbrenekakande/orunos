@@ -10,31 +10,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Coursework {
-  id       String @id @default(cuid())
-  question String
-  answer   String
+model Document {
+  id        String   @id @default(cuid())
+  type      String
+  question  String
+  answer    String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-
-
-
-
-
+model Institution {
+  id        Int      @id @default(autoincrement())
+  name      String
+  country   String
+  address String
+  logo      String?
+  users     User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
 //Better Auth
 model User {
-  id            String    @id
+  id            String       @id
   name          String
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean      @default(false)
   image         String?
   role          String? //Custom Field
-  institution   String? //Custom field
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  institution   Institution? @relation(fields: [institutionId], references: [id]) //Custom field
+  documents     Document[] //Custom field
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
   sessions      Session[]
   accounts      Account[]
+  institutionId Int?
 
   @@unique([email])
   @@map("user")

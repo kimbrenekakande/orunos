@@ -1,18 +1,14 @@
-import { streamText } from 'ai';
-import {deepseek} from '@ai-sdk/deepseek';
+import { generateText } from 'ai';
+import { createDeepSeek } from '@ai-sdk/deepseek';
 
+const deepseek = createDeepSeek({
+  apiKey: process.env.DEEPSEEK_API_KEY,
+});
 
+const { text } = await generateText({
+  model: deepseek('deepseek-chat'),
+  system: 'You are a super bright college student and you are going to return the outline for a coursework question',
+  prompt: 'Define Africa\'s future if it used cultural identity in its technology development?',
+});
 
-async function chatter() {
-  const { textStream } = await streamText({
-    model: deepseek("deepseek-chat"),
-    system: 'You an super bright collage student and you gonna retun the oultine for a courseworks question',
-    prompt: 'Define africas future if it used culture identity in its technology development?',
-  });
-
-  for await (const chunk of textStream) {
-    process.stdout.write(chunk);
-  }
-}
-
-chatter();
+console.log(text);

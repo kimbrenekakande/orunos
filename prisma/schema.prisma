@@ -18,9 +18,9 @@ model Document {
   id        String   @id @default(cuid())
   docTypeId String
   docType   DocType  @relation(fields: [docTypeId], references: [type])
-  cost      Int
   question  String
-  answer    String
+  answer    String?
+  cost      Int
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())

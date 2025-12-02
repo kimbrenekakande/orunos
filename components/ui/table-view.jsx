@@ -14,7 +14,7 @@ import prisma from "@/lib/prisma"
 
 export async function TableView() {
   
-	const all = await prisma.coursework.findMany() // all papers array
+	const all = await prisma.document.findMany() // all papers array
 
   return (
     <Table>

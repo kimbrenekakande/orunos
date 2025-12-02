@@ -8,6 +8,8 @@ export default async function Home() {
 	const session = await serverSession();
 	const user = session?.user;
 	if (!user) redirect('/login')
+  console.log(user)
+    
 
   return (
     <div className='px-4'>

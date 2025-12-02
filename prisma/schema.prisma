@@ -16,9 +16,9 @@ enum TransType {
 
 model Document {
   id        String   @id @default(cuid())
-  type      String
-  cost      String
-  price     Int
+  docTypeId String
+  docType   DocType  @relation(fields: [docTypeId], references: [type])
+  cost      Int
   question  String
   answer    String
   userId    String
@@ -34,6 +34,7 @@ model DocType {
   price       Int
   name        String   // Display name: "Coursework", "Field Work"
   description String?  // Optional description
+  documents   Document[]
   isActive    Boolean  @default(true) // Can disable document types
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

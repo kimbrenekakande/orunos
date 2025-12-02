@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req : Request) {
   const { question, answer } = await req.json();
-	const work = await prisma.coursework.create({
+	const work = await prisma.document.create({
 		data: {
 			question: question,
 			answer: answer,

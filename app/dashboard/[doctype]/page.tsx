@@ -18,7 +18,6 @@ export default async function paper({params} : {params : Promise<{doctype : stri
 
         <input type="text" value={doctype} name="doctype" id="doctype" className="hidden"  readOnly/>
         <Textarea name="qns" placeholder="Type your message here." className="h-[200px]"/>
-        <input type="text" name="ans" id="ans" defaultValue="answer from LLM" className="hidden" />
         
         <Button type="submit" className="w-40 cursor-pointer">Submit</Button>
       </form>

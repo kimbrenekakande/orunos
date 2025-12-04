@@ -5,6 +5,9 @@ import { redirect } from "next/navigation"; //or use unauthorized
 
 
 
+
+
+
 export default async function Page({params }: {params : Promise<{ doctype : string; id : string}>}) {
   const session = await serverSession();
   const user = session?.user;

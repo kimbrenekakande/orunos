@@ -14,7 +14,11 @@ import prisma from "@/lib/prisma"
 
 export async function TableView() {
   
-	const all = await prisma.document.findMany() // all papers array
+	const all = await prisma.document.findMany({
+    orderBy : {
+      createdAt : 'desc'
+    }
+  }) // all papers array
 
   return (
     <Table>
@@ -33,7 +37,7 @@ export async function TableView() {
             <Link key={paper.id}  href={`/dashboard/coursework/editor/${paper.id}`} className="contents">
               <TableRow  className="hover:text-orange-700">
                 <TableCell className="font-medium">{paper.question.substring(0,40)}</TableCell>
-                <TableCell>Coursework</TableCell>
+                <TableCell>shiiiiit</TableCell>
                 <TableCell>Pending</TableCell>
                 <TableCell >date</TableCell>
                 <TableCell className="text-right">date</TableCell>

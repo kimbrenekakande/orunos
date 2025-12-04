@@ -34,15 +34,18 @@ export async function TableView() {
       </TableHeader>
       <TableBody>
           {all.map((paper) => (
-            <Link key={paper.id}  href={`/dashboard/coursework/editor/${paper.id}`} className="contents">
-              <TableRow  className="hover:text-orange-700">
-                <TableCell className="font-medium">{paper.question.substring(0,40)}</TableCell>
-                <TableCell>shiiiiit</TableCell>
-                <TableCell>Pending</TableCell>
-                <TableCell >date</TableCell>
-                <TableCell className="text-right">date</TableCell>
-              </TableRow>
-            </Link>
+            
+            <TableRow key={paper.id}  className="hover:text-orange-700">
+              <TableCell className="font-medium">
+                <Link  href={`/dashboard/coursework/editor/${paper.id}`} className="contents">
+                {paper.question.substring(0,40)}
+                </Link>
+              </TableCell>
+              <TableCell>{paper.docTypeId}</TableCell>
+              <TableCell>Pending</TableCell>
+              <TableCell >date</TableCell>
+              <TableCell className="text-right">date</TableCell>
+            </TableRow>
           ))}
         
       </TableBody>

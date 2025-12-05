@@ -5,12 +5,31 @@ import { addShit } from "@/lib/actions/creator";
 import { serverSession } from "@/lib/server-session";
 import { redirect } from "next/navigation"; //or use unauthorized
 
-export default async function paper({params} : {params : Promise<{doctype : string}>}) {
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from 'zod'
+import { min } from "lodash";
+
+const formSchema = z.object({
+  doctype : z
+    .string(),
+
+  qn : z
+    .string()
+    .min(10, "Your questions must me more than 10 characters")
+})
+
+export default async function Paper({params} : {params : Promise<{doctype : string}>}) {
   const {doctype} = await params;
 
   const session = await serverSession();
   const user = session?.user;
   if (!user) redirect('/login')
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    
+  })
   
   return (
     <div className='h-full w-full flex flex-col items-center justify-center gap-10'>

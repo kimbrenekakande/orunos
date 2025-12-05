@@ -1,1 +1,0 @@
-// In a client component

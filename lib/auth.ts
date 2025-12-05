@@ -1,4 +1,4 @@
-import { betterAuth } from "better-auth";
+import { betterAuth, number } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import {prisma} from "@/lib/prisma-client"
 
@@ -13,8 +13,15 @@ export const auth = betterAuth({
 
   user : {
     additionalFields : {
-      role : {type : 'string', input : false},
-      institution : { type : 'string', input : true }
+      institution : { 
+        type : 'string', 
+        input : true 
+      },
+      wallet : {
+        type : 'number' , 
+        input : false
+      }
+
     }
   }
   

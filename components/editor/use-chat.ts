@@ -111,8 +111,8 @@ export const useChat = () => {
 				return res;
 			},
 		}),
-		onData(data) {
-			if (data.type === "data-toolName") {
+		onData(data: { type: string; data?: any }) {
+			if (data.type === "data-toolName" && data.data) {
 				const toolName = data.data;
 				if (
 					toolName === "comment" ||
@@ -123,14 +123,27 @@ export const useChat = () => {
 				}
 			}
 
-			if (data.type === "data-comment" && data.data) {
-				if (data.data.status === "finished") {
-					editor.getApi(BlockSelectionPlugin).blockSelection.deselect();
+			if (
+				data.type === "data-comment" &&
+				data.data &&
+				typeof data.data === "object" &&
+				"status" in data.data
+			) {
+				const commentData = data.data as {
+					status: string;
+					comment?: {
+						blockId: string;
+						comment: string;
+						content: string;
+					} | null;
+				};
 
+				if (commentData.status === "finished") {
+					editor.getApi(BlockSelectionPlugin).blockSelection.deselect();
 					return;
 				}
 
-				const aiComment = data.data.comment!;
+				const aiComment = commentData.comment!;
 				const range = aiCommentToRange(editor, aiComment);
 
 				if (!range) return console.warn("No range found for AI comment");

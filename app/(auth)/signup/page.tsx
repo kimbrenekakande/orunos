@@ -3,6 +3,15 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/tiptapui/input'
 import { Label } from '@/components/tiptapui/label'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -63,9 +72,26 @@ export default function SignUpPage() {
               <Input type="email" required name="email" id="email" onChange={(e) => setEmail(e.target.value)}/>
             </div>
 
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label htmlFor="institution" className="block text-sm"> Institution </Label>
               <Input type="text" required name="institution" id="institution" onChange={(e) => setInstitute(e.target.value)}/>
+            </div> */}
+            <div className="mt-6">
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select an Institution" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Institutions</SelectLabel>
+                    <SelectItem value="apple">Makerere University</SelectItem>
+                    <SelectItem value="banana">YMCA</SelectItem>
+                    <SelectItem value="blueberry">Victoria University</SelectItem>
+                    <SelectItem value="grapes">Grapes</SelectItem>
+                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-0.5">

@@ -1,6 +1,7 @@
+'use server'
 import { prisma } from "@/lib/prisma-client";
 
-export async function institutionRecord(value = 'Makerere University') {
+export async function institutionRecord(value : string) {
   const inst = await prisma.institution.findUnique({
     where : {
       name : value
@@ -11,7 +12,6 @@ export async function institutionRecord(value = 'Makerere University') {
     }
     
   })
-  console.log(inst?.id)
+  console.log(`GOT THE FUCKIN ${inst?.id}`)
+  return inst?.id
 }
-
-institutionRecord()

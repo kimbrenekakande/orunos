@@ -44,7 +44,7 @@ model DocType {
 
 model Institution {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String   @unique
   country   String
   address   String
   logo      String?

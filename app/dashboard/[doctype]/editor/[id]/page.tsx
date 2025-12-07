@@ -5,9 +5,6 @@ import { redirect } from "next/navigation"; //or use unauthorized
 
 
 
-
-
-
 export default async function Page({params }: {params : Promise<{ doctype : string; id : string}>}) {
   const session = await serverSession();
   const user = session?.user;
@@ -17,7 +14,7 @@ export default async function Page({params }: {params : Promise<{ doctype : stri
 	const {id} = await params;
 	const response = await fetch(`http://localhost:3000/api/papers/fetch?id=${id}`);
 	const paper = await response.json()
-	const answer = `${paper.answer}`;
+	const answer = await `${paper.answer}`;
 
   const obj = { //aligns with Mdprops schema in plate-editor 
     id : id,

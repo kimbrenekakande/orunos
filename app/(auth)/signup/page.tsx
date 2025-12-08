@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/tiptapui/input";
-import { Label } from "@/components/tiptapui/label";
+import { Label } from "@/components/ui/label";
 
 import {
 	Select,

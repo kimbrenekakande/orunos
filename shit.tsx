@@ -1,12 +1,6 @@
+// import dotenv from "dotenv";
+// dotenv.config();
 
 
-async function getter(){
-  const id =  'cmiviy7j10003ocpgqec0rn4q'
-  const response = await fetch(`http://localhost:3000/api/papers/fetch?id=${id}`);
-  const paper = await response
-  // const answer = await `${paper.answer}`;
-  console.log(paper)
-}
-
-
-getter()
+const prod = process.env.PROD === 'true'
+console.log(prod)

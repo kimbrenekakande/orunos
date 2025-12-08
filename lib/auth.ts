@@ -6,11 +6,10 @@ export const auth = betterAuth({
 	database: prismaAdapter(prisma, {
 		provider: "sqlite", // or "mysql", "postgresql", ...etc
 	}),
-  
+
   trustedOrigins: [
     "http://localhost:3000",
     "https://orunos.netlify.app",
-    "https://69355b53f3e91a000869b941--orunos.netlify.app" // Your Netlify preview URL
   ],
 
 	emailAndPassword: {

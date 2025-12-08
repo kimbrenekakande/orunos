@@ -1,23 +1,9 @@
-import { Textarea } from "@/components/ui/textarea"
-import {Button} from "@/components/ui/button"
-import { startCreation } from "@/lib/actions/creator";
+'use'
+
 import { serverSession } from "@/lib/server-session";
 import { redirect } from "next/navigation"; //or use unauthorized
+import {Qner} from "./qner";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
-import * as z from 'zod'
-import { min } from "lodash";
-
-const formSchema = z.object({
-  doctype : z
-    .string(),
-
-  qn : z
-    .string()
-    .min(10, "Your questions must me more than 10 characters")
-})
 
 export default async function Paper({params} : {params : Promise<{doctype : string}>}) {
   const {doctype} = await params;
@@ -26,20 +12,11 @@ export default async function Paper({params} : {params : Promise<{doctype : stri
   const user = session?.user;
   if (!user) redirect('/login')
 
-  // const form = useForm<z.infer<typeof formSchema>>({
-    
-  // })
+
   
   return (
-    <div className='h-full w-full flex flex-col items-center justify-center gap-10'>
-      <h1>Start {doctype}</h1>
-      <form action={startCreation} className="w-[70%] flex flex-col gap-4 items-center">
-
-        <input type="text" value={doctype} name="doctype" id="doctype" className="hidden"  readOnly/>
-        <Textarea name="qns" placeholder="Type your message here." className="h-[200px]"/>
-        
-        <Button type="submit" className="w-40 cursor-pointer">Submit</Button>
-      </form>
+    <div className="flex flex-col items-center justify-center h-full w-full">
+      <Qner doctype={doctype} />
     </div>
   )
 }

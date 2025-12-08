@@ -14,19 +14,6 @@ enum TransType {
   WITHDRAWAL
 }
 
-
-model fuck {
-  id        String   @id @default(cuid())
-  docTypeId String
-  question  String
-  answer    String?
-  cost      Int
-  userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-}
 model Document {
   id        String   @id @default(cuid())
   docTypeId String

@@ -1,8 +1,6 @@
-'use'
-
 import { serverSession } from "@/lib/server-session";
 import { redirect } from "next/navigation"; //or use unauthorized
-import {Qner} from "./qner";
+import {DocQns} from "../../../components/forms/docQns";
 
 
 export default async function Paper({params} : {params : Promise<{doctype : string}>}) {
@@ -16,7 +14,7 @@ export default async function Paper({params} : {params : Promise<{doctype : stri
   
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
-      <Qner doctype={doctype} />
+      <DocQns doctype={doctype} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { serverSession } from "@/lib/server-session";
 import { redirect } from "next/navigation"; //or use unauthorized
-import {DocQns} from "../../../components/forms/docQns";
+import {DocumentQns} from "../../../components/forms/qnsForm";
 
 
 export default async function Paper({params} : {params : Promise<{doctype : string}>}) {
@@ -14,7 +14,7 @@ export default async function Paper({params} : {params : Promise<{doctype : stri
   
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
-      <DocQns doctype={doctype} />
+      <DocumentQns doctype={doctype} />
     </div>
   )
 }

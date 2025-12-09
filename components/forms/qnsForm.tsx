@@ -27,7 +27,7 @@ const formSchema = z.object({
 	qnz: z.string().min(5, "Your questions must me more than 5 characters"),
 });
 
-export function DocQns({ doctype }: { doctype: string }) {
+export function DocumentQns({ doctype }: { doctype: string }) {
 	const { Doctype, setDoctype } = useDocType();
 	const { questions, setQuestions } = useQnz();
 	const form = useForm({

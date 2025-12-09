@@ -5,6 +5,7 @@ import {Button} from "@/components/ui/button"
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldLegend,
@@ -23,35 +24,37 @@ const formSchema = z.object({
   doctype : z
     .string(),
 
-  qn : z
+  qnz : z
     .string()
-    .min(10, "Your questions must me more than 10 characters")
+    .min(5, "Your questions must me more than 5 characters")
 })
 
 
 export function Qner({ doctype }: { doctype: string }) {
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm({
     resolver : zodResolver(formSchema),
     defaultValues : {
       doctype : doctype,
-      qn : ''
+      qnz : ''
     }
   })
   
   return (
     <>
       <h1 className="mb-5">Start {doctype}</h1>
-      <form action={startCreation} className="w-[70%] flex flex-col gap-4 items-center">
-          <FieldGroup >
-            <fieldset className="flex flex-col items-center gap-5">
-              <input type="text" value={doctype} name="doctype" id="doctype" className="hidden"  readOnly/>
-              <Field>
-                <Textarea id="qns" name="qns" placeholder="Type your questions here." className="h-[200px]"/>
-              </Field> 
-              <Button type="submit" className="w-40 cursor-pointer">Submit</Button>
-            </fieldset>
-          </FieldGroup>
+      <form onSubmit={ form.handleSubmit(startCreation)} className="w-[70%] flex flex-col gap-4 items-center">
+        
+        <FieldGroup >
+          <Controller name="qnz" control={form.control} render={({field, fieldState}) => (
+            <Field>
+              <Textarea placeholder="Type your questions here." {...field} aria-invalid={fieldState.invalid} className="h-[200px]"/>
+              {fieldState.invalid && (<FieldError errors={[fieldState.error]} />)}
+            </Field> 
+          )} />
+          <Button type="submit" className="w-40 cursor-pointer">Submit</Button>
+        </FieldGroup>
+        
       </form>
     </>
   )

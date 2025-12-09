@@ -10,8 +10,6 @@ export default async function Paper({params} : {params : Promise<{doctype : stri
   const user = session?.user;
   if (!user) redirect('/login')
 
-
-  
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
       <DocumentQns doctype={doctype} />

@@ -27,12 +27,12 @@ export const useDocType = create<DocType>()((set) => ({
 
 
 
-type Qnz = {
+type Questions = {
   questions: string
   setQuestions : (questions : string) => void
 }
 
-export const useQnz = create<Qnz>()((set) => ({
+export const useQuestions = create<Questions>()((set) => ({
   questions: '',
   setQuestions: (questions: string) => set({ questions }),
 }))

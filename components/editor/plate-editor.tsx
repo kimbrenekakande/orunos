@@ -22,7 +22,7 @@ export function PlateEditor({md} : {md : Mdprops}) {
 
   async function SaveEditorText(){
     const newData = editor.api.markdown.serialize()
-    await fetch(`http://localhost:3000/api/papers/update?id=${id}`, 
+    await fetch(`api/papers/update?id=${id}`, 
       {
         method :'POST',
         headers : {'content-type' : 'application/json'},

@@ -14,12 +14,25 @@ export const usePlateText = create<PlateText>()((set) => ({
 
 
 
-type paperID = {
-  id: string
-  setId : (id : string) => void
+type DocType = {
+  Doctype: string
+  setDoctype : (Doctype : string) => void
 }
 
-export const usePaperID= create<paperID>()((set) => ({
-  id: '',
-  setId: (id: string) => set({ id }),
+export const useDocType = create<DocType>()((set) => ({
+  Doctype: '',
+  setDoctype: (Doctype: string) => set({ Doctype}),
+}))
+
+
+
+
+type Questions = {
+  questions: string
+  setQuestions : (questions : string) => void
+}
+
+export const useQuestions = create<Questions>()((set) => ({
+  questions: '',
+  setQuestions: (questions: string) => set({ questions }),
 }))

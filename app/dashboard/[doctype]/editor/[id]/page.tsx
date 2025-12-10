@@ -10,11 +10,11 @@ export default async function Page({params }: {params : Promise<{ docType : stri
   if (!user) redirect('/login')
 
 	const {id} = await params;
-	const response = await fetch(`http://localhost:3000/api/papers/fetch?id=${id}`);
+	const response = await fetch(`/api/papers/fetch?id=${id}`);
 	const paper = await response.json()
 
   // kickoff agent workflow
-  const agent = await fetch('http://localhost:3000/api/ai/generate', {
+  const agent = await fetch('/api/ai/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

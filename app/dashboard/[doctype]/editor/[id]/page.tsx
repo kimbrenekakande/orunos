@@ -10,11 +10,12 @@ export default async function Page({params }: {params : Promise<{ docType : stri
   if (!user) redirect('/login')
 
 	const {id} = await params;
-	const response = await fetch(`/api/papers/fetch?id=${id}`);
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+	const response = await fetch(`${baseUrl}/api/papers/fetch?id=${id}`);
 	const paper = await response.json()
 
   // kickoff agent workflow
-  const agent = await fetch('/api/ai/generate', {
+  const agent = await fetch(`${baseUrl}/api/ai/generate`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

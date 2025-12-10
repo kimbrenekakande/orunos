@@ -3,9 +3,6 @@ import { Toaster } from "sonner";
 import { PlateEditor } from "@/components/editor/plate-editor";
 import { serverSession } from "@/lib/server-session";
 import { redirect } from "next/navigation"; //or use unauthorized
-import prisma from "@/lib/prisma";
-
-
 
 export default async function Page({params }: {params : Promise<{ docType : string; id : string}>}) {
   const session = await serverSession();
@@ -17,7 +14,7 @@ export default async function Page({params }: {params : Promise<{ docType : stri
 	const paper = await response.json()
 
   // kickoff agent workflow
-  const kickoff = await fetch('http://localhost:3000/api/ai/generate', {
+  const agent = await fetch('http://localhost:3000/api/ai/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,8 +23,9 @@ export default async function Page({params }: {params : Promise<{ docType : stri
       prompt: paper.question,
     }),
   })
-  const kickResponse = await kickoff.json()
-  const {text} = kickResponse
+
+  const agentResponse = await agent.json()
+  const {text} = agentResponse
 
   const obj = {
     id : id, 

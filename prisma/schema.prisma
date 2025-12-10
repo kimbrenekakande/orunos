@@ -30,7 +30,7 @@ model Document {
 }
 
 model DocType {
-  type        String   @id @unique // 'coursework', 'fieldwork', etc.
+  type        String  @id @unique // 'coursework', 'fieldwork', etc.
   price       Int
   name        String   // Display name: "Coursework", "Field Work"
   description String?  // Optional description

@@ -23,9 +23,10 @@ export async function startCreation(formData: FormData) {
   });
   if (!docType) throw new Error("Invalid document type");
   
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
   // kickoff agent workflow
-  const kickoff = await fetch('http://localhost:3000/api/ai/generate', {
+  const kickoff = await fetch(`${baseUrl}/api/ai/generate`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

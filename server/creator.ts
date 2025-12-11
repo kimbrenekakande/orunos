@@ -1,8 +1,10 @@
 'use server'
 
 import  prisma  from "@/lib/prisma";
+import baseUrl from "@/lib/base-url";
 import { redirect } from "next/navigation";
 import { serverSession } from "@/lib/server-session";
+
 
 export async function startCreation(formData: {doctype: string, qnz: string}) {
   const session = await serverSession();
@@ -26,5 +28,17 @@ export async function startCreation(formData: {doctype: string, qnz: string}) {
     },
   });
   
+  // kickoff agentic workflow
+  await fetch(`${baseUrl}/api/ai/generate`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id: newDoc.id,
+      prompt: question,
+    }),
+  })
+
   redirect(`/dashboard/${docType}/editor/${newDoc.id}`);
 }

@@ -29,7 +29,7 @@ export async function startCreation(formData: {doctype: string, qnz: string}) {
   });
   
   // kickoff agentic workflow
-  await fetch(`${baseUrl}/api/ai/generate`, {
+  fetch(`${baseUrl}/api/ai/generate`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

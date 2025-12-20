@@ -14,7 +14,7 @@ const App = () => {
 				buttonTextColor="#fff"
 				ease="power3.out"
 			/>
-			<div
+			<div 
 				id="hero"
 				className="min-h-screen w-full bg-orange-500 relative flex flex-col items-center justify-center"
 				style={{

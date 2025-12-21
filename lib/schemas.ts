@@ -10,3 +10,4 @@ export const outlineSchema = z.object({
   sections : z.array(z.object({title : z.string(),content : z.string()})),
   conclusion : z.string()
 });
+

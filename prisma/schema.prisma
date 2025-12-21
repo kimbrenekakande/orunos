@@ -14,12 +14,19 @@ enum TransType {
   WITHDRAWAL
 }
 
+enum DocStatus {
+  GENERATING
+  READY
+}
+
 model Document {
   id        String   @id @default(cuid())
   docTypeId String
   docType   DocType  @relation(fields: [docTypeId], references: [type])
+  title     String
   question  String
   answer    String?
+  status    DocStatus
   cost      Int
   userId    String
   user      User     @relation(fields: [userId], references: [id])
@@ -73,7 +80,7 @@ model User {
   name          String
   email         String
   image         String?
-  wallet        Int           @default(0)
+  balance       Int           @default(0)
   institutionId Int?
   institution   Institution?  @relation(fields: [institutionId], references: [id]) //Custom field
   documents     Document[]    //Custom field

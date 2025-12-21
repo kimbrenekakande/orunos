@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/dashboard/test/pagetjsx", "app/dashboard/test/[id]/page.tsx", "app/page.jsx", "lib/floater.js"  ],
+, "app/dashboard/test/pagetjsx", "app/dashboard/test/[id]/page.tsx", "app/page.jsx", "lib/floater.js", "app/dashboard/[doctype]/editor/[id]/polling.jsx"  ],
   "exclude": ["node_modules"]
 }

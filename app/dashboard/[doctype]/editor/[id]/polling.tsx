@@ -5,9 +5,12 @@ import { PlateEditor } from "@/components/editor/plate-editor";
 import useSWR from "swr";
 import baseUrl from "@/lib/base-url";
 
-export function DocPoller({ id } : {id : string}) {
-  const fetcher = (url : string ) => fetch(url).then((res) => res.json());
+export function DocPoller({ id, from } : {id : string, from : string}) {
 
+
+  const fetcher = (url : string ) => fetch(url).then((res) => res.json());
+  console.log(`this shit is from ${from} client side mfk`)
+  
   const { data, error, isLoading } = useSWR(
     `${baseUrl}/api/papers/fetch?id=${id}`, fetcher,
     { refreshInterval: (data) => {

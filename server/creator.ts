@@ -43,5 +43,5 @@ export async function startCreation(formData: {
     }),
   });
 
-  redirect(`/dashboard/${docType}/editor/${newDoc.id}`);
+  redirect(`/dashboard/${docType}/editor/${newDoc.id}?source=form`);
 }

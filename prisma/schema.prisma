@@ -9,6 +9,7 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
 enum TransType {
   DEPOSIT
   WITHDRAWAL
@@ -20,31 +21,31 @@ enum DocStatus {
 }
 
 model Document {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   docTypeId String
-  docType   DocType  @relation(fields: [docTypeId], references: [type])
+  docType   DocType   @relation(fields: [docTypeId], references: [type])
   title     String
   question  String
   answer    String?
   status    DocStatus
   cost      Int
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@index([userId])
 }
 
 model DocType {
-  type        String  @id @unique // 'coursework', 'fieldwork', etc.
+  type        String     @id @unique // 'coursework', 'fieldwork', etc.
   price       Int
-  name        String   // Display name: "Coursework", "Field Work"
-  description String?  // Optional description
+  name        String // Display name: "Coursework", "Field Work"
+  description String? // Optional description
   documents   Document[]
-  isActive    Boolean  @default(true) // Can disable document types
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  isActive    Boolean    @default(true) // Can disable document types
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
   @@index([type])
 }
@@ -63,13 +64,13 @@ model Institution {
 }
 
 model Transaction {
-  id          String   @id
+  id          String    @id
   amount      Int
   type        TransType // 'deposit' or 'charge'
   description String
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
   userId      String
-  user        User     @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
@@ -83,7 +84,7 @@ model User {
   balance       Int           @default(0)
   institutionId Int?
   institution   Institution?  @relation(fields: [institutionId], references: [id]) //Custom field
-  documents     Document[]    //Custom field
+  documents     Document[] //Custom field
   transactions  Transaction[] //Custom field
   admin         Boolean       @default(false) //Custom Field
   createdAt     DateTime      @default(now())

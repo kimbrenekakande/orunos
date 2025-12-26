@@ -170,7 +170,7 @@ const CardNav = ({
 
 					<div className="logo-container flex items-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 order-1 md:order-none">
 						<Image
-							src="/brand/orunos_logo.png"
+							src="/brand/logo_black.png"
 							width={50}
 							height={50}
 							alt={logoAlt}

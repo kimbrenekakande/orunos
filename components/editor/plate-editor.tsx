@@ -6,20 +6,21 @@ import { Editor, EditorContainer } from "@/components/platejs/editor";
 import { MarkdownPlugin } from "@platejs/markdown";
 import { Button } from "../platejs/button";
 import { useRouter } from "next/navigation";
-import { Mdprops } from "@/lib/schemas";
-
+import { Mdprops } from "@/lib/types";
+import { Page, Text, View, Document, PDFDownloadLink, PDFDownloadLinkProps } from "@react-pdf/renderer";
+import { styles } from "@/styles/docstyles";
 
 
 export function PlateEditor({md} : {md : Mdprops}) {
   const router = useRouter();
   const {data, id } = md
-  console.log(`The ID is ${id}`)
 
 	const editor = usePlateEditor({
 		plugins: EditorKit,
 		value: (editor) => editor.getApi(MarkdownPlugin).markdown.deserialize(data),
 	});
-
+	
+	
   async function SaveEditorText(){
     const newData = editor.api.markdown.serialize()
     await fetch(`api/papers/update?id=${id}`, 
@@ -28,21 +29,41 @@ export function PlateEditor({md} : {md : Mdprops}) {
         headers : {'content-type' : 'application/json'},
         body : JSON.stringify({'body' : newData})
       });
-      
+
     router.push('/dashboard')
   }
-  
-  function savePDF(){
-    console.log("paper downloaded")
-  }
 
+  //Generating && Download PDF
+  const MyDoc = () =>{
+    const content = editor.api.markdown.serialize()
+    return (
+      <Document >
+        <Page style={styles.cover}>
+          <Text>COURSEWORK</Text>
+        </Page>
+        <Page size="A4" style={styles.page}>
+          <View>
+            <Text>orunos.com</Text>
+            <Text>
+              {content}
+            </Text>
+          </View>
+        </Page>
+      </ Document>
+    )
+  }
+ 
 	return (
 		<Plate editor={editor}>
 			<EditorContainer>
 				<Editor variant="default" />
 				<div className="fixed bottom-5 right-10 -translate-x-1/2 z-50 rounded-4xl h-19 gap-2 flex">
           <Button className="cursor-pointer" onClick={SaveEditorText}>SAVE</Button>
-          <Button className="cursor-pointer" onClick={savePDF}>DOWNLOAD</Button>
+          <Button className="cursor-pointer">
+            <PDFDownloadLink document={<MyDoc/>} fileName="documentname.pdf">
+              down shit
+            </PDFDownloadLink>
+          </Button>
 				</div>
 			</EditorContainer>
 		</Plate>

@@ -1,7 +1,7 @@
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader,TableRow } from "@/components/ui/table"
 import Link from "next/link"
 import clsx from "clsx"
-import { twMerge } from "tailwind-merge"
+
 import prisma from "@/lib/prisma"
 
 

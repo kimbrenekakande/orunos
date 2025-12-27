@@ -31,13 +31,18 @@ export function PlateEditor({md} : {md : Mdprops}) {
       
     router.push('/dashboard')
   }
+  
+  function savePDF(){
+    console.log("paper downloaded")
+  }
 
 	return (
 		<Plate editor={editor}>
 			<EditorContainer>
 				<Editor variant="default" />
-				<div className="fixed bottom-5 right-10 -translate-x-1/2 z-50 rounded-4xl h-19">
+				<div className="fixed bottom-5 right-10 -translate-x-1/2 z-50 rounded-4xl h-19 gap-2 flex">
           <Button className="cursor-pointer" onClick={SaveEditorText}>SAVE</Button>
+          <Button className="cursor-pointer" onClick={savePDF}>DOWNLOAD</Button>
 				</div>
 			</EditorContainer>
 		</Plate>

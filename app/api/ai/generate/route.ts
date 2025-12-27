@@ -53,7 +53,11 @@ export async function POST(request: NextRequest) {
 
   await prisma.document.update({
     where : { id : id},
-    data : {answer : content}
+    data : {
+      title : output.title,
+      answer : content,
+      status : "READY",
+    }
   })
 
   return NextResponse.json({status : 'document created successfully'});

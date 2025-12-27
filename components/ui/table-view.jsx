@@ -1,14 +1,7 @@
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader,TableRow } from "@/components/ui/table"
 import Link from "next/link"
+import clsx from "clsx"
+import { twMerge } from "tailwind-merge"
 import prisma from "@/lib/prisma"
 
 
@@ -41,7 +34,11 @@ export async function TableView() {
                 </Link>
               </TableCell>
               <TableCell>{paper.docTypeId}</TableCell>
-              <TableCell className="text-green-700">{(paper.status).toLowerCase()}</TableCell>
+              <TableCell className={clsx(
+                "text-4xl",
+                {"text-red-900" : paper.status === "GENERATING"},
+                {"text-green-600" : paper.status === "READY"}
+              )}>&deg;</TableCell>
               <TableCell >date</TableCell>
               <TableCell className="text-right">date</TableCell>
             </TableRow>

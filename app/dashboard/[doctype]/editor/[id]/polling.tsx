@@ -5,12 +5,15 @@ import { PlateEditor } from "@/components/editor/plate-editor";
 import useSWR from "swr";
 import baseUrl from "@/lib/base-url";
 
-export function DocPoller({ id, from } : {id : string, from : string}) {
+type props = {
+  id    : string,
+  from  : string,
+}
 
+export function DocPoller({ id, from } : props) {
 
   const fetcher = (url : string ) => fetch(url).then((res) => res.json());
   console.log(`this shit is from ${from} client side mfk`)
-  
   const { data, error, isLoading } = useSWR(
     `${baseUrl}/api/papers/fetch?id=${id}`, fetcher,
     { refreshInterval: (data) => {
@@ -19,13 +22,21 @@ export function DocPoller({ id, from } : {id : string, from : string}) {
   )
 
   if (error) return <div>Error Fetching Document</div>;
-
-  if (isLoading || (data && data.status === "GENERATING")) {
-    return (
-      <div className="h-full w-full flex flex-col justify-center items-center">
-        <h1>Generating in Progress</h1>
-      </div>
-    )
+  
+  if (isLoading || data.status === "GENERATING"){
+    if (from === "form"){
+      return (
+        <div className="h-full w-full flex flex-col justify-center items-center">
+          <h1>Generating in Progress</h1>
+        </div>
+      )
+    } else {
+      return (
+        <div className="h-full w-full flex flex-col justify-center items-center">
+          <h1>Opening Document</h1>
+        </div>
+      )
+    }
   }
 
   const Document = {

@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from "next/server";
 import { groq } from '@ai-sdk/groq';
 import { generateText, generateObject } from 'ai';
-import { outlineSchema} from '@/lib/schemas';
+import { outlineSchema} from '@/lib/types';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();

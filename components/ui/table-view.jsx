@@ -39,8 +39,8 @@ export async function TableView() {
                 {"text-red-900" : paper.status === "GENERATING"},
                 {"text-green-600" : paper.status === "READY"}
               )}>&deg;</TableCell>
-              <TableCell >date</TableCell>
-              <TableCell className="text-right">date</TableCell>
+              <TableCell>{ paper.createdAt.toISOString().split('T')[0] }</TableCell>
+              <TableCell className="text-right">{ paper.updatedAt.toISOString().split('T')[0] }</TableCell>
             </TableRow>
           ))}
         

@@ -7,8 +7,8 @@ import { MarkdownPlugin } from "@platejs/markdown";
 import { Button } from "../platejs/button";
 import { useRouter } from "next/navigation";
 import { Mdprops } from "@/lib/types";
-import { Page, Text, View, Document, PDFDownloadLink, PDFDownloadLinkProps } from "@react-pdf/renderer";
-import { styles } from "@/styles/docstyles";
+import { Page, Text, View, Document, PDFDownloadLink } from "@react-pdf/renderer";
+import { styles } from "@/styles/pdfstyles";
 
 
 export function PlateEditor({md} : {md : Mdprops}) {
@@ -36,6 +36,8 @@ export function PlateEditor({md} : {md : Mdprops}) {
   //Generating && Download PDF
   const MyDoc = () =>{
     const content = editor.api.markdown.serialize()
+    
+    
     return (
       <Document >
         <Page style={styles.cover}>
@@ -48,11 +50,14 @@ export function PlateEditor({md} : {md : Mdprops}) {
               {content}
             </Text>
           </View>
-        </Page>
+          <Text style={styles.pageNo} render={({pageNumber}) => (
+            `${pageNumber}`
+          )} fixed/>
+        </Page>  
       </ Document>
     )
   }
- 
+
 	return (
 		<Plate editor={editor}>
 			<EditorContainer>
@@ -61,7 +66,7 @@ export function PlateEditor({md} : {md : Mdprops}) {
           <Button className="cursor-pointer" onClick={SaveEditorText}>SAVE</Button>
           <Button className="cursor-pointer">
             <PDFDownloadLink document={<MyDoc/>} fileName="documentname.pdf">
-              down shit
+              Download
             </PDFDownloadLink>
           </Button>
 				</div>

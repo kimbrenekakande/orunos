@@ -1,7 +1,8 @@
 import { z } from 'zod';
 export interface Mdprops {
   id : string
-  data : string
+  title : string
+  content : string
 }
 
 export const outlineSchema = z.object({

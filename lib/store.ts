@@ -36,3 +36,15 @@ export const useQuestions = create<Questions>()((set) => ({
   questions: '',
   setQuestions: (questions: string) => set({ questions }),
 }))
+
+
+//Editor Content
+type Content = {
+  content: string
+  setContent : (questions : string) => void
+}
+
+export const useContent = create<Content>()((set) => ({
+  content: '',
+  setContent: (content: string) => set({ content }),
+}))

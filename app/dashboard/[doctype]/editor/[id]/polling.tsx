@@ -42,7 +42,8 @@ export function DocPoller({ id, from } : props) {
   const Document = {
     //aligns with Mdprops schema in plate-editor
     id: data.id,
-    data: data.answer,
+    title: data.title,
+    content: data.answer,
   };
 
   return (

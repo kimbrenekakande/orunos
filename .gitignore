@@ -44,11 +44,11 @@ yarn-error.log*
 next-env.d.ts
 
 # prisma
-/prisma/app.db
-/generated/prisma
-/lib/generated/prisma
-apps/*/prisma/*.db
-packages/*/prisma/*.db
+#/prisma/app.db
+#/generated/prisma
+#/lib/generated/prisma
+#apps/*/prisma/*.db
+#packages/*/prisma/*.db
 
 # archive directories
 archive

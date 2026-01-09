@@ -47,10 +47,14 @@ next-env.d.ts
 /prisma/app.db
 /generated/prisma
 /lib/generated/prisma
+apps/*/prisma/*.db
+packages/*/prisma/*.db
 
 # archive directories
 archive
 ./archive
+apps/*/archive
+packages/*/archive
 
 # monorepo specific
 apps/*/node_modules
@@ -58,18 +62,36 @@ apps/*/.next
 apps/*/out
 apps/*/build
 apps/*/.turbo
+apps/*/.DS_Store
+apps/*/.env.local
+apps/*/.env.development.local
+apps/*/.env.test.local
+apps/*/.env.production.local
+apps/*/.idea
+apps/*/.vscode
+apps/*/*.swp
+apps/*/*.swo
+apps/*/Thumbs.db
 packages/*/node_modules
 packages/*/dist
 packages/*/build
 packages/*/.turbo
+packages/*/.DS_Store
+packages/*/.idea
+packages/*/.vscode
+packages/*/*.swp
+packages/*/*.swo
+packages/*/Thumbs.db
 
 # lock files (keep only at root)
 apps/*/package-lock.json
 apps/*/yarn.lock
 apps/*/pnpm-lock.yaml
+apps/*/bun.lockb
 packages/*/package-lock.json
 packages/*/yarn.lock
 packages/*/pnpm-lock.yaml
+packages/*/bun.lockb
 
 # IDE
 .idea/

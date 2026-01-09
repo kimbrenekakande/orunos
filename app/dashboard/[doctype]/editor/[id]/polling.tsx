@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { PlateEditor } from "@/components/editor/plate-editor";
 import useSWR from "swr";
 import baseUrl from "@/lib/base-url";
+import Image from "next/image";
 
 type props = {
   id    : string,
@@ -26,14 +27,26 @@ export function DocPoller({ id, from } : props) {
   if (isLoading || data.status === "GENERATING"){
     if (from === "form"){
       return (
-        <div className="h-full w-full flex flex-col justify-center items-center">
-          <h1>Generating in Progress</h1>
+        <div className="h-full w-full flex flex-col justify-center items-center gap-4">
+          <Image 
+            src = "/images/robot.png"
+            height={100}
+            width={300}
+            alt="A robot"
+          />
+          <h1 className="text-orange-600">Generating in Progress</h1>
         </div>
       )
     } else {
       return (
         <div className="h-full w-full flex flex-col justify-center items-center">
-          <h1>Opening Document</h1>
+          <Image 
+            src = "/images/growth.png"
+            height={400}
+            width={800}
+            alt="girl sitting with an open book"
+          />
+          <h1 className="text-orange-600">Opening Document</h1>
         </div>
       )
     }

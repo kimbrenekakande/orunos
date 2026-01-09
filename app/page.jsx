@@ -27,7 +27,7 @@ const App = () => {
           id="call-to-action"
           className="flex flex-col gap-6 items-center justify-center"
         >
-          <h1 className="text-2xl text-white">Your AI Study Buddy</h1>
+          <h1 className="text-2xl text-white">Your Academic Documents Copilot</h1>
           <h2 className="text-4xl text-white font-crimson-text motion-preset-focus motion-duration-1000 text-center">
             WRITE CITE LEARN
           </h2>

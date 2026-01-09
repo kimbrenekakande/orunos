@@ -10,6 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 
+# turbo
+.turbo
+
 # testing
 /coverage
 
@@ -40,18 +43,39 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/generated/prisma
-
-/lib/generated/prisma
-
-/lib/generated/prisma
-
-/lib/generated/prisma
-
-/lib/generated/prisma
-
+# prisma
 /prisma/app.db
+/generated/prisma
 /lib/generated/prisma
 
+# archive directories
 archive
 ./archive
+
+# monorepo specific
+apps/*/node_modules
+apps/*/.next
+apps/*/out
+apps/*/build
+apps/*/.turbo
+packages/*/node_modules
+packages/*/dist
+packages/*/build
+packages/*/.turbo
+
+# lock files (keep only at root)
+apps/*/package-lock.json
+apps/*/yarn.lock
+apps/*/pnpm-lock.yaml
+packages/*/package-lock.json
+packages/*/yarn.lock
+packages/*/pnpm-lock.yaml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+Thumbs.db

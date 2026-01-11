@@ -42,8 +42,10 @@ export default function SignUpPage() {
 			name,
 			email,
 			institutionId: id, // Now passing as number
-			password,
-		});
+      password,
+      callbackURL : "/dashboard"
+    });
+		
 		if (error) {
 			console.error("Sign up error:", error.message);
 			return;

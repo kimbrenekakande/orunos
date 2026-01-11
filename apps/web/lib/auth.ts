@@ -1,5 +1,6 @@
 import { betterAuth} from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { sendEmail } from "./email";
 import  prisma  from "@/lib/prisma";
 
 export const auth = betterAuth({
@@ -12,9 +13,21 @@ export const auth = betterAuth({
     "https://orunos.netlify.app",
   ],
 
-	emailAndPassword: {
+	emailAndPassword: { 
 		enabled: true,
-	},
+  },
+	
+  emailVerification: {
+    sendOnSignUp: true, 
+    autoSignInAfterVerification : true,
+    sendVerificationEmail: async({ user, url}) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Please Verify Your Email Address",
+        text: `Click here to verify your email ${url}`,
+      })
+    } 
+  },
 
 	user: {
 		additionalFields: {

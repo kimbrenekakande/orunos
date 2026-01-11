@@ -1,12 +1,9 @@
 import { serverSession } from "@/lib/server-session";
 import { redirect } from "next/navigation"; //or use unauthorized
 import { DocumentQns } from "../../../components/forms/qnsForm";
-import { Metadata } from "next";
 
 type Props = {
-  params: Promise<{
-    doctype: string
-  }>
+  params: Promise<{doctype: string}>
 }
 
 export const generateMetadata = async ({ params }: Props) => {

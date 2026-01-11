@@ -1,12 +1,14 @@
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader,TableRow } from "@/components/ui/table"
 import Link from "next/link"
 import clsx from "clsx"
-
 import prisma from "@/lib/prisma"
 
 
-export async function TableView() {
-	const all = await prisma.document.findMany({
+export async function TableView( {user} ) {
+  const all = await prisma.document.findMany({
+    where: {
+      userId : user.id,
+    },
     orderBy : {
       createdAt : 'desc'
     }

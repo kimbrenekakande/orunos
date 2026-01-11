@@ -7,7 +7,7 @@ import { MarkdownPlugin } from "@platejs/markdown";
 import { Button } from "../platejs/button";
 import { useRouter } from "next/navigation";
 import { Mdprops } from "@/lib/types";
-import { PDFDownloadLink, BlobProvider } from "@react-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import { authClient } from "@/lib/auth-client" //client side session 
 import {MyDoc} from "./doc"
 
@@ -46,8 +46,7 @@ export function PlateEditor({md} : {md : Mdprops}) {
           <Button className="cursor-pointer">
             <PDFDownloadLink 
               document={<MyDoc 
-                author={data}
-                title={title}
+                // title={title}
                 content={newData}
               />}
               fileName={`${title}.pdf`}

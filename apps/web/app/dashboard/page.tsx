@@ -11,13 +11,12 @@ export default async function Home() {
 
   return (
     <div className="px-4">
-      <div className="mx-8 text-2xl mb--2">
-        <h2>Welcome {user.name}</h2>
-        <p>{user.wallet} UGX</p>
+      <div className="mx-8 text-2xl">
+        <h2 className="text-2xl text-orange-700 mt-16">Welcome Back, {user.name} </h2>
       </div>
 
       <TemplateGallery />
-      <div className="mt-4 mx-8">
+      <div className=" mx-8">
         <h2>Recent Papers</h2>
         <TableView />
       </div>

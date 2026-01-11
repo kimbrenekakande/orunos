@@ -46,7 +46,7 @@ export function PlateEditor({md} : {md : Mdprops}) {
           <Button className="cursor-pointer">
             <PDFDownloadLink 
               document={<MyDoc 
-                // title={title}
+                title={title}
                 content={newData}
               />}
               fileName={`${title}.pdf`}

@@ -1,9 +1,23 @@
 import { serverSession } from "@/lib/server-session";
 import { redirect } from "next/navigation"; //or use unauthorized
-import {DocumentQns} from "../../../components/forms/qnsForm";
+import { DocumentQns } from "../../../components/forms/qnsForm";
+import { Metadata } from "next";
 
+type Props = {
+  params: Promise<{
+    doctype: string
+  }>
+}
 
-export default async function Paper({params} : {params : Promise<{doctype : string}>}) {
+export const generateMetadata = async ({ params }: Props) => {
+  const dockind = (await params).doctype
+  return {
+    title: `Orunos | ${dockind}` ,
+    description: "Your Academic CoPilot",
+  }
+};
+
+export default async function Paper({params} : Props) {
   const {doctype} = await params;
 
   const session = await serverSession();

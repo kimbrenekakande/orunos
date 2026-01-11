@@ -3,6 +3,7 @@ import CardNav from "@/components/react-bits/CardNav";
 import { items } from "../lib/items_list";
 import Link from "next/link";
 
+
 const App = () => {
   return (
     <div className="h-screen w-screen bg-amber-700">

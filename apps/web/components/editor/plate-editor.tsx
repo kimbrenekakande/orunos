@@ -37,6 +37,17 @@ export function PlateEditor({md} : {md : Mdprops}) {
     router.push('/dashboard')
   }
   
+  async function shit(){
+    const got = fetch(`/api/instute?id=${author?.institutionId}`)
+    const x = (await got).json
+    return x
+  }
+  
+  const why = shit()
+  
+  console.log("Huuuuuuuuuuuuuuuuuuh")
+  console.log(why)
+  
 	return (
 		<Plate editor={editor}>
 			<EditorContainer>

@@ -2,18 +2,6 @@ import { Page, Text, View, Document, Image } from "@react-pdf/renderer";
 import { styles } from "@/styles/pdfstyles";
 import { authClient } from "@/lib/auth-client"
 
-// interface userProps {
-//   name: string,
-//   email: string,
-//   emailVerified: boolean,
-//   image: string,
-//   createdAt?: any,
-//   updatedAt?: any,
-//   institutionId: number,
-//   wallet: number,
-//   id : int
-// }
-
 interface MyDocProps {
   title : string;
   content : string;
@@ -26,7 +14,7 @@ export const MyDoc =  ({title, content }: MyDocProps) => {
   const author = data?.user
   const id = author?.institutionId?.toString()
   
-  
+  // const inst = fetch(`/api/instute?id=${author.institutionId}`).then((res)=> res.json())
   
   return (
     <Document >
@@ -47,7 +35,6 @@ export const MyDoc =  ({title, content }: MyDocProps) => {
           `${pageNumber}`
         )} fixed/>
       </Page>
-    
     </Document>
   )
 }

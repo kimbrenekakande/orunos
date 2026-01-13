@@ -14,9 +14,46 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Orunos | Your Academic CoPilot",
-  description: "Your Academic CoPilot",
-};
+  title: "orunos | Your study copilot",
+  description: "Your study Copilot to Ace all your academic documents from as simple as coursework to as complex as research",
+  keywords: ["coursework", "research", "artificial intelligence", "academic"],
+
+  openGraph: {
+    title: 'orunos',
+    description: 'Your study Copilot to Ace all your academic documents from as simple as coursework to as complex as research',
+    url: 'orunos.com',
+    siteName: 'orunos.com',
+    locale: "en_US",
+    type: "website",
+    images: [{ url: 'images/tree.png' }]
+  },
+  
+  twitter: {
+    card: "summary_large_image",
+    title: 'orunos',
+    description: 'Your study Copilot to Ace all your academic documents from as simple as coursework to as complex as research',
+    creator: "@kimbrenekakande",
+    images: "images/tree.png"
+  },
+  
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+  
+  alternates: {
+    canonical : "https://orunos.com/dashboard/" //4 static - figure how it works
+  }
+}
+
 
 export default function RootLayout({
   children,

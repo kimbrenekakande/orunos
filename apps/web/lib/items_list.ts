@@ -1,7 +1,7 @@
 export const items = [
   {
     label: "About",
-    bgColor: "#0D0716",
+    bgColor: "black",
     textColor: "#fff",
     links: [
       { label: "Company", ariaLabel: "About Company" },
@@ -9,22 +9,21 @@ export const items = [
     ]
   },
   {
-    label: "Projects", 
-    bgColor: "#170D27",
+    label: "Features", 
+    bgColor: "black",
     textColor: "#fff",
     links: [
-      { label: "Featured", ariaLabel: "Featured Projects" },
-      { label: "Case Studies", ariaLabel: "Project Case Studies" }
+      { label: "New Document", ariaLabel: "Featured Projects" },
+      { label: "LLM Models", ariaLabel: "Project Case Studies" }
     ]
   },
   {
     label: "Contact",
-    bgColor: "#271E37", 
+    bgColor: "black", 
     textColor: "#fff",
     links: [
       { label: "Email", ariaLabel: "Email us" },
       { label: "Twitter", ariaLabel: "Twitter" },
-      { label: "LinkedIn", ariaLabel: "LinkedIn" }
     ]
     }
   ];

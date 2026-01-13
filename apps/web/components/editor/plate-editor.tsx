@@ -23,7 +23,8 @@ export function PlateEditor({md} : {md : Mdprops}) {
 		value: (editor) => editor.getApi(MarkdownPlugin).markdown.deserialize(content),
 	});
 	
-	const newData = editor.api.markdown.serialize() //what am i serializing here ???
+  const newData = editor.api.markdown.serialize() //what am i serializing here ???
+	console.log(newData)
 	
 	
   async function SaveEditorText(){

@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
-
 const prod = process.env.PROD === 'true'
 
 let prisma : PrismaClient;

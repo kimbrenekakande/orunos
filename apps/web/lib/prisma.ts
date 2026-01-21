@@ -1,6 +1,4 @@
 import { PrismaClient } from "../prisma/generated/prisma/index.js"; //key : fix this to include index.js
-
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 
 
@@ -16,9 +14,9 @@ if (prod) {
   prisma = new PrismaClient({ adapter });  
 } else {
   
-  const adapter = new PrismaBetterSqlite3({
-    url : process.env.DATABASE_URL
-  })
+  const adapter = new PrismaLibSql({
+    url: process.env.DATABASE_URL!,
+  });
   prisma = new PrismaClient({ adapter });
 }
 

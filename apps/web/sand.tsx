@@ -1,14 +1,16 @@
-import useSWR from "swr";
-import baseUrl from "@/lib/base-url";
+import prisma from "@/lib/prisma"
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-const id = 89;
-
-function Work(id) {
-  const { data, error, isLoading } = useSWR(
-    `${baseUrl}/api/papers/fetch?id=${id}`,
-    fetcher,
-    { refreshInterval: data?.status === "generating" ? 10 : 0 },
-  );
+async function TableView() { 
+  const all = await prisma.document.findMany({
+    where: {
+      userId : "qDbVJ4plN6jLeuZF0IbD9SkcJKFBSNfS",
+    },
+    orderBy : {
+      createdAt : 'desc'
+    }
+  }) // all papers array
+  
+  console.log(all)
 }
+
+TableView()

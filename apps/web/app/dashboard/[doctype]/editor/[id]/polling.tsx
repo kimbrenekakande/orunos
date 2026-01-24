@@ -4,7 +4,9 @@ import { Toaster } from "sonner";
 import { PlateEditor } from "@/components/editor/plate-editor";
 import useSWR from "swr";
 import baseUrl from "@/lib/base-url";
-import Image from "next/image";
+import { LoaderIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
+
 
 type props = {
   id    : string,
@@ -30,25 +32,23 @@ export function DocPoller({ id, from } : props) {
     if (from === "form"){
       return (
         <div className="h-full w-full flex flex-col justify-center items-center gap-4">
-          <Image 
-            src = "/images/robot.png"
-            height={100}
-            width={300}
-            alt="A robot"
+          <LoaderIcon
+            role="status"
+            aria-label="Loading"
+            className={cn("size-4 animate-spin")}
+            // {...props}
           />
-          <h1 className="text-orange-600">Generating in Progress</h1>
         </div>
       )
     } else {
       return (
         <div className="h-full w-full flex flex-col justify-center items-center">
-          <Image 
-            src = "/images/growth.png"
-            height={400}
-            width={800}
-            alt="girl sitting with an open book"
+          <LoaderIcon
+            role="status"
+            aria-label="Loading"
+            className={cn("size-4 animate-spin")}
+            // {...props}
           />
-          <h1 className="text-orange-600">Opening Document</h1>
         </div>
       )
     }

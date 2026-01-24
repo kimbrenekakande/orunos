@@ -14,13 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "orunos | Your study copilot",
-  description: "Your study Copilot to Ace all your academic documents from as simple as coursework to as complex as research",
+  title: "orunos | Your Academic copilot",
+  description: "Your Academic Copilot to Ace all your academic documents from as simple as coursework to as complex as research",
   keywords: ["coursework", "research", "artificial intelligence", "academic"],
 
   openGraph: {
     title: 'orunos',
-    description: 'Your study Copilot to Ace all your academic documents from as simple as coursework to as complex as research',
+    description: 'Your Academic Copilot to Ace all your academic documents from as simple as coursework to as complex as research',
     url: 'orunos.com',
     siteName: 'orunos.com',
     locale: "en_US",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: 'orunos',
-    description: 'Your study Copilot to Ace all your academic documents from as simple as coursework to as complex as research',
+    description: 'Your Academic Copilot to Ace all your academic documents from as simple as coursework to as complex as research',
     creator: "@kimbrenekakande",
     images: "images/tree.png"
   },
@@ -62,6 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <meta name="apple-mobile-web-app-title" content="orunos" />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system"  enableSystem disableTransitionOnChange >
             {children}

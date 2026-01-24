@@ -22,7 +22,7 @@ export default function HoverArrowButton({
     return (
         <motion.button
             className={cn(
-                "group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-black px-6 py-3 text-white transition-all  dark:bg-white dark:text-black  text-base font-medium cursor-pointer",
+                "group relative inline-flex items-center justify-center overflow-hidden rounded bg-black px-6 py-3 text-white transition-all  dark:bg-white dark:text-black  text-base font-medium cursor-pointer",
                 className
             )}
             whileHover="hover"

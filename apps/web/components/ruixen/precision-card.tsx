@@ -29,7 +29,7 @@ export default function PrecisionCard({
   rightButton,
 }: PrecisionCardProps) {
   return (
-    <div className="flex  md:flex-row p-4  items-center justify-center w-screen text-center">
+    <div className="h-[50vh] flex  md:flex-row p-4  items-center justify-center w-screen text-center">
       {/* Left Card */}
       <Card className="w-full bg-transparent border-none">
         <CardHeader>
@@ -52,10 +52,16 @@ export default function PrecisionCard({
               </Badge>
             ))}
           </div>
-
-          <Button className="px-16 py-6 mt-2 rounded cursor-pointer" variant="default">
-            {leftButton}
-          </Button>
+          
+          <div className="flex justify-center gap-4">
+            <Button className="px-16 py-6 mt-2 rounded cursor-pointer" variant="default">
+              {leftButton}
+            </Button>
+            <Button className="px-16 py-6 mt-2 rounded cursor-pointer" variant="default">
+              {leftButton}
+            </Button>
+          </div>
+          
         </CardContent>
       </Card>
 

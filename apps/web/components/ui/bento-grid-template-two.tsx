@@ -93,7 +93,7 @@ function BentoGridItem({ item }: { item: BentoItem }) {
   // Base
   const classes = [
     "group relative overflow-hidden rounded transition-all duration-300 h-full",
-    "hover:shadow-xl hover:-translate-y-1",
+    // "hover:shadow-xl hover:-translate-y-1 text-black",
   ];
 
   // Variant
@@ -109,7 +109,7 @@ function BentoGridItem({ item }: { item: BentoItem }) {
     }
   } else if (variant === "highlight") {
     classes.push(
-      "bg-indigo-500 dark:bg-transparent border border-gray",
+      "dark:bg-transparent border border-gray",
       "text-white",
     );
   } else if (variant === "glass") {
@@ -154,7 +154,7 @@ function BentoGridItem({ item }: { item: BentoItem }) {
                     : "bg-indigo-100 text-indigo-700"
                   : "bg-white/30 text-white"
               )}
-              style={accentColor ? { color: accentColor } : undefined}
+              style={accentColor ? { color: accentColor} : undefined}
             >
               {tag}
             </span>
@@ -183,8 +183,8 @@ function BentoGridItem({ item }: { item: BentoItem }) {
             className="mt-4 inline-flex items-center text-sm font-medium opacity-70"
             style={accentColor ? { color: accentColor } : undefined}
           >
-            <span>Learn more</span>
-            <ArrowUpRight className="ml-1 h-4 w-4" />
+            <span className="text-orange-500">Learn more</span>
+            <ArrowUpRight className="ml-1 h-4 w-4 text-orange-500" />
           </Link>
         )}
       </div>

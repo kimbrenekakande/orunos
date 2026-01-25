@@ -1,15 +1,14 @@
 "use client"
 import { cn } from "@udecode/cn";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
+
 import CardNav from "@/components/react-bits/CardNav";
 import { items } from "../lib/items_list";
 import LogoCloud from "@/components/logo-cloud";
 import HoverArrowButton from "@/components/hover-arrow-button";
-import { useRouter } from 'next/navigation';
 import { features } from "../lib/features"
-
-import { typer_words, flipper_words } from "@/lib/data/words";
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { flipper_words } from "@/lib/data/words";
 import { FlipWords } from "@/components/ui/flip-words";
 import { ElitePlanCard } from "@/components/ruixen/elite-plan-card";
 import PrecisionCard from "@/components/ruixen/precision-card";
@@ -17,7 +16,6 @@ import { BentoGridTwo } from "@/components/ui/bento-grid-2";
 import { DisciplinesSection } from "@/components/disciplines-section";
 import { AnimatedShinyText } from "@/components/tiptapui/animated-shiny-text";
 import { Footer } from "@/components/footer";
-
 
 
 const App = () => {
@@ -43,8 +41,8 @@ const App = () => {
           backgroundPosition: "center",
         }}
       >
+        <div className="h-[25%]"></div>
         <div id="call-to-action" className="flex flex-col gap-6 items-center mt-[20%]">
-          
           <div
             className={cn(
               "group rounded border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800"
@@ -52,14 +50,14 @@ const App = () => {
             >
             <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 border border-gray-700 dark:border-gray-700">
               <Image src="/yc_logo.svg" alt="Logo" width={20} height={20} className="mr-2"/>
-              <span>Not Backed by Y Combinator</span>
+              <span className="text-sm sm:text-base">Not Backed by Y Combinator</span>
             </AnimatedShinyText>
           </div>
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="text-7xl">Your Academic Copilot</h1>
+          <div className="flex flex-col items-center justify-center text-center">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">Your Academic Copilot</h1>
             {/*<TypewriterEffectSmooth words={typer_words}/>*/}
           </div>
-          <p className="text-white text-center">
+          <p className="text-white text-center text-sm sm:text-base max-w-2xl">
             Built for graduate researchers, PhD candidates, and scholars who need precision.
             <br />
             Generate citations across 10,000+ sources, synthesize literature, and write academic documents with rigor.
@@ -83,7 +81,6 @@ const App = () => {
             <div  className="h-30">
               <LogoCloud />
             </div>
-    				
          	</section>
         </div>
       </div>
@@ -92,31 +89,37 @@ const App = () => {
       <div id="feature-section" className="flex flex-col mx-8">
         <div className="flex flex-col gap-5">
           <h2 className="text-4xl">Create your <FlipWords words={flipper_words} /> <br/> easily with the best research and citations.</h2>
-          <p className="text-white">
+          <p className="">
             With Orunos, you can easily create citations and references for your research papers,articles, and other academic work. <br /> Our citation generator is designed to help you save time and ensure accuracy in your citations.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 justify-between py-16">
+        <div className="grid grid-rows-4 sm:grid-rows-2 sm:grid-cols-2 lg:grid-rows-1 lg:grid-cols-4 place-items-center gap-2 py-16">
           {features.map((ft) => (
-            <div className="flex  items-center justify-center" key={ft.id}>
               <ElitePlanCard
+                key={ft.id}
                 imageUrl="/ft/robo.png"
                 title={ft.title}
                 subtitle=''
                 description={ft.description}
-                url = {ft.url}
+                url={ft.url}
+                className="w-full"
               />
-            </div>
             ))
           }
         </div>
       </div>
       
-      
       <DisciplinesSection />
       
+      <Image
+        src={"/images/boat.jpg"}
+        alt="old image of a boat"
+        width={3000}
+        height={1996}
+        className="darken hidden"
+      />
       
-      <div className="flex items-center mx-8">
+      <div className="h-full flex items-center mx-8">
         <PrecisionCard
           leftSubtitle="Why Reliability Matters"
           leftTitle="Building next-gen platforms with unmatched stability"
@@ -131,9 +134,7 @@ const App = () => {
         />
       </div>
       
-      
       <BentoGridTwo />
-      
       
       <Footer />
     </div>

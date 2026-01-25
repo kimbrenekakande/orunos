@@ -35,7 +35,7 @@ export function DocPoller({ id, from } : props) {
           <LoaderIcon
             role="status"
             aria-label="Loading"
-            className={cn("size-4 animate-spin")}
+            className={cn("size-12 animate-spin text-orange-500")}
             // {...props}
           />
         </div>
@@ -46,7 +46,7 @@ export function DocPoller({ id, from } : props) {
           <LoaderIcon
             role="status"
             aria-label="Loading"
-            className={cn("size-4 animate-spin")}
+            className={cn("size-12 animate-spin text-orange-500")}
             // {...props}
           />
         </div>

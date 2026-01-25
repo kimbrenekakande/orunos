@@ -36,7 +36,7 @@ export const ElitePlanCard = React.forwardRef<
         whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 250, damping: 20 }}
         className={cn(
-          "relative w-full max-w-sm overflow-hidden rounded hover:shadow-xl bg-black",
+          "relative w-full overflow-hidden rounded hover:shadow-xl bg-black",
           className,
         )}
       >

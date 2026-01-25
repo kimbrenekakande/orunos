@@ -12,7 +12,7 @@ export const features = [
     imageUrl : "/images/largepreview.png",
     title :"Handwriting Mirroring",
     subtitle : "orunos",
-    description : "Maintain your scholarly voice with high-fidelity style adaptation that mirrors your unique tone and syntax.",
+    description : "Maintain your scholarly voice with high-fidelity style adaptation that mirrors your unique tone, style and syntax.",
     url : "#"
   },
   {

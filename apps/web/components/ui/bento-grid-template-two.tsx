@@ -169,8 +169,8 @@ function BentoGridItem({ item }: { item: BentoItem }) {
 
           {description && (
             <p
-              className="text-sm leading-relaxed"
-              style={accentColor ? { color: accentColor } : undefined}
+              className="text-sm leading-relaxed text-muted-foreground"
+              // style={accentColor ? { color: accentColor } : undefined}
             >
               {description}
             </p>
@@ -180,14 +180,16 @@ function BentoGridItem({ item }: { item: BentoItem }) {
         {link && (
           <Link
             href={link}
-            className="mt-4 inline-flex items-center text-sm font-medium opacity-70"
-            style={accentColor ? { color: accentColor } : undefined}
+            className="mt-4 inline-flex items-center text-sm font-medium hover:bg-transparent hover:text-gray-200 cursor-pointer  text-orange-500 "
+            // style={accentColor ? { color: accentColor } : undefined}
           >
-            <span className="text-orange-500">Learn more</span>
-            <ArrowUpRight className="ml-1 h-4 w-4 text-orange-500" />
+            <span className="">Learn more</span>
+            <ArrowUpRight className="ml-1 h-4 w-4 " />
           </Link>
         )}
       </div>
     </div>
   );
 }
+
+// hover:bg-transparent hover:text-gray-200 cursor-pointer  text-orange-500

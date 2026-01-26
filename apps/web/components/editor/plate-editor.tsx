@@ -10,6 +10,7 @@ import { Mdprops } from "@/lib/types";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { authClient } from "@/lib/auth-client" //client side session 
 import {MyDoc} from "./doc"
+import baseUrl from "@/lib/base-url";
 
 
 
@@ -23,31 +24,28 @@ export function PlateEditor({md} : {md : Mdprops}) {
 		value: (editor) => editor.getApi(MarkdownPlugin).markdown.deserialize(content),
 	});
 	
+
   const newData = editor.api.markdown.serialize() //what am i serializing here ???
-	console.log(newData)
 	
 	
-  async function SaveEditorText(){
-    await fetch(`api/papers/update?id=${id}`, 
+  async function SaveEditorText() {
+    const changes = editor.api.markdown.serialize()
+    await fetch(`${baseUrl}/api/papers/update?id=${id}`, 
       {
         method :'POST',
         headers : {'content-type' : 'application/json'},
-        body : JSON.stringify({'body' : newData})
-      });
-
+        body : JSON.stringify({ 'update' : changes })
+      }
+    );
+    
     router.push('/dashboard')
   }
   
-  async function shit(){
-    const got = fetch(`/api/instute?id=${author?.institutionId}`)
-    const x = (await got).json
-    return x
-  }
-  
-  const why = shit()
-  
-  console.log("Huuuuuuuuuuuuuuuuuuh")
-  console.log(why)
+  // async function shit(){
+  //   const got = fetch(`/api/instute?id=${author?.institutionId}`)
+  //   const x = (await got).json
+  //   return x
+  // }
   
 	return (
 		<Plate editor={editor}>

@@ -1,17 +1,18 @@
 "use client"
+
 import { cn } from "@udecode/cn";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 
 import CardNav from "@/components/react-bits/CardNav";
-import { items } from "../lib/items_list";
 import LogoCloud from "@/components/logo-cloud";
 import HoverArrowButton from "@/components/hover-arrow-button";
+import PrecisionCard from "@/components/ruixen/precision-card";
+import { items } from "../lib/items_list";
 import { features } from "../lib/features"
 import { flipper_words } from "@/lib/data/words";
 import { FlipWords } from "@/components/ui/flip-words";
 import { ElitePlanCard } from "@/components/ruixen/elite-plan-card";
-import PrecisionCard from "@/components/ruixen/precision-card";
 import { BentoGridTwo } from "@/components/ui/bento-grid-2";
 import { DisciplinesSection } from "@/components/disciplines-section";
 import { AnimatedShinyText } from "@/components/tiptapui/animated-shiny-text";
@@ -88,8 +89,8 @@ const App = () => {
       
       <div id="feature-section" className="flex flex-col mx-8">
         <div className="flex flex-col gap-5">
-          <h2 className="text-4xl">Create your <FlipWords words={flipper_words} /> <br/> easily with the best research and citations.</h2>
-          <p className="">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl">Create your <FlipWords words={flipper_words} /> <br/> easily with the best research and citations.</h2>
+          <p className="text-muted-foreground text-lg">
             With Orunos, you can easily create citations and references for your research papers,articles, and other academic work. <br /> Our citation generator is designed to help you save time and ensure accuracy in your citations.
           </p>
         </div>
@@ -111,18 +112,10 @@ const App = () => {
       
       <DisciplinesSection />
       
-      <Image
-        src={"/images/boat.jpg"}
-        alt="old image of a boat"
-        width={3000}
-        height={1996}
-        className="darken hidden"
-      />
-      
       <div className="h-full flex items-center mx-8">
         <PrecisionCard
           leftSubtitle="Why Reliability Matters"
-          leftTitle="Building next-gen platforms with unmatched stability"
+          leftTitle="Don't Replace Studying, Accelerates it"
           leftDescription="Modern digital systems demand reliability and scalability from day one. With adaptive infrastructure and intelligent monitoring, we ensure every deployment performs flawlessly at scale."
           tags={["Sciences", "Law", "Civil", "Engneering", "Social Sciences"]}
           leftButton="Get Started"

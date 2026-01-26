@@ -1,10 +1,7 @@
-import type {
-  ChatMessage,
-  ToolName,
-} from '@/components/editor/use-chat';
+import type { ChatMessage,ToolName } from '@/components/editor/use-chat';
 import type { NextRequest } from 'next/server';
-
 import { createGateway } from '@ai-sdk/gateway';
+
 import {
   type LanguageModel,
   type UIMessageStreamWriter,
@@ -22,21 +19,10 @@ import { z } from 'zod';
 import { BaseEditorKit } from '@/components/editor/editor-base-kit';
 import { markdownJoinerTransform } from '@/lib/markdown-joiner-transform';
 
-import {
-  getChooseToolPrompt,
-  getCommentPrompt,
-  getEditPrompt,
-  getGeneratePrompt,
-} from './prompts';
+import { getChooseToolPrompt, getCommentPrompt, getEditPrompt, getGeneratePrompt } from './prompts';
 
 export async function POST(req: NextRequest) {
-  const {
-    apiKey: key,
-    ctx,
-    messages: messagesRaw = [],
-    model,
-  } = await req.json();
-
+  const { apiKey: key, ctx, messages: messagesRaw = [], model } = await req.json();
   const { children, selection, toolName: toolNameParam } = ctx;
 
   const editor = createSlateEditor({

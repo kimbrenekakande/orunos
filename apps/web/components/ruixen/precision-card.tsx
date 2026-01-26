@@ -33,15 +33,15 @@ export default function PrecisionCard({
       {/* Left Card */}
       <Card className="w-full bg-transparent border-none">
         <CardHeader>
-          <h3 className="text-muted-foreground text-sm font-medium">
+          <h3 className="text-muted-foreground text-lg font-medium">
             {leftSubtitle}
           </h3>
-          <CardTitle className="text-2xl font-semibold">{leftTitle}</CardTitle>
+          <CardTitle className="text-2xl md:text-4xl lg:text-5xl">{leftTitle}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground">{leftDescription}</p>
+          <p className="text-lg text-muted-foreground">{leftDescription}</p>
 
-          <div className="flex flex-wrap gap-2 w-full justify-center">
+          <div className="flex flex-wrap gap-2 w-full justify-center ">
             {tags.map((tag) => (
               <Badge
                 key={tag}
@@ -54,9 +54,6 @@ export default function PrecisionCard({
           </div>
           
           <div className="flex justify-center gap-4">
-            <Button className="px-16 py-6 mt-2 rounded cursor-pointer" variant="default">
-              {leftButton}
-            </Button>
             <Button className="px-16 py-6 mt-2 rounded cursor-pointer" variant="default">
               {leftButton}
             </Button>

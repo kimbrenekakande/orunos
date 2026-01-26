@@ -24,7 +24,10 @@ export default async function Page({ params, searchParams } : Props) {
   const user = session?.user;
   if (!user) redirect('/login')
 
-	const {id} = await params;
+  const { id } = await params;
+  
+  console.log("identification")
+	console.log(id)
 	const {source} = await searchParams
 
 	return(

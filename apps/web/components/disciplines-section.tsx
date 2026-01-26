@@ -23,7 +23,7 @@ export function DisciplinesSection() {
 				<h2 className="text-balance font-medium text-2xl md:text-4xl lg:text-5xl">
 					Write. Cite. Learn.
 				</h2>
-				<p className="mt-4 text-balance text-muted-foreground text-sm md:text-base">
+				<p className="mt-4 text-balance text-muted-foreground md:text-base">
 					Expand your knowledge with domain specific tools across disciplines, designed to empower and enhance your understanding.
 				</p>
 			</div>
@@ -61,11 +61,11 @@ export function FeatureCard({
 			</div>
 			<feature.icon
 				aria-hidden
-				className="size-6 text-foreground/75"
+				className="size-12  text-orange-500"
 				strokeWidth={1}
 			/>
-			<h3 className="mt-10 text-sm md:text-base">{feature.title}</h3>
-			<p className="relative z-20 mt-2 font-light text-muted-foreground text-xs">
+			<h3 className="mt-10 text-lg font-bold">{feature.title}</h3>
+			<p className="relative z-20 mt-2 font-light text-muted-foreground text-sm">
 				{feature.description}
 			</p>
 		</div>

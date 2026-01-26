@@ -23,40 +23,24 @@ export default function LogoCloud() {
 
 const logos = [
 	{
-		src: "/universities/uni_1.png",
+		src: "/universities/uni_3.png",
 		alt: "Nvidia Logo",
 	},
 	{
-		src: "/universities/uni_2.png",
+		src: "/universities/uni_6.png",
 		alt: "Supabase Logo",
 	},
 	{
-		src: "/universities/uni_3.png",
+		src: "/universities/uni_12.png",
 		alt: "OpenAI Logo",
-	},
-	{
-		src: "/universities/uni_4.png",
-		alt: "Turso Logo",
-	},
-	{
-		src: "/universities/uni_4.png",
-		alt: "Vercel Logo",
 	},
 	{
 		src: "/universities/uni_6.png",
 		alt: "GitHub Logo",
 	},
 	{
-		src: "/universities/uni_7.png",
-		alt: "Claude AI Logo",
-	},
-	{
 		src: "/universities/uni_8.png",
 		alt: "Clerk Logo",
-  },
-  {
-		src: "/universities/uni_9.png",
-		alt: "Clerks Logo",
   },
   {
 		src: "/universities/uni_10.png",

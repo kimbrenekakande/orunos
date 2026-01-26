@@ -40,14 +40,8 @@ export function getChooseToolPrompt({ messages }: { messages: ChatMessage[] }) {
   });
 }
 
-export function getCommentPrompt(
-  editor: SlateEditor,
-  {
-    messages,
-  }: {
-    messages: ChatMessage[];
-  }
-) {
+export function getCommentPrompt(editor: SlateEditor, { messages }: { messages: ChatMessage[] }) {
+  
   const selectingMarkdown = getMarkdown(editor, {
     type: 'blockWithBlockId',
   });
@@ -58,93 +52,93 @@ export function getCommentPrompt(
       // 1) Basic single-block comment
       `User: Review this paragraph.
 
-    backgroundData:
-  <block id="1">AI systems are transforming modern workplaces by automating routine tasks.</block>
-
-  Output:
-  [
-    {
-      "blockId": "1",
-      "content": "AI systems are transforming modern workplaces",
-      "comments": "Clarify what types of systems or provide examples."
-    }
-  ]`,
-
+      backgroundData:
+      <block id="1">AI systems are transforming modern workplaces by automating routine tasks.</block>
+    
+      Output:
+      [
+        {
+          "blockId": "1",
+          "content": "AI systems are transforming modern workplaces",
+          "comments": "Clarify what types of systems or provide examples."
+        }
+      ]`,
+    
       // 2) Multiple comments within one long block
       `User: Add comments for this section.
+    
+      backgroundData:
+      <block id="2">AI models can automate customer support. However, they may misinterpret user intent if training data is biased.</block>
 
-  backgroundData:
-  <block id="2">AI models can automate customer support. However, they may misinterpret user intent if training data is biased.</block>
-
-  Output:
-  [
-    {
-      "blockId": "2",
-      "content": "AI models can automate customer support.",
-      "comments": "Consider mentioning limitations or scope of automation."
-    },
-    {
-      "blockId": "2",
-      "content": "they may misinterpret user intent if training data is biased",
-      "comments": "Good point—expand on how bias can be detected or reduced."
-    }
-  ]`,
+      Output:
+      [
+        {
+          "blockId": "2",
+          "content": "AI models can automate customer support.",
+          "comments": "Consider mentioning limitations or scope of automation."
+        },
+        {
+          "blockId": "2",
+          "content": "they may misinterpret user intent if training data is biased",
+          "comments": "Good point—expand on how bias can be detected or reduced."
+        }
+      ]`,
 
       // 3) Multi-block comment (span across two related paragraphs)
       `User: Provide comments.
 
-  backgroundData:
-  <block id="3">This policy aims to regulate AI-generated media.</block>
-  <block id="4">Developers must disclose when content is synthetically produced.</block>
-
-  Output:
-  [
-    {
-      "blockId": "3",
-      "content": "This policy aims to regulate AI-generated media.\\n\\nDevelopers must disclose when content is synthetically produced.",
-      "comments": "You could combine these ideas into a single, clearer statement on transparency."
-    }
-  ]`,
+      backgroundData:
+      <block id="3">This policy aims to regulate AI-generated media.</block>
+      <block id="4">Developers must disclose when content is synthetically produced.</block>
+    
+      Output:
+      [
+        {
+          "blockId": "3",
+          "content": "This policy aims to regulate AI-generated media.\\n\\nDevelopers must disclose when content is synthetically produced.",
+          "comments": "You could combine these ideas into a single, clearer statement on transparency."
+        }
+      ]`,
 
       // 4) With <Selection> – user highlighted part of a sentence
       `User: Give feedback on this highlighted phrase.
 
-  backgroundData:
-  <block id="5">AI can <Selection>replace human creativity</Selection> in design tasks.</block>
-
-  Output:
-  [
-    {
-      "blockId": "5",
-      "content": "replace human creativity",
-      "comments": "Overstated claim—suggest using 'assist' instead of 'replace'."
-    }
-  ]`,
+      backgroundData:
+      <block id="5">AI can <Selection>replace human creativity</Selection> in design tasks.</block>
+    
+      Output:
+      [
+        {
+          "blockId": "5",
+          "content": "replace human creativity",
+          "comments": "Overstated claim—suggest using 'assist' instead of 'replace'."
+        }
+      ]`,
 
       // 5) With long <Selection> → multiple comments
       `User: Review the highlighted section.
 
-  backgroundData:
-  <block id="6">
-  <Selection>
-  AI tools are valuable for summarizing information and generating drafts.
-  Still, human review remains essential to ensure accuracy and ethical use.
-  </Selection>
-  </block>
-
-  Output:
-  [
-    {
-      "blockId": "6",
-      "content": "AI tools are valuable for summarizing information and generating drafts.",
-      "comments": "Solid statement—consider adding specific examples of tools."
-    },
-    {
-      "blockId": "6",
-      "content": "human review remains essential to ensure accuracy and ethical use",
-      "comments": "Good caution—explain briefly why ethics require human oversight."
-    }
-  ]`,
+      backgroundData:
+      <block id="6">
+      <Selection>
+      AI tools are valuable for summarizing information and generating drafts.
+      Still, human review remains essential to ensure accuracy and ethical use.
+      </Selection>
+      </block>
+    
+      Output:
+      [
+        {
+          "blockId": "6",
+          "content": "AI tools are valuable for summarizing information and generating drafts.",
+          "comments": "Solid statement—consider adding specific examples of tools."
+        },
+        {
+          "blockId": "6",
+          "content": "human review remains essential to ensure accuracy and ethical use",
+          "comments": "Good caution—explain briefly why ethics require human oversight."
+        }
+      ]`,
     ],
     history: formatTextFromMessages(messages),
     rules: dedent`

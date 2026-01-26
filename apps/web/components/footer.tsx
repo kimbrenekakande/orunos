@@ -12,34 +12,28 @@ const footerLinks = [
 	{
 		title: "Company",
 		links: [
-			{ href: "#", label: "The Linomore Blog" },
-			{ href: "#", label: "Engineering Blog" },
-			{ href: "#", label: "What’s New" },
+			{ href: "#", label: "Blog" },
 			{ href: "#", label: "About" },
 			{ href: "#", label: "Press" },
 			{ href: "#", label: "Careers" },
 		],
-	},
+  },
 	{
 		title: "Community",
 		links: [
-			{ href: "#", label: "Linktree for Enterprise" },
 			{ href: "#", label: "2023 Creator Report" },
-			{ href: "#", label: "2022 Creator Report" },
-			{ href: "#", label: "Charities" },
-			{ href: "#", label: "What’s Trending" },
-			{ href: "#", label: "Creator Profile Directory" },
+			{ href: "#", label: "Developers" },
+      { href: "#", label: "What’s Trending" },
+			{ href: "#", label: "Report a Violation" },
 		],
 	},
 	{
 		title: "Support",
 		links: [
 			{ href: "#", label: "Help Topics" },
-			{ href: "#", label: "Getting Started" },
-			{ href: "#", label: "Linoree Pro" },
+			{ href: "#", label: "Getting Started" },,
 			{ href: "#", label: "Features & How-tos" },
 			{ href: "#", label: "FAQs" },
-			{ href: "#", label: "Report a Violation" },
 		],
 	},
 	{
@@ -48,8 +42,6 @@ const footerLinks = [
 			{ href: "#", label: "Terms & Conditions" },
 			{ href: "#", label: "Privacy Notice" },
 			{ href: "#", label: "Cookie Notice" },
-			{ href: "#", label: "Trust Center" },
-			{ href: "#", label: "Cookie Preferences" },
 			{ href: "#", label: "Transparency Report" },
 		],
 	},
@@ -70,7 +62,7 @@ export function Footer() {
 				<div className="grid grid-cols-2 gap-8 py-8 md:grid-cols-4 mx-8">
 					{footerLinks.map((item) => (
 						<div key={item.title}>
-							<h3 className="mb-4 text-xs">{item.title}</h3>
+							<h3 className="mb-4 text-lg font-bold">{item.title}</h3>
 							<ul className="space-y-2 text-muted-foreground text-sm">
 								{item.links.map((link) => (
 									<li key={link.label}>

@@ -90,7 +90,7 @@ export function BentoGridTwo() {
   const [items] = useState<BentoItem[]>(sampleBentoData);
 
   return (
-    <div className="mx-8">
+    <div className="mx-2 sm:mx-8">
       <BentoGridTemplateTwo items={items} gap={6} animate={true} />
     </div>
   );

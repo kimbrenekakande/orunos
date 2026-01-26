@@ -58,9 +58,8 @@ const App = () => {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">Your Academic Copilot</h1>
             {/*<TypewriterEffectSmooth words={typer_words}/>*/}
           </div>
-          <p className="text-white text-center text-sm sm:text-base max-w-2xl">
+          <p className="sm:max-w-1/2 text-white text-center text-sm sm:text-base mx-2">
             Built for graduate researchers, PhD candidates, and scholars who need precision.
-            <br />
             Generate citations across 10,000+ sources, synthesize literature, and write academic documents with rigor.
           </p>
           <HoverArrowButton
@@ -87,7 +86,7 @@ const App = () => {
       </div>
       
       
-      <div id="feature-section" className="flex flex-col mx-8">
+      <div id="feature-section" className="flex flex-col mx-2 sm:mx-8">
         <div className="flex flex-col gap-5">
           <h2 className="text-2xl md:text-4xl lg:text-5xl">Create your <FlipWords words={flipper_words} /> <br/> easily with the best research and citations.</h2>
           <p className="text-muted-foreground text-lg">
@@ -112,10 +111,10 @@ const App = () => {
       
       <DisciplinesSection />
       
-      <div className="h-full flex items-center mx-8">
+      <div className="h-full flex items-center sm:mx-8">
         <PrecisionCard
           leftSubtitle="Why Reliability Matters"
-          leftTitle="Don't Replace Studying, Accelerates it"
+          leftTitle="Don't Replace Studying, Accelerate it"
           leftDescription="Modern digital systems demand reliability and scalability from day one. With adaptive infrastructure and intelligent monitoring, we ensure every deployment performs flawlessly at scale."
           tags={["Sciences", "Law", "Civil", "Engneering", "Social Sciences"]}
           leftButton="Get Started"

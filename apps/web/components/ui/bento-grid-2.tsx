@@ -16,7 +16,7 @@ const sampleBentoData: BentoItem[] = [
     size: "large",
     priority: 1,
     tag: "Featured",
-    variant: "glass", //Semi‑transparent frosted panel with content overlay
+    variant: "highlight", //Semi‑transparent frosted panel with content overlay
     accentColor: "#FFFFFF",
     link: "#design",
   },

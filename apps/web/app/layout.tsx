@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
+import localFont from "next/font/local"
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider"
 
@@ -12,6 +13,16 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const nexa = localFont({
+  src: '../public/fonts/nexa/NexaRegular.otf',
+  variable : "--font-nexa-regular"
+})
 
 export const metadata: Metadata = {
   title: "orunos | Your Academic copilot",
@@ -63,7 +74,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <meta name="apple-mobile-web-app-title" content="orunos" />
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${inter.variable} ${nexa.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system"  enableSystem disableTransitionOnChange >
             {children}
         </ThemeProvider>

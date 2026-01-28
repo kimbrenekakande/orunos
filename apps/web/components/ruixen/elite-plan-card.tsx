@@ -60,7 +60,7 @@ export const ElitePlanCard = React.forwardRef<
           <p className="text-sm tracking-wider text-gray-400">
             {subtitle}
           </p>
-          <h3 className="mt-1 text-lg font-bold ">{title}</h3>
+          <h3 className="mt-1 text-lg font-bold" style={{fontFamily : 'var(--font-nexa-regular)'}}>{title}</h3>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             {description}
           </p>

@@ -2,11 +2,12 @@ import type { NextRequest } from 'next/server';
 
 import { generateText } from 'ai';
 import { NextResponse } from 'next/server';
+import { groq } from '@ai-sdk/groq';
 
 export async function POST(req: NextRequest) {
   const {
     apiKey: key,
-    model = 'gpt-4o-mini',
+    // model = 'gpt-4o-mini',
     prompt,
     system,
   } = await req.json();
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
     const result = await generateText({
       abortSignal: req.signal,
       maxOutputTokens: 50,
-      model: `openai/${model}`,
+      model: groq('moonshotai/kimi-k2-instruct-0905'),
       prompt: prompt,
       system,
       temperature: 0.7,

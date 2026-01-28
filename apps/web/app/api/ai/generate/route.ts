@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     const { text } = await generateText({
       model: groq('moonshotai/kimi-k2-instruct-0905'),
       system: "you are a standard course work for university students",
-      prompt: `write a deep dive on ${sec['title'], sec['content']}`,
+      prompt: `write a deep dive on ${sec['title'], sec['content']}, dont add any dividers or conclusions. the out put format should be compatible with platejs`,
     });
     return text;
   })

@@ -85,7 +85,6 @@ const App = () => {
         </div>
       </div>
       
-      
       <div id="feature-section" className="flex flex-col mx-2 sm:mx-8">
         <div className="flex flex-col gap-5">
           <h2 className="text-2xl md:text-4xl lg:text-5xl" style={{fontFamily : 'var(--font-nexa-regular)'}}>Create your <FlipWords words={flipper_words} /> <br/> easily with the best research and citations.</h2>

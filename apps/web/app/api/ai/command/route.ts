@@ -1,6 +1,6 @@
 import type { ChatMessage,ToolName } from '@/components/editor/use-chat';
 import type { NextRequest } from 'next/server';
-import { createGateway } from '@ai-sdk/gateway';
+import { groq } from '@ai-sdk/groq';
 
 import {
   type LanguageModel,
@@ -35,16 +35,12 @@ export async function POST(req: NextRequest) {
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: 'Missing AI Gateway API key.' },
+      { error: 'Missing API key.' },
       { status: 401 }
     );
   }
 
   const isSelecting = editor.api.isExpanded();
-
-  const gatewayProvider = createGateway({
-    apiKey,
-  });
 
   try {
     const stream = createUIMessageStream<ChatMessage>({
@@ -56,7 +52,7 @@ export async function POST(req: NextRequest) {
             enum: isSelecting
               ? ['generate', 'edit', 'comment']
               : ['generate', 'comment'],
-            model: gatewayProvider(model || 'google/gemini-2.5-flash'),
+            model: groq(model || 'moonshotai/kimi-k2-instruct-0905'),
             output: 'enum',
             prompt: getChooseToolPrompt(messagesRaw),
           });
@@ -71,13 +67,13 @@ export async function POST(req: NextRequest) {
 
         const stream = streamText({
           experimental_transform: markdownJoinerTransform(),
-          model: gatewayProvider(model || 'openai/gpt-4o-mini'),
+          model: groq(model || 'moonshotai/kimi-k2-instruct-0905'),
           // Not used
           prompt: '',
           tools: {
             comment: getCommentTool(editor, {
               messagesRaw,
-              model: gatewayProvider(model || 'google/gemini-2.5-flash'),
+              model: groq(model || 'moonshotai/kimi-k2-instruct-0905'),
               writer,
             }),
           },
@@ -121,7 +117,7 @@ export async function POST(req: NextRequest) {
                     role: 'user',
                   },
                 ],
-                model: gatewayProvider(model || 'openai/gpt-4o-mini'),
+                model: groq(model || 'moonshotai/kimi-k2-instruct-0905'),
               };
             }
           },

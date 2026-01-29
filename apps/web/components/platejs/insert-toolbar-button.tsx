@@ -142,7 +142,7 @@ const groups: Group[] = [
     items: [
       {
         icon: <ImageIcon />,
-        label: 'Image',
+        label: 'Upload Image',
         value: KEYS.img,
       },
       {

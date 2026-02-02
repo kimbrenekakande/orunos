@@ -25,7 +25,6 @@ export function DocPoller({ id, from } : props) {
     } }
   )
   
-  
   if (error) return <div>Error Fetching Document</div>;
   
   if (isLoading || data.status === "GENERATING"){

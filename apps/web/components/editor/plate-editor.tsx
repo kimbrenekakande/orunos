@@ -16,7 +16,7 @@ import baseUrl from "@/lib/base-url";
 
 export function PlateEditor({md} : {md : Mdprops}) {
   const router = useRouter();
-  const {id, title, content } = md
+  const {id, title, content} = md
   const {data, isPending, error, refetch} = authClient.useSession() 
 
 	const editor = usePlateEditor({
@@ -27,8 +27,8 @@ export function PlateEditor({md} : {md : Mdprops}) {
 
   const newData = editor.api.markdown.serialize() //what am i serializing here ???
 	
-	
   async function SaveEditorText() {
+    
     const changes = editor.api.markdown.serialize()
     await fetch(`${baseUrl}/api/papers/update?id=${id}`, 
       {
@@ -41,11 +41,6 @@ export function PlateEditor({md} : {md : Mdprops}) {
     router.push('/dashboard')
   }
   
-  // async function shit(){
-  //   const got = fetch(`/api/instute?id=${author?.institutionId}`)
-  //   const x = (await got).json
-  //   return x
-  // }
   
 	return (
 		<Plate editor={editor}>

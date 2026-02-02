@@ -1,9 +1,6 @@
 import prisma from '@/lib/prisma';
-
 import { NextRequest, NextResponse } from "next/server";
-import { groq } from '@ai-sdk/groq';
-import { generateText, generateObject } from 'ai';
-import { outlineSchema} from '@/lib/types';
+import {documentAgent} from "@/lib/ai/agents";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -23,34 +20,8 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let content = '';
-  const results = await generateObject({
-    model: groq('meta-llama/llama-4-maverick-17b-128e-instruct'),
-    system: "you are a standard course work for university students",
-    prompt: questions,
-    schema : outlineSchema
-  });
-
-  const output = results.object;
-  const sections = output['sections'];
-  content += `\n\n${output['title']}\n\n`
-  content += output['summary']
-
-
-  const santa = sections.map(async sec => {
-    const { text } = await generateText({
-      model: groq('moonshotai/kimi-k2-instruct-0905'),
-      system: "you are a standard course work for university students",
-      prompt: `write a deep dive on ${sec['title'], sec['content']}, dont add any dividers or conclusions. the out put format should be compatible with platejs`,
-    });
-    return text;
-  })
-
-  const y = await Promise.all(santa)
-
-  content += y.join('')
-  content += output['conclusion']
-
+  const output = await documentAgent({ doctype: 'document', questionnaire: questions });
+  
   await prisma.document.update({
     where : { id : id},
     data : {

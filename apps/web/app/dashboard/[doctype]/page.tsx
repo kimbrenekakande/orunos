@@ -1,7 +1,6 @@
 import { serverSession } from "@/lib/server-session";
 import { redirect } from "next/navigation"; //or use unauthorized
-import { DocumentQns } from "../../../components/forms/qnsForm";
-import AI_Prompt from "@/components/kokonutui/ai-prompt";
+import Questionaire from "@/components/kokonutui/ai-prompt";
 
 type Props = {
   params: Promise<{doctype: string}>
@@ -24,8 +23,7 @@ export default async function Paper({params} : Props) {
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
-      <AI_Prompt />
-      {/*<DocumentQns doctype={doctype} />*/}
+      <Questionaire doctype={doctype}/>
     </div>
   )
 }

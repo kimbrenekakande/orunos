@@ -9,6 +9,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   
+  image: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
+  },
+  
   page: {
     fontSize: 14,
     textAlign: "justify",

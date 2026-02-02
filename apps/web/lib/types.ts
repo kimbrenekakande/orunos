@@ -1,9 +1,21 @@
 import { z } from 'zod';
+
 export interface Mdprops {
   id : string
   title : string
   content : string
 }
+
+export interface MyDocProps {
+  title : string;
+  content: string;
+}
+
+export interface agentProps {
+  doctype: string;
+  questionnaire: string;
+}
+
 
 export const outlineSchema = z.object({
   title : z.string(),
@@ -11,4 +23,3 @@ export const outlineSchema = z.object({
   sections : z.array(z.object({title : z.string(),content : z.string()})),
   conclusion : z.string()
 });
-

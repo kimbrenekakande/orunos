@@ -1,31 +1,48 @@
-import { generateText } from "./braintrust";
+import { generateText, generateObject } from "./braintrust";
 import { groq } from '@ai-sdk/groq';
-import { agentProps } from "../types";
-import { outliner, expander, merger } from "./tools";
-import { stepCountIs } from "ai";
-
+import { agentProps, outlineSchema } from "../types";
+import { rules } from "./rules";
 
 export async function documentAgent({ doctype, questionnaire }: agentProps) {
-  const results = await generateText({
+  let document = '';
+  
+  const outliner = await generateObject({
     model: groq('meta-llama/llama-4-maverick-17b-128e-instruct'),
     system: `
-      You are a standard ${doctype} document creator agent for university students.
-      Your task is to generate a ${doctype} based on the provided questionnaire.
-      create an outline of the document. and generate the document based off of it.
-      
-      rules:
-        Avoid using overly complex language.
-        Avoid using mdashes.
-        Be concise and clear.
-        Follow the formatting guidelines provided.
+      You are part of a team of experts in creating ${doctype} documents based on the questions provided.
+      Your particular role is to generate an outline based suited to the ${doctype} document based on the questions provided.
+      rules : ${rules}
     `,
     prompt: questionnaire,
-    stopWhen : stepCountIs(10),
-    tools: {
-      DocOutliner: outliner,
-      DocExpander: expander,
-      DocMerger: merger,
-    },
+    schema : outlineSchema
   });
-  return results.text;
+  
+  
+  const output = outliner.object;
+  const sections = output['sections'];
+  document += `\n\n${output['title']}\n\n`  
+  document += output['summary']
+  
+
+  const santa = sections.map(async sec => {
+    const { text } = await generateText({
+      model: groq('moonshotai/kimi-k2-instruct-0905'),
+      system: `
+        you are a standard course work for university students
+        rules : ${rules}
+      `,
+      prompt: `write a deep dive on ${sec['title'], sec['content']}, dont add any dividers or conclusions. the out put format should be compatible with platejs`,
+    });
+    return text;
+  })
+  
+  
+  const x = await Promise.all(santa)
+  document += x.join('')
+  document += output['conclusion']
+  
+  return {
+    title: output['title'],
+    body: document
+  };
 }

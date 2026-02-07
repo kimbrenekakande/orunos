@@ -1,7 +1,9 @@
 import { betterAuth} from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { sendEmail } from "./email";
+import { sendEmail } from "./resend";
+import ConfirmEmail from "@/components/emails/emailConfirmation";
 import  prisma  from "@/lib/prisma";
+import { nextCookies } from "better-auth/next-js";
 
 export const auth = betterAuth({
 	database: prismaAdapter(prisma, {
@@ -14,9 +16,17 @@ export const auth = betterAuth({
   ],
 
 	emailAndPassword: { 
-		enabled: true,
+    enabled: true,
+    // requireEmailVerification: true,
   },
-	
+  
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge : 60 * 5,
+    }
+    
+	},
   emailVerification: {
     sendOnSignUp: true, 
     autoSignInAfterVerification : true,
@@ -24,7 +34,7 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: "Please Verify Your Email Address",
-        text: `Click here to verify your email ${url}`,
+        react: <ConfirmEmail validationCode="123456" />,
       })
     } 
   },
@@ -41,7 +51,11 @@ export const auth = betterAuth({
 				input: false,
 			},
 		},
-	},
+  },
+	
+  plugins: [
+    nextCookies(),
+  ]
 });
 
 export type Session = typeof auth.$Infer.Session;

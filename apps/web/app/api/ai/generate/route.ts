@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     where : { id : id},
     data : {
       title : output.title,
-      answer : content,
+      answer : output.body,
       status : "READY",
     }
   })

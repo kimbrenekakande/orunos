@@ -15,14 +15,15 @@ export default function LoginPage() {
 	const [password, setPassword] = useState("");
 
 	async function LogInNow() {
-		const { error } = await authClient.signIn.email({ email, password });
+		const { error, } = await authClient.signIn.email({ email, password, callbackURL: "/dashboard" });
 		if (error) {
 			console.error("Log in error:", error.message);
 			return;
-		}
-		router.push("/dashboard");
+    }
+    router.push("/dashboard"); //callback tends not to work if email verification aint enabled hence the push
 	}
 
+	//TODO: FIX CALLBACK ISSUE 
 	return (
 		<section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
 			<form

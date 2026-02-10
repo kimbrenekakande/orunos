@@ -1,11 +1,11 @@
 import { Body, Column, Container, Head, Heading, Html, Img, Link, Preview, Row, Section,Text } from '@react-email/components';
 // import tailwindConfig from '../tailwind.config';
 
-interface ConfirmEmailProps {
+interface confirmEmailProps {
   validationCode?: string;
 }
 
-export const ConfirmEmail = ({ validationCode }: ConfirmEmailProps) => (
+export const ConfirmEmail = ({ validationCode }: confirmEmailProps) => (
   <Html>
     <Head />
     <Body className="bg-white font-slack mx-auto my-0">
@@ -132,6 +132,6 @@ export const ConfirmEmail = ({ validationCode }: ConfirmEmailProps) => (
 
 ConfirmEmail.PreviewProps = {
   validationCode: 'DJZ-TLX',
-} as ConfirmEmailProps;
+} as confirmEmailProps;
 
 export default ConfirmEmail;

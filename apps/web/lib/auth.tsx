@@ -34,7 +34,7 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: "Please Verify Your Email Address",
-        react: <ConfirmEmail validationCode="123456" />,
+        react: <ConfirmEmail validationCode={url} />,
       })
     } 
   },

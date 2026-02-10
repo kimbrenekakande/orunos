@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ReactNode } from 'react';
 
 export interface Mdprops {
   id : string
@@ -19,7 +20,7 @@ export interface agentProps {
 export interface emailValues {
   to: string,
   subject: string,
-  react : React.ReactNode
+  react : ReactNode
 }
 
 export const outlineSchema = z.object({

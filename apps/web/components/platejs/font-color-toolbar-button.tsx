@@ -275,9 +275,13 @@ function ColorInput({
   children,
   className,
   value = '#000000',
+  ref: externalRef,
   ...props
 }: React.ComponentProps<'input'>) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const [inputId] = React.useState(() => `color-input-${Math.random().toString(36).substr(2, 9)}`);
+
+  React.useImperativeHandle(externalRef as React.Ref<HTMLInputElement>, () => inputRef.current!);
 
   return (
     <div className="flex flex-col items-center">
@@ -286,16 +290,20 @@ function ColorInput({
 
         return React.cloneElement(
           child as React.ReactElement<{
-            onClick: () => void;
+            onClick: React.MouseEventHandler<HTMLButtonElement>;
           }>,
           {
-            onClick: () => inputRef.current?.click(),
+            onClick: () => {
+              const input = document.getElementById(inputId) as HTMLInputElement;
+              input?.click();
+            },
           }
         );
       })}
       <input
         {...props}
-        ref={useComposedRef(props.ref, inputRef)}
+        id={inputId}
+        ref={inputRef}
         className={cn('size-0 overflow-hidden border-0 p-0', className)}
         value={value}
         type="color"

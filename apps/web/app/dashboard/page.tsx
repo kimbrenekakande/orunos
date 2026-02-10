@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import TemplateGallery from "@/components/ui/templates";
 import { TableView } from "@/components/ui/table-view";
 import { Button } from "@/components/tiptapui/button";
-import { verifyEmail } from "./verify";
+import { VerifyEmailButton } from "./verify";
 
 export default async function Home() {
   const session = await serverSession();
@@ -20,7 +20,7 @@ export default async function Home() {
             <div className="h-px w-full bg-orange-500/50"></div>
             <div className="h-full w-full flex justify-between py-2 flex place-items-center-safe">
               <p className="text-sm md:text-base">You need to verify your email</p>
-              <Button onClick={verifyEmail} className="cursor-pointer">Verify</Button>
+              <VerifyEmailButton email={user.email} />
             </div>
             <div className="h-px w-full bg-orange-500/50"></div>
           </section>

@@ -2,7 +2,7 @@ import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, Tabl
 import Link from "next/link"
 import clsx from "clsx"
 import prisma from "@/lib/prisma"
-import { EllipsisIcon } from "lucide-react"
+import { DropdownMenuDestructive } from "../tabledrop"
 
 
 export async function TableView( {user} ) {
@@ -24,7 +24,7 @@ export async function TableView( {user} ) {
           <TableHead>Type</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Created</TableHead>
-          <TableHead className="text-right">Last Edited</TableHead>
+          {/* <TableHead className="text-right">Last Edited</TableHead>*/}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -43,9 +43,9 @@ export async function TableView( {user} ) {
                 {"text-green-600" : paper.status === "READY"}
               )}>&deg;</TableCell>
               <TableCell>{ paper.createdAt.toISOString().split('T')[0] }</TableCell>
-              <TableCell className="text-right">{paper.updatedAt.toISOString().split('T')[0]}</TableCell>
-              <TableCell className="mr-4">
-                <EllipsisIcon />
+              {/* <TableCell className="text-right">{paper.updatedAt.toISOString().split('T')[0]}</TableCell>*/}
+              <TableCell className="mx-16">
+                <DropdownMenuDestructive />
               </TableCell>
             </TableRow>
           ))}

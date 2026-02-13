@@ -37,10 +37,12 @@ Markdown String → Plate Editor (Slate.js) → Rich Text UI
 ```
 
 **Process:**
-1. Markdown content fetched from database
-2. Deserialized using MarkdownPlugin: `editor.getApi(MarkdownPlugin).markdown.deserialize(content)`
-3. Slate.js creates immutable document tree
-4. UI renders based on plugin configuration
+1. Markdown content fetched from database via `/api/papers/fetch?id=${id}`
+2. Document record contains `{ id, title, question, answer, status, ... }` where `answer` field holds the document content
+3. The `answer` field (stored as Markdown string) is passed to the editor as `content`
+4. Deserialized using MarkdownPlugin: `editor.getApi(MarkdownPlugin).markdown.deserialize(content)`
+5. Slate.js creates immutable document tree
+6. UI renders based on plugin configuration
 
 ### 2. Real-time Editing
 ```
@@ -62,6 +64,56 @@ await fetch(`${baseUrl}/api/papers/update?id=${id}`, {
   body: JSON.stringify({ 'update': changes })
 });
 ```
+
+### 4. Data Mutation Patterns
+
+#### Database Schema
+The document content is stored in the SQLite database using Prisma ORM:
+```prisma
+model Document {
+  id        String    @id @default(cuid())
+  docTypeId String
+  docType   DocType   @relation(fields: [docTypeId], references: [type])
+  title     String
+  question  String
+  answer    String?   // This field stores the document content as Markdown
+  status    DocStatus
+  cost      Int
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([userId])
+}
+```
+
+#### Data Transformation Chain
+- **Markdown → Slate**: Deserialization transforms Markdown text to Slate.js document tree structure
+- **Slate → UI**: Plate.js renders Slate document as editable React components
+- **UI → Slate**: User interactions create Slate operations (insert, delete, format) that mutate the document tree
+- **Slate → Markdown**: Serialization converts Slate document tree back to Markdown string
+
+#### Key Data Mutation Points
+1. **Initial Load**: Database Markdown → Slate.js document tree → UI rendering
+2. **Real-time Edits**: UI interactions → Slate.js operations → updated document tree
+3. **AI Integration**: AI responses → Slate.js operations → updated document tree
+4. **Save Operation**: Final Slate.js document tree → Markdown string → Database storage
+
+#### AI-Generated Content Flow
+1. **Context Extraction**: AI command API receives editor state (`children`, `selection`) along with user messages
+2. **Slate Editor Creation**: Temporary Slate editor instance is created with current document state:
+   ```typescript
+   const editor = createSlateEditor({
+     plugins: BaseEditorKit,
+     selection,
+     value: children,
+   });
+   ```
+3. **AI Processing**: AI model generates content based on context and user prompts
+4. **Streaming Updates**: AI responses are streamed back to the editor in real-time
+5. **Content Insertion**: Generated content is inserted into the editor's document tree at the appropriate location
+6. **Final Mutation**: When user accepts AI suggestions, the changes become part of the editor state and will be included in the next serialization to the database
 
 ## AI Integration Architecture
 

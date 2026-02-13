@@ -3,20 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/tiptapui/input";
 import { Label } from "@/components/ui/label";
-
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Link from "next/link";
 import Image from "next/image";
 
 import { authClient } from "@/lib/auth-client";
+import { socialsignIn } from "@/lib/social-auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { institutionRecord } from "@/server/instRecord";
@@ -45,13 +37,14 @@ export default function SignUpPage() {
       password,
       callbackURL : "/dashboard"
     });
-		
+
 		if (error) {
 			console.error("Sign up error:", error.message);
 			return;
 		}
 		router.push("/dashboard");
-	}
+  }
+
 
 	return (
 		<section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
@@ -179,7 +172,7 @@ export default function SignUpPage() {
 					</div>
 
 					<div className="grid grid-cols-2 gap-3">
-						<Button type="button" variant="outline">
+            <Button type="button" variant="outline" onClick={() => socialsignIn("google")}  className="cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="0.98em"
@@ -205,7 +198,7 @@ export default function SignUpPage() {
 							</svg>
 							<span>Google</span>
 						</Button>
-						<Button type="button" variant="outline">
+						<Button type="button" variant="outline"  className="cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="1em"

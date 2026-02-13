@@ -2,6 +2,7 @@ import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, Tabl
 import Link from "next/link"
 import clsx from "clsx"
 import prisma from "@/lib/prisma"
+import { EllipsisIcon } from "lucide-react"
 
 
 export async function TableView( {user} ) {
@@ -42,7 +43,10 @@ export async function TableView( {user} ) {
                 {"text-green-600" : paper.status === "READY"}
               )}>&deg;</TableCell>
               <TableCell>{ paper.createdAt.toISOString().split('T')[0] }</TableCell>
-              <TableCell className="text-right">{ paper.updatedAt.toISOString().split('T')[0] }</TableCell>
+              <TableCell className="text-right">{paper.updatedAt.toISOString().split('T')[0]}</TableCell>
+              <TableCell className="mr-4">
+                <EllipsisIcon />
+              </TableCell>
             </TableRow>
           ))}
         

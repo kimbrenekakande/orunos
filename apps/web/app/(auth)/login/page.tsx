@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
+import { socialsignIn } from "@/lib/social-auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -95,7 +96,7 @@ export default function LoginPage() {
 					</div>
 
 					<div className="grid grid-cols-2 gap-3">
-						<Button type="button" variant="outline">
+						<Button type="button" variant="outline" onClick={() => socialsignIn("google")} className="cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="0.98em"
@@ -121,7 +122,7 @@ export default function LoginPage() {
 							</svg>
 							<span>Google</span>
 						</Button>
-						<Button type="button" variant="outline">
+						<Button type="button" variant="outline" className="cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="1em"

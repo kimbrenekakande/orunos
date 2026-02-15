@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button"
+"use client"
+
+import Link from "next/link"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/tiptapui/dropdown-menu"
 import { PencilIcon, ShareIcon, TrashIcon, EllipsisIcon } from "lucide-react"
+import { Button } from "./tiptapui/button"
 
 export function DropdownMenuDestructive() {
   return (
@@ -17,18 +20,16 @@ export function DropdownMenuDestructive() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <PencilIcon />
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <ShareIcon />
-            Share
-          </DropdownMenuItem>
+          <Link href="/dashboard" className="flex justify-between gap-2">
+            <DropdownMenuItem className=" w-full">
+              <PencilIcon />
+              Edit
+            </DropdownMenuItem>
+          </ Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem variant="destructive">
+          <DropdownMenuItem variant="destructive" className="min-w-full">
             <TrashIcon />
             Delete
           </DropdownMenuItem>

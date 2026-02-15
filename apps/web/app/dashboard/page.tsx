@@ -28,8 +28,7 @@ export default async function Home() {
       </div>
 
       <TemplateGallery />
-      <div className=" mx-8">
-        <h2>Recent Papers</h2>
+      <div className=" mx-8 pt-16">
         <TableView user={user} />
       </div>
     </div>

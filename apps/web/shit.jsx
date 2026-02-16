@@ -1,4 +1,6 @@
+import prisma from "@/lib/prisma"
 import { marked } from "marked"
+import { Page, Text, View, Document, Image, Link } from "@react-pdf/renderer";
 
 
 const doc = `
@@ -69,6 +71,57 @@ const doc = `
   - No caching of generated PDFs
 `
 
-const tokens = marked.lexer(doc)
+async function generatePDF() {
+  const docux = await prisma.document.findUnique({
+    where: {
+      id : "cmlp26r5d0000i9ocfqkaostu",
+    }
+  }) 
+  const tokens = marked.lexer(docux.answer)
+  const tagy = tokens.map((token, index) => {
+    switch(token.type) {
+      case 'text':
+        return <Text key={index}>{token.text}</Text>;
+      
+      case 'strong':
+        return (
+          <Text key={index} style={styles.strong}>
+            {token.text}
+          </Text>
+        );
+      
+      case 'em':
+        return (
+          <Text key={index} style={styles.em}>
+            {token.text}
+          </Text>
+        );
+      
+      case 'codespan':
+        return (
+          <Text key={index} style={styles.inlineCode}>
+            {token.text}
+          </Text>
+        );
+      
+      case 'link':
+        return (
+          <Link key={index} src={token.href} style={styles.link}>
+            {token.text}
+          </Link>
+        );
+      
+      case 'br':
+        return <Text key={index}>{'\n'}</Text>;
+      
+      default:
+        return <Text key={index}>{token.raw || ''}</Text>;return <Text key={index}>{token.text}</Text>;
+    }
+  })
+  console.log(tagy)
+}
 
-console.log(tokens)
+generatePDF()
+
+
+// console.log(tokens)

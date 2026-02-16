@@ -1,7 +1,122 @@
 import { StyleSheet } from "@react-pdf/renderer";
 
-// Enhanced academic document styles
 export const styles = StyleSheet.create({
+  page: {
+    padding: 40,
+    fontSize: 11,
+    fontFamily: 'Helvetica',
+    lineHeight: 1.6,
+  },
+  h1: {
+    fontSize: 24,
+    marginBottom: 12,
+    marginTop: 20,
+    fontFamily: 'Helvetica-Bold',
+    color: '#1a1a1a',
+  },
+  h2: {
+    fontSize: 20,
+    marginBottom: 10,
+    marginTop: 16,
+    fontFamily: 'Helvetica-Bold',
+    color: '#2a2a2a',
+  },
+  h3: {
+    fontSize: 16,
+    marginBottom: 8,
+    marginTop: 12,
+    fontFamily: 'Helvetica-Bold',
+    color: '#3a3a3a',
+  },
+  h4: {
+    fontSize: 14,
+    marginBottom: 6,
+    marginTop: 10,
+    fontFamily: 'Helvetica-Bold',
+    color: '#4a4a4a',
+  },
+  paragraph: {
+    marginBottom: 10,
+    textAlign: 'justify',
+  },
+  strong: {
+    fontFamily: 'Helvetica-Bold',
+  },
+  em: {
+    fontFamily: 'Helvetica-Oblique',
+  },
+  link: {
+    color: '#2563eb',
+    textDecoration: 'underline',
+  },
+  list: {
+    marginBottom: 10,
+    marginLeft: 20,
+  },
+  listItem: {
+    marginBottom: 4,
+    flexDirection: 'row',
+  },
+  listBullet: {
+    width: 15,
+  },
+  listContent: {
+    flex: 1,
+  },
+  table: {
+    marginTop: 10,
+    marginBottom: 15,
+  },
+  tableRow: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e5e7eb',
+    minHeight: 25,
+    alignItems: 'center',
+  },
+  tableHeaderRow: {
+    backgroundColor: '#f3f4f6',
+    borderBottomWidth: 2,
+    borderBottomColor: '#9ca3af',
+    fontFamily: 'Helvetica-Bold',
+  },
+  tableCell: {
+    flex: 1,
+    padding: 5,
+    fontSize: 10,
+  },
+  codeBlock: {
+    backgroundColor: '#f3f4f6',
+    padding: 10,
+    marginBottom: 10,
+    fontFamily: 'Courier',
+    fontSize: 9,
+    borderRadius: 3,
+  },
+  inlineCode: {
+    backgroundColor: '#f3f4f6',
+    fontFamily: 'Courier',
+    fontSize: 9,
+    padding: 2,
+  },
+  blockquote: {
+    borderLeftWidth: 4,
+    borderLeftColor: '#d1d5db',
+    paddingLeft: 15,
+    marginBottom: 10,
+    fontFamily: 'Helvetica-Oblique',
+    color: '#6b7280',
+  },
+  hr: {
+    marginTop: 15,
+    marginBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e5e7eb',
+  },
+});
+
+// Enhanced academic document styles
+export const stylesx = StyleSheet.create({
   cover: {
     display: "flex",
     flexDirection: "column",

@@ -20,7 +20,7 @@ export async function documentAgent({ doctype, questionnaire }: agentProps) {
   
   const output = outliner.object;
   const sections = output['sections'];
-  document += `\n\n${output['title']}\n\n`  
+  document += `\n\n ## ${output['title']} \n\n`  
   document += output['summary']
   
 
@@ -28,10 +28,12 @@ export async function documentAgent({ doctype, questionnaire }: agentProps) {
     const { text } = await generateText({
       model: groq('moonshotai/kimi-k2-instruct-0905'),
       system: `
-        you are a standard course work for university students
-        rules : ${rules}
+        
+        you are a standard course work for university students,
+        rules :
+        ${rules}
       `,
-      prompt: `write a deep dive on ${sec['title'], sec['content']}, dont add any dividers or conclusions. the out put format should be compatible with platejs`,
+      prompt: `write a deep dive on ${sec['title'], sec['content']}, dont add any dividers or conclusions. the out put format should markdown`,
     });
     return text;
   })

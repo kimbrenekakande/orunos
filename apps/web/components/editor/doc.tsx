@@ -15,77 +15,82 @@ async function somero(instID : string) {
 // const institution = await somero(id)
 //Generating && Download PDF
 export const MyDoc = ({ title, content }: MyDocProps) => {
-  
+
   const [institution, setInstitution] = useState({
-    id       :  0 ,  
+    id       :  0 ,
     name     :  "",
     country  :  "",
     address  :  "",
     logo     :  "",
   })
-  
+
   const {data, isPending, error, refetch} =  authClient.useSession() // Fetching the session from the client side
   const author = data?.user
   const id = Number(author?.institutionId)
-  
+
   useEffect(() => {
     if (id) {
       somero(id.toString()).then(setInstitution)
     }
   }, [id])
-  
+
   //turn md content to react pdf primitives
   const renderTokens = (tokens: any[]): React.ReactNode[] => {
+    const getHeadingStyle = (depth: number) => {
+      const styleKey = `h${depth}` as keyof typeof styles;
+      return styles[styleKey] || styles.paragraph;
+    };
+
     return tokens.map((token, index) => {
       switch (token.type) {
         case 'text':
           return <Text key={index}>{token.text}</Text>;
-        
+
         case 'strong':
           return (
             <Text key={index} style={styles.strong}>
               {token.text}
             </Text>
           );
-        
+
         case 'em':
           return (
             <Text key={index} style={styles.em}>
               {token.text}
             </Text>
           );
-        
+
         case 'codespan':
           return (
             <Text key={index} style={styles.inlineCode}>
               {token.text}
             </Text>
           );
-        
+
         case 'link':
           return (
             <Link key={index} src={token.href} style={styles.link}>
               {token.text}
             </Link>
           );
-        
+
         case 'br':
           return <Text key={index}>{'\n'}</Text>;
-        
+
         case 'heading':
           return (
-            <Text key={index} style={styles[`h${token.depth}`]}>
+            <Text key={index} style={getHeadingStyle(token.depth)}>
               {token.text}
             </Text>
           );
-        
+
         case 'paragraph':
           return (
             <Text key={index}>
               {renderTokens(token.tokens || [])}
             </Text>
           );
-        
+
         case 'list':
           return token.items.map((item: any, i: number) => (
             <Text key={`${index}-${i}`}>
@@ -93,7 +98,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
               {item.tokens && renderTokens(item.tokens)}
             </Text>
           ));
-        
+
         default:
           return <Text key={index}>{token.raw || ''}</Text>;
       }
@@ -112,7 +117,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
         <Text>{author?.name || "name"}</Text>
         <Text>{author?.email || "email"}</Text>
       </Page>
-      
+
       <Page size="A4" style={styles.page}>
         <View>
           {primitives}
@@ -120,7 +125,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
         <Text render={({pageNumber}) => (
           `${pageNumber}`
         )} fixed/>
-      </Page> 
+      </Page>
     </Document>
   )
 }

@@ -31,7 +31,7 @@ export default function Logos() {
         fadeOutColor="#ffffff"
         ariaLabel="Technology partners"
       />
-      
+
       {/* Vertical loop with deceleration on hover */}
       <LogoLoop
         logos={techLogos}
@@ -41,8 +41,7 @@ export default function Logos() {
         gap={60}
         hoverSpeed={0}
         fadeOut
-        useCustomRender={false}
-/>
+      />
     </div>
   );
 }

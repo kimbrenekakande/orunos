@@ -12,7 +12,7 @@ import type React from "react";
 
 type FeatureType = {
 	title: string;
-	icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+	icon: React.ComponentType<any>;
 	description: string;
 };
 

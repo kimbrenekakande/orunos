@@ -2,8 +2,7 @@ import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, Tabl
 import Link from "next/link"
 import clsx from "clsx"
 import prisma from "@/lib/prisma"
-import { FileText } from "lucide-react"
-import { DropdownMenuDestructive } from "../tabledrop"
+import { FileText, Trash2Icon } from "lucide-react"
 
 
 export async function TableView( {user} ) {
@@ -15,7 +14,8 @@ export async function TableView( {user} ) {
       createdAt : 'desc'
     }
   }) // all papers array
-
+  
+  
   return (
     <Table>
       <TableCaption>A list of your recent papers.</TableCaption>
@@ -25,7 +25,7 @@ export async function TableView( {user} ) {
           <TableHead className="text-center">Doc Type</TableHead>
           <TableHead className="text-center">Status</TableHead>
           <TableHead className="text-center">Last Edited</TableHead>
-          <TableHead className="text-center">Actions</TableHead>
+          <TableHead className="text-center">Delete</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -45,7 +45,7 @@ export async function TableView( {user} ) {
               )}>&deg;</TableCell>
               <TableCell className="text-center">{paper.updatedAt.toISOString().split('T')[0]}</TableCell>
               <TableCell className="flex justify-center">
-                <DropdownMenuDestructive />
+                <Trash2Icon className="w-6 h-6 mr-2" />
               </TableCell>
             </TableRow>
           ))}

@@ -16,7 +16,7 @@ type props = {
 export function DocPoller({ id, from } : props) {
 
   const fetcher = (url : string ) => fetch(url).then((res) => res.json());
-  
+
   //Polling using nextjs swr
   const { data, error, isLoading } = useSWR(
     `${baseUrl}/api/papers/fetch?id=${id}`, fetcher,
@@ -24,10 +24,10 @@ export function DocPoller({ id, from } : props) {
       return (!data || data.status === "GENERATING")? 2000 : 0;
     } }
   )
-  
+
   if (error) return <div>Error Fetching Document</div>;
-  
-  if (isLoading || data.status === "GENERATING"){
+
+  if (isLoading || data?.status === "GENERATING"){
     if (from === "form"){
       return (
         <div className="h-full w-full flex flex-col justify-center items-center gap-4">

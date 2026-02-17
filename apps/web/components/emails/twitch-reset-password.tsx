@@ -6,7 +6,6 @@ import { Body, Column, Container, Head, Html, Img,
   Tailwind,
   Text,
 } from '@react-email/components';
-import tailwindConfig from '../tailwind.config';
 
 interface TwitchResetPasswordEmailProps {
   username?: string;
@@ -29,7 +28,7 @@ export const TwitchResetPasswordEmail = ({
   return (
     <Html>
       <Head />
-      <Tailwind config={tailwindConfig}>
+      <Tailwind>
         <Body className="bg-[#efeef1] font-twitch">
           <Preview>You updated the password for your Twitch account</Preview>
           <Container className="max-w-[580px] my-[30px] mx-auto bg-white">

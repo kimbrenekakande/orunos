@@ -29,7 +29,13 @@ export function DropdownMenuDestructive() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem variant="destructive" className="min-w-full">
+          <DropdownMenuItem variant="destructive" className="min-w-full"
+            onSelect={
+              () => {
+                // e.preventDefault()
+                console.log("Delete")
+              }
+            }>
             <TrashIcon />
             Delete
           </DropdownMenuItem>

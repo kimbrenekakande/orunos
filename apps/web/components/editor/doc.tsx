@@ -4,9 +4,8 @@ import { authClient } from "@/lib/auth-client"
 import baseUrl from "@/lib/base-url";
 import React, { useEffect, useState } from "react";
 import { MyDocProps } from "@/lib/types";
-import { InstituteType } from "@/lib/types";
+// import { InstituteType } from "@/lib/types";
 import {marked} from "marked"
-
 
 
 async function somero(instID : string) {
@@ -16,15 +15,15 @@ async function somero(instID : string) {
 // const institution = await somero(id)
 //Generating && Download PDF
 export const MyDoc = ({ title, content }: MyDocProps) => {
-  const x: InstituteType = {
+  
+  const [institution, setInstitution] = useState({
     id       :  0 ,  
     name     :  "",
     country  :  "",
     address  :  "",
     logo     :  "",
-  }
+  })
   
-  const [institution, setInstitution] = useState(x)
   const {data, isPending, error, refetch} =  authClient.useSession() // Fetching the session from the client side
   const author = data?.user
   const id = Number(author?.institutionId)
@@ -121,7 +120,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
         <Text render={({pageNumber}) => (
           `${pageNumber}`
         )} fixed/>
-      </Page>
+      </Page> 
     </Document>
   )
 }

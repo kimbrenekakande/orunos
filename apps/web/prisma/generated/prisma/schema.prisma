@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum TransType {
+  DEPOSIT
+  WITHDRAWAL
+}
+
+enum DocStatus {
+  GENERATING
+  READY
+}
+
+model Document {
+  id        String    @id @default(cuid())
+  docTypeId String
+  docType   DocType   @relation(fields: [docTypeId], references: [type])
+  title     String
+  question  String
+  answer    String?
+  status    DocStatus
+  cost      Int
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model DocType {
+  type        String     @id @unique // 'coursework', 'fieldwork', etc.
+  price       Int
+  name        String // Display name: "Coursework", "Field Work"
+  description String? // Optional description
+  documents   Document[]
+  isActive    Boolean    @default(true) // Can disable document types
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([type])
+}
+
+model Institution {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  country   String
+  address   String
+  logo      String?
+  users     User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name])
+}
+
+model Transaction {
+  id          String    @id
+  amount      Int
+  type        TransType // 'deposit' or 'charge'
+  description String
+  createdAt   DateTime  @default(now())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+//Better Auth
+model User {
+  id            String        @id
+  name          String
+  email         String
+  image         String?
+  balance       Int           @default(0)
+  institutionId Int?
+  institution   Institution?  @relation(fields: [institutionId], references: [id]) //Custom field
+  documents     Document[] //Custom field
+  transactions  Transaction[] //Custom field
+  admin         Boolean       @default(false) //Custom Field
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  emailVerified Boolean       @default(false)
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}

@@ -2,6 +2,7 @@
 import { SiteHeader } from "@/components/dashboard/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/dashboard/sidebar"
 import type { Metadata } from "next";
+import { Toaster } from "@/components/tiptapui/sonner"
 
 export const metadata: Metadata = {
   title: "Orunos | Your Academic CoPilot",
@@ -26,7 +27,8 @@ export default function DashboardLayout({
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
-          {children}           
+          {children}
+          <Toaster />          
         </div>
       </SidebarInset>
     </SidebarProvider>

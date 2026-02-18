@@ -32,7 +32,7 @@ export function LineHeightToolbarButton(props: DropdownMenuProps) {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...(props as any)}>
       <DropdownMenuTrigger asChild>
         <ToolbarButton pressed={open} tooltip="Line height" isDropdown>
           <WrapText />

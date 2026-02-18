@@ -37,7 +37,7 @@ export function Caption({
   VariantProps<typeof captionVariants>) {
   return (
     <CaptionPrimitive
-      {...props}
+      {...(props as any)}
       className={cn(captionVariants({ align }), className)}
     />
   );
@@ -48,7 +48,7 @@ export function CaptionTextarea(
 ) {
   return (
     <CaptionTextareaPrimitive
-      {...props}
+      {...(props as any)}
       className={cn(
         'mt-2 w-full resize-none border-none bg-inherit p-0 font-[inherit] text-inherit',
         'focus:outline-none focus:[&::placeholder]:opacity-0',

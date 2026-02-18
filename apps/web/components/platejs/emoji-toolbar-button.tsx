@@ -52,7 +52,7 @@ export function EmojiToolbarButton({
   return (
     <EmojiPopover
       control={
-        <ToolbarButton pressed={isOpen} tooltip="Emoji" isDropdown {...props}>
+        <ToolbarButton pressed={isOpen} tooltip="Emoji" isDropdown {...(props as any)}>
           <SmileIcon />
         </ToolbarButton>
       }
@@ -467,9 +467,9 @@ function EmojiPickerPreview({
 
   return (
     <>
-      {showPreview && <EmojiPreview emoji={emoji} {...props} />}
-      {showPickEmoji && <PickAnEmoji i18n={i18n} {...props} />}
-      {showNoEmoji && <NoEmoji i18n={i18n} {...props} />}
+      {showPreview && <EmojiPreview emoji={emoji} {...(props as any)} />}
+      {showPickEmoji && <PickAnEmoji i18n={i18n} {...(props as any)} />}
+      {showNoEmoji && <NoEmoji i18n={i18n} {...(props as any)} />}
     </>
   );
 }

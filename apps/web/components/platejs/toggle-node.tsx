@@ -16,7 +16,7 @@ export function ToggleElement(props: PlateElementProps) {
   const { buttonProps, open } = useToggleButton(state);
 
   return (
-    <PlateElement {...props} className="pl-6">
+    <PlateElement {...(props as any)} className="pl-6">
       <Button
         size="icon"
         variant="ghost"

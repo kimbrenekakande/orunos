@@ -17,7 +17,7 @@ export function CalloutElementStatic({
       style={{
         backgroundColor: props.element.backgroundColor as any,
       }}
-      {...props}
+      {...(props as any)}
     >
       <div className="flex w-full gap-2 rounded-md">
         <div

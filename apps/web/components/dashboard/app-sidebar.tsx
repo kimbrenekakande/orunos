@@ -106,7 +106,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     avatar: "/images/tree.jpg",
   }
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="offcanvas" {...(props as any)}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

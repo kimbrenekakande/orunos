@@ -199,7 +199,7 @@ export function TodoListToolbarButton(
   const { props: buttonProps } = useIndentTodoToolBarButton(state);
 
   return (
-    <ToolbarButton {...props} {...buttonProps} tooltip="Todo">
+    <ToolbarButton {...(props as any)} {...buttonProps} tooltip="Todo">
       <ListTodoIcon />
     </ToolbarButton>
   );

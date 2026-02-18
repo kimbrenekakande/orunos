@@ -15,7 +15,7 @@ export function InlineEquationToolbarButton(
 
   return (
     <ToolbarButton
-      {...props}
+      {...(props as any)}
       onClick={() => {
         insertInlineEquation(editor);
       }}

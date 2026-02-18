@@ -48,7 +48,7 @@ export const VideoElement = withHOC(
     });
 
     return (
-      <PlateElement className="py-2.5" {...props}>
+      <PlateElement className="py-2.5" {...(props as any)}>
         <figure className="relative m-0 cursor-default" contentEditable={false}>
           <Resizable
             className={cn(isDragging && 'opacity-50')}

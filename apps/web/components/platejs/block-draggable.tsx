@@ -67,7 +67,7 @@ export const BlockDraggable: RenderNodeWrapper = (props) => {
 
   if (!enabled) return;
 
-  return (props) => <Draggable {...props} />;
+  return (props) => <Draggable {...(props as any)} />;
 };
 
 function Draggable(props: PlateElementProps) {
@@ -203,7 +203,7 @@ function Gutter({
 
   return (
     <div
-      {...props}
+      {...(props as any)}
       className={cn(
         'slate-gutterLeft',
         'absolute top-0 z-50 flex h-full -translate-x-full cursor-text hover:opacity-100 sm:opacity-0',
@@ -343,7 +343,7 @@ const DropLine = React.memo(function DropLine({
 
   return (
     <div
-      {...props}
+      {...(props as any)}
       className={cn(
         'slate-dropLine',
         'absolute inset-x-0 h-0.5 opacity-100 transition-opacity',

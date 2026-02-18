@@ -14,7 +14,7 @@ export function ImageElementStatic(
   const { align = 'center', caption, url, width } = props.element;
 
   return (
-    <SlateElement {...props} className="py-2.5">
+    <SlateElement {...(props as any)} className="py-2.5">
       <figure className="group relative m-0 inline-block" style={{ width }}>
         <div
           className="relative max-w-full min-w-[92px]"

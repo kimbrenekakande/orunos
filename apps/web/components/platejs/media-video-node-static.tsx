@@ -12,7 +12,7 @@ export function VideoElementStatic(
   const { align = 'center', caption, url, width } = props.element;
 
   return (
-    <SlateElement className="py-2.5" {...props}>
+    <SlateElement className="py-2.5" {...(props as any)}>
       <div style={{ textAlign: align }}>
         <figure
           className="group relative m-0 inline-block cursor-default"

@@ -15,11 +15,9 @@ export async function TableView( {user} ) {
     }
   }) // all papers array
   
-  
-  
   return (
     <Table>
-      <TableCaption>A list of your recent papers.</TableCaption>
+      <TableCaption>A list of your created documents.</TableCaption>
       <TableHeader>
         <TableRow  className="text-orange-700">
           <TableHead>Title</TableHead>

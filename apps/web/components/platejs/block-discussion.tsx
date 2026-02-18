@@ -77,7 +77,7 @@ export const BlockDiscussion: RenderNodeWrapper<AnyPluginConfig> = (props) => {
       commentNodes={commentNodes}
       draftCommentNode={draftCommentNode}
       suggestionNodes={suggestionNodes}
-      {...props}
+      {...(props as any)}
     />
   );
 };

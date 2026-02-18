@@ -30,7 +30,7 @@ export const AnimatedShinyText: FC<AnimatedShinyTextProps> = ({
 
         className
       )}
-      {...props}
+      {...(props as any)}
     >
       {children}
     </span>

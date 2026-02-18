@@ -25,6 +25,7 @@ const nexa = localFont({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://orunos.com'),
   title: "orunos | Your Academic copilot",
   description: "Your Academic Copilot to Ace all your academic documents from as simple as coursework to as complex as research",
   keywords: ["coursework", "research", "artificial intelligence", "academic"],
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [{ url: 'images/tree.png' }]
   },
-  
+
   twitter: {
     card: "summary_large_image",
     title: 'orunos',
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     creator: "@kimbrenekakande",
     images: "images/tree.png"
   },
-  
+
   robots: {
     index: true,
     follow: true,
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  
+
   alternates: {
     canonical : "https://orunos.com/dashboard/" //4 static - figure how it works
   }

@@ -17,7 +17,7 @@ export function ToggleToolbarButton(
   const { props: buttonProps } = useToggleToolbarButton(state);
 
   return (
-    <ToolbarButton {...props} {...buttonProps} tooltip="Toggle">
+    <ToolbarButton {...(props as any)} {...buttonProps} tooltip="Toggle">
       <ListCollapseIcon />
     </ToolbarButton>
   );

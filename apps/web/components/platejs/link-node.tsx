@@ -20,7 +20,7 @@ export function LinkElement(props: PlateElementProps<TLinkElement>) {
 
   return (
     <PlateElement
-      {...props}
+      {...(props as any)}
       as="a"
       className={cn(
         'font-medium text-primary underline decoration-primary underline-offset-4',

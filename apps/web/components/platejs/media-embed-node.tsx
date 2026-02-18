@@ -42,7 +42,7 @@ export const MediaEmbedElement = withHOC(
 
     return (
       <MediaToolbar plugin={MediaEmbedPlugin}>
-        <PlateElement className="py-2.5" {...props}>
+        <PlateElement className="py-2.5" {...(props as any)}>
           <figure
             className="group relative m-0 w-full cursor-default"
             contentEditable={false}

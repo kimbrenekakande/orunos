@@ -25,7 +25,7 @@ export function CommentLeaf(props: PlateLeafProps<TCommentText>) {
 
   return (
     <PlateLeaf
-      {...props}
+      {...(props as any)}
       className={cn(
         'border-b-2 border-b-highlight/[.36] bg-highlight/[.13] transition-colors duration-200',
         (isHover || isActive) && 'border-b-highlight bg-highlight/25',

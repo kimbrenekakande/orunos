@@ -17,7 +17,7 @@ export function TableElementStatic({
 
   return (
     <SlateElement
-      {...props}
+      {...(props as any)}
       className="overflow-x-auto py-5"
       style={{ paddingLeft: marginLeft }}
     >
@@ -32,7 +32,7 @@ export function TableElementStatic({
 
 export function TableRowElementStatic(props: SlateElementProps) {
   return (
-    <SlateElement {...props} as="tr" className="h-full">
+    <SlateElement {...(props as any)} as="tr" className="h-full">
       {props.children}
     </SlateElement>
   );
@@ -52,7 +52,7 @@ export function TableCellElementStatic({
 
   return (
     <SlateElement
-      {...props}
+      {...(props as any)}
       as={isHeader ? 'th' : 'td'}
       className={cn(
         'h-full overflow-visible border-none bg-background p-0',
@@ -94,5 +94,5 @@ export function TableCellElementStatic({
 export function TableCellHeaderElementStatic(
   props: SlateElementProps<TTableCellElement>
 ) {
-  return <TableCellElementStatic {...props} isHeader />;
+  return <TableCellElementStatic {...(props as any)} isHeader />;
 }

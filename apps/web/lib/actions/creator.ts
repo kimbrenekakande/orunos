@@ -22,7 +22,7 @@ export async function startCreation(formData: FormData) {
     }
   });
   if (!docType) throw new Error("Invalid document type");
-  
+
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
   // kickoff agent workflow
@@ -42,13 +42,15 @@ export async function startCreation(formData: FormData) {
   // create document
   const newDoc = await prisma.document.create({
     data: {
+      title: `Document ${new Date().toISOString()}`,
       cost: Number(docType.price),
       question : question,
       answer : text,
+      status: 'GENERATING',
       userId: user.id,
       docTypeId: docType.type
     },
-  }); 
-  
+  });
+
   redirect(`/dashboard/${tempType}/editor/${newDoc.id}`);
 }

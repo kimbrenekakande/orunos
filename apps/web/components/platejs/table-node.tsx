@@ -115,7 +115,7 @@ export const TableElement = withHOC(
 
     const content = (
       <PlateElement
-        {...props}
+        {...(props as any)}
         className={cn(
           'overflow-x-auto py-5',
           hasControls && '-ml-2 *:data-[slot=block-selection]:left-2'
@@ -174,7 +174,7 @@ function TableFloatingToolbar({
         asChild
         onOpenAutoFocus={(e) => e.preventDefault()}
         contentEditable={false}
-        {...props}
+        {...(props as any)}
       >
         <Toolbar
           className="scrollbar-hide flex w-auto max-w-[80vw] flex-row overflow-x-auto rounded-md border bg-popover p-1 shadow-md print:hidden"
@@ -317,7 +317,7 @@ function TableBordersDropdownMenuContent(
       align="start"
       side="right"
       sideOffset={0}
-      {...props}
+      {...(props as any)}
     >
       <DropdownMenuGroup>
         <DropdownMenuCheckboxItem
@@ -453,7 +453,7 @@ export function TableRowElement(props: PlateElementProps<TTableRowElement>) {
 
   return (
     <PlateElement
-      {...props}
+      {...(props as any)}
       ref={useComposedRef(props.ref, previewRef)}
       as="tr"
       className={cn('group/row', isDragging && 'opacity-50')}
@@ -546,7 +546,7 @@ export function TableCellElement({
 
   return (
     <PlateElement
-      {...props}
+      {...(props as any)}
       as={isHeader ? 'th' : 'td'}
       className={cn(
         'h-full overflow-visible border-none bg-background p-0',
@@ -633,7 +633,7 @@ export function TableCellElement({
 export function TableCellHeaderElement(
   props: React.ComponentProps<typeof TableCellElement>
 ) {
-  return <TableCellElement {...props} isHeader />;
+  return <TableCellElement {...(props as any)} isHeader />;
 }
 
 const columnResizeVariants = cva('hidden animate-in fade-in', {

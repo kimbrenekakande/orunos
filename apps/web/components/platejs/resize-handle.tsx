@@ -58,8 +58,9 @@ export function ResizeHandle({
         className
       )}
       data-resizing={state.isResizing}
-      {...resizeHandle.props}
-      {...props}
+      {...(resizeHandle.props as any)}
+      {...(props as any)}
+      style={{}}
     />
   );
 }
@@ -82,7 +83,7 @@ export function Resizable({
   VariantProps<typeof resizableVariants>) {
   return (
     <ResizablePrimitive
-      {...props}
+      {...(props as any)}
       className={cn(resizableVariants({ align }), className)}
     />
   );

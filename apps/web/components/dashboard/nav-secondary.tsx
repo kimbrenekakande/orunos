@@ -22,7 +22,7 @@ export function NavSecondary({
   }[]
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   return (
-    <SidebarGroup {...props}>
+    <SidebarGroup {...(props as any)}>
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => (

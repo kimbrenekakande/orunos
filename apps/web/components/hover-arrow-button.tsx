@@ -33,7 +33,7 @@ export default function HoverArrowButton({
                 hover: { scale: 1 },
 
             }}
-            {...props}
+            {...(props as any)}
         >
             <motion.div
                 className="flex items-center justify-center overflow-hidden"

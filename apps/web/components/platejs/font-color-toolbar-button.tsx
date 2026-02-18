@@ -7,8 +7,19 @@ import type {
   DropdownMenuProps,
 } from '@radix-ui/react-dropdown-menu';
 
+// Simple debounce helper
+function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout | null = null;
+  return (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
 import { useComposedRef } from '@udecode/cn';
-import debounce from 'lodash/debounce.js';
 import { EraserIcon, PlusIcon } from 'lucide-react';
 import { useEditorRef, useEditorSelector } from 'platejs/react';
 
@@ -146,7 +157,7 @@ function PureColorPicker({
   color?: string;
 }) {
   return (
-    <div className={cn('flex flex-col', className)} {...props}>
+    <div className={cn('flex flex-col', className)} {...(props as any)}>
       <ToolbarMenuGroup label="Custom Colors">
         <ColorCustom
           color={color}
@@ -237,7 +248,7 @@ function ColorCustom({
   );
 
   return (
-    <div className={cn('relative flex flex-col gap-4', className)} {...props}>
+    <div className={cn('relative flex flex-col gap-4', className)} {...(props as any)}>
       <ColorDropdownMenuItems
         color={color}
         colors={computedColors}
@@ -301,7 +312,7 @@ function ColorInput({
         );
       })}
       <input
-        {...props}
+        {...(props as any)}
         id={inputId}
         ref={inputRef}
         className={cn('size-0 overflow-hidden border-0 p-0', className)}
@@ -350,7 +361,7 @@ function ColorDropdownMenuItem({
         e.preventDefault();
         updateColor(value);
       }}
-      {...props}
+      {...(props as any)}
     />
   );
 
@@ -381,7 +392,7 @@ export function ColorDropdownMenuItems({
         'grid grid-cols-[repeat(10,1fr)] place-items-center gap-x-1',
         className
       )}
-      {...props}
+      {...(props as any)}
     >
       <TooltipProvider>
         {colors.map(({ isBrightColor, name, value }) => (

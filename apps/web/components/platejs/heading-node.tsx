@@ -28,7 +28,7 @@ export function HeadingElement({
     <PlateElement
       as={variant!}
       className={headingVariants({ variant })}
-      {...props}
+      {...(props as any)}
     >
       {props.children}
     </PlateElement>
@@ -36,25 +36,25 @@ export function HeadingElement({
 }
 
 export function H1Element(props: PlateElementProps) {
-  return <HeadingElement variant="h1" {...props} />;
+  return <HeadingElement variant="h1" {...(props as any)} />;
 }
 
 export function H2Element(props: PlateElementProps) {
-  return <HeadingElement variant="h2" {...props} />;
+  return <HeadingElement variant="h2" {...(props as any)} />;
 }
 
 export function H3Element(props: PlateElementProps) {
-  return <HeadingElement variant="h3" {...props} />;
+  return <HeadingElement variant="h3" {...(props as any)} />;
 }
 
 export function H4Element(props: PlateElementProps) {
-  return <HeadingElement variant="h4" {...props} />;
+  return <HeadingElement variant="h4" {...(props as any)} />;
 }
 
 export function H5Element(props: PlateElementProps) {
-  return <HeadingElement variant="h5" {...props} />;
+  return <HeadingElement variant="h5" {...(props as any)} />;
 }
 
 export function H6Element(props: PlateElementProps) {
-  return <HeadingElement variant="h6" {...props} />;
+  return <HeadingElement variant="h6" {...(props as any)} />;
 }

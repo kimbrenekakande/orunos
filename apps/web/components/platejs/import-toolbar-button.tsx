@@ -68,7 +68,7 @@ export function ImportToolbarButton(props: DropdownMenuProps) {
   });
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...(props as any)}>
       <DropdownMenuTrigger asChild>
         <ToolbarButton pressed={open} tooltip="Import" isDropdown>
           <ArrowUpToLineIcon className="size-4" />

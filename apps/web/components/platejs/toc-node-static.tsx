@@ -27,7 +27,7 @@ export function TocElementStatic(props: SlateElementProps) {
   const headingList = getHeadingList(editor);
 
   return (
-    <SlateElement {...props} className="mb-1 p-0">
+    <SlateElement {...(props as any)} className="mb-1 p-0">
       <div>
         {headingList.length > 0 ? (
           headingList.map((item) => (

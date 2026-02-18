@@ -124,7 +124,7 @@ function Carousel({
         role="region"
         aria-roledescription="carousel"
         data-slot="carousel"
-        {...props}
+        {...(props as any)}
       >
         {children}
       </div>
@@ -147,7 +147,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
           className
         )}
-        {...props}
+        {...(props as any)}
       />
     </div>
   )
@@ -166,7 +166,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
         orientation === "horizontal" ? "pl-4" : "pt-4",
         className
       )}
-      {...props}
+      {...(props as any)}
     />
   )
 }
@@ -193,7 +193,7 @@ function CarouselPrevious({
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
-      {...props}
+      {...(props as any)}
     >
       <ArrowLeft />
       <span className="sr-only">Previous slide</span>
@@ -223,7 +223,7 @@ function CarouselNext({
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
-      {...props}
+      {...(props as any)}
     >
       <ArrowRight />
       <span className="sr-only">Next slide</span>

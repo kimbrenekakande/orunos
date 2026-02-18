@@ -10,7 +10,7 @@ import { setColumns } from '@platejs/layout';
 import { ResizableProvider } from '@platejs/resizable';
 import { BlockSelectionPlugin } from '@platejs/selection/react';
 import { useComposedRef } from '@udecode/cn';
-import { type LucideProps, Trash2Icon } from 'lucide-react';
+import { Trash2Icon } from 'lucide-react';
 import { GripHorizontal } from 'lucide-react';
 import { PathApi } from 'platejs';
 import {
@@ -78,7 +78,7 @@ export const ColumnElement = withHOC(
         )}
 
         <PlateElement
-          {...props}
+          {...(props as any)}
           ref={useComposedRef(props.ref, previewRef)}
           className="h-full px-2 pt-2 group-first/column:pl-0 group-last/column:pr-0"
         >
@@ -142,7 +142,7 @@ function DropLine() {
 
 export function ColumnGroupElement(props: PlateElementProps) {
   return (
-    <PlateElement className="mb-2" {...props}>
+    <PlateElement className="mb-2" {...(props as any)}>
       <ColumnFloatingToolbar>
         <div className="flex size-full rounded">{props.children}</div>
       </ColumnFloatingToolbar>
@@ -228,14 +228,14 @@ function ColumnFloatingToolbar({ children }: React.PropsWithChildren) {
   );
 }
 
-const DoubleColumnOutlined = (props: LucideProps) => (
+const DoubleColumnOutlined = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     fill="none"
     height="16"
     viewBox="0 0 16 16"
     width="16"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
+    {...(props as any)}
   >
     <path
       clipRule="evenodd"
@@ -246,14 +246,14 @@ const DoubleColumnOutlined = (props: LucideProps) => (
   </svg>
 );
 
-const ThreeColumnOutlined = (props: LucideProps) => (
+const ThreeColumnOutlined = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     fill="none"
     height="16"
     viewBox="0 0 16 16"
     width="16"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
+    {...(props as any)}
   >
     <path
       clipRule="evenodd"
@@ -264,14 +264,14 @@ const ThreeColumnOutlined = (props: LucideProps) => (
   </svg>
 );
 
-const RightSideDoubleColumnOutlined = (props: LucideProps) => (
+const RightSideDoubleColumnOutlined = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     fill="none"
     height="16"
     viewBox="0 0 16 16"
     width="16"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
+    {...(props as any)}
   >
     <path
       clipRule="evenodd"
@@ -282,14 +282,14 @@ const RightSideDoubleColumnOutlined = (props: LucideProps) => (
   </svg>
 );
 
-const LeftSideDoubleColumnOutlined = (props: LucideProps) => (
+const LeftSideDoubleColumnOutlined = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     fill="none"
     height="16"
     viewBox="0 0 16 16"
     width="16"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
+    {...(props as any)}
   >
     <path
       clipRule="evenodd"
@@ -300,14 +300,14 @@ const LeftSideDoubleColumnOutlined = (props: LucideProps) => (
   </svg>
 );
 
-const DoubleSideDoubleColumnOutlined = (props: LucideProps) => (
+const DoubleSideDoubleColumnOutlined = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     fill="none"
     height="16"
     viewBox="0 0 16 16"
     width="16"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
+    {...(props as any)}
   >
     <path
       clipRule="evenodd"

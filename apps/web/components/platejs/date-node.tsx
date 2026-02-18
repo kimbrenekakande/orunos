@@ -64,7 +64,7 @@ export function DateElement(props: PlateElementProps<TDateElement>) {
 
   return (
     <PlateElement
-      {...props}
+      {...(props as any)}
       className="inline-block"
       attributes={{
         ...props.attributes,

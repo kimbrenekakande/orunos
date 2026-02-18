@@ -1,8 +1,6 @@
 'use client';
 
-import type { LucideProps } from 'lucide-react';
-
-export function BorderAllIcon(props: LucideProps) {
+export function BorderAllIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       fill="none"
@@ -10,7 +8,7 @@ export function BorderAllIcon(props: LucideProps) {
       viewBox="0 0 15 15"
       width="15"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...(props as any)}
     >
       <path
         clipRule="evenodd"
@@ -45,7 +43,7 @@ export function BorderAllIcon(props: LucideProps) {
   );
 }
 
-export function BorderBottomIcon(props: LucideProps) {
+export function BorderBottomIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       fill="none"
@@ -53,7 +51,7 @@ export function BorderBottomIcon(props: LucideProps) {
       viewBox="0 0 15 15"
       width="15"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...(props as any)}
     >
       <path
         clipRule="evenodd"
@@ -161,7 +159,7 @@ export function BorderBottomIcon(props: LucideProps) {
   );
 }
 
-export function BorderLeftIcon(props: LucideProps) {
+export function BorderLeftIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       fill="none"
@@ -169,7 +167,7 @@ export function BorderLeftIcon(props: LucideProps) {
       viewBox="0 0 15 15"
       width="15"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...(props as any)}
     >
       <path
         clipRule="evenodd"
@@ -415,7 +413,7 @@ export function BorderLeftIcon(props: LucideProps) {
   );
 }
 
-export function BorderNoneIcon(props: LucideProps) {
+export function BorderNoneIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       fill="none"
@@ -423,7 +421,7 @@ export function BorderNoneIcon(props: LucideProps) {
       viewBox="0 0 15 15"
       width="15"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...(props as any)}
     >
       <rect
         fill="currentColor"
@@ -693,7 +691,7 @@ export function BorderNoneIcon(props: LucideProps) {
   );
 }
 
-export function BorderRightIcon(props: LucideProps) {
+export function BorderRightIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       fill="none"
@@ -701,7 +699,7 @@ export function BorderRightIcon(props: LucideProps) {
       viewBox="0 0 15 15"
       width="15"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...(props as any)}
     >
       <path
         clipRule="evenodd"
@@ -895,7 +893,7 @@ export function BorderRightIcon(props: LucideProps) {
   );
 }
 
-export function BorderTopIcon(props: LucideProps) {
+export function BorderTopIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       fill="none"
@@ -903,7 +901,7 @@ export function BorderTopIcon(props: LucideProps) {
       viewBox="0 0 15 15"
       width="15"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...(props as any)}
     >
       <path
         clipRule="evenodd"

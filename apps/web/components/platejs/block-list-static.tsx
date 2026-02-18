@@ -24,7 +24,7 @@ const config: Record<
 export const BlockListStatic: RenderStaticNodeWrapper = (props) => {
   if (!props.element.listStyleType) return;
 
-  return (props) => <List {...props} />;
+  return (props) => <List {...(props as any)} />;
 };
 
 function List(props: SlateRenderElementProps) {
@@ -38,8 +38,8 @@ function List(props: SlateRenderElementProps) {
       style={{ listStyleType }}
       start={listStart}
     >
-      {Marker && <Marker {...props} />}
-      {Li ? <Li {...props} /> : <li>{props.children}</li>}
+      {Marker && <Marker {...(props as any)} />}
+      {Li ? <Li {...(props as any)} /> : <li>{props.children}</li>}
     </List>
   );
 }

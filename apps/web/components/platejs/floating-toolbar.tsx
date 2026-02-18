@@ -64,14 +64,17 @@ export function FloatingToolbar({
     ref: floatingRef,
   } = useFloatingToolbar(floatingToolbarState);
 
-  const ref = useComposedRef<HTMLDivElement>(props.ref, floatingRef);
+  const ref = useComposedRef<HTMLDivElement>(
+    props.ref as any,
+    floatingRef as any
+  );
 
   if (hidden) return null;
 
   return (
     <div ref={clickOutsideRef}>
       <Toolbar
-        {...props}
+        {...(props as any)}
         {...rootProps}
         ref={ref}
         className={cn(

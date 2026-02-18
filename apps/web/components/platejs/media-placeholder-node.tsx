@@ -137,7 +137,7 @@ export const PlaceholderElement = withHOC(
     }, [isReplaced]);
 
     return (
-      <PlateElement className="my-1" {...props}>
+      <PlateElement className="my-1" {...(props as any)}>
         {(!loading || !isImage) && (
           <div
             className={cn(

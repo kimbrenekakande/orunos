@@ -49,7 +49,7 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
   };
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...(props as any)}>
       <DropdownMenuTrigger asChild>
         <ToolbarButton pressed={open} tooltip="Editing mode" isDropdown>
           {item[value].icon}

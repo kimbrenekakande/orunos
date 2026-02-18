@@ -243,7 +243,7 @@ const InlineComboboxInput = React.forwardRef<
           value={value}
           autoSelect
           {...inputProps}
-          {...props}
+          {...(props as any)}
         />
       </span>
     </>
@@ -264,7 +264,7 @@ const InlineComboboxContent: typeof ComboboxPopover = ({
           'z-500 max-h-[288px] w-[300px] overflow-y-auto rounded-md bg-popover shadow-md',
           className
         )}
-        {...props}
+        {...(props as any)}
       />
     </Portal>
   );
@@ -324,7 +324,7 @@ const InlineComboboxItem = ({
         removeInput(focusEditor);
         onClick?.(event);
       }}
-      {...props}
+      {...(props as any)}
     />
   );
 };
@@ -364,7 +364,7 @@ function InlineComboboxGroup({
 }: React.ComponentProps<typeof ComboboxGroup>) {
   return (
     <ComboboxGroup
-      {...props}
+      {...(props as any)}
       className={cn(
         'hidden py-1.5 not-last:border-b [&:has([role=option])]:block',
         className
@@ -379,7 +379,7 @@ function InlineComboboxGroupLabel({
 }: React.ComponentProps<typeof ComboboxGroupLabel>) {
   return (
     <ComboboxGroupLabel
-      {...props}
+      {...(props as any)}
       className={cn(
         'mt-1.5 mb-2 px-3 text-xs font-medium text-muted-foreground',
         className

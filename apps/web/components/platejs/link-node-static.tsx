@@ -9,7 +9,7 @@ import { SlateElement } from 'platejs/static';
 export function LinkElementStatic(props: SlateElementProps<TLinkElement>) {
   return (
     <SlateElement
-      {...props}
+      {...(props as any)}
       as="a"
       className="font-medium text-primary underline decoration-primary underline-offset-4"
       attributes={{

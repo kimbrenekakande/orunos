@@ -216,7 +216,7 @@ export function SlashInputElement(
   const { editor, element } = props;
 
   return (
-    <PlateElement {...props} as="span">
+    <PlateElement {...(props as any)} as="span">
       <InlineCombobox element={element} trigger="/">
         <InlineComboboxInput />
 

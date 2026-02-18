@@ -14,7 +14,7 @@ export function AIToolbarButton(
 
   return (
     <ToolbarButton
-      {...props}
+      {...(props as any)}
       onClick={() => {
         api.aiChat.show();
       }}

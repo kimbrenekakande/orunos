@@ -49,7 +49,7 @@ export function EditorStatic({
   return (
     <PlateStatic
       className={cn(editorVariants({ variant }), className)}
-      {...props}
+      {...(props as any)}
     />
   );
 }

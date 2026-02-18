@@ -35,7 +35,7 @@ export function EmojiInputElement(props: PlateElementProps) {
   }, [data, debouncedValue]);
 
   return (
-    <PlateElement as="span" {...props}>
+    <PlateElement as="span" {...(props as any)}>
       <InlineCombobox
         value={value}
         element={element}

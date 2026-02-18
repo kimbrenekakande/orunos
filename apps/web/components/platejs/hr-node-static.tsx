@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 export function HrElementStatic(props: SlateElementProps) {
   return (
-    <SlateElement {...props}>
+    <SlateElement {...(props as any)}>
       <div className="cursor-text py-6" contentEditable={false}>
         <hr
           className={cn(

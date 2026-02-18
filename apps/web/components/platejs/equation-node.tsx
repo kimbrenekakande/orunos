@@ -51,7 +51,7 @@ export function EquationElement(props: PlateElementProps<TEquationElement>) {
   });
 
   return (
-    <PlateElement className="my-1" {...props}>
+    <PlateElement className="my-1" {...(props as any)}>
       <Popover open={open} onOpenChange={setOpen} modal={false}>
         <PopoverTrigger asChild>
           <div
@@ -125,7 +125,7 @@ export function InlineEquationElement(
 
   return (
     <PlateElement
-      {...props}
+      {...(props as any)}
       className={cn(
         'mx-1 inline-block rounded-sm select-none [&_.katex-display]:my-0!'
       )}
@@ -224,7 +224,7 @@ const EquationPopoverContent = ({
         className={cn('max-h-[50vh] grow resize-none p-2 text-sm', className)}
         state={{ isInline, open, onClose }}
         autoFocus
-        {...props}
+        {...(props as any)}
       />
 
       <Button variant="secondary" className="px-3" onClick={onClose}>

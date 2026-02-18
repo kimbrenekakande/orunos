@@ -273,7 +273,7 @@ export const stylesx = StyleSheet.create({
   },
 
   table: {
-    display: "table",
+    display: "table" as any,
     width: "auto",
     borderStyle: "solid",
     borderWidth: 1,

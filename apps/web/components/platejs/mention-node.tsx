@@ -40,7 +40,7 @@ export function MentionElement(
 
   return (
     <PlateElement
-      {...props}
+      {...(props as any)}
       className={cn(
         'inline-block rounded-md bg-muted px-1.5 py-0.5 align-baseline text-sm font-medium',
         !readOnly && 'cursor-pointer',
@@ -84,7 +84,7 @@ export function MentionInputElement(
   const [search, setSearch] = React.useState('');
 
   return (
-    <PlateElement {...props} as="span">
+    <PlateElement {...(props as any)} as="span">
       <InlineCombobox
         value={search}
         element={element}

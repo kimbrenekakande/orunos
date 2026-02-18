@@ -63,7 +63,7 @@ export function SuggestionLeaf(props: PlateLeafProps<TSuggestionText>) {
 
   return (
     <PlateLeaf
-      {...props}
+      {...(props as any)}
       as={Component}
       className={cn(
         suggestionVariants({

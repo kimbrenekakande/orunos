@@ -28,14 +28,14 @@ export function AILeaf(props: PlateTextProps) {
           streaming &&
           'after:ml-1.5 after:inline-block after:h-3 after:w-3 after:rounded-full after:bg-primary after:align-middle after:content-[""]'
       )}
-      {...props}
+      {...(props as any)}
     />
   );
 }
 
 export function AIAnchorElement(props: PlateElementProps) {
   return (
-    <PlateElement {...props}>
+    <PlateElement {...(props as any)}>
       <div className="h-[0.1px]" />
     </PlateElement>
   );

@@ -117,7 +117,7 @@ export function MediaToolbarButton({
           open={open}
           onOpenChange={setOpen}
           modal={false}
-          {...props}
+          {...(props as any)}
         >
           <DropdownMenuTrigger asChild>
             <ToolbarSplitButtonSecondary />

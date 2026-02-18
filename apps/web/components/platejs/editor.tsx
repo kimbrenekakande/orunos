@@ -47,7 +47,7 @@ export function EditorContainer({
         editorContainerVariants({ variant }),
         className
       )}
-      {...props}
+      {...(props as any)}
     />
   );
 }
@@ -105,7 +105,7 @@ export const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
         )}
         disabled={disabled}
         disableDefaultStyles
-        {...props}
+        {...(props as any)}
       />
     );
   }
@@ -120,7 +120,7 @@ export function EditorView({
 }: PlateViewProps & VariantProps<typeof editorVariants>) {
   return (
     <PlateView
-      {...props}
+      {...(props as any)}
       className={cn(editorVariants({ variant }), className)}
     />
   );

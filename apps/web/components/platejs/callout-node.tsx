@@ -37,7 +37,7 @@ export function CalloutElement({
         ...attributes,
         'data-plate-open-context-menu': true,
       }}
-      {...props}
+      {...(props as any)}
     >
       <div className="flex w-full gap-2 rounded-md">
         <EmojiPopover

@@ -18,7 +18,7 @@ export function RedoToolbarButton(
 
   return (
     <ToolbarButton
-      {...props}
+      {...(props as any)}
       disabled={disabled}
       onClick={() => editor.redo()}
       onMouseDown={(e) => e.preventDefault()}
@@ -40,7 +40,7 @@ export function UndoToolbarButton(
 
   return (
     <ToolbarButton
-      {...props}
+      {...(props as any)}
       disabled={disabled}
       onClick={() => editor.undo()}
       onMouseDown={(e) => e.preventDefault()}

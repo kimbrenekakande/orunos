@@ -34,7 +34,7 @@ const config: Record<
 export const BlockList: RenderNodeWrapper = (props) => {
   if (!props.element.listStyleType) return;
 
-  return (props) => <List {...props} />;
+  return (props) => <List {...(props as any)} />;
 };
 
 function List(props: PlateElementProps) {
@@ -48,8 +48,8 @@ function List(props: PlateElementProps) {
       style={{ listStyleType }}
       start={listStart}
     >
-      {Marker && <Marker {...props} />}
-      {Li ? <Li {...props} /> : <li>{props.children}</li>}
+      {Marker && <Marker {...(props as any)} />}
+      {Li ? <Li {...(props as any)} /> : <li>{props.children}</li>}
     </List>
   );
 }

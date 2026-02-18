@@ -49,7 +49,7 @@ export function FeatureCard({
 	return (
 		<div
 			className={cn("relative overflow-hidden bg-background p-6", className)}
-			{...props}
+			{...(props as any)}
 		>
 			<div className="-mt-2 -ml-20 mask-[radial-gradient(farthest-side_at_top,white,transparent)] pointer-events-none absolute top-0 left-1/2 size-full">
 				<GridPattern

@@ -23,7 +23,7 @@ export function Toolbar({
   return (
     <ToolbarPrimitive.Root
       className={cn('relative flex items-center select-none', className)}
-      {...props}
+      {...(props as any)}
     />
   );
 }
@@ -35,7 +35,7 @@ export function ToolbarToggleGroup({
   return (
     <ToolbarPrimitive.ToolbarToggleGroup
       className={cn('flex items-center', className)}
-      {...props}
+      {...(props as any)}
     />
   );
 }
@@ -47,7 +47,7 @@ export function ToolbarLink({
   return (
     <ToolbarPrimitive.Link
       className={cn('font-medium underline underline-offset-4', className)}
-      {...props}
+      {...(props as any)}
     />
   );
 }
@@ -59,7 +59,7 @@ export function ToolbarSeparator({
   return (
     <ToolbarPrimitive.Separator
       className={cn('mx-2 my-1 w-px shrink-0 bg-border', className)}
-      {...props}
+      {...(props as any)}
     />
   );
 }
@@ -142,7 +142,7 @@ export const ToolbarButton = withTooltip(function ToolbarButton({
           className
         )}
         value={pressed ? 'single' : ''}
-        {...props}
+        {...(props as any)}
       >
         {isDropdown ? (
           <>
@@ -171,7 +171,7 @@ export const ToolbarButton = withTooltip(function ToolbarButton({
         isDropdown && 'pr-1',
         className
       )}
-      {...props}
+      {...(props as any)}
     >
       {children}
     </ToolbarPrimitive.Button>
@@ -185,7 +185,7 @@ export function ToolbarSplitButton({
   return (
     <ToolbarButton
       className={cn('group flex gap-0 px-0 hover:bg-transparent', className)}
-      {...props}
+      {...(props as any)}
     />
   );
 }
@@ -214,7 +214,7 @@ export function ToolbarSplitButtonPrimary({
         'group-data-[pressed=true]:bg-accent group-data-[pressed=true]:text-accent-foreground',
         className
       )}
-      {...props}
+      {...(props as any)}
     >
       {children}
     </span>
@@ -240,7 +240,7 @@ export function ToolbarSplitButtonSecondary({
       )}
       onClick={(e) => e.stopPropagation()}
       role="button"
-      {...props}
+      {...(props as any)}
     >
       <ChevronDown className="size-3.5 text-muted-foreground" data-icon />
     </span>
@@ -257,7 +257,7 @@ export function ToolbarToggleItem({
   return (
     <ToolbarPrimitive.ToggleItem
       className={cn(toolbarButtonVariants({ size, variant }), className)}
-      {...props}
+      {...(props as any)}
     />
   );
 }
@@ -344,7 +344,7 @@ function TooltipContent({
         )}
         data-slot="tooltip-content"
         sideOffset={sideOffset}
-        {...props}
+        {...(props as any)}
       >
         {children}
         {/* CHANGE */}
@@ -370,7 +370,7 @@ export function ToolbarMenuGroup({
       />
 
       <DropdownMenuRadioGroup
-        {...props}
+        {...(props as any)}
         className={cn(
           'hidden',
           'peer/menu-group group/menu-group my-1.5 has-[[role=menuitem]]:block has-[[role=menuitemradio]]:block has-[[role=option]]:block',

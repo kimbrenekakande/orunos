@@ -30,7 +30,7 @@ export function EquationElementStatic(
   });
 
   return (
-    <SlateElement className="my-1" {...props}>
+    <SlateElement className="my-1" {...(props as any)}>
       <div
         className={cn(
           'group flex items-center justify-center rounded-sm select-none hover:bg-primary/10 data-[selected=true]:bg-primary/10',
@@ -75,7 +75,7 @@ export function InlineEquationElementStatic(
 
   return (
     <SlateElement
-      {...props}
+      {...(props as any)}
       className="inline-block rounded-sm select-none [&_.katex-display]:my-0"
     >
       <div

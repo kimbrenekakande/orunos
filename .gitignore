@@ -101,3 +101,4 @@ packages/*/bun.lockb
 
 # OS
 Thumbs.db
+.env.sentry-build-plugin 

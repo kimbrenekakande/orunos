@@ -80,6 +80,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@react-email/components": "1.0.4",
     "@react-pdf/renderer": "^4.3.1",
+    "@sentry/nextjs": "^10",
     "@tabler/icons-react": "^3.36.1",
     "@tanstack/react-table": "^8.21.3",
     "@tiptap/react": "^3.13.0",

@@ -1,7 +1,9 @@
 import { StyleSheet, Text } from "react-native";
 export default function Home(){
   return (
-    <Text style={styles.text}>HOME</Text>
+    <view className="h-full w-full flex justify-center items-center"> 
+       <Text style={styles.text}>login</Text>
+    </view>
   )
 }
 

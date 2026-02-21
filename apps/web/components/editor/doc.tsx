@@ -137,21 +137,30 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
 
   return (
     <Document >
-      <Page>
-        <Image src={institution?.logo}/>
-        <Text>{institution?.name || "Institution Name"}</Text>
-        <Text>{ title }</Text>
-        <Text>{author?.name || "name"}</Text>
-        <Text>{author?.email || "email"}</Text>
+      <Page size="A4" style={styles.cover}>
+        {institution?.logo && (
+          <Image src={institution.logo} style={styles.image} />
+        )}
+        <Text style={styles.institutionName}>
+          {institution?.name || "Institution Name"}
+        </Text>
+        <Text style={styles.coverTitle}>
+          {title}
+        </Text>
+        <View style={{ marginTop: 30 }}>
+          <Text style={styles.authorInfo}>
+            {author?.name || "Author Name"}
+          </Text>
+          <Text style={styles.authorInfo}>
+            {author?.email || "author@email.com"}
+          </Text>
+        </View>
       </Page>
 
       <Page size="A4" style={styles.page}>
         <View>
           {primitives}
         </View>
-        <Text render={({pageNumber}) => (
-          `${pageNumber}`
-        )} fixed/>
       </Page>
     </Document>
   )

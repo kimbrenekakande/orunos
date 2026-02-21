@@ -66,24 +66,31 @@ export const styles = StyleSheet.create({
   table: {
     marginTop: 10,
     marginBottom: 15,
+    width: '100%',
   },
   tableRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
     minHeight: 25,
     alignItems: 'center',
   },
   tableHeaderRow: {
+    flexDirection: 'row',
     backgroundColor: '#f3f4f6',
     borderBottomWidth: 2,
     borderBottomColor: '#9ca3af',
     fontFamily: 'Helvetica-Bold',
+    minHeight: 25,
+    alignItems: 'center',
   },
   tableCell: {
     flex: 1,
     padding: 5,
     fontSize: 10,
+    flexWrap: 'wrap',
+    wordWrap: 'break-word',
   },
   codeBlock: {
     backgroundColor: '#f3f4f6',

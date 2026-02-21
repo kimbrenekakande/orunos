@@ -77,6 +77,11 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
         case 'br':
           return <Text key={index}>{'\n'}</Text>;
 
+        case 'image':
+          return (
+            <Image key={index} src={token.href} style={{ width: 100, height: 100 }} />
+          );
+
         case 'heading':
           return (
             <Text key={index} style={getHeadingStyle(token.depth)}>
@@ -98,6 +103,28 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
               {item.tokens && renderTokens(item.tokens)}
             </Text>
           ));
+
+        case 'table':
+          return (
+            <View key={index} style={styles.table}>
+              <View style={styles.tableHeaderRow}>
+                {token.header?.map((headerCell: any, hi: number) => (
+                  <Text key={hi} style={styles.tableCell}>
+                    {headerCell.text}
+                  </Text>
+                ))}
+              </View>
+              {token.rows?.map((row: any, ri: number) => (
+                <View key={ri} style={styles.tableRow}>
+                  {row.map((cell: any, ci: number) => (
+                    <Text key={ci} style={styles.tableCell}>
+                      {cell.text}
+                    </Text>
+                  ))}
+                </View>
+              ))}
+            </View>
+          );
 
         default:
           return <Text key={index}>{token.raw || ''}</Text>;

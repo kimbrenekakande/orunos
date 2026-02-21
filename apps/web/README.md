@@ -1,5 +1,8 @@
-# orunos
-Your AI Study Buddy - A comprehensive academic platform designed to help students complete coursework and focus on learning. Orunos combines powerful AI-assisted writing, citation tools, and learning resources to create an all-in-one academic companion.A modern web application built with Next.js, featuring a rich text editor and document management system. This project leverages a modern tech stack to provide a powerful and responsive user experience.
+# Orunos
+
+**Create Professional Academic Documents with AI**
+
+Orunos is a comprehensive academic document creation platform designed for researchers, students, and academics. Generate well-formatted papers, theses, reports, and publications with AI-assisted writing, automatic citations, and professional PDF export tailored to academic standards.
 
 ## Technology Stack
 
@@ -22,23 +25,30 @@ Your AI Study Buddy - A comprehensive academic platform designed to help student
 
 ## Key Features
 
-- **Rich Text Editor**: Powered by Plate.js with AI-enhanced features:
+- **Academic Document Editor**: Powered by Plate.js with AI-enhanced features:
 
-  - AI-powered content generation and suggestions
-  - Smart formatting and style recommendations
-  - Tables, lists, and code blocks with AI assistance
-  - Media embeds (images, videos) with AI-generated captions
-  - AI-powered comments and collaboration features
-  - Mathematical equation solving and generation
-  - Document structure with AI-generated table of contents
-  - Context-aware content improvements
-  - AI-driven content summarization
+  - AI-powered content generation and academic writing suggestions
+  - Smart formatting following academic style guides (APA, MLA, Chicago)
+  - Tables, figures, and equations with AI assistance
+  - Citation management and bibliography generation
+  - AI-powered peer review feedback and improvements
+  - Mathematical equation editing and generation
+  - Automatic table of contents and section numbering
+  - Context-aware academic language improvements
+  - AI-driven abstract and summary generation
+
+- **Professional PDF Export**:
+  - Academic paper formatting with proper margins and typography
+  - Thesis and dissertation templates
+  - Journal submission-ready layouts
+  - Conference paper formats
+  - Research poster generation
 
 - **Document Management**:
-
-  - Create, edit, and organize documents
-  - Version history
-  - Export to multiple formats (PDF, DOCX, Markdown)
+  - Create, edit, and organize academic documents
+  - Version history and revision tracking
+  - Export to multiple formats (PDF, DOCX, LaTeX, Markdown)
+  - Collaborative writing and co-author support
 
 - **User Interface**:
   - Responsive design

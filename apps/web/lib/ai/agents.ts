@@ -41,15 +41,15 @@ export async function documentAgent({ doctype, questionnaire }: agentProps) {
   
   //Document Appending
   let document = '';
-  document += `\n\n # ${output['title']} \n\n`;  //should be a space btn the markdown annotation and the text to render properly
-  document += `\n\n ## Summary \n\n ${output['summary']} \n\n`;
+  document += `\n # ${output['title']} \n`;  //should be a space btn the markdown annotation and the text to render properly
+  document += `\n ## Summary \n ${output['summary']} \n`;
   
   const x = await Promise.all(santa)
   for (const item of x) {
-    document += `\n\n ${item} \n\n`;
+    document += ` ${item} `;
   }
 
-  document += `\n\n ## Conclusion \n\n ${output['conclusion']} \n\n`;
+  document += `\n ## Conclusion \n ${output['conclusion']} \n`;
   
   return {
     title: output['title'],

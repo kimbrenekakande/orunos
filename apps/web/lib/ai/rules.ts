@@ -8,6 +8,7 @@ export const rules = `
     Using Em dashes anywhere apart from years and numbers,
     Asterisks.
     Hyphens in between words.
+    Avoid using long table headers names or titles
     Metaphors and clichés
     Unnecessary adjectives and verbs
     Constructions like "...not just this , but also this"

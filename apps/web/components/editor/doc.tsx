@@ -47,6 +47,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
           return <Text key={index}>{token.text}</Text>;
 
         case 'strong':
+        case 'bold':
           return (
             <Text key={index} style={styles.strong}>
               {token.text}
@@ -54,6 +55,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
           );
 
         case 'em':
+        case 'italic':
           return (
             <Text key={index} style={styles.em}>
               {token.text}
@@ -61,6 +63,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
           );
 
         case 'codespan':
+        case 'inlineCode':
           return (
             <Text key={index} style={styles.inlineCode}>
               {token.text}
@@ -91,17 +94,20 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
 
         case 'paragraph':
           return (
-            <Text key={index}>
+            <Text key={index} style={styles.paragraph}>
               {renderTokens(token.tokens || [])}
             </Text>
           );
 
         case 'list':
           return token.items.map((item: any, i: number) => (
-            <Text key={`${index}-${i}`}>
-              {'• '}{item.text}
-              {item.tokens && renderTokens(item.tokens)}
-            </Text>
+            <View key={`${index}-${i}`} style={styles.listItem}>
+              <Text style={styles.listBullet}>{'•'}</Text>
+              <Text style={styles.listContent}>
+                {item.text}
+                {item.tokens && renderTokens(item.tokens)}
+              </Text>
+            </View>
           ));
 
         case 'table':
@@ -126,8 +132,25 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
             </View>
           );
 
+        case 'blockquote':
+          return (
+            <View key={index} style={styles.blockquote}>
+              {renderTokens(token.tokens || [])}
+            </View>
+          );
+
+        case 'code':
+          return (
+            <View key={index} style={styles.codeBlock}>
+              <Text>{token.text}</Text>
+            </View>
+          );
+
+        case 'hr':
+          return <View key={index} style={styles.hr} />;
+
         default:
-          return <Text key={index}>{token.raw || ''}</Text>;
+          return <Text key={index}>{token.text || token.raw || ''}</Text>;
       }
     });
   };

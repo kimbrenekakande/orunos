@@ -12,7 +12,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarShowLabel : false
+        tabBarShowLabel: false,
       }}>
       
         <Tabs.Screen
@@ -23,7 +23,7 @@ export default function TabLayout() {
               <Ionicons size={25}
               name= {focused ? "document" : "document-outline"}
               color={color} />
-            )
+            ),
           }}
         />
       

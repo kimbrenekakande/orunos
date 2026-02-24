@@ -46,7 +46,7 @@ export async function documentAgent({ doctype, questionnaire }: agentProps) {
   
   const x = await Promise.all(santa)
   for (const item of x) {
-    document += ` ${item} `;
+    document += `\n ${item} \n`;
   }
 
   document += `\n ## Conclusion \n ${output['conclusion']} \n`;

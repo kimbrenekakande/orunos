@@ -4,15 +4,32 @@ import { sendEmail } from "./resend";
 import ConfirmEmail from "@/components/emails/emailConfirmation";
 import  prisma  from "@/lib/prisma";
 import { nextCookies } from "better-auth/next-js";
+import { expo } from "@better-auth/expo";
 
 export const auth = betterAuth({
 	database: prismaAdapter(prisma, {
 		provider: "sqlite", // or "mysql", "postgresql", ...etc
-	}),
+  }),
+	
+ //  advanced: {
+ //    crossSubDomainCookies: {
+ //      enabled : false
+ //    },
+ //    defaultCookieAttributes: {
+ //      sameSite: "none",
+ //      secure: false,
+ //      httpOnly : true,
+ //    }
+	// },
 
   trustedOrigins: [
     "http://localhost:3000",
     "https://orunos.netlify.app",
+    "orunos-mobile://" ,//gotta change this to the url of expo app
+    "http://localhost:8081",
+    "exp://",
+    "exp://**",
+    "exp://192.168.*.*:*/**"
   ],
 
 	emailAndPassword: { 
@@ -63,6 +80,7 @@ export const auth = betterAuth({
 	
   plugins: [
     nextCookies(),
+    expo(),
   ]
 });
 

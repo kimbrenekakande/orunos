@@ -45,9 +45,6 @@ model DocType {
   description String? // Optional description
   documents   Document[]
   isActive    Boolean    @default(true) // Can disable document types
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-
   @@index([type])
 }
 
@@ -58,9 +55,6 @@ model Institution {
   address   String
   logo      String?
   users     User[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
   @@index([name])
 }
 

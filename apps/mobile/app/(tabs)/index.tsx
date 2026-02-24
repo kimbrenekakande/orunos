@@ -17,7 +17,9 @@ export default function Home() {
   useEffect(() => {
     async function getter() {
       try {
-        const response = await fetch(`${NextUrl}/api/papers/all`)
+        const response = await fetch(`${NextUrl}/api/papers/all`, {
+          credentials: "include",
+        })
         const output = await response.json()
         setDocs(output)
       } catch (error) {
@@ -26,7 +28,7 @@ export default function Home() {
     }
     getter()
   }, [])
-  
+
   // useEffect(() => {
   //   async function getter() {
   //     try {

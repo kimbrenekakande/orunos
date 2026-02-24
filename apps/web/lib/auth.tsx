@@ -10,17 +10,17 @@ export const auth = betterAuth({
 	database: prismaAdapter(prisma, {
 		provider: "sqlite", // or "mysql", "postgresql", ...etc
   }),
-	
- //  advanced: {
- //    crossSubDomainCookies: {
- //      enabled : false
- //    },
- //    defaultCookieAttributes: {
- //      sameSite: "none",
- //      secure: false,
- //      httpOnly : true,
- //    }
-	// },
+
+  advanced: {
+    crossSubDomainCookies: {
+      enabled: true,
+    },
+    defaultCookieAttributes: {
+      sameSite: "lax",
+      secure: false,
+      httpOnly: true,
+    },
+  },
 
   trustedOrigins: [
     "http://localhost:3000",
@@ -32,28 +32,28 @@ export const auth = betterAuth({
     "exp://192.168.*.*:*/**"
   ],
 
-	emailAndPassword: { 
+	emailAndPassword: {
     enabled: true,
     // requireEmailVerification: true,
   },
-  
+
   socialProviders: {
     google: {
       prompt: "select_account",
-      clientId: process.env.GOOGLE_CLIENT_ID as string, 
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
-    }, 
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
   },
-  
+
   session: {
     cookieCache: {
       enabled: true,
       maxAge : 60 * 5,
     }
-    
+
 	},
   emailVerification: {
-    sendOnSignUp: true, 
+    sendOnSignUp: true,
     autoSignInAfterVerification : true,
     sendVerificationEmail: async({ user, url}) => {
       await sendEmail({
@@ -61,7 +61,7 @@ export const auth = betterAuth({
         subject: "Please Verify Your Email Address",
         react: <ConfirmEmail validationCode={url} />,
       })
-    } 
+    }
   },
 
 	user: {
@@ -77,7 +77,7 @@ export const auth = betterAuth({
 			},
 		},
   },
-	
+
   plugins: [
     nextCookies(),
     expo(),

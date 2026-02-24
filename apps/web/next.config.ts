@@ -7,14 +7,14 @@ const nextConfig: NextConfig = {
       {
         source: "/api/:path*",
         headers: [
-          { key: "Access-Control-Allow-Origin", value: "*" }, // or your Expo origin
           { key: "Access-Control-Allow-Origin", value: "http://localhost:8081" },
+          { key: "Access-Control-Allow-Credentials", value: "true" },
           { key: "Access-Control-Allow-Methods", value: "GET,POST,PUT,DELETE,OPTIONS" },
-          // { key: "Access-Control-Allow-Headers", value: "Content-Type, cookie" },
+          { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
         ],
       },
     ];
-  }, 
+  },
   /* config options here */
   experimental : {
     authInterrupts : true
@@ -68,5 +68,3 @@ export default withSentryConfig(nextConfig, {
     },
   },
 });
-
-

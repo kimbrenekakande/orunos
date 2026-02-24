@@ -81,6 +81,7 @@ model User {
   id            String        @id
   name          String
   email         String
+  style         String?
   image         String?
   balance       Int           @default(0)
   institutionId Int?
@@ -145,3 +146,6 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+
+
+// apps/web/prisma/migrations/20251222210035_init

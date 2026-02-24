@@ -1,24 +1,5 @@
 import { StyleSheet } from "@react-pdf/renderer";
 
-/**
- * Academic Document Styles
- *
- * Designed to meet academic publishing standards with proper typography,
- * spacing, and formatting conventions for research papers, theses, and
- * scholarly documents.
- *
- * Typography:
- * - Primary font: Times family (standard for academic documents)
- * - Line height: 1.5-1.6 for optimal readability
- * - Justified text alignment for body content
- * - Hierarchical heading structure with clear visual distinction
- *
- * Spacing:
- * - Generous margins (1 inch / 72pt standard)
- * - Consistent vertical rhythm using 6pt baseline grid
- * - Appropriate spacing between sections and elements
- */
-
 // =============================================================================
 // MAIN ACADEMIC STYLES (Primary Export)
 // =============================================================================
@@ -86,8 +67,6 @@ export const styles = StyleSheet.create({
     lineHeight: 1.5,
     textIndent: 0,
     marginBottom: 6,
-    orphans: 2, // Prevent single lines at top of page
-    widows: 2, // Prevent single lines at bottom of page
   },
 
   text: {
@@ -186,7 +165,6 @@ export const styles = StyleSheet.create({
     padding: 6,
     fontSize: 11,
     flexWrap: 'wrap',
-    wordWrap: 'break-word',
     fontFamily: 'Times-Roman',
   },
 
@@ -546,19 +524,11 @@ export const styles = StyleSheet.create({
   footnoteMarker: {
     fontSize: 8,
     fontFamily: "Times-Roman",
-    verticalAlign: "superscript",
   },
 
   // -------------------------------------------------------------------------
   // Utility Classes
   // -------------------------------------------------------------------------
-  text: {
-    fontSize: 12,
-    lineHeight: 1.6,
-    textAlign: "justify",
-    fontFamily: "Times-Roman",
-    color: '#000000',
-  },
 
   textCenter: {
     textAlign: "center",
@@ -604,272 +574,4 @@ export const styles = StyleSheet.create({
   mx2: { marginHorizontal: 12 },
   mx3: { marginHorizontal: 18 },
   mx4: { marginHorizontal: 24 },
-});
-
-// =============================================================================
-// LEGACY STYLES (stylesx - kept for backward compatibility)
-// =============================================================================
-
-export const stylesx = StyleSheet.create({
-  cover: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 50,
-    paddingTop: 120,
-  },
-
-  coverTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-    fontFamily: "Times-Bold",
-    textAlign: "center",
-  },
-
-  coverSubtitle: {
-    fontSize: 16,
-    marginBottom: 40,
-    fontFamily: "Times-Roman",
-    textAlign: "center",
-  },
-
-  image: {
-    width: 150,
-    height: 150,
-    marginBottom: 30,
-    objectFit: 'contain',
-  },
-
-  institutionName: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 15,
-    fontFamily: "Times-Bold",
-    textAlign: "center",
-  },
-
-  authorInfo: {
-    fontSize: 14,
-    marginTop: 10,
-    fontFamily: "Times-Roman",
-  },
-
-  page: {
-    fontSize: 12,
-    lineHeight: 1.6,
-    padding: 50,
-    paddingTop: 80,
-    paddingBottom: 70,
-    fontFamily: "Times-Roman",
-    backgroundColor: "white",
-  },
-
-  header: {
-    position: "absolute",
-    top: 30,
-    left: 50,
-    right: 50,
-    textAlign: "center",
-    fontSize: 10,
-    color: "gray",
-    fontFamily: "Times-Roman",
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
-    paddingBottom: 5,
-  },
-
-  footer: {
-    position: "absolute",
-    bottom: 30,
-    left: 50,
-    right: 50,
-    textAlign: "center",
-    fontSize: 10,
-    color: "gray",
-    fontFamily: "Times-Roman",
-    borderTopWidth: 1,
-    borderTopColor: "#cccccc",
-    paddingTop: 5,
-  },
-
-  section: {
-    marginBottom: 20,
-  },
-
-  heading1: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 24,
-    marginBottom: 12,
-    fontFamily: "Times-Bold",
-    color: "#2c3e50",
-    borderBottomWidth: 1,
-    borderBottomColor: "#34495e",
-    paddingBottom: 4,
-  },
-
-  heading2: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginTop: 20,
-    marginBottom: 10,
-    fontFamily: "Times-Bold",
-    color: "#34495e",
-  },
-
-  heading3: {
-    fontSize: 14,
-    fontWeight: "bold",
-    marginTop: 16,
-    marginBottom: 8,
-    fontFamily: "Times-Bold",
-    color: "#34495e",
-  },
-
-  paragraph: {
-    fontSize: 12,
-    lineHeight: 1.3,
-    textAlign: "justify",
-    marginBottom: 3,
-    fontFamily: "Times-Roman",
-  },
-
-  text: {
-    fontSize: 12,
-    lineHeight: 1.6,
-    textAlign: "justify",
-    fontFamily: "Times-Roman",
-  },
-
-  bold: {
-    fontFamily: "Times-Bold",
-  },
-
-  italic: {
-    fontFamily: "Times-Italic",
-  },
-
-  listItem: {
-    flexDirection: "row",
-    marginBottom: 6,
-  },
-
-  listItemBullet: {
-    fontSize: 12,
-    fontFamily: "Times-Roman",
-    marginRight: 6,
-  },
-
-  listItemText: {
-    fontSize: 12,
-    lineHeight: 1.6,
-    fontFamily: "Times-Roman",
-  },
-
-  table: {
-    display: "table" as any,
-    width: "auto",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderRightWidth: 0,
-    borderBottomWidth: 0,
-    marginBottom: 15,
-  },
-
-  tableRow: {
-    flexDirection: "row",
-  },
-
-  tableCol: {
-    width: "25%",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderLeftWidth: 0,
-    borderTopWidth: 0,
-  },
-
-  tableCell: {
-    fontSize: 10,
-    padding: 8,
-    fontFamily: "Times-Roman",
-  },
-
-  tableHeader: {
-    fontSize: 10,
-    fontWeight: "bold",
-    padding: 8,
-    backgroundColor: "#f5f5f5",
-    fontFamily: "Times-Bold",
-  },
-
-  figure: {
-    alignItems: "center",
-    marginVertical: 15,
-  },
-
-  figureCaption: {
-    fontSize: 10,
-    textAlign: "center",
-    fontStyle: "italic",
-    marginTop: 5,
-    fontFamily: "Times-Italic",
-  },
-
-  pageNo: {
-    position: "absolute",
-    fontSize: 10,
-    bottom: 30,
-    left: 0,
-    right: 0,
-    textAlign: "center",
-    color: "grey",
-  },
-
-  toc: {
-    marginTop: 30,
-    marginLeft: 20,
-  },
-
-  tocItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 5,
-    fontSize: 12,
-    fontFamily: "Times-Roman",
-  },
-
-  tocPageNumber: {
-    fontFamily: "Times-Roman",
-  },
-
-  bibliography: {
-    marginTop: 20,
-    marginLeft: 20,
-  },
-
-  bibItem: {
-    flexDirection: "row",
-    marginBottom: 10,
-    fontSize: 11,
-    lineHeight: 1.4,
-    fontFamily: "Times-Roman",
-  },
-
-  abstract: {
-    marginTop: 30,
-    marginBottom: 30,
-    fontSize: 11,
-    lineHeight: 1.5,
-    fontFamily: "Times-Roman",
-    textAlign: "justify",
-  },
-
-  keywords: {
-    fontSize: 11,
-    fontStyle: "italic",
-    marginBottom: 20,
-    fontFamily: "Times-Italic",
-  },
 });

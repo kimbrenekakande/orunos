@@ -61,7 +61,7 @@ export default function SettingsPage() {
 
       <div className="grid gap-6">
         {/* Profile Section */}
-        <Card>
+        <Card className="bg-transparent rounded">
           <CardHeader>
             <div className="flex items-center gap-2">
               <User className="size-5 text-muted-foreground" />
@@ -129,7 +129,7 @@ export default function SettingsPage() {
                 id="bio"
                 key={profile?.id || "bio"}
                 rows={4}
-                className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-shadow focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+                className="flex w-full rounded border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-shadow focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 resize-none"
                 placeholder="What rules would you like orunos to follow ?"
                 defaultValue=""
               />
@@ -141,7 +141,7 @@ export default function SettingsPage() {
         </Card>
 
         {/* Account Section */}
-        <Card>
+        <Card className="bg-transparent rounded">
           <CardHeader>
             <div className="flex items-center gap-2">
               <Mail className="size-5 text-muted-foreground" />
@@ -184,7 +184,7 @@ export default function SettingsPage() {
 
             {/*<div className="grid gap-2">
               <Label>Account Type</Label>
-              <div className="flex flex-col gap-3 rounded-md border p-4 md:flex-row md:items-center md:justify-between">
+              <div className="flex flex-col gap-3 rounded border p-4 md:flex-row md:items-center md:justify-between">
                 <div className="grid gap-1">
                   <p className="text-sm font-medium">Free Plan</p>
                   <p className="text-xs text-muted-foreground">
@@ -203,7 +203,7 @@ export default function SettingsPage() {
         </Card>
 
         {/* Security Section */}
-        <Card>
+        <Card className="bg-transparent rounded">
           <CardHeader>
             <div className="flex items-center gap-2">
               <Lock className="size-5 text-muted-foreground" />
@@ -245,7 +245,7 @@ export default function SettingsPage() {
             </div>
 
 
-            {/*<div className="flex flex-col gap-4 rounded-md border p-4 md:flex-row md:items-center md:justify-between">
+            {/*<div className="flex flex-col gap-4 rounded border p-4 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-4">
                 <Shield className="size-10 text-primary" />
                 <div className="grid gap-1">
@@ -266,7 +266,7 @@ export default function SettingsPage() {
             </div>*/}
 
             {twoFactor && (
-              <div className="rounded-md bg-muted p-4">
+              <div className="rounded bg-muted p-4">
                 <p className="text-sm">
                   <strong>Backup Codes:</strong> You have 8 backup codes remaining.{" "}
                   <Button variant="link" className="h-auto p-0">
@@ -279,7 +279,7 @@ export default function SettingsPage() {
 
             <div className="grid gap-3">
               <Label>Active Sessions</Label>
-              <div className="flex items-center justify-between rounded-md border p-3">
+              <div className="flex items-center justify-between rounded border p-3">
                 <div className="flex items-center gap-3">
                   <div className="size-2 rounded-full bg-green-500" />
                   <div>
@@ -291,7 +291,7 @@ export default function SettingsPage() {
                 </div>
                 <Badge>Current</Badge>
               </div>
-              <div className="flex items-center justify-between rounded-md border p-3">
+              <div className="flex items-center justify-between rounded border p-3">
                 <div className="flex items-center gap-3">
                   <div className="size-2 rounded-full bg-gray-300" />
                   <div>
@@ -305,7 +305,7 @@ export default function SettingsPage() {
                   Sign Out
                 </Button>
               </div>
-              <div className="flex items-center justify-between rounded-md border p-3">
+              <div className="flex items-center justify-between rounded border p-3">
                 <div className="flex items-center gap-3">
                   <div className="size-2 rounded-full bg-gray-300" />
                   <div>
@@ -330,7 +330,7 @@ export default function SettingsPage() {
         </Card>
 
         {/* Danger Zone */}
-        <Card className="border-destructive/50">
+        <Card className="border-destructive/50 bg-transparent rounded">
           <CardHeader>
             <CardTitle className="text-destructive">Danger Zone</CardTitle>
             <CardDescription>
@@ -338,7 +338,7 @@ export default function SettingsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col gap-3 rounded-md border border-destructive/50 bg-destructive/5 p-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-3 rounded border border-destructive/50 bg-destructive/5 p-4 md:flex-row md:items-center md:justify-between">
               <div className="grid gap-1">
                 <p className="text-sm font-medium text-destructive">
                   Delete Account

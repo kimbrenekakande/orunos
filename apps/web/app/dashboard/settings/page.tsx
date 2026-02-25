@@ -27,9 +27,27 @@ import {
 import { Separator } from "@/components/dashboard/separator"
 import { Toggle } from "@/components/dashboard/toggle"
 import { Lock, Mail, Shield, User } from "lucide-react"
+import { authClient } from "@/lib/auth-client"
 
 export default function SettingsPage() {
+  const { data: session, isPending } = authClient.useSession()
+  const user = session?.user
+
+  // Derive profile from user - no effect needed
+  const profile = user ? {
+    id: user.id,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+    email: user.email,
+    emailVerified: user.emailVerified,
+    name: user.name,
+    image: user.image,
+    wallet: user.wallet,
+    institutionId: user.institutionId,
+  } : null
+
   const [twoFactor, setTwoFactor] = useState(false)
+
 
   return (
     <div className="flex flex-col gap-6 p-6 md:p-8">
@@ -56,7 +74,7 @@ export default function SettingsPage() {
           <CardContent className="grid gap-6">
             <div className="flex items-center gap-4">
               <Avatar className="size-20">
-                <AvatarImage src="/avatars/user.jpg" alt="User" />
+                <AvatarImage src="/images/tree.jpg" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
               <div className="flex flex-col gap-2">
@@ -73,43 +91,47 @@ export default function SettingsPage() {
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="grid gap-2">
-                <Label htmlFor="firstName">First Name</Label>
+                <Label htmlFor="firstName">Full Name</Label>
                 <Input
                   id="firstName"
-                  defaultValue="John"
+                  key={profile?.id || "firstName"}
+                  defaultValue={profile?.name || ""}
                   placeholder="Enter your first name"
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="lastName">Last Name</Label>
+                <Label htmlFor="lastName">Institution</Label>
                 <Input
                   id="lastName"
-                  defaultValue="Doe"
-                  placeholder="Enter your last name"
+                  key={profile?.id || "lastName"}
+                  defaultValue={profile?.institutionId || "" }
+                  placeholder="Enter your Institution name"
                 />
               </div>
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="username">Username</Label>
+            {/*<div className="grid gap-2">
+              <Label htmlFor="username">Institution</Label>
               <Input
                 id="username"
-                defaultValue="@johndoe"
-                placeholder="@username"
+                key={profile?.id || "institution"}
+                defaultValue={profile?.institutionId?.toString() || ""}
+                placeholder="Institution Name"
               />
               <p className="text-xs text-muted-foreground">
                 This is your public display name.
               </p>
-            </div>
+            </div>*/}
 
             <div className="grid gap-2">
-              <Label htmlFor="bio">Bio</Label>
+              <Label htmlFor="bio">Rules</Label>
               <textarea
                 id="bio"
+                key={profile?.id || "bio"}
                 rows={4}
                 className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-shadow focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 resize-none"
-                placeholder="Tell us a little bit about yourself"
-                defaultValue="Software developer passionate about building great products."
+                placeholder="What rules would you like orunos to follow ?"
+                defaultValue=""
               />
             </div>
           </CardContent>
@@ -135,8 +157,9 @@ export default function SettingsPage() {
               <div className="flex gap-2">
                 <Input
                   id="email"
+                  key={profile?.id || "email"}
                   type="email"
-                  defaultValue="john.doe@example.com"
+                  defaultValue={profile?.email || ""}
                   className="flex-1"
                 />
                 <Button variant="outline">Change</Button>
@@ -146,56 +169,20 @@ export default function SettingsPage() {
               </p>
             </div>
 
-            <Separator />
-
             <div className="grid gap-2">
               <Label htmlFor="phone">Phone Number</Label>
               <Input
                 id="phone"
+                key={profile?.id || "phone"}
                 type="tel"
-                defaultValue="+1 (555) 123-4567"
+                defaultValue=""
                 placeholder="Enter your phone number"
               />
             </div>
 
-            <Separator />
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="grid gap-2">
-                <Label htmlFor="timezone">Timezone</Label>
-                <Select defaultValue="utc">
-                  <SelectTrigger id="timezone">
-                    <SelectValue placeholder="Select timezone" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="utc">UTC</SelectItem>
-                    <SelectItem value="est">Eastern Time (ET)</SelectItem>
-                    <SelectItem value="pst">Pacific Time (PT)</SelectItem>
-                    <SelectItem value="gmt">Greenwich Mean Time (GMT)</SelectItem>
-                    <SelectItem value="cet">Central European Time (CET)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="language">Language</Label>
-                <Select defaultValue="en">
-                  <SelectTrigger id="language">
-                    <SelectValue placeholder="Select language" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="en">English</SelectItem>
-                    <SelectItem value="es">Spanish</SelectItem>
-                    <SelectItem value="fr">French</SelectItem>
-                    <SelectItem value="de">German</SelectItem>
-                    <SelectItem value="zh">Chinese</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
 
-            <Separator />
-
-            <div className="grid gap-2">
+            {/*<div className="grid gap-2">
               <Label>Account Type</Label>
               <div className="flex flex-col gap-3 rounded-md border p-4 md:flex-row md:items-center md:justify-between">
                 <div className="grid gap-1">
@@ -208,7 +195,7 @@ export default function SettingsPage() {
                   Upgrade
                 </Button>
               </div>
-            </div>
+            </div>*/}
           </CardContent>
           <CardFooter>
             <Button>Save Changes</Button>
@@ -257,9 +244,8 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <Separator />
 
-            <div className="flex flex-col gap-4 rounded-md border p-4 md:flex-row md:items-center md:justify-between">
+            {/*<div className="flex flex-col gap-4 rounded-md border p-4 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-4">
                 <Shield className="size-10 text-primary" />
                 <div className="grid gap-1">
@@ -277,7 +263,7 @@ export default function SettingsPage() {
                 aria-label="Toggle two-factor authentication"
                 size="lg"
               />
-            </div>
+            </div>*/}
 
             {twoFactor && (
               <div className="rounded-md bg-muted p-4">
@@ -290,7 +276,6 @@ export default function SettingsPage() {
               </div>
             )}
 
-            <Separator />
 
             <div className="grid gap-3">
               <Label>Active Sessions</Label>

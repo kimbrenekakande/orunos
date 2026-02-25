@@ -25,7 +25,7 @@ export function NavUser({user}: {user: {name: string, email: string, avatar: str
   async function logout(){
     const{error} = await authClient.signOut()
     if (error){
-      console.log(`Out Errror : ${error}`)
+      console.log(`Out Error : ${error}`)
     }
     redirect('/')
   }

@@ -58,7 +58,7 @@ export default function BillingPage() {
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Wallet Balance Card */}
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 bg-transparent rounded">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -139,7 +139,7 @@ export default function BillingPage() {
         </Card>
 
         {/* Add Funds Card */}
-        <Card>
+        <Card className="bg-transparent rounded">
           <CardHeader>
             <div className="flex items-center gap-2">
               <Plus className="size-5 text-muted-foreground" />
@@ -216,7 +216,7 @@ export default function BillingPage() {
       </div>
 
       {/* Payment Methods */}
-      <Card>
+      <Card className="bg-transparent rounded">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -269,7 +269,7 @@ export default function BillingPage() {
       </Card>
 
       {/* Transaction History */}
-      <Card>
+      <Card className="bg-transparent rounded">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -452,7 +452,7 @@ export default function BillingPage() {
       </Card>
 
       {/* Billing Settings */}
-      <Card>
+      <Card className="bg-transparent rounded">
         <CardHeader>
           <div className="flex items-center gap-2">
             <CreditCard className="size-5 text-muted-foreground" />

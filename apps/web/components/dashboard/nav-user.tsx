@@ -4,6 +4,7 @@ import {
   IconCreditCard,
   IconLogout,
   IconUserCircle,
+  IconHome,
 } from "@tabler/icons-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/dashboard/avatar"
@@ -64,6 +65,10 @@ export function NavUser({user}: {user: {name: string, email: string, avatar: str
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => router.push('/dashboard')}>
+            <IconHome className="h-4 w-4" />
+            Dashboard
+          </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => router.push('/dashboard/settings')}>
             <IconUserCircle className="h-4 w-4" />
             Account

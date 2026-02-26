@@ -7,4 +7,4 @@ initLogger({
   apiKey: process.env.BRAINTRUST_API_KEY,
 });
 
-export const { generateText, generateObject } = wrapAISDK(ai);
+export const { ToolLoopAgent, tool, stepCountIs, generateText } = wrapAISDK(ai);

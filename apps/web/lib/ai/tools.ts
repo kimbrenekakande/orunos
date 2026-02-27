@@ -9,7 +9,7 @@ import prisma from '@/lib/prisma';
 export const planTool = tool({
   description: "Plan the layout of the information of the document ",
   inputSchema: z.object({
-    questions : z.string
+    questions : z.string()
   }),
   execute: async(questions) => {
     const outline = await generateText({
@@ -31,7 +31,9 @@ export const planTool = tool({
 
 export const writeTool = tool({
   description: "Write detailed content based on the output",
-  inputSchema: outlineSchema,
+  inputSchema: outlineSchema.extend({
+    id: z.string("The unique identifier for the document")
+  }),
   execute: async (docPlan) => {
     const sections = docPlan.sections
     const content = sections.map(async (sec) => {
@@ -64,7 +66,7 @@ export const writeTool = tool({
     
     
     await prisma.document.update({
-      where : { id : id},
+      where : { id : docPlan.id},
       data : {
         title : docPlan.title,
         answer : document,
@@ -76,10 +78,10 @@ export const writeTool = tool({
   },
 });
 
-export const searchTool = tool({
-  description: "Write detailed content based on the output",
-  inputSchema: outlineSchema,
-  execute: async() => {
-    const x = "mod"
-  }
-})
+// export const searchTool = tool({
+//   description: "Write detailed content based on the output",
+//   inputSchema: outlineSchema,
+//   execute: async() => {
+//     const x = "mod"
+//   }
+// })

@@ -6,7 +6,6 @@ generator client {
   // output   = "./generated/prisma"
 }
 
-
 datasource db {
   provider = "sqlite"
 }
@@ -45,16 +44,19 @@ model DocType {
   description String? // Optional description
   documents   Document[]
   isActive    Boolean    @default(true) // Can disable document types
+
   @@index([type])
 }
 
 model Institution {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  country   String
-  address   String
-  logo      String?
-  users     User[]
+  id      Int     @id @default(autoincrement())
+  name    String  @unique
+  country String
+  address String
+  logo    String?
+  users   User[]
+
+
   @@index([name])
 }
 
@@ -140,6 +142,5 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
-
 
 // apps/web/prisma/migrations/20251222210035_init

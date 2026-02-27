@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
   const maker = await documentAgent.generate({
     prompt: `
     Create an academic Document
+    Document ID : ${id}
     Document Type :  ${documentType}
     questions : ${questions}
     `

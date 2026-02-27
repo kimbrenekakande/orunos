@@ -32,6 +32,7 @@ export async function startCreation(formData: FormData) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      paperType : docType.name,
       prompt: question,
     }),
   })

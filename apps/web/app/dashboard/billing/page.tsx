@@ -300,16 +300,16 @@ export default function BillingPage() {
         <CardContent>
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Type</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
+              <TableRow className="border-b border-border/40 hover:bg-transparent">
+                <TableHead className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Type</TableHead>
+                <TableHead className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Description</TableHead>
+                <TableHead className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Date</TableHead>
+                <TableHead className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Status</TableHead>
+                <TableHead className="text-xs uppercase tracking-wider text-muted-foreground font-medium text-right">Amount</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
+              <TableRow className="hover:bg-muted/30 border-none">
                 <TableCell>
                   <div className="flex size-8 items-center justify-center rounded-full bg-green-500/10">
                     <Plus className="size-4 text-green-500" />
@@ -335,7 +335,7 @@ export default function BillingPage() {
                   + $500.00
                 </TableCell>
               </TableRow>
-              <TableRow>
+              <TableRow className="hover:bg-muted/30 border-none">
                 <TableCell>
                   <div className="flex size-8 items-center justify-center rounded-full bg-red-500/10">
                     <DollarSign className="size-4 text-red-500" />
@@ -361,7 +361,7 @@ export default function BillingPage() {
                   - $45.00
                 </TableCell>
               </TableRow>
-              <TableRow>
+              <TableRow className="hover:bg-muted/30 border-none">
                 <TableCell>
                   <div className="flex size-8 items-center justify-center rounded-full bg-green-500/10">
                     <Plus className="size-4 text-green-500" />
@@ -387,7 +387,7 @@ export default function BillingPage() {
                   + $120.00
                 </TableCell>
               </TableRow>
-              <TableRow>
+              <TableRow className="hover:bg-muted/30 border-none">
                 <TableCell>
                   <div className="flex size-8 items-center justify-center rounded-full bg-red-500/10">
                     <DollarSign className="size-4 text-red-500" />
@@ -413,7 +413,7 @@ export default function BillingPage() {
                   - $99.00
                 </TableCell>
               </TableRow>
-              <TableRow>
+              <TableRow className="hover:bg-muted/30 border-none">
                 <TableCell>
                   <div className="flex size-8 items-center justify-center rounded-full bg-red-500/10">
                     <DollarSign className="size-4 text-red-500" />
@@ -442,12 +442,12 @@ export default function BillingPage() {
             </TableBody>
           </Table>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline" size="sm">Previous</Button>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            Page 1 of 5
+        <CardFooter className="flex items-center justify-between border-t border-border/40 pt-4">
+          <span className="text-sm text-muted-foreground">Showing 5 of 24 transactions</span>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm">Previous</Button>
+            <Button variant="outline" size="sm">Next</Button>
           </div>
-          <Button variant="outline" size="sm">Next</Button>
         </CardFooter>
       </Card>
 

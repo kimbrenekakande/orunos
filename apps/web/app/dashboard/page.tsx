@@ -2,7 +2,6 @@ import { serverSession } from "@/lib/server-session";
 import { redirect } from "next/navigation";
 import TemplateGallery from "@/components/ui/templates";
 import { TableView } from "@/components/ui/table-view";
-import { Button } from "@/components/tiptapui/button";
 import { VerifyEmailButton } from "./verify";
 
 export default async function Home() {
@@ -18,7 +17,7 @@ export default async function Home() {
         {!user.emailVerified &&
           <section className="my-8">
             <div className="h-px w-full bg-orange-500/50"></div>
-            <div className="h-full w-full flex justify-between py-2 flex place-items-center-safe">
+            <div className="h-full w-full flex justify-between py-2 place-items-center-safe">
               <p className="text-sm md:text-base">You need to verify your email</p>
               <VerifyEmailButton email={user.email} />
             </div>

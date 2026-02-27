@@ -1,10 +1,10 @@
-import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from "next/server";
 import {documentAgent} from "@/lib/ai/agents";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const id = await body.id;
+  const documentType = await body.paperType
   const questions = await body.prompt;
 
   if (!id){
@@ -20,16 +20,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const output = await documentAgent({ doctype: 'document', questionnaire: questions });
-  
-  await prisma.document.update({
-    where : { id : id},
-    data : {
-      title : output.title,
-      answer : output.body,
-      status : "READY",
-    }
+  const maker = await documentAgent.generate({
+    prompt: `
+    Create an academic Document
+    Document Type :  ${documentType}
+    questions : ${questions}
+    `
   })
+  
+  console.log(maker)
 
   return NextResponse.json({status : 'document created successfully'});
 }

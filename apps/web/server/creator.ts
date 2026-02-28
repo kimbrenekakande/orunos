@@ -39,9 +39,10 @@ export async function startCreation(formData: {
     },
     body: JSON.stringify({
       id: newDoc.id,
+      paperType: docType,
       prompt: question,
     }),
-  });
+  }).catch(console.error);
 
   redirect(`/dashboard/${docType}/editor/${newDoc.id}?source=form`);
 }

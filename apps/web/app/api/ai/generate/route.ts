@@ -7,6 +7,12 @@ export async function POST(request: NextRequest) {
   const documentType = await body.paperType
   const questions = await body.prompt;
 
+  console.log('=== AI GENERATION REQUEST ===')
+  console.log('Document ID:', id)
+  console.log('Document Type:', documentType)
+  console.log('Questions/Prompt:', questions)
+  console.log('=============================')
+
   if (!id){
     return NextResponse.json(
       { error: 'Document ID is required' },
@@ -28,8 +34,8 @@ export async function POST(request: NextRequest) {
     questions : ${questions}
     `
   })
-  
-  console.log(maker)
+
+  console.log('Agent result:', maker)
 
   return NextResponse.json({status : 'document created successfully'});
 }

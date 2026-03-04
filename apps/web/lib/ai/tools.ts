@@ -61,12 +61,11 @@ export const searchTool = tool({
     query: z.string().describe("The search query to use"),
   }),
   execute: async(query) => {
-    const axios = require('axios');
-    let data = JSON.stringify({
+    const data = JSON.stringify({
       "q": {query}
     });
     
-    let config = {
+    const config = {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'https://google.serper.dev/search',

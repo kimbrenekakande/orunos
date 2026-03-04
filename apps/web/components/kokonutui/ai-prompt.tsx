@@ -82,16 +82,9 @@ export default function Questionaire({ doctype }: { doctype: string }) {
                 <div className="flex items-center rounded bg-transparent dark:bg-transparent">
                   <div className="absolute right-3 bottom-3 left-3 flex w-[calc(100%-24px)] items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <label
-                        aria-label="Attach file"
-                        className={cn(
-                          "cursor-pointer rounded bg-black/5 p-2 dark:bg-white/5 hidden",
-                          "hover:bg-black/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0 dark:hover:bg-white/10",
-                          "text-black/40 hover:text-black dark:text-white/40 dark:hover:text-white"
-                        )}
-                      >
+                      <label aria-label="Attach file" className={cn( "cursor-pointer h")}>
                         <input className="hidden" type="file" />
-                        <Paperclip className="h-4 w-4 transition-colors" />
+                        <Paperclip className="h-6 w-6 transition-colors hover:text-orange-500" />
                       </label>
                     </div>
                     <button

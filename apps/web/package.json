@@ -29,6 +29,7 @@
     "@emoji-mart/data": "1.2.1",
     "@faker-js/faker": "^10.1.0",
     "@floating-ui/react": "^0.27.16",
+    "@google/genai": "^1.43.0",
     "@hookform/resolvers": "^5.2.2",
     "@platejs/ai": "^51.0.1",
     "@platejs/autoformat": "^51.0.0",

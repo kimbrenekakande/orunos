@@ -1,7 +1,7 @@
 import { ToolLoopAgent, stepCountIs } from "./braintrust";
-import { writeTool , searchTool} from "./tools"
+import { writeTool , searchTool, writeTool4Cached} from "./tools"
 import { groq } from '@ai-sdk/groq';
-import { google } from "@ai-sdk/google"
+
 
 export const documentAgent = new ToolLoopAgent({
   model: groq('meta-llama/llama-4-maverick-17b-128e-instruct'),
@@ -15,6 +15,7 @@ export const documentAgent = new ToolLoopAgent({
   `,
   tools: {
     write: writeTool,
+    write4cached : writeTool4Cached,
     search: searchTool,
   },
   stopWhen: stepCountIs(4),

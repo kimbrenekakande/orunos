@@ -4,8 +4,8 @@ export const items = [
     bgColor: "black",
     textColor: "#fff",
     links: [
-      { label: "Blog", ariaLabel: "About Careers" , href: "/login" },
-      { label: "Company", ariaLabel: "About Company" , href: "/login"},
+      { label: "Blog", ariaLabel: "About Careers" , href: "/about" },
+      { label: "Company", ariaLabel: "About Company" , href: "/about"},
     ]
   },
   {
@@ -18,12 +18,12 @@ export const items = [
     ]
   },
   {
-    label: "Contact",
+    label: "Links",
     bgColor: "black",
     textColor: "#fff",
     links: [
-      { label: "Email", ariaLabel: "Email us" },
-      { label: "Twitter", ariaLabel: "Twitter" },
+      { label: "Contact Us", ariaLabel: "Email us", href: "/contact" },
+      { label: "Twitter", ariaLabel: "Twitter", href: "https://twitter.com/" },
     ]
-    }
-  ];
+  }
+];

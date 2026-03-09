@@ -15,7 +15,7 @@ const sampleBentoData: BentoItem[] = [
     image: "/images/boat.jpg",
     size: "large",
     priority: 1,
-    tag: "PhD, Stanford University",
+    tag: "PhD, University of Johannesburg ",
     variant: "highlight",
     accentColor: "#FFFFFF",
     link: "#",
@@ -40,7 +40,7 @@ const sampleBentoData: BentoItem[] = [
   },
   {
     id: "4",
-    title: "Dr. Aisha Patel",
+    title: "Aisha Patel",
     description: "\"Orunos helped me discover relevant studies I would have missed. The AI suggestions are remarkably insightful.\"",
     variant: "highlight",
     size: "wide",
@@ -58,7 +58,7 @@ const sampleBentoData: BentoItem[] = [
   },
   {
     id: "6",
-    title: "Dr. Lisa Nakamura",
+    title: "Lisa Nakyobe",
     description: "\"Finally, a tool that understands academic writing. The style suggestions are tailored to scholarly work.\"",
     variant: "highlight",
     accentColor: "#FFFFFF",
@@ -75,7 +75,7 @@ const sampleBentoData: BentoItem[] = [
   },
   {
     id: "8",
-    title: "Dr. Fatima Al-Hassan",
+    title: "Fatima Al-Hassan",
     description: "\"From journal articles to conference papers, Orunos handles every citation style perfectly. Essential for any researcher.\"",
     variant: "highlight",
     accentColor: "#FFFFFF",

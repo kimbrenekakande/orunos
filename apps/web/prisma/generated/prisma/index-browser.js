@@ -140,16 +140,6 @@ exports.Prisma.DocTypeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.InstitutionScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  country: 'country',
-  address: 'address',
-  logo: 'logo',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   amount: 'amount',
@@ -163,9 +153,9 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
+  style: 'style',
   image: 'image',
   balance: 'balance',
-  institutionId: 'institutionId',
   admin: 'admin',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -230,7 +220,6 @@ exports.TransType = exports.$Enums.TransType = {
 exports.Prisma.ModelName = {
   Document: 'Document',
   DocType: 'DocType',
-  Institution: 'Institution',
   Transaction: 'Transaction',
   User: 'User',
   Session: 'Session',

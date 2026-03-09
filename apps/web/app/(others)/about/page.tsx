@@ -12,34 +12,23 @@ export default function AboutPage() {
             About Orunos
           </h1>
 
-          <div className="prose prose-neutral dark:prose-invert max-w-none space-y-6 text-muted-foreground">
-            <p className="text-lg leading-relaxed">
-              Dear Reader,
-            </p>
+          <div className="prose prose-neutral dark:prose-invert max-w-none text-muted-foreground">
+            <p className="text-lg leading-loose whitespace-pre-line">
+Dear Reader,
 
-            <p className="leading-relaxed">
-              Welcome to Orunos — your academic copilot designed specifically for graduate researchers, PhD candidates, and scholars who demand precision in their work.
-            </p>
+Welcome to Orunos — your academic copilot designed specifically for graduate researchers, PhD candidates, and scholars who demand precision in their work.
 
-            <p className="leading-relaxed">
-              We built Orunos because we understand the unique challenges that come with academic writing. Generating citations across thousands of sources, synthesizing complex literature, and producing scholarly documents with rigorous accuracy — these tasks should empower your research, not burden it.
-            </p>
+We built Orunos because we understand the unique challenges that come with academic writing. Generating citations across thousands of sources, synthesizing complex literature, and producing scholarly documents with rigorous accuracy — these tasks should empower your research, not burden it.
 
-            <p className="leading-relaxed">
-              Our mission is simple: to accelerate your academic journey without replacing the learning process. We believe technology should enhance your scholarly pursuits, giving you more time to focus on what truly matters — your research and ideas.
-            </p>
+Our mission is simple: to accelerate your academic journey without replacing the learning process. We believe technology should enhance your scholarly pursuits, giving you more time to focus on what truly matters — your research and ideas.
 
-            <p className="leading-relaxed">
-              Whether you&apos;re drafting your first research paper or completing a dissertation, Orunos is here to help you write with confidence and precision.
-            </p>
+Whether you're drafting your first research paper or completing a dissertation, Orunos is here to help you write with confidence and precision.
 
-            <p className="leading-relaxed">
-              Thank you for being part of our community.
-            </p>
+Thank you for being part of our community.
 
-            <p className="text-lg">
-              Warm regards,<br />
-              The Orunos Team
+
+Warm regards,
+The Orunos Team
             </p>
           </div>
         </div>

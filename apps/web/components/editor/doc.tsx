@@ -1,38 +1,15 @@
 import { Page, Text, View, Document, Image, Link } from "@react-pdf/renderer";
 import { styles } from "@/styles/pdfstyles";
 import { authClient } from "@/lib/auth-client"
-import baseUrl from "@/lib/base-url";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MyDocProps } from "@/lib/types";
-// import { InstituteType } from "@/lib/types";
 import {marked} from "marked"
 
-
-async function somero(instID : string) {
-  const res = await fetch(`${baseUrl}/api/institute/fetch?id=${instID}`)
-  return res.json()
-}
-// const institution = await somero(id)
 //Generating && Download PDF
 export const MyDoc = ({ title, content }: MyDocProps) => {
 
-  const [institution, setInstitution] = useState({
-    id       :  0 ,
-    name     :  "",
-    country  :  "",
-    address  :  "",
-    logo     :  "",
-  })
-
-  const {data, isPending, error, refetch} =  authClient.useSession() // Fetching the session from the client side
+  const {data} =  authClient.useSession()
   const author = data?.user
-  const id = Number(author?.institutionId)
-
-  useEffect(() => {
-    if (id) {
-      somero(id.toString()).then(setInstitution)
-    }
-  }, [id])
 
   //turn md content to react pdf primitives
   const renderTokens = (tokens: any[]): React.ReactNode[] => {
@@ -161,12 +138,6 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
   return (
     <Document >
       <Page size="A4" style={styles.cover}>
-        {institution?.logo && (
-          <Image src={institution.logo} style={styles.image} />
-        )}
-        <Text style={styles.institutionName}>
-          {institution?.name || "Institution Name"}
-        </Text>
         <Text style={styles.coverTitle}>
           {title}
         </Text>

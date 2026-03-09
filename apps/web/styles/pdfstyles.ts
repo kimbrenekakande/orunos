@@ -264,22 +264,6 @@ export const styles = StyleSheet.create({
     objectFit: 'contain',
   },
 
-  institutionName: {
-    fontSize: 16,
-    marginBottom: 8,
-    fontFamily: "Times-Bold",
-    textAlign: "center",
-    color: '#1a1a1a',
-  },
-
-  institutionDepartment: {
-    fontSize: 12,
-    marginBottom: 48,
-    fontFamily: "Times-Roman",
-    textAlign: "center",
-    color: '#4b5563',
-  },
-
   authorInfo: {
     fontSize: 12,
     marginTop: 12,

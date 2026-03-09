@@ -8,7 +8,6 @@ export const authClient = createAuthClient({
   plugins: [
     inferAdditionalFields<typeof auth>({
       wallet: 0, // Default value for wallet
-      institutionId: undefined // Optional field
     }),
     nextCookies()
   ]

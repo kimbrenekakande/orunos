@@ -4,59 +4,6 @@ import prisma from "../lib/prisma";
 async function main() {
   console.log("🌱 Starting database seed...");
 
-  // Seed Institutions
-  const institutions = [
-    {
-      name: "Makerere University",
-      country: "Uganda",
-      address: "University Road, Kampala",
-    },
-    {
-      name: "Kyambogo University",
-      country: "Uganda",
-      address: "Kyambogo, Kampala",
-    },
-    {
-      name: "Kampala International University",
-      country: "Uganda",
-      address: "Ggaba Road, Kampala",
-    },
-    {
-      name: "Uganda Christian University",
-      country: "Uganda",
-      address: "Mukono",
-    },
-    {
-      name: "Harvard University",
-      country: "United States",
-      address: "Cambridge, MA 02138",
-    },
-    {
-      name: "Stanford University",
-      country: "United States",
-      address: "Stanford, CA 94305",
-    },
-    {
-      name: "University of Oxford",
-      country: "United Kingdom",
-      address: "Wellington Square, Oxford OX1 2JD",
-    },
-    {
-      name: "University of Cambridge",
-      country: "United Kingdom",
-      address: "The Old Schools, Trinity Ln, Cambridge CB2 1TN",
-    },
-  ];
-
-  console.log("📚 Seeding institutions...");
-  for (const institution of institutions) {
-    await prisma.institution.upsert({
-      where: { name: institution.name },
-      update: {},
-      create: institution,
-    });
-  }
-
   // Seed Document Types
   const docTypes = [
     {
@@ -119,10 +66,6 @@ async function main() {
   }
 
   // Seed a demo user
-  const makerere = await prisma.institution.findUnique({
-    where: { name: "Makerere University" },
-  });
-
   console.log("👤 Seeding demo user...");
   await prisma.user.upsert({
     where: { email: "demo@orunos.com" },
@@ -133,16 +76,11 @@ async function main() {
       email: "demo@orunos.com",
       emailVerified: true,
       balance: 50000,
-      institutionId: makerere?.id,
       admin: false,
     },
   });
 
   // Seed an admin user
-  const oxford = await prisma.institution.findUnique({
-    where: { name: "University of Oxford" },
-  });
-
   console.log("👨‍💼 Seeding admin user...");
   await prisma.user.upsert({
     where: { email: "admin@orunos.com" },
@@ -153,7 +91,6 @@ async function main() {
       email: "admin@orunos.com",
       emailVerified: true,
       balance: 100000,
-      institutionId: oxford?.id,
       admin: true,
     },
   });
@@ -169,14 +106,14 @@ async function main() {
       {
         id: "txn-001",
         amount: 50000,
-        type: "DEPOSIT",
+        type: "DEPOSIT" as const,
         description: "Initial deposit",
         userId: demoUser.id,
       },
       {
         id: "txn-002",
         amount: 5000,
-        type: "WITHDRAWAL",
+        type: "WITHDRAWAL" as const,
         description: "Coursework document generation",
         userId: demoUser.id,
       },
@@ -209,7 +146,7 @@ async function main() {
         title: "Introduction to Computer Science",
         question: "Discuss the fundamental concepts of computer science",
         answer: null,
-        status: "READY",
+        status: "READY" as const,
         cost: 5000,
         userId: demoUser.id,
       },
@@ -219,7 +156,7 @@ async function main() {
         title: "Machine Learning in Healthcare",
         question: "Analyze the impact of machine learning on healthcare outcomes",
         answer: null,
-        status: "GENERATING",
+        status: "GENERATING" as const,
         cost: 10000,
         userId: demoUser.id,
       },

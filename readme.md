@@ -33,7 +33,6 @@ Orunos is a full-stack monorepo application that provides:
 - **Document templates** — Pre-built templates for coursework, fieldwork, theses, and research papers
 - **Multi-platform access** — Web application (Next.js) and mobile app (Expo React Native)
 - **User authentication** — Secure authentication with Better Auth, email verification, and social login
-- **Institutional integration** — Support for university/institution affiliations
 
 ---
 
@@ -498,7 +497,7 @@ PROD="true"
 The application uses the following core entities:
 
 ### User Management
-- **User** — User accounts with institution affiliation and balance
+- **User** — User accounts with balance
 - **Session** — User sessions for authentication
 - **Account** — OAuth provider accounts
 - **Verification** — Email verification codes
@@ -506,9 +505,6 @@ The application uses the following core entities:
 ### Document Management
 - **Document** — Academic documents with title, content, and status
 - **DocType** — Document types (coursework, fieldwork, thesis, etc.)
-
-### Institutions
-- **Institution** — Universities and research institutions
 
 ### Transactions
 - **Transaction** — User balance transactions (deposits, withdrawals)
@@ -534,10 +530,6 @@ The application uses the following core entities:
 - `POST /api/ai/generate` — Generate content with AI
 - `POST /api/ai/command` — Execute AI commands
 - `POST /api/ai/copilot` — AI copilot assistance
-
-### Institutions
-
-- `GET /api/institute/fetch` — Fetch institution data
 
 ### File Uploads
 

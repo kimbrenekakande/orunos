@@ -11,7 +11,6 @@ export async function GET() {
         balance: true,
         admin: true,
         emailVerified: true,
-        institutionId: true,
       },
       orderBy: {
         createdAt: "desc",

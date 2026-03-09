@@ -11,29 +11,20 @@ import { authClient } from "@/lib/auth-client";
 import { socialsignIn } from "@/lib/social-auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { institutionRecord } from "@/server/instRecord";
 
 export default function SignUpPage() {
 	const router = useRouter();
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
-	const [institution, setInstitute] = useState("");
 	const [password, setPassword] = useState("");
 
 	const name = `${firstName} ${lastName}`;
 
 	async function signUp() {
-		const id = await institutionRecord(institution);
-		if (!id) {
-			console.error("Institution not found");
-			return;
-		}
-
 		const { error } = await authClient.signUp.email({
 			name,
 			email,
-			institutionId: id, // Now passing as number
       password,
       callbackURL : "/dashboard"
     });
@@ -109,12 +100,7 @@ export default function SignUpPage() {
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
-
-						{/* <div className="space-y-2">
-              <Label htmlFor="institution" className="block text-sm"> Institution </Label>
-              <Input type="text" required name="institution" id="institution" onChange={(e) => setInstitute(e.target.value)}/>
-            </div> */}
-						<div className="mt-6">
+						{/*<div className="mt-6">
 							<Select onValueChange={(value) => setInstitute(value)}>
 								<SelectTrigger className="w-full">
 									<SelectValue placeholder="Select an Institution" />
@@ -134,7 +120,7 @@ export default function SignUpPage() {
 									</SelectGroup>
 								</SelectContent>
 							</Select>
-						</div>
+						</div>*/}
 
 						<div className="space-y-0.5">
 							<div className="flex items-center justify-between">

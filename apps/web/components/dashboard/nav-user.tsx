@@ -71,7 +71,7 @@ export function NavUser({user}: {user: {name: string, email: string, avatar: str
           </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => router.push('/dashboard/settings')}>
             <IconUserCircle className="h-4 w-4" />
-            Account
+            Settings
           </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => router.push('/dashboard/billing')}>
             <IconCreditCard className="h-4 w-4" />

@@ -50,19 +50,6 @@ model DocType {
   @@index([type])
 }
 
-model Institution {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  country   String
-  address   String
-  logo      String?
-  users     User[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([name])
-}
-
 model Transaction {
   id          String    @id
   amount      Int
@@ -83,8 +70,6 @@ model User {
   style         String?
   image         String?
   balance       Int           @default(0)
-  institutionId Int?
-  institution   Institution?  @relation(fields: [institutionId], references: [id]) //Custom field
   documents     Document[] //Custom field
   transactions  Transaction[] //Custom field
   admin         Boolean       @default(false) //Custom Field

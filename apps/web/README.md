@@ -34,7 +34,6 @@ Orunos Web is a Next.js 16 application that serves as the primary interface for 
 - AI-powered content generation
 - Document management
 - User authentication
-- Institutional affiliations
 - Professional PDF export
 
 The application is built with the App Router architecture and uses server-side rendering for optimal performance and SEO.
@@ -58,7 +57,6 @@ The application is built with the App Router architecture and uses server-side r
 - Document type selection (coursework, fieldwork, thesis, research)
 - Balance and transaction tracking
 - Settings and profile management
-- Institution affiliation
 
 ### Landing Page
 
@@ -122,7 +120,6 @@ apps/web/
 │   │   │   └── generate/         # Content generation
 │   │   ├── auth/                 # Auth endpoints
 │   │   ├── papers/               # Document endpoints
-│   │   ├── institute/            # Institution endpoints
 │   │   └── uploadthing/          # File upload
 │   ├── dashboard/                # Protected dashboard
 │   │   ├── [doctype]/            # Dynamic document type pages
@@ -196,7 +193,6 @@ apps/web/
 │
 ├── server/                       # Server-side logic
 │   ├── creator.ts                # Document creator
-│   ├── instRecord.ts             # Institution records
 │   └── streamer.ts               # Streaming utilities
 │
 ├── styles/                       # Styles
@@ -405,13 +401,12 @@ The application uses Prisma ORM with LibSQL (SQLite) for development and Turso f
 
 **Core Models:**
 
-- **User** — User accounts with institution and balance
+- **User** — User accounts with balance
 - **Session** — User sessions for authentication
 - **Account** — OAuth provider accounts
 - **Verification** — Email verification codes
 - **Document** — Academic documents
 - **DocType** — Document types (coursework, fieldwork, etc.)
-- **Institution** — Universities and institutions
 - **Transaction** — User balance transactions
 
 ### Database Commands

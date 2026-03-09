@@ -48,7 +48,7 @@ export default function LoginPage() {
 						<div className="space-y-2">
 							<Label htmlFor="email" className="block text-sm">
 								{" "}
-								Username
+								Email
 							</Label>
 							<Input
 								type="email"

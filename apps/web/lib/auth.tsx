@@ -23,6 +23,8 @@ export const auth = betterAuth({
   },
 
   trustedOrigins: [
+    "http://orunos.com",
+    "https://orunos.com",
     "http://localhost:3000",
     "https://orunos.netlify.app",
     "orunos-mobile://" ,//gotta change this to the url of expo app
@@ -66,11 +68,6 @@ export const auth = betterAuth({
 
 	user: {
 		additionalFields: {
-			institutionId: {
-				type: "number",
-				input: true,
-				required: false,
-			},
 			wallet: {
 				type: "number",
 				input: false,

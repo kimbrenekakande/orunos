@@ -11,29 +11,20 @@ import { authClient } from "@/lib/auth-client";
 import { socialsignIn } from "@/lib/social-auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { institutionRecord } from "@/server/instRecord";
 
 export default function SignUpPage() {
 	const router = useRouter();
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
-	const [institution, setInstitute] = useState("");
 	const [password, setPassword] = useState("");
 
 	const name = `${firstName} ${lastName}`;
 
 	async function signUp() {
-		const id = await institutionRecord(institution);
-		if (!id) {
-			console.error("Institution not found");
-			return;
-		}
-
 		const { error } = await authClient.signUp.email({
 			name,
 			email,
-			institutionId: id, // Now passing as number
       password,
       callbackURL : "/dashboard"
     });
@@ -47,12 +38,12 @@ export default function SignUpPage() {
 
 
 	return (
-		<section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
+		<div className="flex-1 flex items-center justify-center bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
 			<form
 				action={signUp}
-				className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]"
+				className="bg-transparent m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5"
 			>
-				<div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
+				<div className="bg-transparent -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
 					<div className="text-center">
 						<Link href="/" aria-label="go home" className="mx-auto block w-fit">
 							<Image
@@ -77,6 +68,7 @@ export default function SignUpPage() {
 									required
 									name="firstname"
 									id="firstname"
+									className="bg-transparent"
 									onChange={(e) => setFirstName(e.target.value)}
 								/>
 							</div>
@@ -91,6 +83,7 @@ export default function SignUpPage() {
 									required
 									name="lastname"
 									id="lastname"
+									className="bg-transparent"
 									onChange={(e) => setLastName(e.target.value)}
 								/>
 							</div>
@@ -106,15 +99,11 @@ export default function SignUpPage() {
 								required
 								name="email"
 								id="email"
+								className="bg-transparent"
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
-
-						{/* <div className="space-y-2">
-              <Label htmlFor="institution" className="block text-sm"> Institution </Label>
-              <Input type="text" required name="institution" id="institution" onChange={(e) => setInstitute(e.target.value)}/>
-            </div> */}
-						<div className="mt-6">
+						{/*<div className="mt-6">
 							<Select onValueChange={(value) => setInstitute(value)}>
 								<SelectTrigger className="w-full">
 									<SelectValue placeholder="Select an Institution" />
@@ -134,7 +123,7 @@ export default function SignUpPage() {
 									</SelectGroup>
 								</SelectContent>
 							</Select>
-						</div>
+						</div>*/}
 
 						<div className="space-y-0.5">
 							<div className="flex items-center justify-between">
@@ -156,7 +145,7 @@ export default function SignUpPage() {
 								required
 								name="pwd"
 								id="pwd"
-								className="input sz-md variant-mixed"
+								className="bg-transparent input sz-md variant-mixed"
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 						</div>
@@ -230,6 +219,6 @@ export default function SignUpPage() {
 					</p>
 				</div>
 			</form>
-		</section>
+		</div>
 	);
 }

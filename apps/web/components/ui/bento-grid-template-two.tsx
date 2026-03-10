@@ -180,8 +180,10 @@ function BentoGridItem({ item }: { item: BentoItem }) {
         {link && (
           <Link
             href={link}
-            className="mt-4 inline-flex items-center text-sm font-medium hover:bg-transparent hover:text-gray-200 cursor-pointer  text-orange-500 "
-            // style={accentColor ? { color: accentColor } : undefined}
+            className={cn(
+              "mt-4 inline-flex items-center text-sm font-medium hover:bg-transparent hover:text-gray-200 cursor-pointer text-orange-500",
+              link === "#" && "hidden"
+            )}
           >
             <span className="">Learn more</span>
             <ArrowUpRight className="ml-1 h-4 w-4 " />

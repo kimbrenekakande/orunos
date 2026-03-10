@@ -1,58 +1,22 @@
-import { generateText, generateObject } from "./braintrust";
+import { ToolLoopAgent, stepCountIs } from "./braintrust";
+import { writeTool , searchTool, writeTool4Cached} from "./tools"
 import { groq } from '@ai-sdk/groq';
-import { agentProps, outlineSchema } from "../types";
-import { rules } from "./rules";
 
-export async function documentAgent({ doctype, questionnaire }: agentProps) {
-  
-  const outliner = await generateObject({
-    model: groq('meta-llama/llama-4-maverick-17b-128e-instruct'),
-    system: `
-      You are part of a team of experts in creating ${doctype} documents based on the questions provided.
-      Your particular role is to generate an outline based suited to the ${doctype} document based on the questions provided.
-      rules : ${rules}
-    `,
-    prompt: questionnaire,
-    schema : outlineSchema
-  });
-  
-  const output = outliner.object;
-  const sections = output['sections'];
 
-  const santa = sections.map(async sec => {
-    const { text } = await generateText({
-      model: groq('moonshotai/kimi-k2-instruct-0905'),
-      system: `
-        You are an agent part of an academic document creation workflow,
-        Your role is to generate detailed content on the provided section.
-        Keep in mind the content you are generating is part of a larger document so it shouldnt be having intros and conclusions.
-        your output should start with a subheading from your input.
-        rules :
-        -Do not use h1 or its equivalent(#)
-        -The out put format should markdown
-        -Dont add any dividers or conclusions. 
-        ${rules}
-      `,
-      prompt: `write a deep dive on ${sec['title'], sec['content']}`,
-    });
-    return text;
-  })
-  
-  
-  //Document Appending
-  let document = '';
-  document += `\n # ${output['title']} \n`;  //should be a space btn the markdown annotation and the text to render properly
-  document += `\n ## Summary \n ${output['summary']} \n`;
-  
-  const x = await Promise.all(santa)
-  for (const item of x) {
-    document += `\n ${item} \n`;
-  }
-
-  document += `\n ## Conclusion \n ${output['conclusion']} \n`;
-  
-  return {
-    title: output['title'],
-    body: document
-  };
-}
+export const documentAgent = new ToolLoopAgent({
+  model: groq('meta-llama/llama-4-maverick-17b-128e-instruct'),
+  instructions: `
+    You are an agent that writes university coursework documents. 
+    Tirst generate an outline suited to best answer the questions provided,
+    Then write the document by generating each section and combining them into a final document.
+    Your summary and conclusion should be written in detail as if you were writing a full section for it will be merged with the rest of the document without any formatting changes.
+    In cases where its more than a simple question, your outline should facilitate for each question to be answered separately an each should be arranged same way the questions are presented say numbered or lettered.
+    In case of things you don't know, you can search for information using the search tool.
+  `,
+  tools: {
+    write: writeTool,
+    write4cached : writeTool4Cached,
+    search: searchTool,
+  },
+  stopWhen: stepCountIs(4),
+});

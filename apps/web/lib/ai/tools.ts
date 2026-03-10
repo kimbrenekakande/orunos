@@ -1,70 +1,139 @@
-// import { z } from "zod";
-// import { tool } from "ai";
-// import { generateText, generateObject } from './braintrust';
-// import { groq } from '@ai-sdk/groq';
-// import { outlineSchema } from "../types";
+import { tool,generateText } from "./braintrust"
+import { groq } from '@ai-sdk/groq'
+import { google, type GoogleLanguageModelOptions } from '@ai-sdk/google';
+import {z} from "zod"
+import {outlineSchema} from "../types"
+import prisma from '@/lib/prisma';
+
+export const writeTool = tool({
+  description: "Expand on the outline to generate detailed content for each section and combine it with the summary and conclusion into a final document",
+  inputSchema: outlineSchema.extend({
+    id: z.string("The unique identifier for the document"),
+    instructions: z.string("Any additional instructions for the agent to follow else return empty"),
+  }),
+  execute: async (docPlan) => {
+    const sections = docPlan.sections
+    const content = sections.map(async (sec) => {
+      const { text } = await generateText({
+        model: groq('openai/gpt-oss-120b'),
+        system: `
+          You are an agent part of an academic document creation workflow,
+          Your role is to generate detailed content on the provided section.
+          Keep in mind the content you are generating is part of a larger document so it shouldnt be having intros and conclusions.
+          your output should start with a subheading from your input.
+          rules :
+          -Do not use h1 or its equivalent(#)
+          -The out put format should markdown
+          -Dont add any dividers or conclusions.
+          ${docPlan.instructions || ""}
+        `,
+        prompt: `write a deep dive on ${sec['content']}`,
+      });
+      return text
+    });
+
+    //Document Appending
+    let document = '';
+    document += `\n # ${docPlan['title']} \n`;  //should be a space btn the markdown annotation and the text to render properly
+    document += `\n ## Summary \n ${docPlan['summary']} \n`;
+
+    const x = await Promise.all(content)
+    for (const item of x) document += `\n ${item} \n`;
+    document += `\n ## Conclusion \n ${docPlan['conclusion']} \n`;
 
 
+    await prisma.document.update({
+      where : { id : docPlan.id},
+      data : {
+        title : docPlan.title,
+        answer : document,
+        status : "READY",
+      }
+    })
 
-// export const outliner = tool({
-//   name: "DocOutliner",
-//   description: "Understand the structure of a question/s and generate an outline of the {doctype} document.",
-//   inputSchema: z.object({
-//     text: z.string().min(10),
-//   }),
-//   outputSchema: outlineSchema,
-  
-//   execute: async ({ text }) => {
-//     const outline = await generateObject({
-//       model: groq('moonshotai/kimi-k2-instruct-0905'),
-//       system: "you are a standard course work for university students",
-//       prompt: `outline a doctype document based on the following text: text`,
-//     });
-//     return outline;
-//   },
-// });
+    return { status: "done" }
+  },
+});
 
 
+export const writeTool4Cached = tool({
+  description: "Expand on the outline to generate detailed content for each section and combine it with the summary and conclusion into a final document specifically for prompts with cached content",
+  inputSchema: outlineSchema.extend({
+    id: z.string("The unique identifier for the document"),
+    cachedName : z.string("The name of the cached content to be referred to by the tool calls")
+    // instructions: z.string("Any additional instructions for the agent to follow else return empty"),
+  }),
+  execute: async (docPlan) => {
+    const sections = docPlan.sections
+    const content = sections.map(async (sec) => {
+      const { text } = await generateText({
+        model: google('gemini-2.5-pro'),
+        system: `
+          You are an agent part of an academic document creation workflow,
+          Your role is to generate detailed content on the provided section.
+          Keep in mind the content you are generating is part of a larger document so it shouldnt be having intros and conclusions.
+          your output should start with a subheading from your input.
+          rules :
+          -Do not use h1 or its equivalent(#)
+          -The out put format should markdown
+          -Dont add any dividers or conclusions.
+        `,
+        providerOptions: {
+          google: {
+            cachedContent: docPlan.cachedName,
+          } satisfies GoogleLanguageModelOptions,
+        },
+        prompt: `write a deep dive on ${sec['content']}`,
+      });
+      return text
+    });
 
-// export const expander = tool({
-//   name: "DocExpander",
-//   description: "Expand the outline of a ${doctype} document based on the provided outline. by generating the content for each section.",
-//   inputSchema: outlineSchema,
-//   outputSchema: z.array(z.object({
-//     Title: z.string().min(10),
-//     text: z.string().min(10),
-//   })),
-  
-//   execute : async (sections) => {
-//     const expandedSections = await Promise.all(sections.map(async sec => {
-//       const { text } = await generateText({
-//         model: groq('moonshotai/kimi-k2-instruct-0905'),
-//         system: "you are a standard course work for university students",
-//         prompt: `write a deep dive on ${sec['title'], sec['content']}, dont add any dividers or conclusions.`,
-//       });
-//       return { ...sec, text };
-//     }));
-//     return expandedSections;
-//   },
-// });
+    //Document Appending
+    let document = '';
+    document += `\n # ${docPlan['title']} \n`;  //should be a space btn the markdown annotation and the text to render properly
+    document += `\n ## Summary \n ${docPlan['summary']} \n`;
+
+    const x = await Promise.all(content)
+    for (const item of x) document += `\n ${item} \n`;
+    document += `\n ## Conclusion \n ${docPlan['conclusion']} \n`;
 
 
+    await prisma.document.update({
+      where : { id : docPlan.id},
+      data : {
+        title : docPlan.title,
+        answer : document,
+        status : "READY",
+      }
+    })
 
-// export const merger = tool({
-//   name: "DocMerger",
-//   description: "Merge the content of multiple documents into a single coherent and complete document.",
-//   // inputSchema: outlineSchema,
-//   outputSchema: z.object({
-//     Title: z.string().min(10),
-//     text: z.string().min(10),
-//   }),
-  
-  
-//   execute: async () => {
-//     const output = results.object;
-//     const sections = output['sections'];
-//     content += `\n\n${output['title']}\n\n`
-//     content += output['summary']
-//   },
-// });
+    return { status: "done" }
+  },
+});
 
+
+export const searchTool = tool({
+  description: "Searches the web for information on a given topic using Serper.dev API",
+  inputSchema: z.object({
+    query: z.string().describe("The search query to use"),
+  }),
+  execute: async(query) => {
+    try {
+      const response = await fetch('https://google.serper.dev/search', {
+        method: 'POST',
+        headers: {
+          'X-API-KEY': process.env.SERPER_API ?? '',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ q: query })
+      });
+
+      const data = await response.json();
+      console.log(JSON.stringify(data));
+      return data;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+})

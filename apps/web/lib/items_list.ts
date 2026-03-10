@@ -4,28 +4,26 @@ export const items = [
     bgColor: "black",
     textColor: "#fff",
     links: [
-      { label: "Company", ariaLabel: "About Company" },
-      { label: "Careers", ariaLabel: "About Careers" }
+      { label: "Blog", ariaLabel: "About Careers" , href: "/about" },
+      { label: "Company", ariaLabel: "About Company" , href: "/about"},
     ]
   },
   {
-    label: "Features", 
+    label: "Get Started",
     bgColor: "black",
     textColor: "#fff",
     links: [
-      { label: "New Document", ariaLabel: "Featured Projects" },
-      { label: "LLM Models", ariaLabel: "Project Case Studies" }
+      { label: "Log In", ariaLabel: "Log into your account", href: "/login" },
+      { label: "Sign Up", ariaLabel: "Create your account", href: "/signup" }
     ]
   },
   {
-    label: "Contact",
-    bgColor: "black", 
+    label: "Links",
+    bgColor: "black",
     textColor: "#fff",
     links: [
-      { label: "Email", ariaLabel: "Email us" },
-      { label: "Twitter", ariaLabel: "Twitter" },
+      { label: "Contact Us", ariaLabel: "Email us", href: "/contact" },
+      { label: "Twitter", ariaLabel: "Twitter", href: "https://twitter.com/" },
     ]
-    }
-  ];
-
-  
+  }
+];

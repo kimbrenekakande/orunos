@@ -21,17 +21,15 @@ Editor State (Slate.js) → Markdown Serialization → PDF Document Generation �
 - **Title**: From document metadata
 - **Content**: Serialized from Slate.js editor state to Markdown
 - **Author Information**: Fetched from user session
-- **Institutional Data**: Retrieved via API call to `/api/institute/fetch`
 
 ### 3. **Mutation Points**
 - **Editor → Markdown**: `editor.api.markdown.serialize()` transforms Slate document to Markdown string
 - **Markdown → PDF**: ReactPDF components render Markdown content into PDF elements
-- **Dynamic Data Fetching**: Institution data is fetched asynchronously during PDF generation
 
 ## Academic Document Requirements
 
 ### 1. **Structural Elements**
-- **Cover Page**: Title, author, institution, date
+- **Cover Page**: Title, author, date
 - **Abstract**: Concise summary of content
 - **Table of Contents**: Automatic generation of sections and page numbers
 - **Main Content**: Properly formatted sections with headings
@@ -64,5 +62,4 @@ Editor State (Slate.js) → Markdown Serialization → PDF Document Generation �
 
 ### 3. **Performance**
 - Full document regeneration on each download
-- Asynchronous institution data fetching during PDF generation
 - No caching of generated PDFs

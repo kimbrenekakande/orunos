@@ -12,8 +12,8 @@ export default async function Home() {
   
   return (
     <div className="px-4">
-      <div className="mx-8 text-2xl">
-        <h2 className="text-2xl  mt-16">Welcome Back, {user.name} </h2>
+      <div className="sm:mx-8 text-2xl">
+        <h2 className="text-2xl text-center sm:text-left mt-16">Welcome Back, {user.name} </h2>
         {!user.emailVerified &&
           <section className="my-8">
             <div className="h-px w-full bg-orange-500/50"></div>
@@ -27,7 +27,7 @@ export default async function Home() {
       </div>
 
       <TemplateGallery />
-      <div className=" mx-8 pt-16">
+      <div className="sm:mx-8 pt-16">
         <TableView user={user} />
       </div>
     </div>

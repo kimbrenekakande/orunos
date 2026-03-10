@@ -10,8 +10,8 @@ import Link from "next/link";
 
 function TemplatesGallery() {
 	return (
-		<div className="my-16 mx-8">
-			<div className="text-2xl">Start a new paper</div>
+		<div className="sm:my-16 sm:mx-8">
+			<div className="text-2xl text-center sm:text-left">Start a new paper</div>
 
 			<Carousel className="my-8 mx-10 relative">
 				<div className="absolute left-0 top-0 bottom-0 w-4 bg-linear-to-r from-background/80 to-transparent z-10 pointer-events-none"></div>

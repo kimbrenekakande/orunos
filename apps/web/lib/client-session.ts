@@ -1,4 +1,3 @@
-"use client"
-import { useSession } from "next-auth/react"
+import { authClient } from "@/lib/auth-client"
 
-export const { data: session, status } = useSession()
+export const { data: session, isPending: status } = authClient.useSession()

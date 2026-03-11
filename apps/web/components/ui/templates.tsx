@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/carousel";
 import { templates } from "@/lib/templates";
 import Link from "next/link";
+import { LockIcon } from "lucide-react"
 
 function TemplatesGallery() {
 	return (
@@ -23,15 +24,22 @@ function TemplatesGallery() {
 							className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
 						>
 							<div className="p-4">
-                <Link href={`dashboard/${template.type}`} className="cursor-pointer">
+                <Link href={`dashboard/${template.type}`} className={`cursor-pointer ${!template.ready ? "pointer-events-none" : ""}`}>
+                  
                   <div
-                    className="w-full aspect-3/4 rounded-lg bg-muted border border-border overflow-hidden"
+                    className={`w-full aspect-3/4 rounded-lg bg-muted border border-border overflow-hidden ${!template.ready ? "bg-blend-soft-light overflow-hidden " : ""}`}
                     style={{
                       backgroundImage: `url(${template.image})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}
-                  ></div>
+                  >
+                    {!template.ready && (
+                      <div className="h-full w-full flex justify-center items-center">
+                        <LockIcon height={30} width={30} />
+                      </div>
+                    )}
+                  </div>
                 </Link>
 								<div className="mt-3 text-center">
 									<div className="text-sm text-muted-foreground">

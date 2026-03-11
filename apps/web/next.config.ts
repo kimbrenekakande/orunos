@@ -4,9 +4,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async headers() {
     const isProd = process.env.NEXT_PUBLIC_IS_PROD === "true";
-    const allowedOrigin = isProd 
-      ? "https://orunos.com" 
-      : "http://localhost:8081";
+    const allowedOrigin = isProd ? "https://orunos.com" : "http://localhost:8081";
     
     return [
       {

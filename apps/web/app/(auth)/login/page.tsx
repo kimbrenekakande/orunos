@@ -9,6 +9,7 @@ import { authClient } from "@/lib/auth-client";
 import { socialsignIn } from "@/lib/social-auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner"
 
 export default function LoginPage() {
 	const router = useRouter();
@@ -16,12 +17,12 @@ export default function LoginPage() {
 	const [password, setPassword] = useState("");
 
 	async function LogInNow() {
-		const { error, } = await authClient.signIn.email({ email, password, callbackURL: "/dashboard" });
-		if (error) {
-			console.error("Log in error:", error.message);
-			return;
+    const { error, } = await authClient.signIn.email({ email, password, callbackURL: "/dashboard" });
+    if (error) {
+        toast.error(error.message);
+        return;
     }
-    router.push("/dashboard"); //callback tends not to work if email verification aint enabled hence the push
+		router.push("/dashboard"); //callback tends not to work if email verification aint enabled hence the push
 	}
 
 	//TODO: FIX CALLBACK ISSUE 

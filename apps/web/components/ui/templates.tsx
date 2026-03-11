@@ -27,7 +27,7 @@ function TemplatesGallery() {
                 <Link href={`dashboard/${template.type}`} className={`cursor-pointer ${!template.ready ? "pointer-events-none" : ""}`}>
                   
                   <div
-                    className={`w-full aspect-3/4 rounded-lg bg-muted border border-border overflow-hidden ${!template.ready ? "bg-blend-soft-light overflow-hidden " : ""}`}
+                    className={`w-full aspect-3/4 rounded-lg bg-muted border border-border overflow-hidden ${!template.ready ? "bg-blend-soft-light border border-white " : ""}`}
                     style={{
                       backgroundImage: `url(${template.image})`,
                       backgroundSize: "cover",

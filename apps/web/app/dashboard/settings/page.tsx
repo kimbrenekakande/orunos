@@ -27,7 +27,9 @@ export default function SettingsPage() {
   const user = session?.user
 
   const [name, setName] = useState(user?.name || "")
+  const [style, setStyle] = useState(user?.style || "")
   const [isLoading, setIsLoading] = useState(false)
+
 
   // Password change state
   const [currentPassword, setCurrentPassword] = useState("")
@@ -82,6 +84,15 @@ export default function SettingsPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Style Analysis</Label>
+              <Input
+                id="email"
+                value={style}
+                onChange={(e) => setStyle(e.target.value)}
+                placeholder="Enter your email"
               />
             </div>
           </CardContent>

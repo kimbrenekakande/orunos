@@ -70,11 +70,11 @@ export const auth = betterAuth({
 		additionalFields: {
 			balance: {
 				type: "number",
-				input: false,
+				input: true,
 			},
 			style: {
 				type: "string",
-				input: false,
+				input: true,
 			},
 		},
   },

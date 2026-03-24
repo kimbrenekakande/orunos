@@ -283,7 +283,7 @@ export default function SettingsPage() {
               onClick={handleSaveStyle}
               disabled={isSavingStyle}
             >
-              {isSavingStyle ? "Saving..." : "Save Style"}
+              {isSavingStyle ? "Analyzing..." : "Analyze"}
             </Button>
           </CardFooter>
         </Card>

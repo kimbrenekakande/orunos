@@ -3,44 +3,64 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/tiptapui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import Link from "next/link";
 import Image from "next/image";
 
 import { authClient } from "@/lib/auth-client";
 import { socialsignIn } from "@/lib/social-auth";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
+import { toast } from "sonner"
+
+const signupSchema = z.object({
+	firstName: z.string().min(2, "First name must be at least 2 characters"),
+	lastName: z.string().min(2, "Last name must be at least 2 characters"),
+	email: z.string().email("Please enter a valid email address"),
+	password: z.string()
+		.min(8, "Password must be at least 8 characters")
+		.regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+		.regex(/[a-z]/, "Password must contain at least one lowercase letter")
+		.regex(/[0-9]/, "Password must contain at least one number"),
+});
+
+type SignUpFormData = z.infer<typeof signupSchema>;
 
 export default function SignUpPage() {
 	const router = useRouter();
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
 
-	const name = `${firstName} ${lastName}`;
+	const form = useForm<SignUpFormData>({
+		resolver: zodResolver(signupSchema),
+		defaultValues: {
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+		},
+	});
 
-	async function signUp() {
+	async function onSubmit(data: SignUpFormData) {
+		const name = `${data.firstName} ${data.lastName}`;
 		const { error } = await authClient.signUp.email({
 			name,
-			email,
-      password,
-      callbackURL : "/dashboard"
-    });
+			email: data.email,
+			password: data.password,
+			callbackURL: "/dashboard"
+		});
 
 		if (error) {
-			console.error("Sign up error:", error.message);
+			toast.error(error.message);
 			return;
 		}
 		router.push("/dashboard");
-  }
-
+	}
 
 	return (
 		<div className="flex-1 flex items-center justify-center bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
 			<form
-				action={signUp}
+				onSubmit={form.handleSubmit(onSubmit)}
 				className="bg-transparent m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5"
 			>
 				<div className="bg-transparent -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
@@ -57,99 +77,106 @@ export default function SignUpPage() {
 					</div>
 
 					<div className="mt-6 space-y-6">
-						<div className="grid grid-cols-2 gap-3">
-							<div className="space-y-2">
-								<Label htmlFor="firstname" className="block text-sm">
-									{" "}
-									First name{" "}
+						<FieldGroup>
+							<div className="grid grid-cols-2 gap-3">
+								<Field>
+									<Label htmlFor="firstName" className="block text-sm">
+										First name
+									</Label>
+									<Controller
+										name="firstName"
+										control={form.control}
+										render={({ field, fieldState }) => (
+											<>
+												<Input
+													type="text"
+													id="firstName"
+													className="bg-transparent"
+													{...field}
+												/>
+												{fieldState.invalid && (
+													<FieldError errors={[fieldState.error]} />
+												)}
+											</>
+										)}
+									/>
+								</Field>
+
+								<Field>
+									<Label htmlFor="lastName" className="block text-sm">
+										Last name
+									</Label>
+									<Controller
+										name="lastName"
+										control={form.control}
+										render={({ field, fieldState }) => (
+											<>
+												<Input
+													type="text"
+													id="lastName"
+													className="bg-transparent"
+													{...field}
+												/>
+												{fieldState.invalid && (
+													<FieldError errors={[fieldState.error]} />
+												)}
+											</>
+										)}
+									/>
+								</Field>
+							</div>
+
+							<Field>
+								<Label htmlFor="email" className="block text-sm">
+									Email
 								</Label>
-								<Input
-									type="text"
-									required
-									name="firstname"
-									id="firstname"
-									className="bg-transparent"
-									onChange={(e) => setFirstName(e.target.value)}
+								<Controller
+									name="email"
+									control={form.control}
+									render={({ field, fieldState }) => (
+										<>
+											<Input
+												type="email"
+												id="email"
+												className="bg-transparent"
+												{...field}
+											/>
+											{fieldState.invalid && (
+												<FieldError errors={[fieldState.error]} />
+											)}
+										</>
+									)}
 								/>
-							</div>
+							</Field>
 
-							<div className="space-y-2">
-								<Label htmlFor="lastname" className="block text-sm">
-									{" "}
-									Last name{" "}
-								</Label>
-								<Input
-									type="text"
-									required
-									name="lastname"
-									id="lastname"
-									className="bg-transparent"
-									onChange={(e) => setLastName(e.target.value)}
+							<Field>
+								<div className="flex items-center justify-between">
+									<Label htmlFor="password" className="text-sm">
+										Password
+									</Label>
+								</div>
+								<Controller
+									name="password"
+									control={form.control}
+									render={({ field, fieldState }) => (
+										<>
+											<Input
+												type="password"
+												id="password"
+												className="bg-transparent input sz-md variant-mixed"
+												{...field}
+											/>
+											{fieldState.invalid && (
+												<FieldError errors={[fieldState.error]} />
+											)}
+										</>
+									)}
 								/>
-							</div>
-						</div>
-
-						<div className="space-y-2">
-							<Label htmlFor="email" className="block text-sm">
-								{" "}
-								Email{" "}
-							</Label>
-							<Input
-								type="email"
-								required
-								name="email"
-								id="email"
-								className="bg-transparent"
-								onChange={(e) => setEmail(e.target.value)}
-							/>
-						</div>
-						{/*<div className="mt-6">
-							<Select onValueChange={(value) => setInstitute(value)}>
-								<SelectTrigger className="w-full">
-									<SelectValue placeholder="Select an Institution" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectGroup>
-										<SelectLabel>Institutions</SelectLabel>
-										<SelectItem value="Makerere University">
-											Makerere University
-										</SelectItem>
-										<SelectItem value="YMCA">YMCA</SelectItem>
-										<SelectItem value="Victoria University">
-											Victoria University
-										</SelectItem>
-										<SelectItem value="grapes">Grapes</SelectItem>
-										<SelectItem value="pineapple">Pineapple</SelectItem>
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-						</div>*/}
-
-						<div className="space-y-0.5">
-							<div className="flex items-center justify-between">
-								<Label htmlFor="pwd" className="text-sm">
-									Password
-								</Label>
-								<Button asChild variant="link" size="sm">
-									<Link
-										href="#"
-										className="link intent-info variant-ghost text-sm"
-									>
-										{" "}
-										Forgot your Password ?
-									</Link>
-								</Button>
-							</div>
-							<Input
-								type="password"
-								required
-								name="pwd"
-								id="pwd"
-								className="bg-transparent input sz-md variant-mixed"
-								onChange={(e) => setPassword(e.target.value)}
-							/>
-						</div>
-						<Button className="w-full cursor-pointer">Sign Up</Button>
+							</Field>
+						</FieldGroup>
+						<Button className="w-full cursor-pointer" type="submit" disabled={form.formState.isSubmitting}>
+							Sign Up
+						</Button>
 					</div>
 
 					<div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
@@ -161,7 +188,7 @@ export default function SignUpPage() {
 					</div>
 
 					<div className="grid grid-cols-2 gap-3">
-            <Button type="button" variant="outline" onClick={() => socialsignIn("google")}  className="cursor-pointer">
+						<Button type="button" variant="outline" onClick={() => socialsignIn("google")} className="cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="0.98em"
@@ -187,7 +214,7 @@ export default function SignUpPage() {
 							</svg>
 							<span>Google</span>
 						</Button>
-						<Button type="button" variant="outline"  className="cursor-pointer">
+						<Button type="button" variant="outline" className="cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="1em"

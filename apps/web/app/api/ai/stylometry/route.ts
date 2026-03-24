@@ -7,8 +7,9 @@ import prisma from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
   const session = await serverSession();
+  const user = session?.user;
   
-  if (!session?.user?.id) {
+  if (!user?.id) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
   
@@ -46,12 +47,14 @@ export async function POST(request: NextRequest) {
     ],
   });
   
+  console.log("session user id:", user.id);
+  
   await prisma.user.update({
-    where: { id: session.user.id },
+    where: { id: user.id },
     data: { style: text },
   });
   
-  console.log(text);
+  console.log("style saved:", text);
   console.log("the route has received refs", refs.length, "files");
   
   return NextResponse.json({ style: text }, { status: 200 });

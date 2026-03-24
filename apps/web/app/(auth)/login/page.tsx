@@ -3,33 +3,52 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/tiptapui/input";
 import { Label } from "@/components/ui/label";
+import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import Link from "next/link";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import { socialsignIn } from "@/lib/social-auth";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { toast } from "sonner"
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
+
+const loginSchema = z.object({
+	email: z.string().email("Please enter a valid email address"),
+	password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
 	const router = useRouter();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
 
-	async function LogInNow() {
-    const { error, } = await authClient.signIn.email({ email, password, callbackURL: "/dashboard" });
-    if (error) {
-        toast.error(error.message);
-        return;
-    }
-		router.push("/dashboard"); //callback tends not to work if email verification aint enabled hence the push
+	const form = useForm<LoginFormData>({
+		resolver: zodResolver(loginSchema),
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+	});
+
+	async function onSubmit(data: LoginFormData) {
+		const { error } = await authClient.signIn.email({
+			email: data.email,
+			password: data.password,
+			callbackURL: "/dashboard"
+		});
+		if (error) {
+			toast.error(error.message);
+			return;
+		}
+		router.push("/dashboard");
 	}
 
-	//TODO: FIX CALLBACK ISSUE 
 	return (
 		<div className="flex-1 flex items-center justify-center bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
 			<form
-				action={LogInNow}
+				onSubmit={form.handleSubmit(onSubmit)}
 				className="bg-transparent m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5"
 			>
 				<div className="bg-transparent -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
@@ -46,45 +65,64 @@ export default function LoginPage() {
 					</div>
 
 					<div className="mt-6 space-y-6">
-						<div className="space-y-2">
-							<Label htmlFor="email" className="block text-sm">
-								{" "}
-								Email
-							</Label>
-							<Input
-								type="email"
-								required
-								name="email"
-								id="email"
-								className="bg-transparent"
-								onChange={(e) => setEmail(e.target.value)}
-							/>
-						</div>
-
-						<div className="space-y-0.5">
-							<div className="flex items-center justify-between">
-								<Label htmlFor="password" className="text-sm">
-									Password
+						<FieldGroup>
+							<Field>
+								<Label htmlFor="email" className="block text-sm">
+									Email
 								</Label>
-								<Button asChild variant="link" size="sm">
-									<Link
-										href="#"
-										className="link intent-info variant-ghost text-sm"
-									>
-										Forgot your Password ?
-									</Link>
-								</Button>
-							</div>
-							<Input
-								type="password"
-								required
-								name="password"
-								id="password"
-								className="bg-transparent input sz-md variant-mixed"
-								onChange={(e) => setPassword(e.target.value)}
-							/>
-						</div>
-						<Button className="w-full cursor-pointer" type="submit">
+								<Controller
+									name="email"
+									control={form.control}
+									render={({ field, fieldState }) => (
+										<>
+											<Input
+												type="email"
+												id="email"
+												className="bg-transparent"
+												{...field}
+											/>
+											{fieldState.invalid && (
+												<FieldError errors={[fieldState.error]} />
+											)}
+										</>
+									)}
+								/>
+							</Field>
+
+							<Field>
+								<div className="flex items-center justify-between">
+									<Label htmlFor="password" className="text-sm">
+										Password
+									</Label>
+									<Button asChild variant="link" size="sm">
+										<Link
+											href="#"
+											className="link intent-info variant-ghost text-sm"
+										>
+											Forgot your Password ?
+										</Link>
+									</Button>
+								</div>
+								<Controller
+									name="password"
+									control={form.control}
+									render={({ field, fieldState }) => (
+										<>
+											<Input
+												type="password"
+												id="password"
+												className="bg-transparent input sz-md variant-mixed"
+												{...field}
+											/>
+											{fieldState.invalid && (
+												<FieldError errors={[fieldState.error]} />
+											)}
+										</>
+									)}
+								/>
+							</Field>
+						</FieldGroup>
+						<Button className="w-full cursor-pointer" type="submit" disabled={form.formState.isSubmitting}>
 							Sign In
 						</Button>
 					</div>

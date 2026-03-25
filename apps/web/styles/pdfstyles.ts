@@ -170,27 +170,35 @@ export const styles = StyleSheet.create({
     marginVertical: 12,
     borderWidth: 1,
     borderColor: "#e5e7eb",
+    width: "100%",
   },
   tableHeaderRow: {
     flexDirection: "row",
     backgroundColor: "#f3f4f6",
     borderBottomWidth: 1,
     borderBottomColor: "#e5e7eb",
+    alignItems: "stretch",
   },
   tableRow: {
     flexDirection: "row",
+    alignItems: "stretch",
+    borderBottomWidth: 1,
+    borderBottomColor: "#e5e7eb",
   },
   tableCell: {
-    flexGrow: 1,
     fontSize: 10,
     lineHeight: 1.4,
     paddingVertical: 6,
     paddingHorizontal: 6,
     color: "#111827",
+  },
+  tableCellContainer: {
+    flex: 1,
+    flexShrink: 1,
+    justifyContent: "flex-start",
+    alignSelf: "stretch",
     borderRightWidth: 1,
     borderRightColor: "#e5e7eb",
-    borderBottomWidth: 1,
-    borderBottomColor: "#e5e7eb",
   },
 
   // Images

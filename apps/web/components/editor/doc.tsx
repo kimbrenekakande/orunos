@@ -116,17 +116,25 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
             <View key={index} style={styles.table}>
               <View style={styles.tableHeaderRow}>
                 {token.header?.map((headerCell: any, hi: number) => (
-                  <Text key={hi} style={styles.tableCell}>
-                    {renderInlineFallback(String(headerCell.text ?? ""))}
-                  </Text>
+                  <View key={hi} style={styles.tableCellContainer}>
+                    <Text style={styles.tableCell}>
+                      {headerCell.tokens
+                        ? renderInlineTokens(headerCell.tokens)
+                        : renderInlineFallback(String(headerCell.text ?? ""))}
+                    </Text>
+                  </View>
                 ))}
               </View>
               {token.rows?.map((row: any, ri: number) => (
                 <View key={ri} style={styles.tableRow}>
                   {row.map((cell: any, ci: number) => (
-                    <Text key={ci} style={styles.tableCell}>
-                      {renderInlineFallback(String(cell.text ?? ""))}
-                    </Text>
+                    <View key={ci} style={styles.tableCellContainer}>
+                      <Text style={styles.tableCell}>
+                        {cell.tokens
+                          ? renderInlineTokens(cell.tokens)
+                          : renderInlineFallback(String(cell.text ?? ""))}
+                      </Text>
+                    </View>
                   ))}
                 </View>
               ))}
@@ -249,6 +257,53 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
     }
 
     return out;
+  }
+
+  // Render marked inline tokens without relying on regex fallback.
+  // This keeps table cell layout stable and correctly styles tokens like `**bold**`.
+  function renderInlineTokens(tokens: any[]): React.ReactNode[] {
+    return tokens.map((token: any, index: number) => {
+      switch (token.type) {
+        case "text":
+          return String(token.text ?? token.raw ?? "");
+        case "strong":
+        case "bold":
+          return (
+            <Text key={index} style={styles.strong}>
+              {token.tokens ? renderInlineTokens(token.tokens) : token.text}
+            </Text>
+          );
+        case "em":
+        case "italic":
+          return (
+            <Text key={index} style={styles.em}>
+              {token.tokens ? renderInlineTokens(token.tokens) : token.text}
+            </Text>
+          );
+        case "del":
+        case "strike":
+          return (
+            <Text key={index} style={styles.del}>
+              {token.tokens ? renderInlineTokens(token.tokens) : token.text}
+            </Text>
+          );
+        case "codespan":
+        case "inlineCode":
+          return (
+            <Text key={index} style={styles.inlineCode}>
+              {token.text}
+            </Text>
+          );
+        case "link":
+          return (
+            <Link key={index} src={token.href} style={styles.link}>
+              {token.text}
+            </Link>
+          );
+        default:
+          return String(token.text ?? token.raw ?? "");
+      }
+    });
   }
 
   const tokens = marked.lexer(safeContent)

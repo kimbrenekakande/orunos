@@ -43,7 +43,8 @@ export async function POST(request: NextRequest) {
   }
 
   const maker = await documentAgent.generate({
-    prompt:`${promptParts.join("/n")}`
+    // Use real newlines between prompt parts.
+    prompt: `${promptParts.join("\n")}`,
   })
 
   console.log('Agent result:', maker)

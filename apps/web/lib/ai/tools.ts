@@ -115,9 +115,17 @@ export const writeTool4Cached = tool({
 export const searchTool = tool({
   description: "Searches the web for information on a given topic using Serper.dev API",
   inputSchema: z.object({
-    query: z.string().describe("The search query to use"),
+    // The model sometimes calls this tool with `{ search: "...", type: "search" }`
+    // instead of `{ query: "..." }`. Support both to avoid tool_use_failed.
+    query: z.string().optional().describe("The search query to use"),
+    search: z.string().optional().describe("Alias for `query`"),
+    type: z.string().optional(),
+  }).refine((v) => Boolean(v.query || v.search), {
+    message: "Either `query` or `search` must be provided",
   }),
-  execute: async(query) => {
+  execute: async (input) => {
+    const query = input.query ?? input.search
+    if (!query) return null
     try {
       const response = await fetch('https://google.serper.dev/search', {
         method: 'POST',

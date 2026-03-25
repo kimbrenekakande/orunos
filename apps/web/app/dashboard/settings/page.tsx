@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import {
   Avatar,
   AvatarFallback,
@@ -20,20 +20,23 @@ import { Label } from "@/components/dashboard/label"
 import { Separator } from "@/components/dashboard/separator"
 import { Lock, Mail, User, FileText } from "lucide-react"
 import { authClient } from "@/lib/auth-client"
-import { updateUserStyle } from "@/lib/actions/update-style"
 import { toast } from "sonner"
 import { Textarea } from "@/components/ui/textarea"
+import { Field } from "@/components/ui/field"
 
 import baseUrl from "@/lib/base-url"
+import { updateUploadHistory } from "@platejs/media/react"
 
 export default function SettingsPage() {
   const { data: session, isPending, refetch } = authClient.useSession()
   const user = session?.user
 
+  const [profileDP, setProfileDP] = useState(user?.image)
   const [name, setName] = useState(user?.name)
   const [style, setStyle] = useState(user?.style)
   const [isSavingStyle, setIsSavingStyle] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [avatarUrl, setAvatarUrl] = useState(user?.image)
 
 
   // Password change state
@@ -41,12 +44,13 @@ export default function SettingsPage() {
   const [newPassword, setNewPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [files, setFiles] = useState<File[]>([])
-  
-  
+
+
   const handleSaveProfile = async () => {
     setIsLoading(true)
     try {
       const { data, error } = await authClient.updateUser({
+        image: profileDP,
         name,
       })
 
@@ -97,7 +101,7 @@ export default function SettingsPage() {
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    
+
     if (e.target.files) {
       const allFiles = Array.from(e.target.files ?? [])
       setFiles(currentFiles => [...currentFiles, ...allFiles])
@@ -105,7 +109,7 @@ export default function SettingsPage() {
     }
 
   }
-  
+
   const handleSaveStyle = async () => {
     if (files.length === 0) {
       toast.error("Please upload files for analysis")
@@ -116,12 +120,12 @@ export default function SettingsPage() {
     try {
       const formData = new FormData()
       files.forEach((file) => formData.append("refs", file))
-      
+
       const analyze = await fetch(`${baseUrl}/api/ai/stylometry`, {
         method: 'POST',
         body: formData,
       })
-      
+
       if (!analyze.ok) {
         const r = await analyze.json()
         toast.error(r.error)
@@ -160,21 +164,33 @@ export default function SettingsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-6">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 hidden">
               <Avatar className="size-20">
-                <AvatarImage src={user?.image || "/images/tree.jpg"} alt={user?.name || "User"} />
+                <AvatarImage src={avatarUrl || user?.image || "/images/tree.jpg"} alt={user?.name || "User"} />
                 <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
               </Avatar>
-              <div className="flex flex-col gap-2">
-                <Button variant="outline" size="sm">
-                  Change Avatar
-                </Button>
+              <div className="flex flex-col gap-2 cursor pointer">
+                <Label>
+                  <Input
+                    id="avatar"
+                    type="file"
+                    accept="image/*"
+                    className="sr-only"
+                  />
+                  <Button
+                    type="button"
+                    className="cursor-pointer"
+                    onClick={() => document.getElementById("avatar")?.click()}
+                  >
+                    Change Avatar
+                  </Button>
+                </Label>
                 <p className="text-xs text-muted-foreground">
                   JPG, GIF or PNG. Max size 2MB.
                 </p>
               </div>
             </div>
-
+            
             <Separator />
 
             <div className="grid gap-2">
@@ -191,7 +207,7 @@ export default function SettingsPage() {
               <Input
                 id="profile-email"
                 type="email"
-                value={user?.email || ""}
+                value={user?.email}
                 disabled
                 className="bg-muted/50"
               />
@@ -240,7 +256,7 @@ export default function SettingsPage() {
                   multiple
                   type="file"
                   accept=".pdf,.doc,.docx,.txt"
-                  className="hidden"
+                  className="sr-only"
                   onChange={handleFileChange}
                 />
                 {files.length > 0 && (
@@ -287,7 +303,7 @@ export default function SettingsPage() {
             </Button>
           </CardFooter>
         </Card>
-        
+
         {/* Security Section */}
         <Card className="bg-transparent rounded">
           <CardHeader>

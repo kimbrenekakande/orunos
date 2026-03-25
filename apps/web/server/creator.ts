@@ -18,16 +18,26 @@ export async function startCreation(formData: FormData) {
   if (!doctype) throw new Error("Document type is required");
   if (!question) throw new Error("Question and answer are required");
 
+  const docType = await prisma.docType.findFirst({
+    where: {
+      type: doctype,
+    },
+  });
+
+  if (!docType) {
+    throw new Error(`Invalid document type: "${doctype}"`);
+  }
+
   // create a placer document
   const newDoc = await prisma.document.create({
     data: {
       title: "",
       question: question,
       answer: "",
-      cost: 0,
+      cost: docType.price,
       status: "GENERATING",
       userId: user.id,
-      docTypeId: doctype,
+      docTypeId: docType.type,
     },
   });
 
@@ -39,11 +49,11 @@ export async function startCreation(formData: FormData) {
     },
     body: JSON.stringify({
       id: newDoc.id,
-      paperType: doctype,
+      paperType: docType.type,
       prompt: question,
       references : files || []
     }),
   }).catch(console.error);
 
-  redirect(`/dashboard/${doctype}/editor/${newDoc.id}?source=form`);
+  redirect(`/dashboard/${docType.type}/editor/${newDoc.id}?source=form`);
 }

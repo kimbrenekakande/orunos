@@ -4,9 +4,9 @@ import { groq } from '@ai-sdk/groq';
 
 
 export const documentAgent = new ToolLoopAgent({
-  model: groq('meta-llama/llama-4-maverick-17b-128e-instruct'),
+  model: groq('meta-llama/llama-4-scout-17b-16e-instruct'),
   instructions: `
-    You are an agent that writes university coursework documents. 
+    You are an agent that utilizes tools at your disposal to write university coursework documents.
     Tirst generate an outline suited to best answer the questions provided,
     Then write the document by generating each section and combining them into a final document.
     Your summary and conclusion should be written in detail as if you were writing a full section for it will be merged with the rest of the document without any formatting changes.
@@ -15,8 +15,8 @@ export const documentAgent = new ToolLoopAgent({
   `,
   tools: {
     write: writeTool,
-    write4cached : writeTool4Cached,
-    search: searchTool,
+    // write4cached : writeTool4Cached,
+    // search: searchTool,
   },
-  stopWhen: stepCountIs(4),
+  stopWhen: stepCountIs(2),
 });

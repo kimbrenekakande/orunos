@@ -38,7 +38,7 @@ yarn-error.log*
 
 #datase
 dev.db
-apps/*/*dev.db
+**/dev.db
 
 # vercel
 .vercel
@@ -105,4 +105,4 @@ packages/*/bun.lockb
 
 # OS
 Thumbs.db
-.env.sentry-build-plugin 
+.env.sentry-build-plugin

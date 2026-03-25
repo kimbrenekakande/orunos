@@ -101,7 +101,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
 
         case 'list':
           return token.items.map((item: any, i: number) => (
-            <View key={`${index}-${i}`} style={styles.listItem}>
+            <View key={`${index}-${i}`} style={styles.listItem} wrap>
               <Text style={styles.listBullet}>
                 {token.ordered ? `${i + 1}.` : '•'}
               </Text>
@@ -114,9 +114,9 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
         case 'table':
           return (
             <View key={index} style={styles.table}>
-              <View style={styles.tableHeaderRow}>
+              <View style={styles.tableHeaderRow} wrap>
                 {token.header?.map((headerCell: any, hi: number) => (
-                  <View key={hi} style={styles.tableCellContainer}>
+                  <View key={hi} style={styles.tableCellContainer} wrap>
                     <Text style={styles.tableCell}>
                       {headerCell.tokens
                         ? renderInlineTokens(headerCell.tokens)
@@ -126,9 +126,9 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
                 ))}
               </View>
               {token.rows?.map((row: any, ri: number) => (
-                <View key={ri} style={styles.tableRow}>
+                <View key={ri} style={styles.tableRow} wrap>
                   {row.map((cell: any, ci: number) => (
-                    <View key={ci} style={styles.tableCellContainer}>
+                    <View key={ci} style={styles.tableCellContainer} wrap>
                       <Text style={styles.tableCell}>
                         {cell.tokens
                           ? renderInlineTokens(cell.tokens)
@@ -143,14 +143,14 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
 
         case 'blockquote':
           return (
-            <View key={index} style={styles.blockquote}>
+            <View key={index} style={styles.blockquote} wrap>
               {renderTokens(token.tokens || [])}
             </View>
           );
 
         case 'code':
           return (
-            <View key={index} style={styles.codeBlock}>
+            <View key={index} style={styles.codeBlock} wrap>
               <Text style={styles.codeText}>{token.text}</Text>
             </View>
           );
@@ -326,7 +326,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
         </View>
       </Page>*/}
 
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={styles.page} wrap>
         <View>
           {primitives}
         </View>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/tiptapui/input";
 import { Label } from "@/components/ui/label";
@@ -23,6 +24,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
 	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const form = useForm<LoginFormData>({
 		resolver: zodResolver(loginSchema),
@@ -33,16 +35,21 @@ export default function LoginPage() {
 	});
 
 	async function onSubmit(data: LoginFormData) {
-		const { error } = await authClient.signIn.email({
-			email: data.email,
-			password: data.password,
-			callbackURL: "/dashboard"
-		});
-		if (error) {
-			toast.error(error.message);
-			return;
+		setIsLoading(true);
+		try {
+			const { error } = await authClient.signIn.email({
+				email: data.email,
+				password: data.password,
+				callbackURL: "/dashboard"
+			});
+			if (error) {
+				toast.error(error.message);
+				return;
+			}
+			router.push("/dashboard");
+		} finally {
+			setIsLoading(false);
 		}
-		router.push("/dashboard");
 	}
 
 	return (
@@ -122,8 +129,8 @@ export default function LoginPage() {
 								/>
 							</Field>
 						</FieldGroup>
-						<Button className="w-full cursor-pointer" type="submit" disabled={form.formState.isSubmitting}>
-							Sign In
+						<Button className="w-full cursor-pointer" type="submit" disabled={form.formState.isSubmitting || isLoading}>
+							{isLoading ? "Signing in..." : "Sign In"}
 						</Button>
 					</div>
 
@@ -136,7 +143,7 @@ export default function LoginPage() {
 					</div>
 
 					<div className="grid grid-cols-2 gap-3">
-						<Button type="button" variant="outline" onClick={() => socialsignIn("google")} className="cursor-pointer">
+						<Button type="button" variant="outline" onClick={() => socialsignIn("google")} disabled={isLoading} className="cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="0.98em"
@@ -162,7 +169,7 @@ export default function LoginPage() {
 							</svg>
 							<span>Google</span>
 						</Button>
-						<Button type="button" variant="outline" className="cursor-pointer">
+						<Button type="button" variant="outline" disabled={isLoading} className="cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="1em"

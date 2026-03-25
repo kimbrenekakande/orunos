@@ -11,6 +11,10 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
   const {data} =  authClient.useSession()
   const author = data?.user
 
+  // Some content sources include control/zero-width characters that can break `marked` parsing.
+  // Removing them makes inline emphasis (like `**bold**`) tokenize correctly.
+  const safeContent = (content || "").replace(/\u0000/g, "").replace(/[\u200B-\u200D\uFEFF]/g, "");
+
   //turn md content to react pdf primitives
   const renderTokens = (tokens: any[]): React.ReactNode[] => {
     const getHeadingStyle = (depth: number) => {
@@ -21,13 +25,24 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
     return tokens.map((token, index) => {
       switch (token.type) {
         case 'text':
-          return <Text key={index}>{token.text}</Text>;
+          return (
+            <Text key={index}>
+              {renderInlineFallback(String(token.text ?? ""))}
+            </Text>
+          );
+
+        case 'space':
+          return <View key={index} style={styles.space} />;
+
+        // Soft/hard breaks sometimes appear depending on marked configuration.
+        case 'softbreak':
+          return <Text key={index}>{'\n'}</Text>;
 
         case 'strong':
         case 'bold':
           return (
             <Text key={index} style={styles.strong}>
-              {token.text}
+              {token.tokens ? renderTokens(token.tokens) : token.text}
             </Text>
           );
 
@@ -35,7 +50,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
         case 'italic':
           return (
             <Text key={index} style={styles.em}>
-              {token.text}
+              {token.tokens ? renderTokens(token.tokens) : token.text}
             </Text>
           );
 
@@ -44,6 +59,14 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
           return (
             <Text key={index} style={styles.inlineCode}>
               {token.text}
+            </Text>
+          );
+
+        case 'del':
+        case 'strike':
+          return (
+            <Text key={index} style={styles.del}>
+              {token.tokens ? renderTokens(token.tokens) : token.text}
             </Text>
           );
 
@@ -59,7 +82,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
 
         case 'image':
           return (
-            <Image key={index} src={token.href} style={{ width: 100, height: 100 }} />
+            <Image key={index} src={token.href} style={styles.image} />
           );
 
         case 'heading':
@@ -79,10 +102,11 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
         case 'list':
           return token.items.map((item: any, i: number) => (
             <View key={`${index}-${i}`} style={styles.listItem}>
-              <Text style={styles.listBullet}>{'•'}</Text>
+              <Text style={styles.listBullet}>
+                {token.ordered ? `${i + 1}.` : '•'}
+              </Text>
               <Text style={styles.listContent}>
-                {item.text}
-                {item.tokens && renderTokens(item.tokens)}
+                {item.tokens ? renderTokens(item.tokens) : renderInlineFallback(String(item.text ?? ""))}
               </Text>
             </View>
           ));
@@ -93,7 +117,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
               <View style={styles.tableHeaderRow}>
                 {token.header?.map((headerCell: any, hi: number) => (
                   <Text key={hi} style={styles.tableCell}>
-                    {headerCell.text}
+                    {renderInlineFallback(String(headerCell.text ?? ""))}
                   </Text>
                 ))}
               </View>
@@ -101,7 +125,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
                 <View key={ri} style={styles.tableRow}>
                   {row.map((cell: any, ci: number) => (
                     <Text key={ci} style={styles.tableCell}>
-                      {cell.text}
+                      {renderInlineFallback(String(cell.text ?? ""))}
                     </Text>
                   ))}
                 </View>
@@ -119,7 +143,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
         case 'code':
           return (
             <View key={index} style={styles.codeBlock}>
-              <Text>{token.text}</Text>
+              <Text style={styles.codeText}>{token.text}</Text>
             </View>
           );
 
@@ -127,17 +151,113 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
           return <View key={index} style={styles.hr} />;
 
         default:
-          return <Text key={index}>{token.text || token.raw || ''}</Text>;
+          return (
+            <Text key={index}>
+              {renderInlineFallback(String(token.text || token.raw || ""))}
+            </Text>
+          );
       }
     });
   };
 
-  const tokens = marked.lexer(content)
+  // Fallback for inline markdown that `marked` failed to tokenize (e.g. `**bold**` still in text).
+  // React-PDF supports nested <Text> with different styles, so we can render it safely here.
+  function renderInlineFallback(text: string): React.ReactNode[] | string {
+    const patterns: Array<{
+      kind: "code" | "bold" | "strike" | "em";
+      regex: RegExp;
+    }> = [
+      { kind: "code", regex: /`([^`]+)`/g },
+      { kind: "bold", regex: /\*\*([^*]+?)\*\*/g },
+      { kind: "strike", regex: /~~([^~]+?)~~/g },
+      { kind: "em", regex: /\*([^*]+?)\*/g },
+    ];
+
+    // Find the earliest match among all patterns.
+    const findNext = (input: string) => {
+      let best:
+        | {
+            kind: "code" | "bold" | "strike" | "em";
+            match: RegExpExecArray;
+            index: number;
+          }
+        | null = null;
+
+      for (const p of patterns) {
+        p.regex.lastIndex = 0;
+        const m = p.regex.exec(input);
+        if (!m) continue;
+        const idx = m.index ?? 0;
+        if (!best || idx < best.index) best = { kind: p.kind, match: m, index: idx };
+      }
+      return best;
+    };
+
+    // Fast path: no patterns.
+    const anyRegex = /`[^`]+`|\*\*[^*]+?\*\*|~~[^~]+?~~|\*[^*]+?\*/;
+    if (!anyRegex.test(text)) return text;
+
+    const out: React.ReactNode[] = [];
+    let cursor = 0;
+    while (cursor < text.length) {
+      const next = findNext(text.slice(cursor));
+      if (!next) {
+        out.push(text.slice(cursor));
+        break;
+      }
+
+      const absoluteIndex = cursor + next.index;
+      if (absoluteIndex > cursor) out.push(text.slice(cursor, absoluteIndex));
+
+      const full = next.match[0];
+      const inner = next.match[1] ?? "";
+
+      switch (next.kind) {
+        case "code":
+          out.push(
+            <Text key={`code-${absoluteIndex}`} style={styles.inlineCode}>
+              {inner}
+            </Text>
+          );
+          break;
+        case "bold":
+          out.push(
+            <Text key={`bold-${absoluteIndex}`} style={styles.strong}>
+              {inner}
+            </Text>
+          );
+          break;
+        case "strike":
+          out.push(
+            <Text key={`strike-${absoluteIndex}`} style={styles.del}>
+              {inner}
+            </Text>
+          );
+          break;
+        case "em":
+          out.push(
+            <Text key={`em-${absoluteIndex}`} style={styles.em}>
+              {inner}
+            </Text>
+          );
+          break;
+      }
+
+      // Advance cursor past the matched token.
+      const advanceBy = full.length;
+      cursor = absoluteIndex + advanceBy;
+    }
+
+    return out;
+  }
+
+  const tokens = marked.lexer(safeContent)
   const primitives = renderTokens(tokens)
 
   return (
     <Document >
-      <Page size="A4" style={styles.cover}>
+      {/*Cover Page*/}
+      {/*<Page size="A4" style={styles.cover}>
         <Text style={styles.coverTitle}>
           {title}
         </Text>
@@ -149,7 +269,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
             {author?.email || "author@email.com"}
           </Text>
         </View>
-      </Page>
+      </Page>*/}
 
       <Page size="A4" style={styles.page}>
         <View>

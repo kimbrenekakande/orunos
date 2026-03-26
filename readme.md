@@ -627,4 +627,3 @@ For support and questions:
 
 ---
 
-*Last updated: February 2026*

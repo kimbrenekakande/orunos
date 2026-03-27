@@ -5,14 +5,16 @@ import { useState, useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Card, Button } from "heroui-native";
 import NextUrl from "@/lib/next-url";
+import { papers } from "@/data/docs";
+
 
 
 export default function Home() {
   const router = useRouter()
-  const [docs, setDocs] = useState([])
+  const [docs, setDocs] = useState(papers)
 
   const auth = true
-  if (!auth) router.replace("/(auth)/login")
+  // if (!auth) router.replace("/(auth)/login")
 
   useEffect(() => {
     async function getter() {

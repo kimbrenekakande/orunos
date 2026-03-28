@@ -11,6 +11,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { authClient } from "@/lib/auth-client" //client side session 
 import {MyDoc} from "./doc"
 import baseUrl from "@/lib/base-url";
+import { MorphingExpandableMenu } from "@/components/ruixen/morphing-expandable-menu";
+
 
 
 
@@ -59,6 +61,7 @@ export function PlateEditor({md} : {md : Mdprops}) {
               Download
             </PDFDownloadLink>
           </Button>
+          <MorphingExpandableMenu />
 				</div>
 			</EditorContainer>
 		</Plate>

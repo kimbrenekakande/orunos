@@ -32,14 +32,20 @@ export async function POST(request: NextRequest) {
   );
   
   const { text } = await generateText({
-    model: google('gemini-2.5-flash'),
+    model: google('gemini-2.5-pro'),
     messages: [
       {
         role: 'user',
         content: [
           { 
             type: 'text', 
-            text: 'Analyze the the stylometry writing style in these documents. Extract key patterns in tone, vocabulary, sentence structure, and any distinctive writing traits. Provide only a summary of the writing style for another agent to use to generate content. dont provide the whole analysis, just the summary. plain text only not markdown.' 
+            text: `Analyze in detail the stylometry writing style in these documents.
+            Extract key patterns in tone, vocabulary, sentence structure, and any distinctive writing traits. 
+            Provide only a summary of the writing style for another agent to use to generate content. 
+            Dont provide the whole analysis, just the summary. Plain text only not markdown.
+            Dont include the topic just the style . analyze it to the T.
+            you can provide specific  samples you think the agent should analyze
+            The output should be able to be used by another agent to generate documents sounding like the author.`
           },
           ...fileContents.map((fc) => ({ type: 'file' as const, ...fc })),
         ],

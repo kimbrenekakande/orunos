@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { documentAgent } from "@/lib/ai/agents";
+import { doCreator } from "@/lib/ai/agents";
 import { createPartFromUri, createUserContent, GoogleGenAI } from '@google/genai';
+
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -11,11 +12,10 @@ export async function POST(request: NextRequest) {
 
   if (!id) return NextResponse.json({ error: 'Document ID is required', status: 400 });
   if (!questions) return NextResponse.json({ error: 'Prompt is required', status: 400 });
-
+  
 
   const promptParts = [
     `Document ID : ${id}`,
-    `Document Type :  ${documentType}`,
     `questions : ${questions}`
   ]
 
@@ -41,13 +41,12 @@ export async function POST(request: NextRequest) {
     const cachedName = cache.name
     if (cachedName) promptParts.push(`cachedContent : ${cachedName}`)
   }
+  
+  const promptQnz = `${promptParts.join("\n")}`
 
-  const maker = await documentAgent.generate({
-    // Use real newlines between prompt parts.
-    prompt: `${promptParts.join("\n")}`,
-  })
+  const maker = await doCreator(documentType, promptQnz)
 
-  console.log('Agent result:', maker)
+  console.log('Agent result:',"\n", maker)
 
   return NextResponse.json({status : 'document created successfully'});
 }

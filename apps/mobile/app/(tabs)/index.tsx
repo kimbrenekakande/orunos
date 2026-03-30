@@ -1,18 +1,24 @@
+import { Pressable,Text, View, ScrollView, FlatList, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context"
+import { Card } from "heroui-native";
+import Ionicons from "@expo/vector-icons/Ionicons"
 
-import { useRouter } from "expo-router";
+import { useRouter, Link } from "expo-router";
 import {fetch} from "expo/fetch"
 import { useState, useEffect } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { Card, Button } from "heroui-native";
 import NextUrl from "@/lib/next-url";
 
+import { papers } from "@/constants/docs";
+import { temps } from "@/constants/templates";
+import { Template } from "@/components/template-list";
 
-export default function Home() {
-  const router = useRouter()
-  const [docs, setDocs] = useState([])
 
-  const auth = true
-  if (!auth) router.replace("/(auth)/login")
+export default function App() {
+  // const router = useRouter()
+  const [docs, setDocs] = useState(papers)
+
+  // const auth = true
+  // if (!auth) router.replace("/(auth)/login")
 
   useEffect(() => {
     async function getter() {
@@ -45,22 +51,59 @@ export default function Home() {
   //   getter()
   // }, [])
 
-
   return (
-    <View className="pt-16 h-full">
-      {docs.map((doc) => (
-        <Pressable key={doc.id}>
-          <Card className="border-b border-gray-800 rounded mx-1 p-2">
-            <Card.Body>
-              <Card.Title className="text-white">{doc?.title}</Card.Title>
-            </Card.Body>
-            <Card.Footer className="flex flex-row text-xs w-full gap-2 pt-2">
-              <Text className="text-2xl text-green-600 pb-2">&deg;</Text>
-              <Text className="text-white">{doc?.docTypeId}</Text>
-            </Card.Footer>
-          </Card>
-        </Pressable>
-      ))}
-    </View>
+    <SafeAreaView>
+      <View className="h-screen">
+        <ScrollView className="flex-1 flex flex-col py-8 mx-4" showsVerticalScrollIndicator={false}>
+          <View className="pb-4">
+            <Text className="text-white text-3xl">Welcome Back, Kakande</Text>
+            <Text className="text-white text-sm">Dive into the world of academics with orunos </Text>
+          </View>
+          <View className="pt-8">
+            <View className="flex-1 flex-row justify-inbetween justify-between">
+              <Text className="text-white">Templates</Text>
+              <Text className="text-orange-500">VIEW ALL</Text>
+            </View>
+            <FlatList
+              data={temps}
+              renderItem={ ({item}) => <Template title={item.title} price={item.price}/> }
+              keyExtractor={item => item.title}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              className="my-8"
+            />
+          </View>
+          <View className="gap-4 pt-8">
+            <View className="flex-1 flex-row justify-inbetween justify-between">
+              <Text className="text-white">Documents</Text>
+              <Text className="text-orange-500">VIEW ALL</Text>
+            </View>
+            {docs.map((doc) => (
+              <Pressable key={doc.id}>
+                <Link href="/editor/4">
+                  <Card className=" border-gray-800 rounded h-20 w-full">
+                    <Card.Body className="flex flex-row h-full">
+                      <View className="h-10 w-20">
+                        <Ionicons name="document-text" size={46} color="white" />
+                      </View>
+                      <View className="flex h-full w-full -ml-5">
+                        <Card.Title numberOfLines={1} className="text-white">{doc?.title}</Card.Title>
+                        <View className="flex flex-row w-full justify-between">
+                          <Text className="text-white">GENERATING</Text>
+                          <Text className="text-white">12.06.2026</Text>
+                        </View>
+                      </View>
+                      <View>
+                        <Ionicons name="ellipsis-vertical" color="white"/>
+                      </View>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Pressable>
+            ))}
+          </View>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   )
 }

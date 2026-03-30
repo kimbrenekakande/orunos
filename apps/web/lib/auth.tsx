@@ -68,9 +68,17 @@ export const auth = betterAuth({
 
 	user: {
 		additionalFields: {
-			wallet: {
+			balance: {
 				type: "number",
-				input: false,
+				input: true,
+			},
+			style: {
+				type: "string",
+				input: true,
+			},
+			image: {
+				type: "string",
+				input: true,
 			},
 		},
   },

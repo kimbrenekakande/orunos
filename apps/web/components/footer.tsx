@@ -1,12 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-	FacebookIcon,
-	InstagramIcon,
-	LinkedinIcon,
-	TwitterIcon,
-} from "lucide-react";
+import { Home } from "lucide-react";
+
 
 const footerLinks = [
 	{
@@ -48,10 +44,10 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-	{ icon: FacebookIcon, href: "#" },
-	{ icon: InstagramIcon, href: "#" },
-	{ icon: LinkedinIcon, href: "#" },
-	{ icon: TwitterIcon, href: "#" },
+	{ icon: Home, href: "#" },
+	{ icon: Home, href: "#" },
+	{ icon: Home, href: "#" },
+	{ icon: Home, href: "#" },
 ];
 
 export function Footer() {

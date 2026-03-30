@@ -15,13 +15,24 @@ export async function startCreation(formData: FormData) {
   const tempType = formData.get("doctype") as string;
   if (!tempType) throw new Error("Document type is required");
 
+  const normalizedDoctype = tempType.trim().toLowerCase();
+  const doctypeCandidates = Array.from(
+    new Set([
+      normalizedDoctype,
+      normalizedDoctype.replace(/-/g, "_"),
+      normalizedDoctype.replace(/\s+/g, "_"),
+      normalizedDoctype.replace(/s$/, ""),
+    ])
+  );
 
-  const docType = await prisma.docType.findUnique({
+  const docType = await prisma.docType.findFirst({
     where: {
-      type: tempType
-    }
+      type: {
+        in: doctypeCandidates,
+      },
+    },
   });
-  if (!docType) throw new Error("Invalid document type");
+  if (!docType) throw new Error(`Invalid document type: "${tempType}"`);
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
@@ -54,5 +65,5 @@ export async function startCreation(formData: FormData) {
     },
   });
 
-  redirect(`/dashboard/${tempType}/editor/${newDoc.id}`);
+  redirect(`/dashboard/${docType.type}/editor/${newDoc.id}`);
 }

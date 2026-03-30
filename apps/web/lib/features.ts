@@ -10,7 +10,7 @@ export const features = [
   {
     id : 4,
     imageUrl : "/ft/handwriting.jpg",
-    title :"Handwriting Mirroring",
+    title :"Stylometry",
     subtitle : "orunos",
     description : "Maintain your scholarly voice with high-fidelity style adaptation that mirrors your unique tone, style and syntax.",
     url : "#"

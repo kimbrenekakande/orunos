@@ -40,7 +40,7 @@ export function PlateEditor({ md }: { md: Mdprops }) {
 
   function handleDownload() {
     downloadRef.current?.click();
-    toast.success("PDF download started");
+    toast.success("PDF download started", { position: "top-center" });
   }
 
   return (

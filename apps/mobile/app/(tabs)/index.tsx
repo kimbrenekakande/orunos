@@ -86,11 +86,11 @@ export default function App() {
                       <View className="h-10 w-20">
                         <Ionicons name="document-text" size={46} color="white" />
                       </View>
-                      <View className="flex h-full w-full -ml-5 text-white">
-                        <Card.Title numberOfLines={1} >{doc?.title}</Card.Title>
+                      <View className="flex h-full w-full -ml-5">
+                        <Card.Title numberOfLines={1} className="text-white">{doc?.title}</Card.Title>
                         <View className="flex flex-row w-full justify-between">
-                          <Text >GENERATING</Text>
-                          <Text >12.06.2026</Text>
+                          <Text className="text-white">GENERATING</Text>
+                          <Text className="text-white">12.06.2026</Text>
                         </View>
                       </View>
                       <View>

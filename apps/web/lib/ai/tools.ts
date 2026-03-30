@@ -2,31 +2,33 @@ import { tool,generateText } from "./braintrust"
 import { groq } from '@ai-sdk/groq'
 // import { google, type GoogleLanguageModelOptions } from '@ai-sdk/google';
 import {z} from "zod"
-import {outlineSchema} from "../types"
+import {outlineSchema, SectionLog} from "../types"
 import prisma from '@/lib/prisma';
+import { se } from "date-fns/locale";
 
 export const outlineTool = tool({
-  description: "Generate an outline for the document based on the provided questions to best answer the questions provided",
+  description: "Generates an outline for the document based on the document type and provided questions to best answer the questions provided",
   inputSchema: z.object({
     documentType: z.string("The type of document to generate an outline for"),
     questions: z.string("The questions to generate an outline for"),
     instructions: z.string("Any additional instructions for the agent to follow else return empty"),
   }),
+  
   execute: async ({ documentType, questions, instructions }) => {
     const { text } = await generateText({
       model: groq('openai/gpt-oss-120b'),
       system: `
-        You are an agent, part of an academic document creation workflow,
+        You are an agent, part of a ${documentType} academic document creation workflow,
         Your role is to generate an outline for the provided questions to best answer the questions provided.
         The output should be aligned with official guidelines for the ${documentType} document type.
         rules :
-        ${instructions ? ` ${instructions}` : ""}
+        - do not include the cover page
       `,
-      prompt: `Generate an outline for the ${documentType} document type based on the provided questions.
-        questions: ${questions}
-      `,
+      prompt: `questions: ${questions}`,
     });
-    return text;
+    
+    if (!text) return { status: "error", message: "Failed to generate outline" }
+    return text
   },
 });
 
@@ -40,6 +42,9 @@ export const writeTool = tool({
   }),
   execute: async (docPlan) => {
     const sections = docPlan.sections
+    
+    const sectionStatusLog: SectionLog[] = []
+    
     const content = sections.map(async (sec) => {
       const { text } = await generateText({
         model: groq('openai/gpt-oss-120b'),
@@ -56,20 +61,27 @@ export const writeTool = tool({
         `,
         prompt: `write a deep dive on ${sec['content']}`,
       });
+      
+      if (!text) sectionStatusLog.push({ title: sec['title'], success: false })
+      sectionStatusLog.push({ title: sec['title'], success: true })
+      
+      console.log(`SECTION LOGS ${sectionStatusLog}`);
       return text
     });
-
+    
     //Document Appending
-    let document = '';
-    document += `\n # ${docPlan['title']} \n`;  //should be a space btn the markdown annotation and the text to render properly
-    document += `\n ## Summary \n ${docPlan['summary']} \n`;
+    let document = `# ${docPlan['title']} \n`;  //should be a space btn the markdown annotation and the text to render properly
 
     const x = await Promise.all(content)
     for (const item of x) document += `\n ${item} \n`;
-    document += `\n ## Conclusion \n ${docPlan['conclusion']} \n`;
 
+    if (x) {
+      for (const [item, index] of sectionStatusLog.entries()) {
+        console.log(`SECTION ${index}: ${item}`);
+      }
+    }
 
-    await prisma.document.update({
+    const saveResult = await prisma.document.update({
       where : { id : docPlan.id},
       data : {
         title : docPlan.title,
@@ -78,7 +90,8 @@ export const writeTool = tool({
       }
     })
 
-    return { status: "done" }
+    if (!saveResult) return { status: "failure", message: "Document creation failed" }
+    return { status: "success", message: "Document created successfully" }
   },
 });
 

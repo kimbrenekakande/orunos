@@ -12,6 +12,8 @@
 
 # turbo
 .turbo
+.qwen
+/.qwen
 
 # testing
 /coverage

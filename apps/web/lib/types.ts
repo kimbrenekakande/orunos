@@ -31,12 +31,17 @@ export interface InstituteType {
   logo     :  string
 }
 
+export interface SectionLog {
+  title: string;
+  success: boolean;
+}
+
 export const outlineSchema = z.object({
   title : z.string().describe("The title of the document based on its content"),
-  summary : z.string().describe("A very detailed summary of the academic document based on the outline"),
   sections : z.array(z.object({
     title : z.string().describe("The title of the section"),
     content : z.string().describe("A prompt for the next agent in the chain to generate the content for this section")
-  })).describe("An array of sections that make up the document"),
-  conclusion : z.string().describe("The detailed summary of the document")
+  })).describe("An outline sections that make up the document"),
 });
+
+

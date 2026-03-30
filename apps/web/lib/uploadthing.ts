@@ -5,6 +5,13 @@ import { createUploadthing } from 'uploadthing/next';
 const f = createUploadthing();
 
 export const ourFileRouter = {
+  avatarUploader: f(['image'])
+    .middleware(() => {
+      return {};
+    })
+    .onUploadComplete(({ file }) => {
+      return { url: file.ufsUrl };
+    }),
   editorUploader: f(['image', 'text', 'blob', 'pdf', 'video', 'audio'])
     .middleware(() => {
       return {};

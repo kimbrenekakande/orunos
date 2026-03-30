@@ -31,9 +31,9 @@ export async function TableView( {user} ) {
         {all.map((paper) => (
           <TableRow key={paper.id} className="hover:text-orange-700">
             <TableCell className="font-medium">
-              <Link href={`/dashboard/coursework/editor/${paper.id}?source=table`} className="contents flex gap-4">
+              <Link href={`/dashboard/coursework/editor/${paper.id}?source=table`} className="flex gap-4">
               <FileText /> 
-              {paper.question.substring(0,40)}
+              {paper.question}
               </Link>
             </TableCell>
             <TableCell className="text-center">{paper.docTypeId}</TableCell>

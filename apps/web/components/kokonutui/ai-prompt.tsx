@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight,Paperclip , DeleteIcon} from "lucide-react";
+import { ArrowRight,Paperclip , DeleteIcon, LoaderIcon} from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -21,7 +21,8 @@ const formSchema = z.object({
 
 export default function Questionaire({ doctype }: { doctype: string }) {
   const [files, SetFiles] = useState<File[]>([])
-  
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
       const allFiles = Array.from(e.target.files ?? [])
@@ -29,7 +30,7 @@ export default function Questionaire({ doctype }: { doctype: string }) {
        console.log(files)
     }
   }
-  
+
   const form = useForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -37,20 +38,25 @@ export default function Questionaire({ doctype }: { doctype: string }) {
       qnz: ""
 		},
 	});
-  
+
   // Wrapper that injects files into the data before calling startCreation
   async function onSubmit(data: { doctype: string; qnz: string }) {
-    const formData = new FormData();
-    formData.append("doctype", data.doctype);
-    formData.append("qnz", data.qnz);
-    
-    files.forEach((file) => {
-      formData.append("files", file);
-    });
-    
-    await startCreation(formData);
+    setIsSubmitting(true);
+    try {
+      const formData = new FormData();
+      formData.append("doctype", data.doctype);
+      formData.append("qnz", data.qnz);
+
+      files.forEach((file) => {
+        formData.append("files", file);
+      });
+
+      await startCreation(formData);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
-  
+
   return (
     <div className="w-full sm:w-4/6 py-4">
       <div className="rounded bg-black/5 p-1.5 pt-4 dark:bg-white/5">
@@ -63,7 +69,7 @@ export default function Questionaire({ doctype }: { doctype: string }) {
               width={15}
               className="text-black"
             />
-            
+
             <h3 className="text-black text-sm tracking-tighter dark:text-white/90">
               Free during BETA
             </h3>
@@ -99,7 +105,7 @@ export default function Questionaire({ doctype }: { doctype: string }) {
                     </Field>
       						)}
                 />
-              
+
                 <div className="absolute right-3 bottom-3 left-3 flex w-[calc(100%-24px)] items-center justify-between">
                   <div className="flex items-center gap-2">
                     <label aria-label="Attach file" className={cn( "cursor-pointer")}>
@@ -113,20 +119,28 @@ export default function Questionaire({ doctype }: { doctype: string }) {
                       "rounded bg-black/5 p-2 dark:bg-grey-500 cursor-pointer border border-white hover:border-transparent",
                       "hover:bg-black/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0 dark:hover:bg-orange-500"
                     )}
-                    // disabled={!value.trim()}
+                    disabled={isSubmitting}
                     type="submit"
                   >
-                    <ArrowRight
-                      className={cn(
-                        "h-4 w-4 transition-opacity duration-200 dark:text-white ",
-                      )}
-                    />
+                    {isSubmitting ? (
+                      <LoaderIcon
+                        role="status"
+                        aria-label="Loading"
+                        className={cn("size-4 animate-spin text-orange-500")}
+                      />
+                    ) : (
+                      <ArrowRight
+                        className={cn(
+                          "h-4 w-4 transition-opacity duration-200 dark:text-white ",
+                        )}
+                      />
+                    )}
                   </button>
                 </div>
               </FieldGroup>
             </div>
           </div>
-        </form> 
+        </form>
       </div>
       <div className="pt-8">
         {
@@ -137,10 +151,10 @@ export default function Questionaire({ doctype }: { doctype: string }) {
                 <DeleteIcon/>
               </div>
             )
-            
+
           })
         }
-      </div>   
+      </div>
     </div>
   );
 }

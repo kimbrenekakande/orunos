@@ -4,20 +4,23 @@
     "slug": "orunos",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/icons/orunos-dark.png",
     "scheme": "orunos-mobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kakande.orunos"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/icon.png"
+        "backgroundColor": "#FFFFFF",
+        "monochromeImage": "./assets/icons/orunos-dark.png",
+        "foregroundImage": "./assets/icons/orunos-dark.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.kakande.orunos"
     },
     "web": {
       "output": "static",
@@ -28,11 +31,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/icon.png",
+          "image": "./assets/icons/splash-icon-dark.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
           "dark": {
+            "image": "./assets/icons/splash-icon-light.png",
             "backgroundColor": "#000000"
           }
         }
@@ -41,6 +45,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d167f2b7-f13a-4bcf-a8ae-6e04303ff8d9"
+      }
     }
   }
 }

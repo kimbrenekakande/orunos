@@ -122,10 +122,10 @@ export const TableElement = withHOC(
         )}
         style={{ paddingLeft: marginLeft }}
       >
-        <div className="group/table relative w-fit">
+        <div className="group/table relative w-full">
           <table
             className={cn(
-              'mr-0 ml-px table h-px table-fixed border-collapse',
+              'table h-px w-full border-collapse',
               isSelectingCell && 'selection:bg-transparent'
             )}
             {...tableProps}

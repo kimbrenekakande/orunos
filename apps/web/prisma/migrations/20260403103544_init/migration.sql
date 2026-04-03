@@ -26,17 +26,6 @@ CREATE TABLE "DocType" (
 );
 
 -- CreateTable
-CREATE TABLE "Institution" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "name" TEXT NOT NULL,
-    "country" TEXT NOT NULL,
-    "address" TEXT NOT NULL,
-    "logo" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
-);
-
--- CreateTable
 CREATE TABLE "Transaction" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "amount" INTEGER NOT NULL,
@@ -52,14 +41,13 @@ CREATE TABLE "user" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "style" TEXT,
     "image" TEXT,
     "balance" INTEGER NOT NULL DEFAULT 0,
-    "institutionId" INTEGER,
     "admin" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
-    "emailVerified" BOOLEAN NOT NULL DEFAULT false,
-    CONSTRAINT "user_institutionId_fkey" FOREIGN KEY ("institutionId") REFERENCES "Institution" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    "emailVerified" BOOLEAN NOT NULL DEFAULT false
 );
 
 -- CreateTable
@@ -111,12 +99,6 @@ CREATE UNIQUE INDEX "DocType_type_key" ON "DocType"("type");
 
 -- CreateIndex
 CREATE INDEX "DocType_type_idx" ON "DocType"("type");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Institution_name_key" ON "Institution"("name");
-
--- CreateIndex
-CREATE INDEX "Institution_name_idx" ON "Institution"("name");
 
 -- CreateIndex
 CREATE INDEX "Transaction_userId_idx" ON "Transaction"("userId");

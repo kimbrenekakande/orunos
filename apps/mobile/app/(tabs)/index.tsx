@@ -1,6 +1,5 @@
 import { Pressable,Text, View, ScrollView, FlatList, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Card } from "heroui-native";
 import Ionicons from "@expo/vector-icons/Ionicons"
 
 import { useRouter, Link } from "expo-router";
@@ -11,7 +10,7 @@ import NextUrl from "@/lib/next-url";
 import { papers } from "@/constants/docs";
 import { temps } from "@/constants/templates";
 import { Template } from "@/components/template-list";
-
+import clsx from "clsx";
 
 export default function App() {
   // const router = useRouter()
@@ -53,10 +52,14 @@ export default function App() {
 
   return (
     <SafeAreaView>
-      <View className="h-screen">
-        <ScrollView className="flex-1 flex flex-col py-8 mx-4" showsVerticalScrollIndicator={false}>
-          <View className="pb-4">
-            <Text className="text-white text-3xl">Welcome Back, Kakande</Text>
+      <View className="h-screen m-4">
+        <ScrollView className="flex-1 flex flex-col gap-8" showsVerticalScrollIndicator={false}>
+          <View className="flex-1 flex-row justify-between items-center mb-8">
+            <Text className="text-white text-base">Welcome Back, Kakande</Text>
+            <Ionicons name="notifications-circle" color={"white"} size={36}/>
+          </View>
+          <View className=" h-40 bg-orange-600 rounded mb-4 p-4 ">
+            <Text className="text-white text-2xl">Your Academic Copilot</Text>
             <Text className="text-white text-sm">Dive into the world of academics with orunos </Text>
           </View>
           <View className="pt-8">
@@ -73,31 +76,29 @@ export default function App() {
               className="my-8"
             />
           </View>
-          <View className="gap-4 pt-8">
+          <View className="gap-4 pt-8 pb-16">
             <View className="flex-1 flex-row justify-inbetween justify-between">
               <Text className="text-white">Documents</Text>
               <Text className="text-orange-500">VIEW ALL</Text>
             </View>
             {docs.map((doc) => (
               <Pressable key={doc.id}>
-                <Link href="/editor/4">
-                  <Card className=" border-gray-800 rounded h-20 w-full">
-                    <Card.Body className="flex flex-row h-full">
-                      <View className="h-10 w-20">
-                        <Ionicons name="document-text" size={46} color="white" />
+                <Link href={`/editor/${doc.id}`}>
+                  <View className="flex flex-row border-gray-800 rounded  gap-2 my-4 w-full ">
+                    <View className="border rounded  border-gray-600 h-fit w-fit flex justify-center items-center">
+                      <Ionicons name="document-text" size={56} color={"white"} >
+                        <Ionicons name="radio-button-on-sharp" size={10} color={doc.status === "READY" ?  "green" : "red"} className="absolute z-10 w-fit h-fit top-1 right-1.5"/>
+                      </Ionicons>
+                    </View>
+                    <View className="flex gap-4 w-full rounded-xl pr-16">
+                      <Text  className="text-white text-base text-wrap" numberOfLines={1}>{doc?.title}</Text>
+                      <View className="w-full flex flex-row justify-between pr-4">
+                        <Text className="text-xs text-white">{doc.docTypeId}</Text>
+                        <Text className="text-white">12.06.2026</Text>
                       </View>
-                      <View className="flex h-full w-full -ml-5">
-                        <Card.Title numberOfLines={1} className="text-white">{doc?.title}</Card.Title>
-                        <View className="flex flex-row w-full justify-between">
-                          <Text className="text-white">GENERATING</Text>
-                          <Text className="text-white">12.06.2026</Text>
-                        </View>
-                      </View>
-                      <View>
-                        <Ionicons name="ellipsis-vertical" color="white"/>
-                      </View>
-                    </Card.Body>
-                  </Card>
+                    </View>
+                  </View>
+                  <View className="w-full border border-b-gray-700"> </View>
                 </Link>
               </Pressable>
             ))}

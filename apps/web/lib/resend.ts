@@ -7,12 +7,21 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 export async function sendEmail({to, subject, react} : emailValues) {
   if (!resend) {
     console.warn('Resend API key not configured, email not sent')
-    return
+    throw new Error('Resend API key not configured')
   }
-  await resend.emails.send({
-    from :'Acme <onboarding@resend.dev>',
-    to : to,
-    subject : subject,
-    html: await render(react)
-  })
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'orunos <verify@contact.orunos.com>',
+      to: to,
+      subject: subject,
+      html: await render(react)
+    })
+    if (error) {
+      console.error('Resend error:', error)
+    }
+    return { data, error }
+  } catch (err) {
+    console.error('Failed to send email:', err)
+    throw err
+  }
 }

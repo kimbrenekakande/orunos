@@ -63,7 +63,7 @@ export default function App() {
             <Text className="text-white text-sm">Dive into the world of academics with orunos </Text>
           </View>
           <View className="pt-8">
-            <View className="flex-1 flex-row justify-inbetween justify-between">
+            <View className="flex-1 flex-row justify-inbetween justify-between mb-8">
               <Text className="text-white">Templates</Text>
               <Text className="text-orange-500">VIEW ALL</Text>
             </View>
@@ -73,7 +73,6 @@ export default function App() {
               keyExtractor={item => item.title}
               horizontal
               showsHorizontalScrollIndicator={false}
-              className="my-8"
             />
           </View>
           <View className="gap-4 pt-8 pb-16">
@@ -85,20 +84,21 @@ export default function App() {
               <Pressable key={doc.id}>
                 <Link href={`/editor/${doc.id}`}>
                   <View className="flex flex-row border-gray-800 rounded  gap-2 my-4 w-full ">
-                    <View className="border rounded  border-gray-600 h-fit w-fit flex justify-center items-center">
-                      <Ionicons name="document-text" size={56} color={"white"} >
-                        <Ionicons name="radio-button-on-sharp" size={10} color={doc.status === "READY" ?  "green" : "red"} className="absolute z-10 w-fit h-fit top-1 right-1.5"/>
-                      </Ionicons>
+                    <View className="bg-transparent h-fit w-fit flex justify-center items-center">
+                      <Ionicons name="document-text" size={56} color={"white"} />
                     </View>
                     <View className="flex gap-4 w-full rounded-xl pr-16">
-                      <Text  className="text-white text-base text-wrap" numberOfLines={1}>{doc?.title}</Text>
-                      <View className="w-full flex flex-row justify-between pr-4">
-                        <Text className="text-xs text-white">{doc.docTypeId}</Text>
-                        <Text className="text-white">12.06.2026</Text>
+                      <Text className="text-white text-base text-wrap" numberOfLines={1}>{doc?.title}</Text>
+                      <View className="flex flex-row items-center pr-4 w-full">
+                        <Ionicons name="radio-button-on-sharp" size={10} color={doc.status === "READY" ? "green" : "red"} className="pr-2"/>
+                        <View className="w-full flex flex-row justify-between pr-4">
+                          <Text className="text-xs text-white place-content-start">{doc.docTypeId}</Text>
+                          <Text className="text-white">12.06.2026</Text>
+                        </View>
                       </View>
                     </View>
                   </View>
-                  <View className="w-full border border-b-gray-700"> </View>
+                  <View className="w-full border border-b-gray-900 pt-4"> </View>
                 </Link>
               </Pressable>
             ))}

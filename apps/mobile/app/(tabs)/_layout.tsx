@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import {BottomTabBarButtonProps} from "@react-navigation/bottom-tabs"
+// import {BottomTabBarButtonProps} from "@react-navigation/bottom-tabs"
 import clsx from "clsx"
 
 
@@ -28,7 +28,6 @@ const TabLayout = () => {
         display : "flex",
         alignContent : 'center',
         position: "absolute",
-        bottom: Math.max(insets.bottom),
         height: 60,
         paddingTop: 8,
         borderTopRightRadius: 16,

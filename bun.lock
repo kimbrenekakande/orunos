@@ -1,3 +1,6 @@
+
+// remove all non shared packages by apps/ from the root workspace
+
 {
   "lockfileVersion": 1,
   "configVersion": 1,

@@ -98,7 +98,7 @@ export default function App() {
             <View>
               <Text className="text-white text-lg">Good {getTimeOfDay()}, {firstName}</Text>
               <Text className="text-neutral-500 text-xs mt-0.5">
-                {totalDocs > 0 ? `${totalDocs} documents · ${readyDocs} ready` : "Create your first document"}
+                {totalDocs > 0 ? `${totalDocs} documents · ${totalDocs - readyDocs} generating` : "Create your first document"}
               </Text>
             </View>
             <Ionicons name="notifications-circle" color="#a3a3a3" size={32} />

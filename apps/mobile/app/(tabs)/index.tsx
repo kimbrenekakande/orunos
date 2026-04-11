@@ -1,110 +1,152 @@
-import { Pressable,Text, View, ScrollView, FlatList, Image } from "react-native";
+import { Pressable, Text, View, ScrollView, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"
 import Ionicons from "@expo/vector-icons/Ionicons"
 
-import { useRouter, Link } from "expo-router";
-import {fetch} from "expo/fetch"
+import { Link } from "expo-router";
+import { fetch } from "expo/fetch"
 import { useState, useEffect } from "react";
 import NextUrl from "@/lib/next-url";
 
 import { papers } from "@/constants/docs";
 import { temps } from "@/constants/templates";
 import { Template } from "@/components/template-list";
-import clsx from "clsx";
+
+function getTimeOfDay() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "morning";
+  if (hour < 17) return "afternoon";
+  return "evening";
+}
+
+function StatBadge({ icon, value, variant = "default" }: { icon: React.ReactNode; value: string; variant?: "default" | "success" | "warning" }) {
+  const variantStyles = {
+    default: "bg-neutral-800 border-neutral-700",
+    success: "bg-emerald-500/10 border-emerald-500/20",
+    warning: "bg-amber-500/10 border-amber-500/20",
+  };
+
+  const textColors = {
+    default: "text-neutral-300",
+    success: "text-emerald-400",
+    warning: "text-amber-400",
+  };
+
+  return (
+    <View className={`flex-1 rounded-lg border px-3 py-2 ${variantStyles[variant]}`}>
+      <View className="flex flex-row items-center gap-1.5">
+        {icon}
+        <Text className={`text-xs font-medium ${textColors[variant]}`}>{value}</Text>
+      </View>
+    </View>
+  );
+}
+
+function DocCard({ doc }: { doc: typeof papers[0] }) {
+  const isReady = doc.status === "READY";
+  const createdDate = doc.createdAt ? new Date(doc.createdAt).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" }) : "N/A";
+
+  return (
+    <Link href={`/editor/${doc.id}`} asChild>
+      <TouchableOpacity className="flex flex-row items-center gap-3 py-4 border-b border-neutral-800">
+        <View className="w-12 h-12 rounded-lg bg-neutral-800 flex items-center justify-center">
+          <Ionicons name="document-text" size={24} color="#a3a3a3" />
+        </View>
+        <View className="flex-1">
+          <Text className="text-white text-sm font-medium" numberOfLines={1}>{doc.title}</Text>
+          <View className="flex flex-row items-center gap-2 mt-1">
+            <Ionicons name="radio-button-on" size={10} color={isReady ? "#4ade80" : "#f97316"} />
+            <Text className="text-neutral-400 text-xs capitalize">{doc.docTypeId}</Text>
+            <Text className="text-neutral-600 text-xs">·</Text>
+            <Text className="text-neutral-500 text-xs">{createdDate}</Text>
+          </View>
+        </View>
+        <Ionicons name="chevron-forward" size={20} color="#525252" />
+      </TouchableOpacity>
+    </Link>
+  );
+}
 
 export default function App() {
-  // const router = useRouter()
-  const [docs, setDocs] = useState(papers)
-
-  // const auth = true
-  // if (!auth) router.replace("/(auth)/login")
+  const [docs, setDocs] = useState(papers);
 
   useEffect(() => {
     async function getter() {
       try {
         const response = await fetch(`${NextUrl}/api/papers/all`, {
           credentials: "include",
-        })
-        const output = await response.json()
-        setDocs(output)
+        });
+        const output = await response.json();
+        setDocs(output);
       } catch (error) {
-        console.error("Shit Failed :", error)
+        console.error("Failed to fetch papers:", error);
       }
     }
-    getter()
-  }, [])
+    getter();
+  }, []);
 
-  // useEffect(() => {
-  //   async function getter() {
-  //     try {
-  //       // Use 10.0.2.2 for Android emulator (maps to host machine's localhost)
-  //       // For iOS simulator use localhost
-  //       // For physical devices use your machine's IP
-  //       const response = await fetch("http://10.0.2.2:3000/api/papers/all")
-  //       const output = await response.json()
-  //       setDocs(output)
-  //     } catch (error) {
-  //       console.error("Shit Failed :", error)
-  //     }
-  //   }
-  //   getter()
-  // }, [])
+  const userName = "Kakande";
+  const firstName = userName.split(" ")[0] || "there";
+  const totalDocs = docs.length;
+  const readyDocs = docs.filter(d => d.status === "READY").length;
+  const userBalance = 10000;
 
   return (
-    <SafeAreaView>
-      <View className="h-screen m-4">
-        <ScrollView className="flex-1 flex flex-col gap-8" showsVerticalScrollIndicator={false}>
-          <View className="flex-1 flex-row justify-between items-center mb-8">
-            <Text className="text-white text-base">Welcome Back, Kakande</Text>
-            <Ionicons name="notifications-circle" color={"white"} size={36}/>
-          </View>
-          <View className=" h-40 bg-orange-600 rounded mb-4 p-4 ">
-            <Text className="text-white text-2xl">Your Academic Copilot</Text>
-            <Text className="text-white text-sm">Dive into the world of academics with orunos </Text>
-          </View>
-          <View className="pt-8">
-            <View className="flex-1 flex-row justify-inbetween justify-between">
-              <Text className="text-white">Templates</Text>
-              <Text className="text-orange-500">VIEW ALL</Text>
+    <SafeAreaView className="flex-1">
+      <View className="flex-1 px-4">
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }}>
+          <View className="flex flex-row justify-between items-center py-4">
+            <View>
+              <Text className="text-white text-lg">Good {getTimeOfDay()}, {firstName}</Text>
+              <Text className="text-neutral-500 text-xs mt-0.5">
+                {totalDocs > 0 ? `${totalDocs} documents · ${totalDocs - readyDocs} generating` : "Create your first document"}
+              </Text>
             </View>
-            <FlatList
-              data={temps}
-              renderItem={ ({item}) => <Template title={item.title} price={item.price}/> }
-              keyExtractor={item => item.title}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              className="my-8"
+            <Ionicons name="notifications-circle" color="#a3a3a3" size={32} />
+          </View>
+
+          <View className="flex flex-row gap-2 mt-4">
+            <StatBadge
+              icon={<Ionicons name="cash" size={14} color="#a3a3a3" />}
+              value={userBalance.toString()}
+            />
+            <StatBadge
+              icon={<Ionicons name="document-text" size={14} color="#a3a3a3" />}
+              value={totalDocs.toString()}
+            />
+            <StatBadge
+              icon={<Ionicons name="checkmark-circle" size={14} color="#4ade80" />}
+              value={readyDocs.toString()}
+              variant="success"
             />
           </View>
-          <View className="gap-4 pt-8 pb-16">
-            <View className="flex-1 flex-row justify-inbetween justify-between">
-              <Text className="text-white">Documents</Text>
-              <Text className="text-orange-500">VIEW ALL</Text>
+
+          <View className="mt-8">
+            <Text className="text-neutral-400 text-sm mb-4">Templates</Text>
+            <View className="relative mx-[-16px] px-4">
+              <View className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-neutral-950 to-transparent z-10 pointer-events-none" />
+              <View className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-neutral-950 to-transparent z-10 pointer-events-none" />
+              <FlatList
+                data={temps}
+                renderItem={({ item }) => <Template title={item.title} price={item.price} />}
+                keyExtractor={item => item.id.toString()}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: 12 }}
+              />
+            </View>
+          </View>
+
+          <View className="mt-8">
+            <View className="flex flex-row justify-between items-center mb-2">
+              <Text className="text-white text-base">Recent Documents</Text>
+              <Text className="text-orange-500 text-xs">VIEW ALL</Text>
             </View>
             {docs.map((doc) => (
-              <Pressable key={doc.id}>
-                <Link href={`/editor/${doc.id}`}>
-                  <View className="flex flex-row border-gray-800 rounded  gap-2 my-4 w-full ">
-                    <View className="border rounded  border-gray-600 h-fit w-fit flex justify-center items-center">
-                      <Ionicons name="document-text" size={56} color={"white"} >
-                        <Ionicons name="radio-button-on-sharp" size={10} color={doc.status === "READY" ?  "green" : "red"} className="absolute z-10 w-fit h-fit top-1 right-1.5"/>
-                      </Ionicons>
-                    </View>
-                    <View className="flex gap-4 w-full rounded-xl pr-16">
-                      <Text  className="text-white text-base text-wrap" numberOfLines={1}>{doc?.title}</Text>
-                      <View className="w-full flex flex-row justify-between pr-4">
-                        <Text className="text-xs text-white">{doc.docTypeId}</Text>
-                        <Text className="text-white">12.06.2026</Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View className="w-full border border-b-gray-700"> </View>
-                </Link>
-              </Pressable>
+              <DocCard key={doc.id} doc={doc} />
             ))}
           </View>
         </ScrollView>
       </View>
     </SafeAreaView>
-  )
+  );
 }

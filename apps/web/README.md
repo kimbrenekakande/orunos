@@ -658,7 +658,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmail({ to, subject, react }) {
   await resend.emails.send({
-    from: "Acme <onboarding@resend.dev>",
+    from: "orunos <contact.orunos.com>",
     to: to,
     subject: subject,
     html: await render(react),

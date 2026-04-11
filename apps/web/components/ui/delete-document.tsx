@@ -31,7 +31,7 @@ export function DeleteDocument({ id }: { id: string }) {
         console.error('Failed to delete document')
         return
       }
-      router.refresh() // Refresh the server-side data
+      router.refresh()
       return toast.success("Document has been Deleted", { position: "top-center" })
     } catch (error) {
       console.error('Error deleting document:', error)
@@ -43,7 +43,12 @@ export function DeleteDocument({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Trash2Icon className="w-6 h-6 mr-2 cursor-pointer hover:text-destructive" />
+        <button 
+          className="p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground/40 hover:text-destructive transition-all duration-200"
+          aria-label="Delete document"
+        >
+          <Trash2Icon className="h-[18px] w-[18px]" />
+        </button>
       </AlertDialogTrigger>
       <AlertDialogContent size="sm">
         <AlertDialogHeader>

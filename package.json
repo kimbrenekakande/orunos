@@ -4,8 +4,7 @@
   "private": true,
   "packageManager": "bun@1.3.3",
   "workspaces": [
-    "apps/*",
-    "packages/ui"
+    "apps/*"
   ],
   "scripts": {
     "build": "turbo build",

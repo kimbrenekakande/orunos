@@ -2,8 +2,11 @@ import React from 'react';
 import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const TabLayout = () => {
+  const insets = useSafeAreaInsets();
+
   const TabIcon = ({ focused, iconName }: { focused: boolean; iconName: any }) => {
     return (
       <View className="items-center">
@@ -23,8 +26,9 @@ const TabLayout = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: "absolute",
-          height: 70,
+          height: 60 + insets.bottom,
           paddingTop: 8,
+          paddingBottom: insets.bottom,
           backgroundColor: "#0a0a0a",
           borderTopWidth: 0,
         },

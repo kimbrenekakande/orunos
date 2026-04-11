@@ -91,7 +91,7 @@ export default function App() {
   const userBalance = 10000;
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 bg-neutral-950">
       <View className="flex-1 px-4">
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }}>
           <View className="flex flex-row justify-between items-center py-4">

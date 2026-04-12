@@ -1,5 +1,6 @@
 import { tool,generateText } from "./braintrust"
 import { groq } from '@ai-sdk/groq'
+import { deepseek } from '@ai-sdk/deepseek';
 // import { google, type GoogleLanguageModelOptions } from '@ai-sdk/google';
 import {z} from "zod"
 import {outlineSchema, SectionLog} from "../types"
@@ -21,7 +22,9 @@ export const outlineTool = tool({
         Your role is to generate an outline for the provided questions to best answer the questions provided.
         The output should be aligned with official guidelines for the ${documentType} document type.
         rules :
-        - do not include the cover page
+        - do not include the cover page 
+        - do not include any Appendices
+        - the title you use should be those you want used as subheadings in the document creation so keep that into account
       `,
       prompt: `questions: ${questions}`,
     });
@@ -35,10 +38,7 @@ export const outlineTool = tool({
 
 export const writeTool = tool({
   description: "Expand on the outline to generate detailed content for each section and combine it with the summary and conclusion into a final document",
-  inputSchema: outlineSchema.extend({
-    id: z.string("The unique identifier for the document"),
-    instructions: z.string("Any additional instructions for the agent to follow else return empty"),
-  }),
+  inputSchema: outlineSchema,
   execute: async (docPlan) => {
     const sections = docPlan.sections
     
@@ -46,17 +46,16 @@ export const writeTool = tool({
     
     const content = sections.map(async (sec) => {
       const { text } = await generateText({
-        model: groq('openai/gpt-oss-120b'),
+        model: deepseek('deepseek-chat'),
         system: `
           You are an agent part of an academic document creation workflow,
           Your role is to generate detailed content on the provided section.
           Keep in mind the content you are generating is part of a larger document so it shouldnt be having intros and conclusions.
-          your output should start with a subheading from your input.
+          your output should start with a subheading passed to you as the section title.
           rules :
           -Do not use h1 or its equivalent(#)
           -The out put format should markdown
           -Dont add any dividers or conclusions.
-          ${docPlan.instructions || ""}
         `,
         prompt: `write a deep dive on ${sec['content']}`,
       });
@@ -72,11 +71,15 @@ export const writeTool = tool({
     let document = `# ${docPlan['title']} \n`;  //should be a space btn the markdown annotation and the text to render properly
 
     const x = await Promise.all(content)
-    for (const item of x) document += `\n ${item} \n`;
+    for (const item of x) document += `\n\n\n ${item} \n .......\n`;
 
     if (x) {
-      for (const [item, index] of sectionStatusLog.entries()) {
-        console.log(`SECTION ${index}: ${item}`);
+      const citations = docPlan.references
+      if (citations.length > 0) {
+        document += `\n\n## Citations\n`;
+        for (const citation of citations) {
+          document += `\n- ${citation}`;
+        }
       }
     }
 

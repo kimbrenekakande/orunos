@@ -5,6 +5,7 @@ import { deepseek } from '@ai-sdk/deepseek';
 import {z} from "zod"
 import {outlineSchema, SectionLog} from "../types"
 import prisma from '@/lib/prisma';
+import { serverSession } from "../server-session"; 
 
 export const outlineTool = tool({
   description: "Generates an outline for the document based on the document type and provided questions to best answer the questions provided",
@@ -40,6 +41,8 @@ export const writeTool = tool({
   description: "Expand on the outline to generate detailed content for each section and combine it with the summary and conclusion into a final document",
   inputSchema: outlineSchema,
   execute: async (docPlan) => {
+    const session = await serverSession()
+    const user = session?.user
     const sections = docPlan.sections
     
     const sectionStatusLog: SectionLog[] = []
@@ -56,6 +59,9 @@ export const writeTool = tool({
           -Do not use h1 or its equivalent(#)
           -The out put format should markdown
           -Dont add any dividers or conclusions.
+          
+          Your output should follow this stylometry analysis below :
+          ${user?.style}
         `,
         prompt: `write a deep dive on ${sec['content']}`,
       });

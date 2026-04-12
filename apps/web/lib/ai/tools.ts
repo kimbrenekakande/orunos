@@ -61,7 +61,7 @@ export const writeTool = tool({
           -Dont add any dividers or conclusions.
           
           Your output should follow this stylometry analysis below :
-          ${user?.style}
+          ${user?.style ? `${user.style}` : ""}
         `,
         prompt: `write a deep dive on ${sec['content']}`,
       });

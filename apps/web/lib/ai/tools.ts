@@ -3,9 +3,10 @@ import { groq } from '@ai-sdk/groq'
 import { deepseek } from '@ai-sdk/deepseek';
 // import { google, type GoogleLanguageModelOptions } from '@ai-sdk/google';
 import {z} from "zod"
-import {outlineSchema, SectionLog} from "../types"
+import { outlineSchema, SectionLog } from "../types"
+import { serverSession } from "../server-session";
+
 import prisma from '@/lib/prisma';
-import { serverSession } from "../server-session"; 
 
 export const outlineTool = tool({
   description: "Generates an outline for the document based on the document type and provided questions to best answer the questions provided",
@@ -15,7 +16,7 @@ export const outlineTool = tool({
     instructions: z.string("Any additional instructions for the agent to follow else return empty"),
   }),
   
-  execute: async ({ documentType, questions }) => { // removed instructions from input schema
+  execute: async ({ documentType, questions }) => {
     const { text } = await generateText({
       model: groq('openai/gpt-oss-120b'),
       system: `

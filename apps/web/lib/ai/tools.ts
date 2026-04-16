@@ -4,7 +4,6 @@ import { groq } from '@ai-sdk/groq'
 import {z} from "zod"
 import {outlineSchema, SectionLog} from "../types"
 import prisma from '@/lib/prisma';
-import { se } from "date-fns/locale";
 
 export const outlineTool = tool({
   description: "Generates an outline for the document based on the document type and provided questions to best answer the questions provided",
@@ -14,7 +13,7 @@ export const outlineTool = tool({
     instructions: z.string("Any additional instructions for the agent to follow else return empty"),
   }),
   
-  execute: async ({ documentType, questions, instructions }) => {
+  execute: async ({ documentType, questions }) => {
     const { text } = await generateText({
       model: groq('openai/gpt-oss-120b'),
       system: `

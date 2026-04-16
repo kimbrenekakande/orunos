@@ -31,12 +31,21 @@ export default function SettingsPage() {
   const { data: session, isPending, refetch } = authClient.useSession()
   const user = session?.user
 
-  const [profileDP, setProfileDP] = useState(user?.image)
-  const [name, setName] = useState(user?.name)
-  const [style, setStyle] = useState(user?.style)
+  const [profileDP, setProfileDP] = useState("")
+  const [name, setName] = useState("")
+  const [style, setStyle] = useState("")
   const [isSavingStyle, setIsSavingStyle] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [avatarUrl, setAvatarUrl] = useState(user?.image)
+  const [avatarUrl, setAvatarUrl] = useState("")
+
+  React.useEffect(() => {
+    if (user) {
+      setProfileDP(user.image || "")
+      setName(user.name || "")
+      setStyle((user as any).style || "")
+      setAvatarUrl(user.image || "")
+    }
+  }, [user])
 
 
   // Password change state
@@ -132,7 +141,19 @@ export default function SettingsPage() {
       } else {
         const r = await analyze.json()
         setStyle(r.style)
-        toast.success("Style saved successfully")
+
+        const { error } = await authClient.updateUser({
+          name: user?.name,
+          image: user?.image,
+          style: r.style,
+        } as any)
+
+        if (error) {
+          toast.error("Failed to save style to profile")
+        } else {
+          toast.success("Style saved successfully")
+          refetch()
+        }
       }
     } catch (err) {
       toast.error("Failed to analyze style")
@@ -142,7 +163,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-6 md:p-8">
+    <div className="flex flex-col gap-6 px-6 py-8 sm:p-8">
       {/* Header */}
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
@@ -352,23 +373,8 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <div className="grid gap-3">
-              <Label>Active Sessions</Label>
-              <div className="flex items-center justify-between rounded border p-3">
-                <div className="flex items-center gap-3">
-                  <div className="size-2 rounded-full bg-green-500" />
-                  <div>
-                    <p className="text-sm font-medium">Chrome on macOS</p>
-                    <p className="text-xs text-muted-foreground">
-                      Current device • Last active now
-                    </p>
-                  </div>
-                </div>
-                <Badge>Current</Badge>
-              </div>
-            </div>
           </CardContent>
-          <CardFooter className="flex flex-col gap-3 sm:flex-row sm:justify-between">
+          <CardFooter>
             <Button
               onClick={handleChangePassword}
               disabled={isLoading}

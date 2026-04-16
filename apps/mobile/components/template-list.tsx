@@ -1,22 +1,22 @@
-import { View, Text, ImageBackground } from "react-native"
+import { View, Text, ImageBackground, TouchableOpacity } from "react-native"
 import images from "@/constants/images"
 
 type tempProps = {
   title: string
-  price : number
+  price: number
 }
 
-export const Template = ({ title, price }: tempProps) => (
-  <View className="gap-2">
-    <View className="rounded -ml-1 p-2 h-75 w-55">
-      <ImageBackground
-        source={images.docPreview}
-        resizeMode="cover"
-        className="h-full w-full rounded"
-      />
-    </View>
-    <View className="ml-1">
-      <Text className="text-white">{title}</Text>
-    </View>
-  </View>
-)
+export const Template = ({ title }: tempProps) => {
+  return (
+    <TouchableOpacity className="w-64">
+      <View className="h-72 rounded-xl overflow-hidden mb-2">
+        <ImageBackground
+          source={images.docPreview}
+          resizeMode="cover"
+          className="h-full w-full"
+        />
+      </View>
+      <Text className="text-white text-sm px-1">{title}</Text>
+    </TouchableOpacity>
+  );
+}

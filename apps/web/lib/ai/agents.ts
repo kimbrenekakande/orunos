@@ -19,8 +19,10 @@ export async function doCreator(documentType: string, docQnz: string) {
       Use the tools at your disposal to generate the documents.
       When using a tool, you MUST NOT provide any introductory text,explanations, or conversational filler. 
       Output ONLY the tool call in the required format.
+      when calling the writer tool make sure the title you pass to in the sections matches the title you want used as a subheading in the document creation.
       In cases where its more than a simple question, your outline should facilitate for each question to be answered separately and each should be arranged same way the questions are presented say numbered or lettered.
       In case of things you don't know, you can search for information using the search tool if you have it available.
+      Always make sure you include t
       ${style ? `You should write in the stylometry below :  ${style} ` : ''}
     `,
     tools: {

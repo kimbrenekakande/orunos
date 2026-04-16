@@ -43,7 +43,7 @@ export default function SignUpPage() {
 		},
 	});
 
-	async function onSubmit(data: SignUpFormData) {
+		async function onSubmit(data: SignUpFormData) {
 		setIsLoading(true);
 		try {
 			const name = `${data.firstName} ${data.lastName}`;
@@ -51,7 +51,10 @@ export default function SignUpPage() {
 				name,
 				email: data.email,
 				password: data.password,
-				callbackURL: "/dashboard"
+				callbackURL: "/dashboard",
+				style: "",
+				image: "",
+				balance: 0,
 			});
 
 			if (error) {

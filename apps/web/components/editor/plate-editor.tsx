@@ -11,15 +11,14 @@ import { MyDoc } from "./doc";
 import baseUrl from "@/lib/base-url";
 import { MorphingExpandableMenu } from "@/components/ruixen/morphing-expandable-menu";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { useRef } from "react";
-import { toast } from "sonner";
+import { useState } from "react";
 
 
 export function PlateEditor({ md }: { md: Mdprops }) {
   const router = useRouter();
   const { id, title, content } = md;
   const { data, isPending, error, refetch } = authClient.useSession();
-  const downloadRef = useRef<HTMLAnchorElement>(null);
+  const [pdfUrl, setPdfUrl] = useState<string>("");
 
   const editor = usePlateEditor({
     plugins: EditorKit,
@@ -39,8 +38,12 @@ export function PlateEditor({ md }: { md: Mdprops }) {
   }
 
   function handleDownload() {
-    downloadRef.current?.click();
-    toast.success("PDF download started", { position: "top-center" });
+    if (pdfUrl) {
+      const a = document.createElement("a");
+      a.href = pdfUrl;
+      a.download = `${title}.pdf`;
+      a.click();
+    }
   }
 
   return (
@@ -53,12 +56,14 @@ export function PlateEditor({ md }: { md: Mdprops }) {
             onDownload={handleDownload}
           />
           <PDFDownloadLink
-            ref={downloadRef}
             document={<MyDoc title={title} content={newData} />}
             fileName={`${title}.pdf`}
             className="hidden"
           >
-            Download
+            {({ url }) => {
+              if (url) setPdfUrl(url);
+              return null;
+            }}
           </PDFDownloadLink>
         </div>
       </EditorContainer>

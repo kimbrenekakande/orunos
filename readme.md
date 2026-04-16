@@ -4,6 +4,8 @@
 
 Orunos is a comprehensive academic document creation platform designed for researchers, students, and academics. Generate well-formatted papers, theses, reports, and publications with AI-assisted writing, automatic citations, and professional PDF export tailored to academic standards.
 
+---
+
 ![Orunos Banner](./apps/web/public/images/landing.jpeg)
 
 ---

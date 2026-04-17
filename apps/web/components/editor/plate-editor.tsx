@@ -9,7 +9,7 @@ import { Mdprops } from "@/lib/types";
 import { authClient } from "@/lib/auth-client";
 import { MyDoc } from "./doc";
 import baseUrl from "@/lib/base-url";
-import { MorphingExpandableMenu } from "@/components/ruixen/morphing-expandable-menu";
+import { SimpleEditorMenu } from "@/components/ruixen/simple-editor-menu";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useState } from "react";
 
@@ -50,8 +50,8 @@ export function PlateEditor({ md }: { md: Mdprops }) {
     <Plate editor={editor}>
       <EditorContainer>
         <Editor variant="default" />
-        <div className="fixed bottom-5 right-10 -translate-x-1/2 z-50 rounded-4xl h-19">
-          <MorphingExpandableMenu
+        <div className="fixed bottom-10 right-10 -translate-x-1/2 z-50 rounded-4xl h-19">
+          <SimpleEditorMenu
             onSave={SaveEditorText}
             onDownload={handleDownload}
           />

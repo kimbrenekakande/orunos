@@ -26,6 +26,7 @@ import { Field } from "@/components/ui/field"
 
 import baseUrl from "@/lib/base-url"
 import { updateUploadHistory } from "@platejs/media/react"
+import posthog from "posthog-js"
 
 export default function SettingsPage() {
   const { data: session, isPending, refetch } = authClient.useSession()
@@ -67,6 +68,7 @@ export default function SettingsPage() {
         toast.error(error.message || "Failed to update profile")
       } else {
         toast.success("Profile updated successfully")
+        posthog.capture("profile_updated")
         refetch()
       }
     } catch (err) {
@@ -98,6 +100,7 @@ export default function SettingsPage() {
         toast.error(error.message || "Failed to change password")
       } else {
         toast.success("Password changed successfully")
+        posthog.capture("password_changed")
         setCurrentPassword("")
         setNewPassword("")
         setConfirmPassword("")
@@ -152,6 +155,7 @@ export default function SettingsPage() {
           toast.error("Failed to save style to profile")
         } else {
           toast.success("Style saved successfully")
+          posthog.capture("stylometry_analyzed", { file_count: files.length })
           refetch()
         }
       }

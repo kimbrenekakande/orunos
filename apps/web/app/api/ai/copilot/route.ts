@@ -21,6 +21,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const distinctId = req.headers.get("x-posthog-distinct-id") ?? undefined;
+
   try {
     const result = await generateText({
       abortSignal: req.signal,
@@ -29,6 +31,13 @@ export async function POST(req: NextRequest) {
       prompt: prompt,
       system,
       temperature: 0.7,
+      experimental_telemetry: {
+        isEnabled: true,
+        functionId: "copilot",
+        metadata: {
+          ...(distinctId ? { posthog_distinct_id: distinctId } : {}),
+        },
+      },
     });
 
     return NextResponse.json(result);

@@ -1,11 +1,8 @@
-import { Pressable, Text, View, ScrollView, FlatList, TouchableOpacity } from "react-native";
+import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"
 import Ionicons from "@expo/vector-icons/Ionicons"
 
 import { Link } from "expo-router";
-import { fetch } from "expo/fetch"
-import { useState, useEffect } from "react";
-import NextUrl from "@/lib/next-url";
 
 import { papers } from "@/constants/docs";
 import { temps } from "@/constants/templates";
@@ -66,87 +63,74 @@ function DocCard({ doc }: { doc: typeof papers[0] }) {
   );
 }
 
-export default function App() {
-  const [docs, setDocs] = useState(papers);
-
-  useEffect(() => {
-    async function getter() {
-      try {
-        const response = await fetch(`${NextUrl}/api/papers/all`, {
-          credentials: "include",
-        });
-        const output = await response.json();
-        setDocs(output);
-      } catch (error) {
-        console.error("Failed to fetch papers:", error);
-      }
-    }
-    getter();
-  }, []);
-
+function Header() {
   const userName = "Kakande";
   const firstName = userName.split(" ")[0] || "there";
-  const totalDocs = docs.length;
-  const readyDocs = docs.filter(d => d.status === "READY").length;
+  const totalDocs = papers.length;
+  const readyDocs = papers.filter(d => d.status === "READY").length;
   const userBalance = 10000;
 
   return (
-    <SafeAreaView className="flex-1 bg-neutral-950">
-      <View className="flex-1 px-4">
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }}>
-          <View className="flex flex-row justify-between items-center py-4">
-            <View>
-              <Text className="text-white text-lg">Good {getTimeOfDay()}, {firstName}</Text>
-              <Text className="text-neutral-500 text-xs mt-0.5">
-                {totalDocs > 0 ? `${totalDocs} documents · ${totalDocs - readyDocs} generating` : "Create your first document"}
-              </Text>
-            </View>
-            <Ionicons name="notifications-circle" color="#a3a3a3" size={32} />
-          </View>
-
-          <View className="flex flex-row gap-2 mt-4">
-            <StatBadge
-              icon={<Ionicons name="cash" size={14} color="#a3a3a3" />}
-              value={userBalance.toString()}
-            />
-            <StatBadge
-              icon={<Ionicons name="document-text" size={14} color="#a3a3a3" />}
-              value={totalDocs.toString()}
-            />
-            <StatBadge
-              icon={<Ionicons name="checkmark-circle" size={14} color="#4ade80" />}
-              value={readyDocs.toString()}
-              variant="success"
-            />
-          </View>
-
-          <View className="mt-8">
-            <Text className="text-neutral-400 text-sm mb-4">Templates</Text>
-            <View className="relative mx-[-16px] px-4">
-              <View className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-neutral-950 to-transparent z-10 pointer-events-none" />
-              <View className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-neutral-950 to-transparent z-10 pointer-events-none" />
-              <FlatList
-                data={temps}
-                renderItem={({ item }) => <Template title={item.title} price={item.price} />}
-                keyExtractor={item => item.id.toString()}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ gap: 12 }}
-              />
-            </View>
-          </View>
-
-          <View className="mt-8">
-            <View className="flex flex-row justify-between items-center mb-2">
-              <Text className="text-white text-base">Recent Documents</Text>
-              <Text className="text-orange-500 text-xs">VIEW ALL</Text>
-            </View>
-            {docs.map((doc) => (
-              <DocCard key={doc.id} doc={doc} />
-            ))}
-          </View>
-        </ScrollView>
+    <View className="px-4">
+      <View className="flex flex-row justify-between items-center py-4">
+        <View>
+          <Text className="text-white text-lg">Good {getTimeOfDay()}, {firstName}</Text>
+          <Text className="text-neutral-500 text-xs mt-0.5">
+            {totalDocs > 0 ? `${totalDocs} documents · ${totalDocs - readyDocs} generating` : "Create your first document"}
+          </Text>
+        </View>
+        <Ionicons name="notifications-circle" color="#a3a3a3" size={32} />
       </View>
+
+      <View className="flex flex-row gap-2 mt-4">
+        <StatBadge
+          icon={<Ionicons name="cash" size={14} color="#a3a3a3" />}
+          value={userBalance.toString()}
+        />
+        <StatBadge
+          icon={<Ionicons name="document-text" size={14} color="#a3a3a3" />}
+          value={totalDocs.toString()}
+        />
+        <StatBadge
+          icon={<Ionicons name="checkmark-circle" size={14} color="#4ade80" />}
+          value={readyDocs.toString()}
+          variant="success"
+        />
+      </View>
+
+      <View className="mt-8">
+        <Text className="text-neutral-400 text-sm mb-4">Templates</Text>
+        <FlatList
+          data={temps}
+          renderItem={({ item }) => <Template title={item.title} price={item.price} />}
+          keyExtractor={item => item.id.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 12 }}
+        />
+      </View>
+
+      <View className="mt-8">
+        <View className="flex flex-row justify-between items-center mb-2">
+          <Text className="text-white text-base">Recent Documents</Text>
+          <Text className="text-orange-500 text-xs">VIEW ALL</Text>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <SafeAreaView className="flex-1 bg-neutral-950">
+      <FlatList
+        data={papers}
+        renderItem={({ item }) => <DocCard doc={item} />}
+        keyExtractor={item => item.id.toString()}
+        ListHeaderComponent={Header}
+        contentContainerStyle={{ paddingBottom: 100 }}
+        showsVerticalScrollIndicator={false}
+      />
     </SafeAreaView>
   );
 }

@@ -33,6 +33,11 @@ export async function POST(request: NextRequest) {
   
   const { text } = await generateText({
     model: google('gemini-2.5-pro'),
+    experimental_telemetry: {
+      isEnabled: true,
+      functionId: "stylometry-analysis",
+      metadata: { posthog_distinct_id: user.email ?? user.id },
+    },
     messages: [
       {
         role: 'user',

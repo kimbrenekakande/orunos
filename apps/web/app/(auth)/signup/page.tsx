@@ -15,6 +15,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "sonner"
+import posthog from "posthog-js";
 
 const signupSchema = z.object({
 	firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -61,6 +62,8 @@ export default function SignUpPage() {
 				toast.error(error.message);
 				return;
 			}
+			posthog.identify(data.email, { email: data.email, name });
+			posthog.capture("user_signed_up", { method: "email" });
 			router.push("/dashboard");
 		} finally {
 			setIsLoading(false);

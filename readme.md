@@ -4,14 +4,15 @@
 
 Orunos is a comprehensive academic document creation platform designed for researchers, students, and academics. Generate well-formatted papers, theses, reports, and publications with AI-assisted writing, automatic citations, and professional PDF export tailored to academic standards.
 
-![Orunos Banner](./apps/web/public/images/tree.jpg)
+---
+
+![Orunos Banner](./apps/web/public/images/landing.jpeg)
 
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Architecture](#architecture)
 - [Features](#features)
 - [Technology Stack](#technology-stack)
 - [Project Structure](#project-structure)
@@ -33,48 +34,6 @@ Orunos is a full-stack monorepo application that provides:
 - **Document templates** — Pre-built templates for coursework, fieldwork, theses, and research papers
 - **Multi-platform access** — Web application (Next.js) and mobile app (Expo React Native)
 - **User authentication** — Secure authentication with Better Auth, email verification, and social login
-
----
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         Orunos Platform                      │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  ┌──────────────────┐              ┌──────────────────┐     │
-│  │   Web App        │              │   Mobile App     │     │
-│  │   (Next.js 16)   │◄────────────►│   (Expo RN)      │     │
-│  │   localhost:3000 │   Shared     │   localhost:8081 │     │
-│  └────────┬─────────┘   Auth       └──────────────────┘     │
-│           │                                                  │
-│           ▼                                                  │
-│  ┌──────────────────┐                                       │
-│  │   API Routes     │                                       │
-│  │   /api/*         │                                       │
-│  └────────┬─────────┘                                       │
-│           │                                                  │
-│           ▼                                                  │
-│  ┌──────────────────┐                                       │
-│  │   Better Auth    │                                       │
-│  │   (Auth Layer)   │                                       │
-│  └────────┬─────────┘                                       │
-│           │                                                  │
-│           ▼                                                  │
-│  ┌──────────────────┐                                       │
-│  │   Prisma ORM     │                                       │
-│  │   (SQLite/Turso) │                                       │
-│  └────────┬─────────┘                                       │
-│           │                                                  │
-│           ▼                                                  │
-│  ┌──────────────────┐                                       │
-│  │   Database       │                                       │
-│  │   (LibSQL)       │                                       │
-│  └──────────────────┘                                       │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
 
 ---
 

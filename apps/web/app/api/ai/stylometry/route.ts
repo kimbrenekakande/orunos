@@ -33,19 +33,34 @@ export async function POST(request: NextRequest) {
   
   const { text } = await generateText({
     model: google('gemini-2.5-pro'),
+    experimental_telemetry: {
+      isEnabled: true,
+      functionId: "stylometry-analysis",
+      metadata: { posthog_distinct_id: user.email ?? user.id },
+    },
     messages: [
       {
         role: 'user',
         content: [
           { 
             type: 'text', 
-            text: `Analyze in detail the stylometry writing style in these documents.
-            Extract key patterns in tone, vocabulary, sentence structure, and any distinctive writing traits. 
-            Provide only a summary of the writing style for another agent to use to generate content. 
-            Dont provide the whole analysis, just the summary. Plain text only not markdown.
-            Dont include the topic just the style . analyze it to the T.
-            you can provide specific  samples you think the agent should analyze
-            The output should be able to be used by another agent to generate documents sounding like the author.`
+            text: `You are a stylometry expert. Analyze the writing style of the provided documents with precision.
+          
+          Your goal is to extract a replicable style fingerprint — enough for another agent to generate new content that is stylistically indistinguishable from the author.
+          
+          Focus on:
+          - Vocabulary: word complexity, preferred diction, recurring phrases, jargon, contractions, formality level
+          - Sentence structure: average length, rhythm, use of fragments, run-ons, parallelism, clause patterns
+          - Punctuation habits: comma usage, dashes, ellipses, semicolons, unconventional choices
+          - Tone & voice: authoritative, conversational, sardonic, detached — and how it shifts
+          - Paragraph behavior: length, how ideas are introduced and closed, transitions
+          - Distinctive quirks: rhetorical devices, hedging language, how the author opens and closes thoughts
+          - Grammar patterns: any intentional rule-breaking, tense preferences, passive vs active voice ratio
+          
+          Output a compact but dense style guide in plain text. No markdown. No topic analysis. No document summary.
+          Write it as direct instructions a generative agent can follow.
+          Include 2-4 short verbatim samples that best exemplify the style — label them as SAMPLE.
+          End with a one-paragraph "Voice Essence" that captures the overall feel in plain language.`
           },
           ...fileContents.map((fc) => ({ type: 'file' as const, ...fc })),
         ],

@@ -21,7 +21,7 @@ export function DocPoller({ id, from } : props) {
   const { data, error, isLoading } = useSWR(
     `${baseUrl}/api/papers/fetch?id=${id}`, fetcher,
     { refreshInterval: (data) => {
-      return (!data || data.status === "GENERATING")? 2000 : 0;
+      return (!data || data.status === "GENERATING")? 5000 : 0;
     } }
   )
 

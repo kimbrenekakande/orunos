@@ -32,7 +32,7 @@ export async function doCreator(documentType: string, docQnz: string) {
     stopWhen: stepCountIs(3),
   });
   
-  const flow = documentAgent.generate({
+  const flow = await documentAgent.generate({
     prompt: docQnz,
   });
   

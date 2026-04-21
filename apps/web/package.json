@@ -122,7 +122,7 @@
     "orunos": ".",
     "pdf-lib": "^1.17.1",
     "platejs": "^51.1.3",
-    "posthog-js": "^1.369.3",
+    "posthog-js": "^1.369.4",
     "posthog-node": "^5.21.2",
     "prisma-adapter-bun-sqlite": "^0.6.6",
     "radix-ui": "^1.4.3",

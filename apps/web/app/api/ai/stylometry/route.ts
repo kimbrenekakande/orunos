@@ -68,15 +68,18 @@ export async function POST(request: NextRequest) {
     ],
   });
   
-  console.log("session user id:", user.id);
+  console.log("stylometry: userId=", user.id, "text length=", text.length);
   
-  await prisma.user.update({
-    where: { id: user.id },
-    data: { style: text },
-  });
-  
-  console.log("style saved:", text);
-  console.log("the route has received refs", refs.length, "files");
+  try {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { style: text },
+    });
+    console.log("stylometry: style saved successfully");
+  } catch (err) {
+    console.error("stylometry: failed to save style:", err);
+    return NextResponse.json({ error: 'Failed to save style' }, { status: 500 });
+  }
   
   return NextResponse.json({ style: text }, { status: 200 });
 }

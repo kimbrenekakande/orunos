@@ -62,9 +62,16 @@ export default function SignUpPage() {
 				toast.error(error.message);
 				return;
 			}
-			posthog.identify(data.email, { email: data.email, name });
-			posthog.capture("user_signed_up", { method: "email" });
+			try {
+				posthog.capture("user_signed_up", { method: "email" });
+				posthog.identify(data.email, { email: data.email, name });
+			} catch (phError) {
+				console.error("PostHog error:", phError);
+			}
 			router.push("/dashboard");
+		} catch (err) {
+			console.error("Signup error:", err);
+			toast.error("An error occurred during sign up");
 		} finally {
 			setIsLoading(false);
 		}

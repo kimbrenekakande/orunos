@@ -47,9 +47,16 @@ export default function LoginPage() {
 				toast.error(error.message);
 				return;
 			}
-			posthog.identify(data.email, { email: data.email });
-			posthog.capture("user_signed_in", { method: "email" });
+			try {
+				posthog.capture("user_signed_in", { method: "email" });
+				posthog.identify(data.email, { email: data.email });
+			} catch (phError) {
+				console.error("PostHog error:", phError);
+			}
 			router.push("/dashboard");
+		} catch (err) {
+			console.error("Login error:", err);
+			toast.error("An error occurred during sign in");
 		} finally {
 			setIsLoading(false);
 		}

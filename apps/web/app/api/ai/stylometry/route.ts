@@ -6,10 +6,14 @@ import prisma from "@/lib/prisma";
 
 
 export async function POST(request: NextRequest) {
+  console.log("stylometry: request received");
   const session = await serverSession();
   const user = session?.user;
   
+  console.log("stylometry: session=", !!session, "user=", !!user, "userId=", user?.id);
+  
   if (!user?.id) {
+    console.log("stylometry: not authenticated");
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
   
@@ -30,6 +34,8 @@ export async function POST(request: NextRequest) {
       };
     })
   );
+  
+  console.log("stylometry: calling AI...");
   
   const { text } = await generateText({
     model: google('gemini-2.5-pro'),
@@ -65,10 +71,11 @@ export async function POST(request: NextRequest) {
           ...fileContents.map((fc) => ({ type: 'file' as const, ...fc })),
         ],
       },
-    ],
-  });
-  
-  console.log("stylometry: userId=", user.id, "text length=", text.length);
+],
+   });
+   
+   console.log("stylometry: AI completed, text length=", text.length);
+   console.log("stylometry: userId=", user.id);
   
   try {
     await prisma.user.update({

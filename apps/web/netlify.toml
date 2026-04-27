@@ -1,0 +1,5 @@
+[functions]
+  included_files = ["**"]
+
+[functions."api/ai/generate"]
+  timeout = 900

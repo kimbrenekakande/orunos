@@ -2,9 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { doCreator } from "@/lib/ai/agents";
 import { createPartFromUri, createUserContent, GoogleGenAI } from '@google/genai';
 import { getPostHogClient } from "@/lib/posthog-server";
+import { serverSession } from "@/lib/server-session";
 
 
 export async function POST(request: NextRequest) {
+  const session = await serverSession();
+  if (!session) return NextResponse.json({ error: 'Unauthorized', status: 401 });
+  const style = session.user.style || ''
+  const user = session.user;
+
+  console.log(user);
+
   const body = await request.json();
   const id = await body.id;
   const documentType = await body.paperType
@@ -13,7 +21,7 @@ export async function POST(request: NextRequest) {
 
   if (!id) return NextResponse.json({ error: 'Document ID is required', status: 400 });
   if (!questions) return NextResponse.json({ error: 'Prompt is required', status: 400 });
-  
+
 
   const promptParts = [
     `Document ID : ${id}`,
@@ -42,16 +50,16 @@ export async function POST(request: NextRequest) {
     const cachedName = cache.name
     if (cachedName) promptParts.push(`cachedContent : ${cachedName}`)
   }
-  
+
   const promptQnz = `${promptParts.join("\n")}`
 
-  const maker = await doCreator(documentType, promptQnz)
+  const maker = await doCreator(id, documentType, style, promptQnz)
 
   console.log('Agent result:',"\n", maker)
 
   const distinctId = request.headers.get("x-posthog-distinct-id") ?? "anonymous";
   const posthog = getPostHogClient();
-  posthog.capture({ 
+  posthog.capture({
     distinctId,
     event: "document_generated",
     properties: {

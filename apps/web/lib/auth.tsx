@@ -28,6 +28,7 @@ export const auth = betterAuth({
     "http://localhost:3000",
     "http://localhost:3001",
     "https://orunos.netlify.app",
+    "https://orunos.vercel.app",
     "orunos-mobile://" ,//gotta change this to the url of expo app
     "http://localhost:8081",
     "exp://",

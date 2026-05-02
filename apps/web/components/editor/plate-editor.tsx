@@ -12,6 +12,7 @@ import baseUrl from "@/lib/base-url";
 import { SimpleEditorMenu } from "@/components/ruixen/simple-editor-menu";
 import { usePDF } from "@react-pdf/renderer";
 import { useState, useEffect } from "react";
+import { mutate } from "swr";
 
 
 export function PlateEditor({ md }: { md: Mdprops }) {
@@ -36,15 +37,21 @@ export function PlateEditor({ md }: { md: Mdprops }) {
     setIsSaving(true);
     try {
       const changes = editor.api.markdown.serialize();
-      await fetch(`${baseUrl}/api/papers/update?id=${id}`, {
+      const response = await fetch(`${baseUrl}/api/papers/update?id=${id}`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ update: changes }),
       });
+
+      if (!response.ok) {
+        throw new Error(`Save failed with status: ${response.status}`);
+      }
+
+      await mutate(`${baseUrl}/api/papers/fetch?id=${id}`);
+      await new Promise((resolve) => setTimeout(resolve, 800));
       router.replace("/dashboard");
     } catch (error) {
       console.error("Failed to save:", error);
-    } finally {
       setIsSaving(false);
     }
   }

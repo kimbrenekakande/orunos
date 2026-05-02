@@ -20,9 +20,14 @@ export function DocPoller({ id, from } : props) {
   //Polling using nextjs swr
   const { data, error, isLoading } = useSWR(
     `${baseUrl}/api/papers/fetch?id=${id}`, fetcher,
-    { refreshInterval: (data) => {
-      return (!data || data.status === "GENERATING")? 5000 : 0;
-    } }
+    {
+      refreshInterval: (data) => {
+        return (!data || data.status === "GENERATING")? 5000 : 0;
+      },
+      revalidateOnFocus: true,
+      revalidateIfStale: true,
+      revalidateOnMount: true,
+    }
   )
 
   if (error) return <div>Error Fetching Document</div>;
@@ -62,7 +67,7 @@ export function DocPoller({ id, from } : props) {
 
   return (
     <div className="h-full w-full">
-      <PlateEditor md={Document} />
+      <PlateEditor key={`${data.id}-${data.updatedAt}`} md={Document} />
       <Toaster />
     </div>
   );

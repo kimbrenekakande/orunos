@@ -73,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <meta name="apple-mobile-web-app-title" content="orunos" />
       <body className={`${inter.variable} ${nexa.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system"  enableSystem disableTransitionOnChange >

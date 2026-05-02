@@ -62,20 +62,24 @@ function TemplateCard({ template }: { template: { name: string; type: string; im
 
 function TemplatesGallery() {
 	return (
-		<Carousel className="relative">
-			<CarouselPrevious className="left-2 z-20" />
-			<CarouselNext className="right-2 z-20" />
-			<CarouselContent className="px-10">
-				{templates.map((template) => (
-					<CarouselItem
-						key={template.name}
-						className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
-					>
-						<TemplateCard template={template} />
-					</CarouselItem>
-				))}
-			</CarouselContent>
-		</Carousel>
+		<div className="relative">
+			<div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-background to-transparent" />
+			<div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-background to-transparent" />
+			<Carousel className="relative">
+				<CarouselPrevious className="left-2 z-20" />
+				<CarouselNext className="right-2 z-20" />
+				<CarouselContent className="px-10">
+					{templates.map((template) => (
+						<CarouselItem
+							key={template.name}
+							className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
+						>
+							<TemplateCard template={template} />
+						</CarouselItem>
+					))}
+				</CarouselContent>
+			</Carousel>
+		</div>
 	);
 }
 

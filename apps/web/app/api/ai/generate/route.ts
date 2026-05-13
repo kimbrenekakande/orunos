@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { doCreator } from "@/lib/ai/agents";
 import { createPartFromUri, createUserContent, GoogleGenAI } from '@google/genai';
-import { getPostHogClient } from "@/lib/posthog-server";
 
 
 export async function POST(request: NextRequest) {
@@ -48,18 +47,5 @@ export async function POST(request: NextRequest) {
   const maker = await doCreator(documentType, promptQnz)
 
   console.log('Agent result:',"\n", maker)
-
-  const distinctId = request.headers.get("x-posthog-distinct-id") ?? "anonymous";
-  const posthog = getPostHogClient();
-  posthog.capture({ 
-    distinctId,
-    event: "document_generated",
-    properties: {
-      document_id: id,
-      document_type: documentType,
-      has_references: references != 0,
-    },
-  });
-
   return NextResponse.json({status : 'document created successfully'});
 }

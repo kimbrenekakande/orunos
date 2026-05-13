@@ -12,7 +12,6 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { ChangeEvent, useState } from "react";
-import posthog from "posthog-js";
 
 const formSchema = z.object({
   doctype: z.string(),
@@ -44,11 +43,6 @@ export default function Questionaire({ doctype }: { doctype: string }) {
 
   async function onSubmit(data: { doctype: string; qnz: string }) {
     setIsSubmitting(true);
-    posthog.capture("document_generation_started", {
-      doctype: data.doctype,
-      has_reference_files: files.length > 0,
-      reference_file_count: files.length,
-    });
     try {
       const formData = new FormData();
       formData.append("doctype", data.doctype);

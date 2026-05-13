@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       abortSignal: req.signal,
       maxOutputTokens: 50,
       model: groq('llama-3.3-70b-versatile'),
-      prompt: prompt,
+      prompt,
       system,
       temperature: 0.7,
       experimental_telemetry: {
@@ -37,7 +37,9 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json(result);
+    const text = result.steps?.flatMap(s => s.content?.filter(c => c.type === 'text').map(c => c.text)).join('') || '';
+
+    return NextResponse.json({ text });
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {
       return NextResponse.json(null, { status: 408 });

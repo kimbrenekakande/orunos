@@ -34,7 +34,6 @@ import {
   TrendingUp,
   Wallet,
 } from "lucide-react"
-import posthog from "posthog-js"
 
 export default function BillingPage() {
   const [amount, setAmount] = useState("")
@@ -203,7 +202,7 @@ export default function BillingPage() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button className="w-full" onClick={() => posthog.capture("add_funds_clicked", { amount })}>Add Funds Now</Button>
+            <Button className="w-full">Add Funds Now</Button>
           </CardFooter>
         </Card>
       </div>

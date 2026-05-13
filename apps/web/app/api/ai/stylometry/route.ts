@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     experimental_telemetry: {
       isEnabled: true,
       functionId: "stylometry-analysis",
-      metadata: { posthog_distinct_id: user.email ?? user.id },
+      metadata: {},
     },
     messages: [
       {

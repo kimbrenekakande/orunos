@@ -1,6 +1,6 @@
 import type { ChatMessage,ToolName } from '@/components/editor/use-chat';
 import type { NextRequest } from 'next/server';
-import { groq } from '@ai-sdk/groq';
+import { createGroq } from '@ai-sdk/groq';
 
 import {
   type LanguageModel,
@@ -20,7 +20,6 @@ import { BaseEditorKit } from '@/components/editor/editor-base-kit';
 import { markdownJoinerTransform } from '@/lib/markdown-joiner-transform';
 
 import { getChooseToolPrompt, getCommentPrompt, getEditPrompt, getGeneratePrompt } from './prompts';
-import { getPostHogClient } from "@/lib/posthog-server";
 
 export async function POST(req: NextRequest) {
   const { apiKey: key, ctx, messages: messagesRaw = [], model } = await req.json();
@@ -32,9 +31,11 @@ export async function POST(req: NextRequest) {
     value: children,
   });
 
-  const apiKey = key || process.env.AI_GATEWAY_API_KEY;
+  const groq = createGroq({
+    apiKey: key || process.env.GROQ_API_KEY,
+  });
 
-  if (!apiKey) {
+  if (!key && !process.env.GROQ_API_KEY) {
     return NextResponse.json(
       { error: 'Missing API key.' },
       { status: 401 }
@@ -42,18 +43,6 @@ export async function POST(req: NextRequest) {
   }
 
   const isSelecting = editor.api.isExpanded();
-
-  const distinctId = req.headers.get("x-posthog-distinct-id") ?? "anonymous";
-  const posthog = getPostHogClient();
-  posthog.capture({
-    distinctId,
-    event: "ai_command_used",
-    properties: {
-      tool: toolNameParam ?? "auto",
-      is_selecting: isSelecting,
-      model: model ?? "default",
-    },
-  });
 
   try {
     const stream = createUIMessageStream<ChatMessage>({
@@ -65,15 +54,13 @@ export async function POST(req: NextRequest) {
             enum: isSelecting
               ? ['generate', 'edit', 'comment']
               : ['generate', 'comment'],
-            model: groq(model || 'moonshotai/kimi-k2-instruct-0905'),
+            model: groq(model || 'llama-3.3-70b-versatile'),
             output: 'enum',
             prompt: getChooseToolPrompt(messagesRaw),
             experimental_telemetry: {
               isEnabled: true,
               functionId: "ai-command-tool-selection",
-              metadata: {
-                ...(distinctId !== "anonymous" ? { posthog_distinct_id: distinctId } : {}),
-              },
+              metadata: {},
             },
           });
 
@@ -87,20 +74,18 @@ export async function POST(req: NextRequest) {
 
         const stream = streamText({
           experimental_transform: markdownJoinerTransform(),
-          model: groq(model || 'moonshotai/kimi-k2-instruct-0905'),
+          model: groq(model || 'llama-3.3-70b-versatile'),
           // Not used
           prompt: '',
           experimental_telemetry: {
             isEnabled: true,
             functionId: "ai-command-stream",
-            metadata: {
-              ...(distinctId !== "anonymous" ? { posthog_distinct_id: distinctId } : {}),
-            },
+            metadata: {},
           },
           tools: {
             comment: getCommentTool(editor, {
               messagesRaw,
-              model: groq(model || 'moonshotai/kimi-k2-instruct-0905'),
+              model: groq(model || 'llama-3.3-70b-versatile'),
               writer,
             }),
           },
@@ -144,7 +129,7 @@ export async function POST(req: NextRequest) {
                     role: 'user',
                   },
                 ],
-                model: groq(model || 'moonshotai/kimi-k2-instruct-0905'),
+                model: groq(model || 'llama-3.3-70b-versatile'),
               };
             }
           },
@@ -155,11 +140,11 @@ export async function POST(req: NextRequest) {
     });
 
     return createUIMessageStreamResponse({ stream });
-  } catch {
-    return NextResponse.json(
-      { error: 'Failed to process AI request' },
-      { status: 500 }
-    );
+  } catch (err) {
+    console.error('AI command error:', err instanceof Error ? err.message : err);
+    const message =
+      err instanceof Error ? err.message : 'Failed to process AI request';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 

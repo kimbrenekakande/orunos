@@ -2,52 +2,51 @@ import type { NextRequest } from 'next/server';
 
 import { generateText } from 'ai';
 import { NextResponse } from 'next/server';
-import { groq } from '@ai-sdk/groq';
+import { createGroq } from '@ai-sdk/groq';
 
 export async function POST(req: NextRequest) {
   const {
     apiKey: key,
-    // model = 'gpt-4o-mini',
     prompt,
     system,
   } = await req.json();
 
-  const apiKey = key || process.env.AI_GATEWAY_API_KEY;
+  const groq = createGroq({
+    apiKey: key || process.env.GROQ_API_KEY,
+  });
 
-  if (!apiKey) {
+  if (!key && !process.env.GROQ_API_KEY) {
     return NextResponse.json(
-      { error: 'Missing ai gateway API key.' },
+      { error: 'Missing API key.' },
       { status: 401 }
     );
   }
-
-  const distinctId = req.headers.get("x-posthog-distinct-id") ?? undefined;
 
   try {
     const result = await generateText({
       abortSignal: req.signal,
       maxOutputTokens: 50,
-      model: groq('moonshotai/kimi-k2-instruct-0905'),
-      prompt: prompt,
+      model: groq('llama-3.3-70b-versatile'),
+      prompt,
       system,
-      temperature: 0.7,
+      temperature: 0.1,
       experimental_telemetry: {
         isEnabled: true,
         functionId: "copilot",
-        metadata: {
-          ...(distinctId ? { posthog_distinct_id: distinctId } : {}),
-        },
+        metadata: {},
       },
     });
 
-    return NextResponse.json(result);
+    const text = result.steps?.flatMap(s => s.content?.filter(c => c.type === 'text').map(c => c.text)).join('') || '';
+
+    return NextResponse.json({ text });
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {
       return NextResponse.json(null, { status: 408 });
     }
-
+    console.error('Copilot AI error:', error instanceof Error ? error.message : error);
     return NextResponse.json(
-      { error: 'Failed to process AI request' },
+      { error: error instanceof Error ? error.message : 'Failed to process AI request' },
       { status: 500 }
     );
   }

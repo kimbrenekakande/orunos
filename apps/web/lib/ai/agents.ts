@@ -1,8 +1,11 @@
 import { ToolLoopAgent, stepCountIs } from "./braintrust";
 import { writeTool, outlineTool } from "./tools"
-import { groq } from '@ai-sdk/groq';
+import { createGroq } from '@ai-sdk/groq';
 import { serverSession } from "@/lib/server-session";
 
+const groq = createGroq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 export async function doCreator(documentType: string, docQnz: string) {
   
@@ -12,7 +15,7 @@ export async function doCreator(documentType: string, docQnz: string) {
   const style = user?.style;
   
   const documentAgent = new ToolLoopAgent({
-    model: groq('meta-llama/llama-4-scout-17b-16e-instruct'),
+    model: groq('llama-3.3-70b-versatile'),
     instructions: `
       You are an agent that specializes in writing university ${documentType} academic documents.
       Generate an outline suited to best answer the questions provided,

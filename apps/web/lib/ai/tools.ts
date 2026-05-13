@@ -1,6 +1,10 @@
 import { tool,generateText } from "./braintrust"
-import { groq } from '@ai-sdk/groq'
+import { createGroq } from '@ai-sdk/groq'
 import { deepseek } from '@ai-sdk/deepseek';
+
+const groq = createGroq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 // import { google, type GoogleLanguageModelOptions } from '@ai-sdk/google';
 import {z} from "zod"
 import { outlineSchema, SectionLog } from "../types"
@@ -18,7 +22,7 @@ export const outlineTool = tool({
   
   execute: async ({ documentType, questions }) => {
     const { text } = await generateText({
-      model: groq('openai/gpt-oss-120b'),
+      model: groq('llama-3.3-70b-versatile'),
       system: `
         You are an agent, part of a ${documentType} academic document creation workflow,
         Your role is to generate an outline for the provided questions to best answer the questions provided.

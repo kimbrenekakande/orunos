@@ -149,11 +149,13 @@ export const models: Model[] = [
   { label: 'Llama 3 8B', value: 'meta/llama-3-8b' },
   { label: 'Llama 3.1 70B', value: 'meta/llama-3.1-70b' },
   { label: 'Llama 3.1 8B', value: 'meta/llama-3.1-8b' },
+  { label: 'Llama 3.1 8B Instant', value: 'llama-3.1-8b-instant' },
   { label: 'Llama 3.2 11B', value: 'meta/llama-3.2-11b' },
   { label: 'Llama 3.2 1B', value: 'meta/llama-3.2-1b' },
   { label: 'Llama 3.2 3B', value: 'meta/llama-3.2-3b' },
   { label: 'Llama 3.2 90B', value: 'meta/llama-3.2-90b' },
   { label: 'Llama 3.3 70B', value: 'meta/llama-3.3-70b' },
+  { label: 'Llama 3.3 70B Versatile', value: 'llama-3.3-70b-versatile' },
   { label: 'Llama 4 Maverick', value: 'meta/llama-4-maverick' },
   { label: 'Llama 4 Scout', value: 'meta/llama-4-scout' },
 
@@ -218,7 +220,10 @@ export const models: Model[] = [
 export function SettingsDialog() {
   const editor = useEditorRef();
 
-  const [tempModel, setTempModel] = React.useState(models[7]);
+  const defaultModelIndex = models.findIndex((m) => m.value === 'llama-3.3-70b-versatile') ?? -1;
+  const [tempModel, setTempModel] = React.useState(
+    defaultModelIndex >= 0 ? models[defaultModelIndex] : models[0]
+  );
   const [tempKeys, setTempKeys] = React.useState<Record<string, string>>({
     aiGatewayApiKey: '',
     uploadthing: '',

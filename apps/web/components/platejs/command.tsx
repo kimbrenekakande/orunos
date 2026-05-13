@@ -5,13 +5,7 @@ import { Command as CommandPrimitive } from "cmdk"
 import { SearchIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/platejs/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/platejs/dialog"
 
 function Command({
   className,

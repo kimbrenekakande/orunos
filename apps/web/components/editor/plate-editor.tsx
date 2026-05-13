@@ -10,47 +10,57 @@ import { authClient } from "@/lib/auth-client";
 import { MyDoc } from "./doc";
 import baseUrl from "@/lib/base-url";
 import { SimpleEditorMenu } from "@/components/ruixen/simple-editor-menu";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { useState } from "react";
+import { usePDF } from "@react-pdf/renderer";
+import { useState, useEffect } from "react";
+import { mutate } from "swr";
 
 
 export function PlateEditor({ md }: { md: Mdprops }) {
   const router = useRouter();
   const { id, title, content } = md;
   const { data, isPending, error, refetch } = authClient.useSession();
-  const [pdfUrl, setPdfUrl] = useState<string>("");
   const [isSaving, setIsSaving] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-
   const editor = usePlateEditor({
     plugins: EditorKit,
     value: (editor) => editor.getApi(MarkdownPlugin).markdown.deserialize(content),
   });
 
   const newData = editor.api.markdown.serialize();
+  const [instance, updateInstance] = usePDF({ document: <MyDoc title={title} content={newData} /> });
+
+  useEffect(() => {
+    updateInstance(<MyDoc title={title} content={newData} />);
+  }, [newData, title, updateInstance]);
 
   async function SaveEditorText() {
     setIsSaving(true);
     try {
       const changes = editor.api.markdown.serialize();
-      await fetch(`${baseUrl}/api/papers/update?id=${id}`, {
+      const response = await fetch(`${baseUrl}/api/papers/update?id=${id}`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ update: changes }),
       });
+
+      if (!response.ok) {
+        throw new Error(`Save failed with status: ${response.status}`);
+      }
+
+      await mutate(`${baseUrl}/api/papers/fetch?id=${id}`);
+      await new Promise((resolve) => setTimeout(resolve, 800));
       router.replace("/dashboard");
     } catch (error) {
       console.error("Failed to save:", error);
-    } finally {
       setIsSaving(false);
     }
   }
 
   function handleDownload() {
     setIsDownloading(true);
-    if (pdfUrl) {
+    if (instance.url) {
       const a = document.createElement("a");
-      a.href = pdfUrl;
+      a.href = instance.url;
       a.download = `${title}.pdf`;
       a.click();
     }
@@ -68,16 +78,6 @@ export function PlateEditor({ md }: { md: Mdprops }) {
             isSaving={isSaving}
             isDownloading={isDownloading}
           />
-          <PDFDownloadLink
-            document={<MyDoc title={title} content={newData} />}
-            fileName={`${title}.pdf`}
-            className="hidden"
-          >
-            {({ url }) => {
-              if (url) setPdfUrl(url);
-              return null;
-            }}
-          </PDFDownloadLink>
         </div>
       </EditorContainer>
     </Plate>

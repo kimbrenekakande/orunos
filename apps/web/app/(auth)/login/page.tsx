@@ -14,7 +14,6 @@ import { toast } from "sonner"
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
-import posthog from "posthog-js";
 
 const loginSchema = z.object({
 	email: z.string().email("Please enter a valid email address"),
@@ -46,12 +45,6 @@ export default function LoginPage() {
 			if (error) {
 				toast.error(error.message);
 				return;
-			}
-			try {
-				posthog.capture("user_signed_in", { method: "email" });
-				posthog.identify(data.email, { email: data.email });
-			} catch (phError) {
-				console.error("PostHog error:", phError);
 			}
 			router.push("/dashboard");
 		} catch (err) {
@@ -153,7 +146,7 @@ export default function LoginPage() {
 					</div>
 
 					<div className="grid grid-cols-2 gap-3">
-						<Button type="button" variant="outline" onClick={() => { posthog.capture("social_sign_in_clicked", { provider: "google" }); socialsignIn("google"); }} disabled={isLoading} className="cursor-pointer">
+						<Button type="button" variant="outline" onClick={() => socialsignIn("google")} disabled={isLoading} className="cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="0.98em"

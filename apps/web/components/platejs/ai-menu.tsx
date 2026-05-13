@@ -424,7 +424,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
     value: 'makeLonger',
     onSelect: ({ editor, input }) => {
       void editor.getApi(AIChatPlugin).aiChat.submit(input, {
-        prompt: 'Make longer',
+        prompt: 'Make this text much longer. like a few paragraphs',
         toolName: 'edit',
       });
     },

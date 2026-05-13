@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { doCreator } from "@/lib/ai/agents";
 import { createPartFromUri, createUserContent, GoogleGenAI } from '@google/genai';
 
+export const maxDuration = 120;
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const id = await body.id;
-  const documentType = await body.paperType
-  const questions = await body.prompt;
-  const references = await body.references
+  const id = body.id;
+  const documentType = body.paperType;
+  const questions = body.prompt;
+  const references = body.references;
 
   if (!id) return NextResponse.json({ error: 'Document ID is required', status: 400 });
   if (!questions) return NextResponse.json({ error: 'Prompt is required', status: 400 });

@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       model: groq('llama-3.3-70b-versatile'),
       prompt,
       system,
-      temperature: 0.7,
+      temperature: 0.1,
       experimental_telemetry: {
         isEnabled: true,
         functionId: "copilot",

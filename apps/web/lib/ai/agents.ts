@@ -1,5 +1,5 @@
 import { ToolLoopAgent, stepCountIs } from "./braintrust";
-import { writeTool, outlineTool } from "./tools"
+import { outlineTool,writeTool, writeCachedTool } from "./tools"
 import { createGroq } from '@ai-sdk/groq';
 import { serverSession } from "@/lib/server-session";
 
@@ -29,8 +29,9 @@ export async function doCreator(documentType: string, docQnz: string) {
       ${style ? `You should write in the stylometry below :  ${style} ` : ''}
     `,
     tools: {
-      write: writeTool,
       outline: outlineTool,
+      // write: writeTool,
+      writeCached: writeCachedTool
     },
     stopWhen: stepCountIs(3),
   });

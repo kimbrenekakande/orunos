@@ -13,8 +13,6 @@ export async function startCreation(formData: FormData) {
 
   const doctype = formData.get("doctype") as string;
   const question = formData.get("qnz") as string;
-  const files = formData.getAll("files") as File[];
-
   if (!doctype) throw new Error("Document type is required");
   if (!question) throw new Error("Question and answer are required");
 
@@ -51,7 +49,7 @@ export async function startCreation(formData: FormData) {
       id: newDoc.id,
       paperType: docType.type,
       prompt: question,
-      references : files || []
+      references: []
     }),
   }).catch(console.error);
 

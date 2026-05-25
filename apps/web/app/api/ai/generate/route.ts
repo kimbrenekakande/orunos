@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { doCreator } from "@/lib/ai/agents";
 import { createPartFromUri, createUserContent, GoogleGenAI } from '@google/genai';
+import {writeCachedTool} from "@/lib/ai/tools"
 
 export const maxDuration = 120;
 
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest) {
   ]
 
 
-  if (references != 0) {
+  if (references && Array.isArray(references) && references.length > 0) {
     const ai = new GoogleGenAI({
       apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
     });
@@ -31,15 +32,25 @@ export async function POST(request: NextRequest) {
     )
 
     const cache = await ai.caches.create({
-      model: 'gemini-1.5-flash-001',
+      model: 'gemini-3-flash-preview',
       config: {
-        'contents': referencedocuments,
-        'systemInstruction': 'You are an analytics expert.',
-        'ttl': '86400s',
-      }
+        contents: referencedocuments,
+        systemInstruction: `
+          You are an agent part of an academic document creation workflow,
+          Your role is to generate detailed content on the provided section.
+          Keep in mind the content you are generating is part of a larger document so it shouldnt be having intros and conclusions.
+          your output should start with a subheading from your input.
+          rules :
+          -Do not use h1 or its equivalent(#)
+          -The out put format should markdown
+          -Dont add any dividers or conclusions.
+        `,
+        ttl: '86400s',
+      },
     });
 
     const cachedName = cache.name
+    console.log(`_______ /n Cache Name  /n ${cachedName}`)
     if (cachedName) promptParts.push(`cachedContent : ${cachedName}`)
   }
   

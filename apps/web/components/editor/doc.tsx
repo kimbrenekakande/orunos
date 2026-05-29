@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client"
 import React from "react";
 import { MyDocProps } from "@/lib/types";
 import {marked} from "marked"
+import baseUrl from "@/lib/base-url";
 
 //Generating && Download PDF
 export const MyDoc = ({ title, content }: MyDocProps) => {
@@ -14,6 +15,14 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
   // Some content sources include control/zero-width characters that can break `marked` parsing.
   // Removing them makes inline emphasis (like `**bold**`) tokenize correctly.
   const safeContent = (content || "").replace(/\u0000/g, "").replace(/[\u200B-\u200D\uFEFF]/g, "");
+
+  // Rewrite remote image URLs through the same-origin proxy so @react-pdf/renderer
+  // can fetch images without CORS issues.
+  const proxiedContent = safeContent.replace(
+    /!\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g,
+    (_match, alt, url) =>
+      `![${alt}](${baseUrl}/api/image-proxy?url=${encodeURIComponent(url)})`
+  );
 
   //turn md content to react pdf primitives
   const renderTokens = (tokens: any[]): React.ReactNode[] => {
@@ -92,12 +101,53 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
             </Text>
           );
 
-        case 'paragraph':
-          return (
-            <Text key={index} style={styles.paragraph}>
-              {renderTokens(token.tokens || [])}
-            </Text>
-          );
+        case 'paragraph': {
+          // @react-pdf/renderer Image is block-level and cannot be nested
+          // inside Text. Split the paragraph at image boundaries so each
+          // image renders as a sibling, not a child, of Text elements.
+          const children = token.tokens || [];
+          const hasImage = children.some((t: any) => t.type === 'image');
+
+          if (!hasImage) {
+            return (
+              <Text key={index} style={styles.paragraph}>
+                {renderTokens(children)}
+              </Text>
+            );
+          }
+
+          // Split into groups separated by image tokens
+          const groups: React.ReactNode[] = [];
+          let textGroup: any[] = [];
+
+          for (const child of children) {
+            if (child.type === 'image') {
+              if (textGroup.length > 0) {
+                groups.push(
+                  <Text key={`${index}-t${groups.length}`} style={styles.paragraph}>
+                    {renderTokens(textGroup)}
+                  </Text>
+                );
+                textGroup = [];
+              }
+              groups.push(
+                <Image key={`${index}-i${groups.length}`} src={child.href} style={styles.image} />
+              );
+            } else {
+              textGroup.push(child);
+            }
+          }
+
+          if (textGroup.length > 0) {
+            groups.push(
+              <Text key={`${index}-t${groups.length}`} style={styles.paragraph}>
+                {renderTokens(textGroup)}
+              </Text>
+            );
+          }
+
+          return <View key={index}>{groups}</View>;
+        }
 
         case 'list':
           return token.items.map((item: any, i: number) => (
@@ -306,7 +356,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
     });
   }
 
-  const tokens = marked.lexer(safeContent)
+  const tokens = marked.lexer(proxiedContent)
   const primitives = renderTokens(tokens)
 
   return (

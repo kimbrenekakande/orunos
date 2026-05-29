@@ -14,7 +14,6 @@ import { usePDF } from "@react-pdf/renderer";
 import { useState, useEffect } from "react";
 import { mutate } from "swr";
 
-
 export function PlateEditor({ md }: { md: Mdprops }) {
   const router = useRouter();
   const { id, title, content } = md;
@@ -23,11 +22,14 @@ export function PlateEditor({ md }: { md: Mdprops }) {
   const [isDownloading, setIsDownloading] = useState(false);
   const editor = usePlateEditor({
     plugins: EditorKit,
-    value: (editor) => editor.getApi(MarkdownPlugin).markdown.deserialize(content),
+    value: (editor) =>
+      editor.getApi(MarkdownPlugin).markdown.deserialize(content),
   });
 
   const newData = editor.api.markdown.serialize();
-  const [instance, updateInstance] = usePDF({ document: <MyDoc title={title} content={newData} /> });
+  const [instance, updateInstance] = usePDF({
+    document: <MyDoc title={title} content={newData} />,
+  });
 
   useEffect(() => {
     updateInstance(<MyDoc title={title} content={newData} />);
@@ -57,14 +59,21 @@ export function PlateEditor({ md }: { md: Mdprops }) {
   }
 
   function handleDownload() {
-    setIsDownloading(true);
+    if (instance.loading) return;
+
+    if (instance.error) {
+      console.error("PDF generation error:", instance.error);
+      return;
+    }
+
     if (instance.url) {
+      setIsDownloading(true);
       const a = document.createElement("a");
       a.href = instance.url;
       a.download = `${title}.pdf`;
       a.click();
+      setTimeout(() => setIsDownloading(false), 1000);
     }
-    setTimeout(() => setIsDownloading(false), 1000);
   }
 
   return (
@@ -76,7 +85,7 @@ export function PlateEditor({ md }: { md: Mdprops }) {
             onSave={SaveEditorText}
             onDownload={handleDownload}
             isSaving={isSaving}
-            isDownloading={isDownloading}
+            isDownloading={isDownloading || instance.loading}
           />
         </div>
       </EditorContainer>

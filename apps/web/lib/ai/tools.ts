@@ -52,32 +52,48 @@ export const writeTool = tool({
     const sections = docPlan.sections
     
     const sectionStatusLog: SectionLog[] = []
-    
-    const content = sections.map(async (sec) => {
-      const { text } = await generateText({
-        model: deepseek('deepseek-chat'),
-        system: `
-          You are an agent part of an academic document creation workflow,
-          Your role is to generate detailed content on the provided section.
-          Keep in mind the content you are generating is part of a larger document so it shouldnt be having intros and conclusions.
-          your output should start with a subheading passed to you as the section title.
-          rules :
-          -Do not use h1 or its equivalent(#)
-          -The out put format should markdown
-          -Dont add any dividers or conclusions.
-          
-          Your output should follow this stylometry analysis below :
-          ${user?.style ? `${user.style}` : ""}
-        `,
-        prompt: `write a deep dive on ${sec['content']}`,
+    let content : any
+
+    if (docPlan.hasRefs) {
+      content = sections.map(async (sec) => {
+        const { text } = await generateText({
+          model: deepseek('deepseek-chat'),
+          system: `
+            You are an agent part of an academic document creation workflow,
+            Your role is to generate detailed content on the provided section.
+            Keep in mind the content you are generating is part of a larger document so it shouldnt be having intros and conclusions.
+            your output should start with a subheading passed to you as the section title.
+            rules :
+            -Do not use h1 or its equivalent(#)
+            -The out put format should markdown
+            -Dont add any dividers or conclusions.
+            
+            Your output should follow this stylometry analysis below :
+            ${user?.style ? `${user.style}` : ""}
+          `,
+          prompt: `write a deep dive on ${sec['content']}`,
+        });
+        
+        if (!text) sectionStatusLog.push({ title: sec['title'], success: false })
+        sectionStatusLog.push({ title: sec['title'], success: true })
+        
+        console.log(`SECTION LOGS ${sectionStatusLog}`);
+        return text
       });
-      
-      if (!text) sectionStatusLog.push({ title: sec['title'], success: false })
-      sectionStatusLog.push({ title: sec['title'], success: true })
-      
-      console.log(`SECTION LOGS ${sectionStatusLog}`);
-      return text
-    });
+    } else {
+      content = sections.map(async (sec) => {
+        const { text } = await generateText({
+          model: google('gemini-2.5-pro'),
+          providerOptions: {
+            google: {
+              cachedContent: docPlan.cachedName, // prolly will use a context manager here
+            } satisfies GoogleLanguageModelOptions,
+          },
+          prompt: `write a deep dive on ${sec['content']}`,
+        });
+        return text
+      });
+    }
     
     //Document Appending
     let document = `# ${docPlan['title']} \n`;  //should be a space btn the markdown annotation and the text to render properly
@@ -110,56 +126,14 @@ export const writeTool = tool({
 });
 
 
-export const writeCachedTool = tool({
-  description: "Secondary tool. Use ONLY when a cachedName is present from a prior cache creation step — the cachedName is required in the input. Generates sections separetly  with cached content. Fall back to writeTool when no cachedName is available.",
-  inputSchema: outlineSchema.extend({
-    id: z.string("The unique identifier for the document"),
-    cachedName : z.string("The name of the cached content to be referred to by the tool calls")
-  }),
-  execute: async (docPlan) => {
-    const sections = docPlan.sections
-    const content = sections.map(async (sec) => {
-      const { text } = await generateText({
-        model: google('gemini-2.5-pro'),
-        providerOptions: {
-          google: {
-            cachedContent: docPlan.cachedName,
-          } satisfies GoogleLanguageModelOptions,
-        },
-        prompt: `write a deep dive on ${sec['content']}`,
-      });
-      return text
-    });
 
-    //Document Appending
-    let document = `# ${docPlan['title']} \n`;  //should be a space btn the markdown annotation and the text to render properly
 
-    const x = await Promise.all(content)
-    for (const item of x) document += `\n\n\n ${item} \n `;
 
-    if (x) {
-      const citations = docPlan.references
-      if (citations.length > 0) {
-        document += `\n\n## Citations\n`;
-        for (const citation of citations) {
-          document += `\n- ${citation}`;
-        }
-      }
-    }
 
-    const saveResult = await prisma.document.update({
-      where : { id : docPlan.id},
-      data : {
-        title : docPlan.title,
-        answer : document,
-        status : "READY",
-      }
-    })
 
-    if (!saveResult) return { status: "failure", message: "Document creation failed" }
-    return { status: "success", message: "Document created successfully" }
-  },
-});
+
+
+
 
 
 // export const searchTool = tool({

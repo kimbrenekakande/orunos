@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { doCreator } from "@/lib/ai/agents";
 import { createPartFromUri, createUserContent, GoogleGenAI } from '@google/genai';
-import {writeCachedTool} from "@/lib/ai/tools"
+// import { writeCachedTool } from "@/lib/ai/tools"
+import { DocProps } from "@/lib/types"
 
 export const maxDuration = 120;
 
@@ -14,14 +15,14 @@ export async function POST(request: NextRequest) {
 
   if (!id) return NextResponse.json({ error: 'Document ID is required', status: 400 });
   if (!questions) return NextResponse.json({ error: 'Prompt is required', status: 400 });
+
   
+  const docProps: DocProps = {
+    documentId: id,
+    questions: questions,
+  }
 
-  const promptParts = [
-    `Document ID : ${id}`,
-    `questions : ${questions}`
-  ]
-
-
+  
   if (references && Array.isArray(references) && references.length > 0) {
     const ai = new GoogleGenAI({
       apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
@@ -50,14 +51,11 @@ export async function POST(request: NextRequest) {
     });
 
     const cachedName = cache.name
-    console.log(`_______ /n Cache Name  /n ${cachedName}`)
-    if (cachedName) promptParts.push(`cachedContent : ${cachedName}`)
+    if (cachedName) docProps.cachedName = cachedName;
+
   }
-  
-  const promptQnz = `${promptParts.join("\n")}`
 
-  const maker = await doCreator(documentType, promptQnz)
-
+  const maker = await doCreator(docProps)
   console.log('Agent result:',"\n", maker)
   return NextResponse.json({status : 'document created successfully'});
 }

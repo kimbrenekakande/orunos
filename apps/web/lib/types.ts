@@ -38,7 +38,8 @@ export interface SectionLog {
 
 export const outlineSchema = z.object({
   id : z.string().describe("The unique identifier for the document"),
-  title : z.string().describe("The title of the document based on its content"),
+  title: z.string().describe("The title of the document based on its content"),
+  hasRefs: z.boolean().describe("Does the document have any references or citations?"),
   sections : z.array(z.object({
     title : z.string().describe("The title of the section"),
     content : z.string().describe("A prompt for the next agent in the chain to generate the content for this section")
@@ -46,4 +47,10 @@ export const outlineSchema = z.object({
   references: z.array(z.string()).describe("Any references or citations for the document"),
 });
 
+
+export type DocProps = {
+  documentId: string;
+  questions: string;
+  cachedName?: string;
+}
 

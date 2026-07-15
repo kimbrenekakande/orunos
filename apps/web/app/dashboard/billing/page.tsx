@@ -12,11 +12,12 @@ import {
 import { Badge } from "@/components/dashboard/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import {
+  Coins,
   CreditCard,
-  DollarSign,
   Download,
   FileText,
   Plus,
+  Smartphone,
   TrendingUp,
   Wallet,
 } from "lucide-react"
@@ -100,7 +101,7 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
               <div className="grid gap-4">
                 <div className="rounded-lg border p-4">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <DollarSign className="size-4" />
+                    <Coins className="size-4" />
                     <span className="text-sm">Total Spent</span>
                   </div>
                   <p className="mt-2 text-2xl font-bold">UGX 1,230.50</p>
@@ -114,10 +115,10 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                 </div>
                 <div className="rounded-lg border p-4">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <CreditCard className="size-4" />
-                    <span className="text-sm">Payment Methods</span>
+                    <Smartphone className="size-4" />
+                    <span className="text-sm">Mobile Money</span>
                   </div>
-                  <p className="mt-2 text-2xl font-bold">2</p>
+                  <p className="mt-2 text-2xl font-bold">0705 664 501</p>
                 </div>
               </div>
             </div>

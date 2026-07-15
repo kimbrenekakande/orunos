@@ -44,7 +44,7 @@ export function Dialog4Payment({ children }: { children?: React.ReactNode }) {
           <DialogHeader>
             <DialogTitle>Recharge Your Wallet</DialogTitle>
             <DialogDescription>
-              Reacharge your wallet here. Click pay when you&apos;re
+              Recharge your wallet here. Click proceed when you are
               done.
             </DialogDescription>
           </DialogHeader>

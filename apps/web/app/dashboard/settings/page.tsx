@@ -33,6 +33,8 @@ export default function SettingsPage() {
 
   const [profileDP, setProfileDP] = useState("")
   const [name, setName] = useState("")
+  const [phone, setPhone] = useState("")
+  const [institute, setInstitute] = useState("")
   const [style, setStyle] = useState("")
   const [isSavingStyle, setIsSavingStyle] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -42,6 +44,8 @@ export default function SettingsPage() {
     if (user) {
       setProfileDP(user.image || "")
       setName(user.name || "")
+      setPhone((user as any).phone || "")
+      setInstitute((user as any).institute || "")
       setStyle((user as any).style || "")
       setAvatarUrl(user.image || "")
     }
@@ -61,7 +65,9 @@ export default function SettingsPage() {
       const { data, error } = await authClient.updateUser({
         image: profileDP,
         name,
-      })
+        phone,
+        institute,
+      } as any)
 
       if (error) {
         toast.error(error.message || "Failed to update profile")
@@ -214,27 +220,47 @@ export default function SettingsPage() {
             
             <Separator />
 
-            <div className="grid gap-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your name"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your name"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="profile-email">Email</Label>
+                <Input
+                  id="profile-email"
+                  type="email"
+                  value={user?.email}
+                  disabled
+                  className="bg-muted/50"
+                />
+              </div>
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="profile-email">Email</Label>
-              <Input
-                id="profile-email"
-                type="email"
-                value={user?.email}
-                disabled
-                className="bg-muted/50"
-              />
-              <p className="text-xs text-muted-foreground">
-                Email cannot be changed directly. Contact support to update your email.
-              </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="phone">Phone Number</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="institute">Institute</Label>
+                <Input
+                  id="institute"
+                  value={institute}
+                  onChange={(e) => setInstitute(e.target.value)}
+                  placeholder="Enter your institute"
+                />
+              </div>
             </div>
           </CardContent>
           <CardFooter>
@@ -246,7 +272,7 @@ export default function SettingsPage() {
             </Button>
           </CardFooter>
         </Card>
-
+        <Separator />
         {/* Style & Analysis Section */}
         <Card className="bg-transparent rounded">
           <CardHeader>
@@ -260,12 +286,12 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent className="grid gap-6">
             <div className="grid gap-2">
-              {/*<Label htmlFor="style-preferences">Style Preferences</Label>*/}
               <Textarea
                 id="style-preferences"
                 value={style}
                 onChange={(e) => setStyle(e.target.value)}
                 placeholder="Describe your tone, examples of writing you like, or anything else that helps tailor analysis."
+                className="h-50 resize-none overflow-y-auto"
               />
             </div>
 
@@ -324,6 +350,8 @@ export default function SettingsPage() {
             </Button>
           </CardFooter>
         </Card>
+
+        <Separator />
 
         {/* Security Section */}
         <Card className="bg-transparent rounded">

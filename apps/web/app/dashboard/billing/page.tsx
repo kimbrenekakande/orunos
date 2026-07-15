@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { use, useState } from "react"
 import axios from "axios"
 import {
   Avatar,
@@ -37,7 +37,15 @@ import {
 } from "lucide-react"
 import { Dialog4Payment } from "@/components/paymentDialog"
 
-export default function BillingPage() {
+export default function BillingPage({ searchParams }: { searchParams: Promise<{ resp?: string }> }) {
+  const params = use(searchParams);
+
+  if (params.resp) {
+    const raw = params.resp;
+    const parsed = JSON.parse(raw);
+    console.log(`parsed:`, parsed)
+  }
+  
   const [amount, setAmount] = useState("")
 
   return (
@@ -68,22 +76,34 @@ export default function BillingPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-6">
-              <div className="flex flex-col gap-2 rounded-lg bg-linear-to-r from-primary to-primary/80 p-6 text-primary-foreground">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium opacity-80">
-                    Available Balance
-                  </p>
-                  <Wallet className="size-5 opacity-80" />
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="flex flex-col justify-between gap-4 rounded-lg bg-linear-to-br from-primary via-primary/90 to-primary/70 p-6 text-primary-foreground">
+                <div className="flex items-start justify-between">
+                  <div className="flex flex-col gap-1">
+                    <p className="text-sm font-medium opacity-80">
+                      Available Balance
+                    </p>
+                    <p className="text-4xl font-bold tracking-tight">UGX 2,450.00</p>
+                  </div>
+                  <div className="flex size-12 items-center justify-center rounded-full bg-primary-foreground/15">
+                    <Wallet className="size-6" />
+                  </div>
                 </div>
-                <p className="text-4xl font-bold">UGX 2,450.00</p>
-                <div className="flex items-center gap-2 text-sm opacity-80">
-                  <TrendingUp className="size-4" />
-                  <span>+ UGX 350.00 this month</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-sm opacity-80">
+                    <TrendingUp className="size-4" />
+                    <span>+ UGX 350.00 this month</span>
+                  </div>
+                  <Dialog4Payment>
+                    <Button size="sm" variant="secondary" className="gap-1.5 bg-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/25 border-0 cursor-pointer">
+                      <Plus className="size-4" />
+                      Add Funds
+                    </Button>
+                  </Dialog4Payment>
                 </div>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4">
                 <div className="rounded-lg border p-4">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <DollarSign className="size-4" />
@@ -106,28 +126,26 @@ export default function BillingPage() {
                   <p className="mt-2 text-2xl font-bold">2</p>
                 </div>
               </div>
+            </div>
 
-              {/*<Separator />*/}
-
-              <div className="grid gap-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold">Quick Actions</h3>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  <Dialog4Payment/>
-                  <Button className="gap-2">
-                    <Plus className="size-4" />
-                    Add Funds
-                  </Button>
-                  <Button variant="outline" className="gap-2">
-                    <Download className="size-4" />
-                    Withdraw
-                  </Button>
-                  <Button variant="outline" className="gap-2">
-                    <CreditCard className="size-4" />
-                    Transfer
-                  </Button>
-                </div>
+            <div className="mt-6 grid gap-4">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold">Quick Actions</h3>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Dialog4Payment/>
+                <Button className="gap-2">
+                  <Plus className="size-4" />
+                  Add Funds
+                </Button>
+                <Button variant="outline" className="gap-2">
+                  <Download className="size-4" />
+                  Withdraw
+                </Button>
+                <Button variant="outline" className="gap-2">
+                  <CreditCard className="size-4" />
+                  Transfer
+                </Button>
               </div>
             </div>
           </CardContent>

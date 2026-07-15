@@ -67,14 +67,14 @@ export default function Questionaire({ doctype }: { doctype: string }) {
             alt="Logo"
             height={18}
             width={18}
-            className="dark:hidden"
+            className="dark:hidden w-[18px] h-[18px]"
           />
           <Image
             src="/brand/logo_white.png"
             alt="Logo"
             height={18}
             width={18}
-            className="hidden dark:block"
+            className="hidden dark:block w-[18px] h-[18px]"
           />
           <span className="text-xs text-muted-foreground">Free during BETA</span>
         </div>

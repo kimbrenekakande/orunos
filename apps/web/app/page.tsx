@@ -1,8 +1,6 @@
-"use client"
-
 import { cn } from "@udecode/cn";
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 import CardNav from "@/components/react-bits/CardNav";
 import LogoCloud from "@/components/logo-cloud";
@@ -20,8 +18,6 @@ import { Footer } from "@/components/footer";
 
 
 const App = () => {
-  const router = useRouter();
-  
   return (
     <div className="w-screen flex flex-col gap-24">
       <CardNav
@@ -62,13 +58,14 @@ const App = () => {
             Built for graduate researchers, PhD candidates, and scholars who need precision.
             Generate citations across 10,000+ sources, synthesize literature, and write academic documents with rigor.
           </p>
-          <HoverArrowButton
-            text="Get Started"
-            duration={0.3}
-            iconSize={20}
-            className="bg-black text-white dark:bg-white dark:text-black"
-            onClick={() => router.push("/dashboard")}
-          />
+          <Link href="/dashboard">
+            <HoverArrowButton
+              text="Get Started"
+              duration={0.3}
+              iconSize={20}
+              className="bg-black text-white dark:bg-white dark:text-black"
+            />
+          </Link>
         </div>
         
         <div className=" mt-16 items-end">

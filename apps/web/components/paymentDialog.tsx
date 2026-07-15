@@ -16,7 +16,7 @@ import { Input } from "@/components/platejs/input"
 import { Label } from "@/components/ui/label"
 import { redirect } from "next/navigation"
 
-export function Dialog4Payment() {
+export function Dialog4Payment({ children }: { children?: React.ReactNode }) {
   async function mobileMoneyPayment() {
     const rq = await fetch("http://localhost:3000/api/payments", {
       method: "POST",
@@ -24,7 +24,7 @@ export function Dialog4Payment() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        amount: 1500,
+        amount: 10000,
         currency: "UGX",
         paymentMethod: "mobile_money",
       }),
@@ -38,7 +38,7 @@ export function Dialog4Payment() {
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <Button variant="outline">Open Dialog</Button>
+          {children ?? <Button variant="outline">Open Dialog</Button>}
         </DialogTrigger>
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>

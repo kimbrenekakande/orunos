@@ -11,17 +11,10 @@ import {
 } from "@/components/dashboard/card"
 import { Badge } from "@/components/dashboard/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import {
-  Coins,
-  CreditCard,
-  Download,
-  FileText,
-  Plus,
-  Smartphone,
-  TrendingUp,
-  Wallet,
-} from "lucide-react"
+import { Coins, Download, FileText, Plus, Smartphone, TrendingUp, Wallet} from "lucide-react"
 import { Dialog4Payment } from "@/components/paymentDialog"
+import { flw } from "@/lib/flutterwave"
+import axios from "axios"
 
 export default function BillingPage({ searchParams }: { searchParams: Promise<{ resp?: string }> }) {
   const params = use(searchParams);
@@ -29,7 +22,20 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
   if (params.resp) {
     const raw = params.resp;
     const parsed = JSON.parse(raw);
-    console.log(`parsed:`, parsed)
+    
+    flw.transaction.verify({ id: parsed.id })
+      .then((response: { data: { status: string; amount: number; currency: string } }) => {
+        if (
+          response.data.status === "successful" &&
+          response.data.amount === parsed.charged_amount &&
+          response.data.currency === parsed.currency
+        ) {
+          axios.post("/api/transactions", { paymentDetails: parsed })
+            .catch((error) => {
+              console.error(error)
+            })
+        }
+      })    
   }
   
   const [amount, setAmount] = useState("")

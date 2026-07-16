@@ -191,7 +191,7 @@ export class PrismaClient<
    * 
    * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
 
@@ -318,8 +318,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.5.0
-   * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
+   * Prisma Client JS version: 7.8.0
+   * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
    */
   export type PrismaVersion = {
     client: string
@@ -3844,16 +3844,29 @@ export namespace Prisma {
 
   export type TransactionAvgAggregateOutputType = {
     amount: number | null
+    chargedAmount: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
     amount: number | null
+    chargedAmount: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
     id: string | null
+    transactionId: string | null
+    txRef: string | null
+    orderRef: string | null
+    flwRef: string | null
     amount: number | null
+    chargedAmount: number | null
+    appfee: string | null
+    status: string | null
+    authModelUsed: string | null
+    currency: string | null
+    paymentType: string | null
     type: $Enums.TransType | null
+    phoneNumber: string | null
     description: string | null
     createdAt: Date | null
     userId: string | null
@@ -3861,8 +3874,19 @@ export namespace Prisma {
 
   export type TransactionMaxAggregateOutputType = {
     id: string | null
+    transactionId: string | null
+    txRef: string | null
+    orderRef: string | null
+    flwRef: string | null
     amount: number | null
+    chargedAmount: number | null
+    appfee: string | null
+    status: string | null
+    authModelUsed: string | null
+    currency: string | null
+    paymentType: string | null
     type: $Enums.TransType | null
+    phoneNumber: string | null
     description: string | null
     createdAt: Date | null
     userId: string | null
@@ -3870,8 +3894,19 @@ export namespace Prisma {
 
   export type TransactionCountAggregateOutputType = {
     id: number
+    transactionId: number
+    txRef: number
+    orderRef: number
+    flwRef: number
     amount: number
+    chargedAmount: number
+    appfee: number
+    status: number
+    authModelUsed: number
+    currency: number
+    paymentType: number
     type: number
+    phoneNumber: number
     description: number
     createdAt: number
     userId: number
@@ -3881,16 +3916,29 @@ export namespace Prisma {
 
   export type TransactionAvgAggregateInputType = {
     amount?: true
+    chargedAmount?: true
   }
 
   export type TransactionSumAggregateInputType = {
     amount?: true
+    chargedAmount?: true
   }
 
   export type TransactionMinAggregateInputType = {
     id?: true
+    transactionId?: true
+    txRef?: true
+    orderRef?: true
+    flwRef?: true
     amount?: true
+    chargedAmount?: true
+    appfee?: true
+    status?: true
+    authModelUsed?: true
+    currency?: true
+    paymentType?: true
     type?: true
+    phoneNumber?: true
     description?: true
     createdAt?: true
     userId?: true
@@ -3898,8 +3946,19 @@ export namespace Prisma {
 
   export type TransactionMaxAggregateInputType = {
     id?: true
+    transactionId?: true
+    txRef?: true
+    orderRef?: true
+    flwRef?: true
     amount?: true
+    chargedAmount?: true
+    appfee?: true
+    status?: true
+    authModelUsed?: true
+    currency?: true
+    paymentType?: true
     type?: true
+    phoneNumber?: true
     description?: true
     createdAt?: true
     userId?: true
@@ -3907,8 +3966,19 @@ export namespace Prisma {
 
   export type TransactionCountAggregateInputType = {
     id?: true
+    transactionId?: true
+    txRef?: true
+    orderRef?: true
+    flwRef?: true
     amount?: true
+    chargedAmount?: true
+    appfee?: true
+    status?: true
+    authModelUsed?: true
+    currency?: true
+    paymentType?: true
     type?: true
+    phoneNumber?: true
     description?: true
     createdAt?: true
     userId?: true
@@ -4003,8 +4073,19 @@ export namespace Prisma {
 
   export type TransactionGroupByOutputType = {
     id: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
     createdAt: Date
     userId: string
@@ -4031,8 +4112,19 @@ export namespace Prisma {
 
   export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    transactionId?: boolean
+    txRef?: boolean
+    orderRef?: boolean
+    flwRef?: boolean
     amount?: boolean
+    chargedAmount?: boolean
+    appfee?: boolean
+    status?: boolean
+    authModelUsed?: boolean
+    currency?: boolean
+    paymentType?: boolean
     type?: boolean
+    phoneNumber?: boolean
     description?: boolean
     createdAt?: boolean
     userId?: boolean
@@ -4041,8 +4133,19 @@ export namespace Prisma {
 
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    transactionId?: boolean
+    txRef?: boolean
+    orderRef?: boolean
+    flwRef?: boolean
     amount?: boolean
+    chargedAmount?: boolean
+    appfee?: boolean
+    status?: boolean
+    authModelUsed?: boolean
+    currency?: boolean
+    paymentType?: boolean
     type?: boolean
+    phoneNumber?: boolean
     description?: boolean
     createdAt?: boolean
     userId?: boolean
@@ -4051,8 +4154,19 @@ export namespace Prisma {
 
   export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    transactionId?: boolean
+    txRef?: boolean
+    orderRef?: boolean
+    flwRef?: boolean
     amount?: boolean
+    chargedAmount?: boolean
+    appfee?: boolean
+    status?: boolean
+    authModelUsed?: boolean
+    currency?: boolean
+    paymentType?: boolean
     type?: boolean
+    phoneNumber?: boolean
     description?: boolean
     createdAt?: boolean
     userId?: boolean
@@ -4061,14 +4175,25 @@ export namespace Prisma {
 
   export type TransactionSelectScalar = {
     id?: boolean
+    transactionId?: boolean
+    txRef?: boolean
+    orderRef?: boolean
+    flwRef?: boolean
     amount?: boolean
+    chargedAmount?: boolean
+    appfee?: boolean
+    status?: boolean
+    authModelUsed?: boolean
+    currency?: boolean
+    paymentType?: boolean
     type?: boolean
+    phoneNumber?: boolean
     description?: boolean
     createdAt?: boolean
     userId?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "type" | "description" | "createdAt" | "userId", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "txRef" | "orderRef" | "flwRef" | "amount" | "chargedAmount" | "appfee" | "status" | "authModelUsed" | "currency" | "paymentType" | "type" | "phoneNumber" | "description" | "createdAt" | "userId", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -4086,8 +4211,19 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      transactionId: string
+      txRef: string
+      orderRef: string
+      flwRef: string
       amount: number
+      chargedAmount: number
+      appfee: string
+      status: string
+      authModelUsed: string
+      currency: string
+      paymentType: string
       type: $Enums.TransType
+      phoneNumber: string
       description: string
       createdAt: Date
       userId: string
@@ -4516,8 +4652,19 @@ export namespace Prisma {
    */
   interface TransactionFieldRefs {
     readonly id: FieldRef<"Transaction", 'String'>
+    readonly transactionId: FieldRef<"Transaction", 'String'>
+    readonly txRef: FieldRef<"Transaction", 'String'>
+    readonly orderRef: FieldRef<"Transaction", 'String'>
+    readonly flwRef: FieldRef<"Transaction", 'String'>
     readonly amount: FieldRef<"Transaction", 'Int'>
+    readonly chargedAmount: FieldRef<"Transaction", 'Int'>
+    readonly appfee: FieldRef<"Transaction", 'String'>
+    readonly status: FieldRef<"Transaction", 'String'>
+    readonly authModelUsed: FieldRef<"Transaction", 'String'>
+    readonly currency: FieldRef<"Transaction", 'String'>
+    readonly paymentType: FieldRef<"Transaction", 'String'>
     readonly type: FieldRef<"Transaction", 'TransType'>
+    readonly phoneNumber: FieldRef<"Transaction", 'String'>
     readonly description: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly userId: FieldRef<"Transaction", 'String'>
@@ -9512,8 +9659,19 @@ export namespace Prisma {
 
   export const TransactionScalarFieldEnum: {
     id: 'id',
+    transactionId: 'transactionId',
+    txRef: 'txRef',
+    orderRef: 'orderRef',
+    flwRef: 'flwRef',
     amount: 'amount',
+    chargedAmount: 'chargedAmount',
+    appfee: 'appfee',
+    status: 'status',
+    authModelUsed: 'authModelUsed',
+    currency: 'currency',
+    paymentType: 'paymentType',
     type: 'type',
+    phoneNumber: 'phoneNumber',
     description: 'description',
     createdAt: 'createdAt',
     userId: 'userId'
@@ -9813,8 +9971,19 @@ export namespace Prisma {
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     id?: StringFilter<"Transaction"> | string
+    transactionId?: StringFilter<"Transaction"> | string
+    txRef?: StringFilter<"Transaction"> | string
+    orderRef?: StringFilter<"Transaction"> | string
+    flwRef?: StringFilter<"Transaction"> | string
     amount?: IntFilter<"Transaction"> | number
+    chargedAmount?: IntFilter<"Transaction"> | number
+    appfee?: StringFilter<"Transaction"> | string
+    status?: StringFilter<"Transaction"> | string
+    authModelUsed?: StringFilter<"Transaction"> | string
+    currency?: StringFilter<"Transaction"> | string
+    paymentType?: StringFilter<"Transaction"> | string
     type?: EnumTransTypeFilter<"Transaction"> | $Enums.TransType
+    phoneNumber?: StringFilter<"Transaction"> | string
     description?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     userId?: StringFilter<"Transaction"> | string
@@ -9823,8 +9992,19 @@ export namespace Prisma {
 
   export type TransactionOrderByWithRelationInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
@@ -9836,18 +10016,40 @@ export namespace Prisma {
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
+    transactionId?: StringFilter<"Transaction"> | string
+    txRef?: StringFilter<"Transaction"> | string
+    orderRef?: StringFilter<"Transaction"> | string
+    flwRef?: StringFilter<"Transaction"> | string
     amount?: IntFilter<"Transaction"> | number
+    chargedAmount?: IntFilter<"Transaction"> | number
+    appfee?: StringFilter<"Transaction"> | string
+    status?: StringFilter<"Transaction"> | string
+    authModelUsed?: StringFilter<"Transaction"> | string
+    currency?: StringFilter<"Transaction"> | string
+    paymentType?: StringFilter<"Transaction"> | string
     type?: EnumTransTypeFilter<"Transaction"> | $Enums.TransType
+    phoneNumber?: StringFilter<"Transaction"> | string
     description?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     userId?: StringFilter<"Transaction"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "id">
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
@@ -9863,8 +10065,19 @@ export namespace Prisma {
     OR?: TransactionScalarWhereWithAggregatesInput[]
     NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Transaction"> | string
+    transactionId?: StringWithAggregatesFilter<"Transaction"> | string
+    txRef?: StringWithAggregatesFilter<"Transaction"> | string
+    orderRef?: StringWithAggregatesFilter<"Transaction"> | string
+    flwRef?: StringWithAggregatesFilter<"Transaction"> | string
     amount?: IntWithAggregatesFilter<"Transaction"> | number
+    chargedAmount?: IntWithAggregatesFilter<"Transaction"> | number
+    appfee?: StringWithAggregatesFilter<"Transaction"> | string
+    status?: StringWithAggregatesFilter<"Transaction"> | string
+    authModelUsed?: StringWithAggregatesFilter<"Transaction"> | string
+    currency?: StringWithAggregatesFilter<"Transaction"> | string
+    paymentType?: StringWithAggregatesFilter<"Transaction"> | string
     type?: EnumTransTypeWithAggregatesFilter<"Transaction"> | $Enums.TransType
+    phoneNumber?: StringWithAggregatesFilter<"Transaction"> | string
     description?: StringWithAggregatesFilter<"Transaction"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     userId?: StringWithAggregatesFilter<"Transaction"> | string
@@ -10347,18 +10560,40 @@ export namespace Prisma {
   }
 
   export type TransactionCreateInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTransactionsInput
   }
 
   export type TransactionUncheckedCreateInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
     createdAt?: Date | string
     userId: string
@@ -10366,8 +10601,19 @@ export namespace Prisma {
 
   export type TransactionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
@@ -10375,17 +10621,39 @@ export namespace Prisma {
 
   export type TransactionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransactionCreateManyInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
     createdAt?: Date | string
     userId: string
@@ -10393,16 +10661,38 @@ export namespace Prisma {
 
   export type TransactionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -11028,8 +11318,19 @@ export namespace Prisma {
 
   export type TransactionCountOrderByAggregateInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
@@ -11037,12 +11338,24 @@ export namespace Prisma {
 
   export type TransactionAvgOrderByAggregateInput = {
     amount?: SortOrder
+    chargedAmount?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
@@ -11050,8 +11363,19 @@ export namespace Prisma {
 
   export type TransactionMinOrderByAggregateInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
@@ -11059,6 +11383,7 @@ export namespace Prisma {
 
   export type TransactionSumOrderByAggregateInput = {
     amount?: SortOrder
+    chargedAmount?: SortOrder
   }
 
   export type EnumTransTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -12120,17 +12445,39 @@ export namespace Prisma {
   }
 
   export type TransactionCreateWithoutUserInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
     createdAt?: Date | string
   }
 
   export type TransactionUncheckedCreateWithoutUserInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
     createdAt?: Date | string
   }
@@ -12249,8 +12596,19 @@ export namespace Prisma {
     OR?: TransactionScalarWhereInput[]
     NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
     id?: StringFilter<"Transaction"> | string
+    transactionId?: StringFilter<"Transaction"> | string
+    txRef?: StringFilter<"Transaction"> | string
+    orderRef?: StringFilter<"Transaction"> | string
+    flwRef?: StringFilter<"Transaction"> | string
     amount?: IntFilter<"Transaction"> | number
+    chargedAmount?: IntFilter<"Transaction"> | number
+    appfee?: StringFilter<"Transaction"> | string
+    status?: StringFilter<"Transaction"> | string
+    authModelUsed?: StringFilter<"Transaction"> | string
+    currency?: StringFilter<"Transaction"> | string
+    paymentType?: StringFilter<"Transaction"> | string
     type?: EnumTransTypeFilter<"Transaction"> | $Enums.TransType
+    phoneNumber?: StringFilter<"Transaction"> | string
     description?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     userId?: StringFilter<"Transaction"> | string
@@ -12542,9 +12900,20 @@ export namespace Prisma {
   }
 
   export type TransactionCreateManyUserInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
     createdAt?: Date | string
   }
@@ -12612,24 +12981,57 @@ export namespace Prisma {
 
   export type TransactionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

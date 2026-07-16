@@ -51,14 +51,26 @@ model DocType {
 }
 
 model Transaction {
-  id          String    @id
-  amount      Int
-  type        TransType // 'deposit' or 'charge'
-  description String
-  createdAt   DateTime  @default(now())
-  userId      String
-  user        User      @relation(fields: [userId], references: [id])
+  id                String @id @default(cuid())
+  transactionId     String
+  txRef             String
+  orderRef          String
+  flwRef            String
+  amount            Int
+  chargedAmount     Int
+  appfee            String
+  status            String
+  authModelUsed     String
+  currency          String
+  paymentType       String
+  type              TransType // 'deposit' or 'charge'
+  phoneNumber       String
+  description       String
+  createdAt         DateTime  @default(now())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
 
+  @@unique([id])
   @@index([userId])
 }
 

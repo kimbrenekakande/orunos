@@ -79,6 +79,7 @@ model User {
   id            String        @id
   name          String
   email         String
+  phoneNumber   String?
   style         String?
   image         String?
   balance       Int           @default(0)

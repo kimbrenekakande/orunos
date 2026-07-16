@@ -5109,6 +5109,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    phoneNumber: string | null
     style: string | null
     image: string | null
     balance: number | null
@@ -5122,6 +5123,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    phoneNumber: string | null
     style: string | null
     image: string | null
     balance: number | null
@@ -5135,6 +5137,7 @@ export namespace Prisma {
     id: number
     name: number
     email: number
+    phoneNumber: number
     style: number
     image: number
     balance: number
@@ -5158,6 +5161,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    phoneNumber?: true
     style?: true
     image?: true
     balance?: true
@@ -5171,6 +5175,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    phoneNumber?: true
     style?: true
     image?: true
     balance?: true
@@ -5184,6 +5189,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    phoneNumber?: true
     style?: true
     image?: true
     balance?: true
@@ -5284,6 +5290,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber: string | null
     style: string | null
     image: string | null
     balance: number
@@ -5316,6 +5323,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phoneNumber?: boolean
     style?: boolean
     image?: boolean
     balance?: boolean
@@ -5334,6 +5342,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phoneNumber?: boolean
     style?: boolean
     image?: boolean
     balance?: boolean
@@ -5347,6 +5356,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phoneNumber?: boolean
     style?: boolean
     image?: boolean
     balance?: boolean
@@ -5360,6 +5370,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phoneNumber?: boolean
     style?: boolean
     image?: boolean
     balance?: boolean
@@ -5369,7 +5380,7 @@ export namespace Prisma {
     emailVerified?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "style" | "image" | "balance" | "admin" | "createdAt" | "updatedAt" | "emailVerified", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "style" | "image" | "balance" | "admin" | "createdAt" | "updatedAt" | "emailVerified", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     documents?: boolean | User$documentsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
@@ -5392,6 +5403,7 @@ export namespace Prisma {
       id: string
       name: string
       email: string
+      phoneNumber: string | null
       style: string | null
       image: string | null
       balance: number
@@ -5829,6 +5841,7 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly phoneNumber: FieldRef<"User", 'String'>
     readonly style: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
     readonly balance: FieldRef<"User", 'Int'>
@@ -9684,6 +9697,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
+    phoneNumber: 'phoneNumber',
     style: 'style',
     image: 'image',
     balance: 'balance',
@@ -10090,6 +10104,7 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     style?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
     balance?: IntFilter<"User"> | number
@@ -10107,6 +10122,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     style?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     balance?: SortOrder
@@ -10127,6 +10143,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     style?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
     balance?: IntFilter<"User"> | number
@@ -10144,6 +10161,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     style?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     balance?: SortOrder
@@ -10165,6 +10183,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     style?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     balance?: IntWithAggregatesFilter<"User"> | number
@@ -10702,6 +10721,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -10719,6 +10739,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -10736,6 +10757,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -10753,6 +10775,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -10770,6 +10793,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -10783,6 +10807,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -10796,6 +10821,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -11430,6 +11456,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrder
     style?: SortOrder
     image?: SortOrder
     balance?: SortOrder
@@ -11447,6 +11474,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrder
     style?: SortOrder
     image?: SortOrder
     balance?: SortOrder
@@ -11460,6 +11488,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrder
     style?: SortOrder
     image?: SortOrder
     balance?: SortOrder
@@ -12159,6 +12188,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -12175,6 +12205,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -12238,6 +12269,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -12254,6 +12286,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -12335,6 +12368,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -12351,6 +12385,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -12383,6 +12418,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -12399,6 +12435,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -12683,6 +12720,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -12699,6 +12737,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -12731,6 +12770,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -12747,6 +12787,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -12763,6 +12804,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -12779,6 +12821,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
     balance?: number
@@ -12811,6 +12854,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number
@@ -12827,6 +12871,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: IntFieldUpdateOperationsInput | number

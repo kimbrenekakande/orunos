@@ -1,6 +1,7 @@
 "use client"
 
-import { use, useState } from "react"
+import { use, useEffect, useState } from "react"
+import { useClientSession } from "@/lib/client-session"
 import { Button } from "@/components/dashboard/button"
 import {
   Card,
@@ -12,33 +13,55 @@ import {
 import { Badge } from "@/components/dashboard/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Coins, Download, FileText, Plus, Smartphone, TrendingUp, Wallet} from "lucide-react"
-import { Dialog4Payment } from "@/components/paymentDialog"
-import { flw } from "@/lib/flutterwave"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+  DialogFooter,
+} from "@/components/platejs/dialog"
+import { Field, FieldGroup } from "@/components/ui/field"
+import { Input } from "@/components/platejs/input"
+import { Label } from "@/components/ui/label"
+import { redirect } from "next/navigation"
 import axios from "axios"
 
 export default function BillingPage({ searchParams }: { searchParams: Promise<{ resp?: string }> }) {
   const params = use(searchParams);
+  const { data: sessionData } = useClientSession();
+  const user = sessionData?.user;
 
-  if (params.resp) {
-    const raw = params.resp;
-    const parsed = JSON.parse(raw);
-    
-    flw.transaction.verify({ id: parsed.id })
-      .then((response: { data: { status: string; amount: number; currency: string } }) => {
-        if (
-          response.data.status === "successful" &&
-          response.data.amount === parsed.charged_amount &&
-          response.data.currency === parsed.currency
-        ) {
-          axios.post("/api/transactions", { paymentDetails: parsed })
-            .catch((error) => {
-              console.error(error)
-            })
-        }
-      })    
+  const [amount, setAmount] = useState(user?.balance || 0)
+
+  async function mobileMoneyPayment( money : number) {
+    const rq = await fetch("http://localhost:3000/api/payments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phoneNumber: user?.phoneNumber,
+        amount: money,
+      }),
+    })
+    const results = await rq.json()
+    if (results.authUrl) redirect(results.authUrl)
+    setAmount(amount + money)
   }
-  
-  const [amount, setAmount] = useState("")
+
+  useEffect(() => {
+    if (params.resp) {
+      const parsed = JSON.parse(params.resp);
+      axios.post("/api/transactions", { transactionId: parsed.id })
+        .catch((error) => {
+          console.error(error)
+        })
+    }
+  }, [params.resp]);
+
 
   const billingHistory = [
     { date: "Jan 15, 2025", description: "Top-up", type: "Credit", amount: "UGX 5,000", balance: "UGX 2,450" },
@@ -84,7 +107,7 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                     <p className="text-sm font-medium opacity-80">
                       Available Balance
                     </p>
-                    <p className="text-4xl font-bold tracking-tight">UGX 2,450.00</p>
+                    <p className="text-4xl font-bold tracking-tight">UGX {user?.balance}</p>
                   </div>
                   <div className="flex size-12 items-center justify-center rounded-full bg-primary-foreground/15">
                     <Wallet className="size-6" />
@@ -95,12 +118,41 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                     <TrendingUp className="size-4" />
                     <span>+ UGX 350.00 this month</span>
                   </div>
-                  <Dialog4Payment>
-                    <Button size="sm" variant="secondary" className="gap-1.5 bg-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/25 border-0 cursor-pointer">
-                      <Plus className="size-4" />
-                      Add Funds
-                    </Button>
-                  </Dialog4Payment>
+                  <Dialog>
+                    <form>
+                      <DialogTrigger asChild>
+                        <Button size="sm"  className="gap-1.5 bg-black text-white hover:bg-primary-foreground/25 border-0 cursor-pointer">
+                          <Plus className="size-4" />
+                          Add Funds
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-sm">
+                        <DialogHeader>
+                          <DialogTitle>Recharge Your Wallet</DialogTitle>
+                          <DialogDescription>
+                            Recharge your wallet here. Click proceed when you are
+                            done.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <FieldGroup>
+                          <Field>
+                            <Label htmlFor="name-1">Name</Label>
+                            <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+                          </Field>
+                          <Field>
+                            <Label htmlFor="username-1">Phone Number</Label>
+                            <Input id="phoneNumber-1" name="phoneNumber" defaultValue="0705664501" />
+                          </Field>
+                        </FieldGroup>
+                        <DialogFooter>
+                          <DialogClose asChild>
+                            <Button variant="outline">Cancel</Button>
+                          </DialogClose>
+                          <Button type="submit" onClick={() => mobileMoneyPayment(400)}>Proceed</Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </form>
+                  </Dialog>
                 </div>
               </div>
 

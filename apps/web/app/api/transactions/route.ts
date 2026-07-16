@@ -9,50 +9,49 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json();
-  if (!body) return NextResponse.json({ error: "transaction details are required" }, { status: 400 });
-  const payment = body.paymentDetails;
+  const { paymentDetails } = await request.json();
+  console.log("paymentDetails:", paymentDetails);
+  if (!paymentDetails?.id) {
+    return NextResponse.json({ error: "paymentDetails is required" }, { status: 400 });
+  }
 
+  try {
+    const response = await flw.Transaction.verify({ id: paymentDetails.id });
 
-  await flw.Transaction.verify({ id: payment.id })
-    .then( async (response: { data: { status: string; amount: number; currency: string } }) => {
-      if (
-        response.data.status === "successful"
-        && response.data.amount === payment.chargedAmount
-        && response.data.currency === payment.currency
-      ) {
-        try {
-          await prisma.transaction.create({
-            data: {
-              transactionId: payment.id,
-              txRef: payment.txRef,
-              orderRef: payment.orderRef,
-              flwRef: payment.flwRef,
-              amount: payment.amount,
-              chargedAmount: payment.chargedAmount,
-              appfee: payment.appfee,
-              status: payment.status,
-              authModelUsed: payment.authModelUsed,
-              currency: payment.currency,
-              paymentType: payment.paymentType,
-              type: "DEPOSIT",
-              phoneNumber: payment.phoneNumber,
-              description: payment.description,
-              userId: session.user.id
-            }
-          })
-        } catch(error){ return NextResponse.json({ error: error}, { status: 500 });};
+    if (response.data.status === "successful") {
+      await prisma.transaction.create({
+        data: {
+          transactionId: String(paymentDetails.id),
+          txRef: paymentDetails.txRef,
+          orderRef: paymentDetails.orderRef ?? "",
+          flwRef: paymentDetails.flwRef ?? "",
+          amount: paymentDetails.amount,
+          chargedAmount: paymentDetails.chargedAmount,
+          appfee: String(paymentDetails.appfee ?? ""),
+          status: paymentDetails.status,
+          authModelUsed: paymentDetails.authModelUsed ?? "",
+          currency: paymentDetails.currency,
+          paymentType: paymentDetails.paymentType ?? "",
+          type: "DEPOSIT",
+          phoneNumber: paymentDetails.phoneNumber ?? "",
+          description: paymentDetails.description ?? "",
+          userId: session.user.id,
+        },
+      });
 
-        try {
-          await prisma.user.update({
-            where: { id: session.user.id },
-            data: { balance: session.user.balance + payment.amount }
-          })
-          return NextResponse.json({ status: 201 });
-        } catch(error){ return NextResponse.json({ error: error }, { status: 500 });};
-      } else {
-        return NextResponse.json({ error: "Transaction not successful" }, { status: 402 });
-      }
-    });
-  return NextResponse.json({ message: "Transaction verified successfully" }, { status: 201 });
+      await prisma.user.update({
+        where: { id: session.user.id },
+        data: {
+          balance: { increment: paymentDetails.amount }
+        },
+      });
+
+      return NextResponse.json({ status: 201 });
+    } else {
+      return NextResponse.json({ error: "Transaction not successful" }, { status: 402 });
+    }
+  } catch (error) {
+    console.error("Transaction verification error:", error);
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Verification failed" }, { status: 500 });
+  }
 }

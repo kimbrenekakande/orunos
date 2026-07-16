@@ -27,16 +27,16 @@ import { Field, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/platejs/input"
 import { Label } from "@/components/ui/label"
 import { redirect } from "next/navigation"
-import axios from "axios"
 
 export default function BillingPage({ searchParams }: { searchParams: Promise<{ resp?: string }> }) {
   const params = use(searchParams);
   const { data: sessionData } = useClientSession();
   const user = sessionData?.user;
 
-  const [amount, setAmount] = useState(user?.balance || 0)
+  const [amount, setAmount] = useState(user?.balance)
 
-  async function mobileMoneyPayment( money : number) {
+  async function mobileMoneyPayment(money: number) {
+    setAmount(amount + money)
     const rq = await fetch("http://localhost:3000/api/payments", {
       method: "POST",
       headers: {
@@ -49,17 +49,44 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
     })
     const results = await rq.json()
     if (results.authUrl) redirect(results.authUrl)
-    setAmount(amount + money)
   }
 
   useEffect(() => {
-    if (params.resp) {
-      const parsed = JSON.parse(params.resp);
-      axios.post("/api/transactions", { transactionId: parsed.id })
-        .catch((error) => {
-          console.error(error)
+    async function verifyTransaction() {
+      if (params.resp) {
+        const parsed = JSON.parse(decodeURIComponent(params.resp));
+
+        console.log(`Verifying transaction`)
+        console.log(parsed)
+        
+        const req = await fetch("http://localhost:3000/api/transactions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            paymentDetails: {
+              id: parsed.data.id,
+              txRef: parsed.data.txRef,
+              orderRef: parsed.data.orderRef,
+              flwRef: parsed.data.flwRef,
+              amount: parsed.data.amount,
+              chargedAmount: parsed.data.charged_amount,
+              appfee: parsed.data.appfee,
+              status: parsed.data.status,
+              authModelUsed: parsed.data.authModelUsed,
+              currency: parsed.data.currency,
+              paymentType: parsed.data.paymentType,
+              phoneNumber: parsed.data["customer.phone"],
+              description: parsed.data.narration,
+            },
+          }),
         })
+        const result = await req.json()
+        if (result.error) throw new Error(result.error)
+      }
     }
+    verifyTransaction();
   }, [params.resp]);
 
 
@@ -107,7 +134,7 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                     <p className="text-sm font-medium opacity-80">
                       Available Balance
                     </p>
-                    <p className="text-4xl font-bold tracking-tight">UGX {user?.balance}</p>
+                    <p className="text-4xl font-bold tracking-tight">UGX {amount}</p>
                   </div>
                   <div className="flex size-12 items-center justify-center rounded-full bg-primary-foreground/15">
                     <Wallet className="size-6" />
@@ -153,6 +180,7 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                       </DialogContent>
                     </form>
                   </Dialog>
+                  <button onClick={() => setAmount(amount + 400)}>UPGRANDE</button>
                 </div>
               </div>
 

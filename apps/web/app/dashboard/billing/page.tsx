@@ -1,7 +1,7 @@
 "use client"
 
 import { use, useEffect, useState } from "react"
-import { useClientSession } from "@/lib/client-session"
+import clientSession from "@/lib/client-session"
 import { Button } from "@/components/dashboard/button"
 import {
   Card,
@@ -27,17 +27,19 @@ import { Field, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/platejs/input"
 import { Label } from "@/components/ui/label"
 import { redirect } from "next/navigation"
+import baseUrl from "@/lib/base-url"
 
 export default function BillingPage({ searchParams }: { searchParams: Promise<{ resp?: string }> }) {
+  const session = clientSession
+  if (!session) redirect("/login")
+  const user = session.user;
+  
   const params = use(searchParams);
-  const { data: sessionData } = useClientSession();
-  const user = sessionData?.user;
-
-  const [amount, setAmount] = useState(user?.balance)
+  const [amount, setAmount] = useState(user.balance)
 
   async function mobileMoneyPayment(money: number) {
     setAmount(amount + money)
-    const rq = await fetch("http://localhost:3000/api/payments", {
+    const rq = await fetch(`${baseUrl}/api/payments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,8 +60,8 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
 
         console.log(`Verifying transaction`)
         console.log(parsed)
-        
-        const req = await fetch("http://localhost:3000/api/transactions", {
+
+        const req = await fetch(`${baseUrl}/api/transactions`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -297,8 +299,8 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
             </TableHeader>
             <TableBody>
               {billingHistory.map((item, index) => (
-                <TableRow 
-                  key={index} 
+                <TableRow
+                  key={index}
                   className="border-b border-border/50 [&:last-child]:border-0 hover:bg-muted/40 transition-colors duration-150"
                 >
                   <TableCell className="py-3 text-sm text-muted-foreground">
@@ -309,8 +311,8 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                   </TableCell>
                   <TableCell className="py-3 text-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium border border-border/50 ${
-                      item.type === "Credit" 
-                        ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" 
+                      item.type === "Credit"
+                        ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
                         : "bg-muted/80 text-muted-foreground"
                     }`}>
                       {item.type}

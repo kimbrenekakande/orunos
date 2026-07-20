@@ -67,3 +67,16 @@ export type Transaction = {
   balanceAfter: number
   createdAt: string
 }
+
+export type Doc = {
+  id: string
+  docTypeId: string
+  title: string
+  question: string
+  answer: string | null
+  status: string
+  cost: number
+  userId: string
+  createdAt: Date
+  updatedAt: Date
+}

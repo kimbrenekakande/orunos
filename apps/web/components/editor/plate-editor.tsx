@@ -23,7 +23,7 @@ export function PlateEditor({ md }: { md: Mdprops }) {
   const editor = usePlateEditor({
     plugins: EditorKit,
     value: (editor) =>
-      editor.getApi(MarkdownPlugin).markdown.deserialize(content),
+      editor.getApi(MarkdownPlugin).markdown.deserialize(content ?? ""),
   });
 
   const newData = editor.api.markdown.serialize();
@@ -39,8 +39,8 @@ export function PlateEditor({ md }: { md: Mdprops }) {
     setIsSaving(true);
     try {
       const changes = editor.api.markdown.serialize();
-      const response = await fetch(`${baseUrl}/api/papers/update?id=${id}`, {
-        method: "POST",
+      const response = await fetch(`${baseUrl}/api/documents/${id}`, {
+        method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ update: changes }),
       });
@@ -49,7 +49,7 @@ export function PlateEditor({ md }: { md: Mdprops }) {
         throw new Error(`Save failed with status: ${response.status}`);
       }
 
-      await mutate(`${baseUrl}/api/papers/fetch?id=${id}`);
+      await mutate(`${baseUrl}/api/documents/${id}`);
       await new Promise((resolve) => setTimeout(resolve, 800));
       router.replace("/dashboard");
     } catch (error) {

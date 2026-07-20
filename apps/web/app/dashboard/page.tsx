@@ -48,7 +48,7 @@ export default async function Home() {
         </section>
       )}
 
-      <StatCards />
+      <StatCards documents={allDocs}/>
       
       {/*<div className="mx-0 sm:mx-8 mt-6 sm:mt-8">
         <div className="flex gap-3 sm:gap-4 justify-stretch sm:justify-start">

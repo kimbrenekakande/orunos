@@ -56,6 +56,7 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
   }, [])
 
   async function mobileMoneyPayment() {
+    setProcessing(true)
     const rq = await fetch(`${baseUrl}/api/payments`, {
       method: "POST",
       headers: {

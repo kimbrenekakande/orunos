@@ -19,7 +19,7 @@ export function DocPoller({ id, from } : props) {
 
   //Polling using nextjs swr
   const { data, error, isLoading } = useSWR(
-    `${baseUrl}/api/papers/fetch?id=${id}`, fetcher,
+    `${baseUrl}/api/documents/${id}`, fetcher,
     {
       refreshInterval: (data) => {
         return (!data || data.status === "GENERATING")? 5000 : 0;

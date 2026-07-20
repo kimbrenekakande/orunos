@@ -65,5 +65,6 @@ export async function startCreation(formData: FormData) {
     },
   });
 
+
   redirect(`/dashboard/${docType.type}/editor/${newDoc.id}`);
 }

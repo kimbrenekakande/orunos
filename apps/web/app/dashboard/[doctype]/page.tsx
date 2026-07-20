@@ -21,6 +21,8 @@ export default async function Paper({params} : Props) {
   const user = session?.user;
   if (!user) redirect('/login')
 
+  
+
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
       <Questionaire doctype={doctype}/>

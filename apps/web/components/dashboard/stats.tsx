@@ -3,7 +3,7 @@ import { ArrowsClockwiseIcon, WarningCircleIcon, FileTextIcon } from "@phosphor-
 import { Doc } from "@/lib/types"
 
 
-export function StatCards( documents : Doc[]) {
+export function StatCards({ documents }: { documents: Doc[] }) {
   return (
     <>
       <div className="grid grid-cols-4 justify-between mx-0 sm:mx-8 border border-gray mt-8 rounded">

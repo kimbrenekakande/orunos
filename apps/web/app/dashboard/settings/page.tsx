@@ -172,7 +172,7 @@ export default function SettingsPage() {
     <div className="flex flex-col gap-6 px-6 py-8 sm:p-8">
       {/* Header */}
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+        <h1 className="text-3xl font-bold tracking-tight font-nexa">Settings</h1>
         <p className="text-muted-foreground">
           Manage your account settings and preferences
         </p>

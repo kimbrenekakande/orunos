@@ -163,7 +163,7 @@ function BentoGridItem({ item }: { item: BentoItem }) {
 
           <h3
             className="text-xl font-semibold tracking-tight mb-2"
-            style={{fontFamily : 'var(--font-nexa-regular)'}}
+            className="font-nexa"
           >
             {title}
           </h3>

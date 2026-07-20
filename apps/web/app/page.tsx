@@ -51,7 +51,7 @@ const App = () => {
             </AnimatedShinyText>
           </div>
           <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold" style={{fontFamily : 'var(--font-nexa-regular)'}}> Your Academic Copilot </h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold" className="font-nexa"> Your Academic Copilot </h1>
             {/*<TypewriterEffectSmooth words={typer_words}/>*/}
           </div>
           <p className="sm:max-w-1/2 text-white text-center text-sm sm:text-base mx-2" style={{fontFamily : 'var(--font-inter)'}}>
@@ -84,7 +84,7 @@ const App = () => {
       
       <div id="feature-section" className="flex flex-col mx-2 sm:mx-8">
         <div className="flex flex-col gap-5">
-          <h2 className="text-2xl md:text-4xl lg:text-5xl" style={{fontFamily : 'var(--font-nexa-regular)'}}>Create your <FlipWords words={flipper_words} /> <br/> easily with the best research and citations.</h2>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-nexa">Create your <FlipWords words={flipper_words} /> <br/> easily with the best research and citations.</h2>
           <p className="text-muted-foreground text-lg">
             With Orunos, you can easily create citations and references for your research papers,articles, and other academic work. <br /> Our citation generator is designed to help you save time and ensure accuracy in your citations.
           </p>

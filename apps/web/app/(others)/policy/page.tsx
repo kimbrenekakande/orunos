@@ -7,7 +7,7 @@ export default function PolicyPage() {
         <div className="mx-auto max-w-3xl">
           <h1
             className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-8"
-            style={{ fontFamily: 'var(--font-nexa-regular)' }}
+            className="font-nexa"
           >
             Privacy Policy
           </h1>

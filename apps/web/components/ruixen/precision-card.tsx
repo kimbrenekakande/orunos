@@ -36,7 +36,7 @@ export default function PrecisionCard({
           <h3 className="text-muted-foreground text-lg font-medium">
             {leftSubtitle}
           </h3>
-          <CardTitle className="text-2xl md:text-4xl lg:text-5xl" style={{fontFamily : 'var(--font-nexa-regular)'}}>{leftTitle}</CardTitle>
+          <CardTitle className="text-2xl md:text-4xl lg:text-5xl" className="font-nexa">{leftTitle}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-lg text-muted-foreground">{leftDescription}</p>

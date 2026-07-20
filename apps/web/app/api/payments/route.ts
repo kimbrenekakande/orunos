@@ -1,20 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import { flw } from "@/lib/flutterwave";
+import baseUrl from "@/lib/base-url";
+import { serverSession } from "@/lib/server-session";
 
-export async function POST( request: NextRequest) { 
+export async function POST(request: NextRequest) {
+
+  const session = await serverSession();
+  const user = session?.user;
   
   const body = await request.json();
-  if (!body) return NextResponse.json({error :"payment details needed"}, {status : 400})
+  if (!body) return NextResponse.json({ error: "payment details needed" }, { status: 400 })
+
 
   const payload = {
     tx_ref: `MC-${Date.now()}`,
-    amount: "10000",
-    email: "kimbrenekakande@gmail.com",
+    amount: body.amount,
+    email: user?.email,
     phone_number: "054709929220", // test number for MTN Uganda
     currency: "UGX",
-    fullname: "kimbrene kakande",
-    redirect_url: "http://localhost:3000/dashboard/billing",
-    network: "MTN",
+    fullname: user?.name,
+    redirect_url: `${baseUrl}/dashboard/billing`,
+    network: body.network,
   };
 
   try {

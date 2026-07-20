@@ -29,15 +29,21 @@ import { Label } from "@/components/ui/label"
 import { redirect } from "next/navigation"
 import baseUrl from "@/lib/base-url"
 import { Transaction } from "@/lib/types"
+import { useRouter } from 'next/navigation'
+
 
 
 export default function BillingPage({ searchParams }: { searchParams: Promise<{ resp?: string }> }) {
   const session = clientSession
   // if (!session) redirect("/login")
   const user = session?.user;
+  const [amount, setAmount] = useState<number>()
+  const [processing, setProcessing] = useState(false)
   
   const params = use(searchParams);
   const [transactions, setTransactions] = useState<Array<Transaction>>([])
+  
+  const router = useRouter()
 
   useEffect(() => {
     const req = fetch(`${baseUrl}/api/transactions`)
@@ -49,15 +55,16 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
     })
   }, [])
 
-  async function mobileMoneyPayment(money: number) {
+  async function mobileMoneyPayment() {
     const rq = await fetch(`${baseUrl}/api/payments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        network: "MTN",
         phoneNumber: user?.phoneNumber,
-        amount: money,
+        amount: amount,
       }),
     })
     const results = await rq.json()
@@ -66,6 +73,7 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
 
   useEffect(() => {
     async function verifyTransaction() {
+      
       if (params.resp) {
         const parsed = JSON.parse(decodeURIComponent(params.resp));
 
@@ -95,12 +103,20 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
             },
           }),
         })
-        const result = await req.json()
-        if (result.error) throw new Error(result.error)
+        if (!req.ok) throw new Error(`HTTP ${req.status}`)
+        const text = await req.text()
+        if (text) {
+          const result = JSON.parse(text)
+          if (result.error) throw new Error(result.error)
+          const res = await fetch(`${baseUrl}/api/transactions`)
+          const data = await res.json()
+          setTransactions(data)
+          router.replace('/dashboard/billing')
+        }
       }
     }
     verifyTransaction();
-  }, [params.resp]);
+  }, [params.resp, router]);
 
   return (
     <div className="flex flex-col gap-6 p-6 md:p-8">
@@ -137,7 +153,7 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                     <p className="text-sm font-medium opacity-80">
                       Available Balance
                     </p>
-                    <p className="text-4xl font-bold tracking-tight">UGX {transactions[0]?.balanceAfter.toLocaleString('en-US')}</p>
+                    <p className="text-4xl font-bold font-mono tracking-tight">UGX {transactions[0]?.balanceAfter.toLocaleString('en-US')}</p>
                   </div>
                   <div className="flex size-12 items-center justify-center rounded-full bg-primary-foreground/15">
                     <Wallet className="size-6" />
@@ -146,7 +162,7 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-sm opacity-80">
                     <TrendingUp className="size-4" />
-                    <span>+ UGX 350.00 this month</span>
+                    <span>+ UGX {transactions.filter(t => t.type === 'DEPOSIT' && t.createdAt && new Date(t.createdAt).getMonth() === new Date().getMonth()).reduce((acc, t) => acc + t.amount, 0).toLocaleString('en-US')} this month</span>
                   </div>
                   <Dialog>
                     <form>
@@ -180,11 +196,11 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                         <FieldGroup className="mt-4">
                           <Field>
                             <Label htmlFor="username-1" className="hidden">Amout</Label>
-                            <Input id="amount-1" name="amout" defaultValue="" className="bg-transparent"/>
+                            <Input id="amount-1" name="amount" defaultValue="" onChange={e => setAmount(Number(e.target.value))} className="bg-transparent"/>
                           </Field>
                         </FieldGroup>
                         <DialogFooter>
-                          <Button type="submit" onClick={() => mobileMoneyPayment(400)} className="w-full cursor-pointer">Confirm</Button>
+                          <Button type="submit" onClick={() => mobileMoneyPayment()} className="w-full cursor-pointer">{processing ? "Processing..." : "Confirm"}</Button>
                         </DialogFooter>
                       </DialogContent>
                     </form>
@@ -198,14 +214,14 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                     <Coins className="size-4" />
                     <span className="text-sm">Total Spent</span>
                   </div>
-                  <p className="mt-2 text-2xl font-bold">UGX {transactions.reduce((acc, t) => acc + t.amount, 0).toLocaleString('en-US')}</p>
+                  <p className="mt-2 text-2xl font-mono font-bold">UGX {transactions.filter(t => t.type === 'WITHDRAWAL').reduce((acc, t) => acc + t.amount, 0).toLocaleString('en-US')}</p>
                 </div>
                 <div className="rounded border p-4">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <TrendingUp className="size-4" />
                     <span className="text-sm">Total Added</span>
                   </div>
-                  <p className="mt-2 text-2xl font-bold">UGX {transactions.reduce((acc, t) => {
+                  <p className="mt-2 text-2xl font-mono font-bold">UGX {transactions.reduce((acc, t) => {
                     if (t.type !== "DEPOSIT") return acc
                     return acc + t.amount
                   }, 0).toLocaleString('en-US')}</p>
@@ -215,7 +231,7 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                     <Smartphone className="size-4" />
                     <span className="text-sm">Mobile Money</span>
                   </div>
-                  <p className="mt-2 text-2xl font-bold">0705 664 501</p>
+                  <p className="mt-2 text-2xl font-bold font-mono">0705 664 501</p>
                 </div>
               </div>
             </div>

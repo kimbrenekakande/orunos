@@ -4,6 +4,13 @@ import { ArrowRight, Paperclip, Trash2, LoaderIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
+import { CircleAlertIcon } from "lucide-react";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/tiptapui/alert";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Field, FieldError } from "@/components/ui/field";
 import { startCreation } from "@/server/creator";
@@ -18,7 +25,7 @@ const formSchema = z.object({
   qnz: z.string().min(5, "Must be more than 5 characters"),
 });
 
-export default function Questionaire({ doctype }: { doctype: string }) {
+export default function Questionaire({ doctype, canAfford }: { doctype: string; canAfford: boolean }) {
   const [files, setFiles] = useState<File[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -83,6 +90,16 @@ export default function Questionaire({ doctype }: { doctype: string }) {
         </span>
       </div>
 
+      {!canAfford && (
+        <Alert variant="error">
+          <CircleAlertIcon />
+          <AlertTitle>Insufficient balance!</AlertTitle>
+          <AlertDescription>
+            Your balance is insufficient to proceed. Please top up to continue.
+          </AlertDescription>
+        </Alert>
+      )}
+
       <div className="rounded border border-border/60 overflow-hidden">
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="relative">
@@ -121,7 +138,7 @@ export default function Questionaire({ doctype }: { doctype: string }) {
                   "hover:bg-orange-500 transition-colors",
                   "disabled:opacity-50 disabled:cursor-not-allowed"
                 )}
-                disabled={isSubmitting}
+                disabled={isSubmitting || !canAfford}
                 type="submit"
               >
                 {isSubmitting ? (

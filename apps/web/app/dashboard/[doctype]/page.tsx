@@ -1,5 +1,6 @@
 import { serverSession } from "@/lib/server-session";
-import { redirect } from "next/navigation"; //or use unauthorized
+import { redirect } from "next/navigation";
+import { affordable } from "@/lib/actions/afford";
 import Questionaire from "@/components/kokonutui/ai-prompt";
 
 type Props = {
@@ -21,11 +22,11 @@ export default async function Paper({params} : Props) {
   const user = session?.user;
   if (!user) redirect('/login')
 
-  
+  const canAfford = await affordable(doctype)
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
-      <Questionaire doctype={doctype}/>
+      <Questionaire doctype={doctype} canAfford={canAfford}/>
     </div>
   )
 }

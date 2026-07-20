@@ -54,3 +54,16 @@ export type DocProps = {
   cachedName?: string;
 }
 
+
+export type Transaction = {
+  id: string
+  transactionId: string
+  amount: number
+  type: "DEPOSIT" | "WITHDRAWAL"
+  status: string
+  currency: string
+  phoneNumber: string
+  description: string
+  balanceAfter: number
+  createdAt: string
+}

@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma"
 import { FileText, Clock, MoreHorizontal } from "lucide-react"
 import { DeleteDocument } from "@/components/ui/delete-document"
 
-export async function TableView({ user }) {
+export async function TableView({ user, docs }) {
   const all = await prisma.document.findMany({
     where: {
       userId: user.id,

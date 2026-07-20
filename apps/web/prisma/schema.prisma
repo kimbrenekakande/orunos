@@ -66,6 +66,7 @@ model Transaction {
   type              TransType // 'deposit' or 'charge'
   phoneNumber       String
   description       String
+  balanceAfter      Int         @default(0)
   createdAt         DateTime  @default(now())
   userId            String
   user              User      @relation(fields: [userId], references: [id])
@@ -82,7 +83,6 @@ model User {
   phoneNumber   String?
   style         String?
   image         String?
-  balance       Int           @default(0)
   documents     Document[] //Custom field
   transactions  Transaction[] //Custom field
   admin         Boolean       @default(false) //Custom Field

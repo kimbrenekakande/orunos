@@ -156,6 +156,7 @@ exports.Prisma.TransactionScalarFieldEnum = {
   type: 'type',
   phoneNumber: 'phoneNumber',
   description: 'description',
+  balanceAfter: 'balanceAfter',
   createdAt: 'createdAt',
   userId: 'userId'
 };
@@ -167,7 +168,6 @@ exports.Prisma.UserScalarFieldEnum = {
   phoneNumber: 'phoneNumber',
   style: 'style',
   image: 'image',
-  balance: 'balance',
   admin: 'admin',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

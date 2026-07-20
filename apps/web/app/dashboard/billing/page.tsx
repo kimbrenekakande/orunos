@@ -12,7 +12,7 @@ import {
 } from "@/components/dashboard/card"
 import { Badge } from "@/components/dashboard/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Coins, Download, FileText, Plus, Smartphone, TrendingUp, Wallet} from "lucide-react"
+import { Coins, Download, FileText, Plus, Smartphone, TrendingUp, Wallet } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -28,17 +28,28 @@ import { Input } from "@/components/platejs/input"
 import { Label } from "@/components/ui/label"
 import { redirect } from "next/navigation"
 import baseUrl from "@/lib/base-url"
+import { Transaction } from "@/lib/types"
+
 
 export default function BillingPage({ searchParams }: { searchParams: Promise<{ resp?: string }> }) {
   const session = clientSession
-  if (!session) redirect("/login")
-  const user = session.user;
+  // if (!session) redirect("/login")
+  const user = session?.user;
   
   const params = use(searchParams);
-  const [amount, setAmount] = useState(user.balance)
+  const [transactions, setTransactions] = useState<Array<Transaction>>([])
+
+  useEffect(() => {
+    const req = fetch(`${baseUrl}/api/transactions`)
+    req.then((res) => {
+      res.json().then((data) => {
+        setTransactions(data)
+        console.log(data)
+      })
+    })
+  }, [])
 
   async function mobileMoneyPayment(money: number) {
-    setAmount(amount + money)
     const rq = await fetch(`${baseUrl}/api/payments`, {
       method: "POST",
       headers: {
@@ -91,16 +102,6 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
     verifyTransaction();
   }, [params.resp]);
 
-
-  const billingHistory = [
-    { date: "Jan 15, 2025", description: "Top-up", type: "Credit", amount: "UGX 5,000", balance: "UGX 2,450" },
-    { date: "Jan 12, 2025", description: "Research Paper", type: "Debit", amount: "UGX 500", balance: "UGX -2,550" },
-    { date: "Jan 10, 2025", description: "Literature Review", type: "Debit", amount: "UGX 350", balance: "UGX -2,050" },
-    { date: "Jan 8, 2025", description: "Top-up", type: "Credit", amount: "UGX 3,000", balance: "UGX -1,700" },
-    { date: "Jan 5, 2025", description: "Thesis Proposal", type: "Debit", amount: "UGX 750", balance: "UGX -4,700" },
-    { date: "Jan 2, 2025", description: "Top-up", type: "Credit", amount: "UGX 2,000", balance: "UGX -3,950" },
-  ]
-
   return (
     <div className="flex flex-col gap-6 p-6 md:p-8">
       {/* Header */}
@@ -130,13 +131,13 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
           </CardHeader>
           <CardContent>
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="flex flex-col justify-between gap-4 rounded-lg bg-orange-500 p-6 text-white">
+              <div className="flex flex-col justify-between gap-4 rounded bg-orange-500 p-6 text-white">
                 <div className="flex items-start justify-between">
                   <div className="flex flex-col gap-1">
                     <p className="text-sm font-medium opacity-80">
                       Available Balance
                     </p>
-                    <p className="text-4xl font-bold tracking-tight">UGX {amount}</p>
+                    <p className="text-4xl font-bold tracking-tight">UGX {transactions[0]?.balanceAfter.toLocaleString('en-US')}</p>
                   </div>
                   <div className="flex size-12 items-center justify-center rounded-full bg-primary-foreground/15">
                     <Wallet className="size-6" />
@@ -162,46 +163,54 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
                             Recharge your wallet here. Click proceed when you are
                             done.
                           </DialogDescription>
+                          <div className="flex justify-between gap-4 mt-4">
+                            <div>
+                              <p>Name</p>
+                              <p>Method</p>
+                              <p>Number</p>
+                            </div>
+                            <div className="text-right">
+                              <h3>{user?.name}</h3>
+                              <p>Mobile Money</p>
+                              <p>+256705664501</p>
+                            </div>
+                          </div>
+                          
                         </DialogHeader>
-                        <FieldGroup>
+                        <FieldGroup className="mt-4">
                           <Field>
-                            <Label htmlFor="name-1">Name</Label>
-                            <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-                          </Field>
-                          <Field>
-                            <Label htmlFor="username-1">Phone Number</Label>
-                            <Input id="phoneNumber-1" name="phoneNumber" defaultValue="0705664501" />
+                            <Label htmlFor="username-1" className="hidden">Amout</Label>
+                            <Input id="amount-1" name="amout" defaultValue="" className="bg-transparent"/>
                           </Field>
                         </FieldGroup>
                         <DialogFooter>
-                          <DialogClose asChild>
-                            <Button variant="outline">Cancel</Button>
-                          </DialogClose>
-                          <Button type="submit" onClick={() => mobileMoneyPayment(400)}>Proceed</Button>
+                          <Button type="submit" onClick={() => mobileMoneyPayment(400)} className="w-full cursor-pointer">Confirm</Button>
                         </DialogFooter>
                       </DialogContent>
                     </form>
                   </Dialog>
-                  <button onClick={() => setAmount(amount + 400)}>UPGRANDE</button>
                 </div>
               </div>
 
               <div className="grid gap-4">
-                <div className="rounded-lg border p-4">
+                <div className="rounded border p-4">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Coins className="size-4" />
                     <span className="text-sm">Total Spent</span>
                   </div>
-                  <p className="mt-2 text-2xl font-bold">UGX 1,230.50</p>
+                  <p className="mt-2 text-2xl font-bold">UGX {transactions.reduce((acc, t) => acc + t.amount, 0).toLocaleString('en-US')}</p>
                 </div>
-                <div className="rounded-lg border p-4">
+                <div className="rounded border p-4">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <TrendingUp className="size-4" />
                     <span className="text-sm">Total Added</span>
                   </div>
-                  <p className="mt-2 text-2xl font-bold">UGX 3,680.50</p>
+                  <p className="mt-2 text-2xl font-bold">UGX {transactions.reduce((acc, t) => {
+                    if (t.type !== "DEPOSIT") return acc
+                    return acc + t.amount
+                  }, 0).toLocaleString('en-US')}</p>
                 </div>
-                <div className="rounded-lg border p-4">
+                <div className="rounded border p-4">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Smartphone className="size-4" />
                     <span className="text-sm">Mobile Money</span>
@@ -213,60 +222,6 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
           </CardContent>
         </Card>
       </div>
-
-      {/* Payment Methods - Hidden for now
-      <Card className="bg-transparent rounded">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <CreditCard className="size-5 text-muted-foreground" />
-              <CardTitle>Payment Methods</CardTitle>
-            </div>
-            <Button variant="outline" size="sm" className="gap-2">
-              <Plus className="size-4" />
-              Add Method
-            </Button>
-          </div>
-          <CardDescription>
-            Manage your saved payment methods
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="flex items-center justify-between rounded-lg border p-4">
-              <div className="flex items-center gap-4">
-                <div className="flex size-12 items-center justify-center rounded-lg bg-blue-500/10">
-                  <CreditCard className="size-6 text-blue-500" />
-                </div>
-                <div>
-                  <p className="font-medium">Visa ending in 4242</p>
-                  <p className="text-sm text-muted-foreground">
-                    Expires 12/2027
-                  </p>
-                </div>
-              </div>
-              <Badge>Default</Badge>
-            </div>
-            <div className="flex items-center justify-between rounded-lg border p-4">
-              <div className="flex items-center gap-4">
-                <div className="flex size-12 items-center justify-center rounded-lg bg-purple-500/10">
-                  <CreditCard className="size-6 text-purple-500" />
-                </div>
-                <div>
-                  <p className="font-medium">Mastercard ending in 1234</p>
-                  <p className="text-sm text-muted-foreground">
-                    Expires 08/2026
-                  </p>
-                </div>
-              </div>
-              <Button variant="ghost" size="sm">
-                Remove
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-      */}
 
       {/* Billing History */}
       <Card className="bg-transparent rounded">
@@ -298,35 +253,33 @@ export default function BillingPage({ searchParams }: { searchParams: Promise<{ 
               </TableRow>
             </TableHeader>
             <TableBody>
-              {billingHistory.map((item, index) => (
+              {transactions.map((transaction, index) => (
                 <TableRow
                   key={index}
                   className="border-b border-border/50 [&:last-child]:border-0 hover:bg-muted/40 transition-colors duration-150"
                 >
                   <TableCell className="py-3 text-sm text-muted-foreground">
-                    {item.date}
+                    {transaction.createdAt.slice(0, 10)}
                   </TableCell>
                   <TableCell className="py-3">
-                    <span className="text-sm text-foreground/90">{item.description}</span>
+                    <span className="text-sm text-foreground/90">{transaction.description}</span>
                   </TableCell>
                   <TableCell className="py-3 text-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium border border-border/50 ${
-                      item.type === "Credit"
-                        ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-                        : "bg-muted/80 text-muted-foreground"
+                      transaction.type === "DEPOSIT" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300": "bg-muted/80 text-muted-foreground"
                     }`}>
-                      {item.type}
+                      {transaction.type === "DEPOSIT" ? "Deposit" : "Withdrawal"}
                     </span>
                   </TableCell>
                   <TableCell className="py-3 text-right">
                     <span className={`text-sm font-medium ${
-                      item.type === "Credit" ? "text-emerald-600 dark:text-emerald-400" : "text-foreground/90"
+                      transaction.type === "DEPOSIT" ? "text-emerald-600 dark:text-emerald-400" : "text-foreground/90"
                     }`}>
-                      {item.type === "Credit" ? "+" : "-"}{item.amount}
+                      {transaction.type === "DEPOSIT" ? "+" : "-"}{transaction.amount.toLocaleString('en-US')}
                     </span>
                   </TableCell>
                   <TableCell className="py-3 text-right">
-                    <span className="text-sm text-muted-foreground">{item.balance}</span>
+                    <span className="text-sm text-muted-foreground">{transaction.balanceAfter.toLocaleString('en-US')}</span>
                   </TableCell>
                   <TableCell className="py-3 text-right pr-4">
                     <Button variant="ghost" size="sm" className="h-7 px-2 text-xs">

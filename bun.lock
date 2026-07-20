@@ -90,6 +90,7 @@
         "@opentelemetry/api": "^1.9.1",
         "@opentelemetry/resources": "^2.7.1",
         "@opentelemetry/sdk-node": "^0.215.0",
+        "@phosphor-icons/react": "^2.1.10",
         "@platejs/ai": "^51.1.2",
         "@platejs/autoformat": "^51.1.2",
         "@platejs/basic-nodes": "^51.1.2",
@@ -996,6 +997,8 @@
     "@pdf-lib/standard-fonts": ["@pdf-lib/standard-fonts@1.0.0", "", { "dependencies": { "pako": "^1.0.6" } }, "sha512-hU30BK9IUN/su0Mn9VdlVKsWBS6GyhVfqjwl1FjZN4TxP6cCw0jP2w7V3Hf5uX7M0AZJ16vey9yE0ny7Sa59ZA=="],
 
     "@pdf-lib/upng": ["@pdf-lib/upng@1.0.1", "", { "dependencies": { "pako": "^1.0.10" } }, "sha512-dQK2FUMQtowVP00mtIksrlZhdFXQZPC+taih1q4CvPZ5vqdxR/LKBaFg0oAfzd1GlHZXXSPdQfzQnt+ViGvEIQ=="],
+
+    "@phosphor-icons/react": ["@phosphor-icons/react@2.1.10", "", { "peerDependencies": { "react": ">= 16.8", "react-dom": ">= 16.8" } }, "sha512-vt8Tvq8GLjheAZZYa+YG/pW7HDbov8El/MANW8pOAz4eGxrwhnbfrQZq0Cp4q8zBEu8NIhHdnr+r8thnfRSNYA=="],
 
     "@platejs/ai": ["@platejs/ai@51.1.2", "", { "dependencies": { "@platejs/markdown": "51.1.2", "@platejs/selection": "51.1.2", "@platejs/suggestion": "51.1.2", "fastest-levenshtein": "1.0.16", "lodash": "^4.17.21" }, "peerDependencies": { "platejs": ">=51.1.2", "react": ">=18.0.0", "react-dom": ">=18.0.0" } }, "sha512-qegAoGKgue6EtcQ/mLcqixbBpFu+8ZbYRgcZkVEob0oduXKz3K7iXt9keqjaW8Zff46POgMbNsUqoKwsyYm+rg=="],
 

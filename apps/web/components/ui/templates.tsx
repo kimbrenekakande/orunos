@@ -28,7 +28,7 @@ function TemplateCard({ template }: { template: { name: string; type: string; im
 				onClick={() => handleClick()}
 			>
 				<div
-					className={`w-full aspect-3/4 rounded-lg bg-muted border border-border overflow-hidden relative ${!template.ready ? "bg-blend-soft-light border border-white " : ""}`}
+					className={`w-full aspect-3/4 rounded bg-muted border border-border overflow-hidden relative ${!template.ready ? "bg-blend-soft-light border border-white " : ""}`}
 					style={{
 						backgroundImage: `url(${template.image})`,
 						backgroundSize: "cover",
@@ -41,7 +41,7 @@ function TemplateCard({ template }: { template: { name: string; type: string; im
 						</div>
 					)}
 					{isLoading && (
-						<div className="absolute inset-0 bg-black/50 flex justify-center items-center rounded-lg">
+						<div className="absolute inset-0 bg-black/50 flex justify-center items-center rounded">
 							<LoaderIcon
 								role="status"
 								aria-label="Loading"

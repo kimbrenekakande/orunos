@@ -75,7 +75,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <meta name="apple-mobile-web-app-title" content="orunos" />
-      <body className={`${inter.variable} ${nexa.variable} antialiased`}>
+      <body className={`${inter.variable} ${nexa.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system"  enableSystem disableTransitionOnChange >
             {children}
         </ThemeProvider>

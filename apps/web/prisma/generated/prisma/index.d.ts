@@ -3845,11 +3845,13 @@ export namespace Prisma {
   export type TransactionAvgAggregateOutputType = {
     amount: number | null
     chargedAmount: number | null
+    balanceAfter: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
     amount: number | null
     chargedAmount: number | null
+    balanceAfter: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
@@ -3868,6 +3870,7 @@ export namespace Prisma {
     type: $Enums.TransType | null
     phoneNumber: string | null
     description: string | null
+    balanceAfter: number | null
     createdAt: Date | null
     userId: string | null
   }
@@ -3888,6 +3891,7 @@ export namespace Prisma {
     type: $Enums.TransType | null
     phoneNumber: string | null
     description: string | null
+    balanceAfter: number | null
     createdAt: Date | null
     userId: string | null
   }
@@ -3908,6 +3912,7 @@ export namespace Prisma {
     type: number
     phoneNumber: number
     description: number
+    balanceAfter: number
     createdAt: number
     userId: number
     _all: number
@@ -3917,11 +3922,13 @@ export namespace Prisma {
   export type TransactionAvgAggregateInputType = {
     amount?: true
     chargedAmount?: true
+    balanceAfter?: true
   }
 
   export type TransactionSumAggregateInputType = {
     amount?: true
     chargedAmount?: true
+    balanceAfter?: true
   }
 
   export type TransactionMinAggregateInputType = {
@@ -3940,6 +3947,7 @@ export namespace Prisma {
     type?: true
     phoneNumber?: true
     description?: true
+    balanceAfter?: true
     createdAt?: true
     userId?: true
   }
@@ -3960,6 +3968,7 @@ export namespace Prisma {
     type?: true
     phoneNumber?: true
     description?: true
+    balanceAfter?: true
     createdAt?: true
     userId?: true
   }
@@ -3980,6 +3989,7 @@ export namespace Prisma {
     type?: true
     phoneNumber?: true
     description?: true
+    balanceAfter?: true
     createdAt?: true
     userId?: true
     _all?: true
@@ -4087,6 +4097,7 @@ export namespace Prisma {
     type: $Enums.TransType
     phoneNumber: string
     description: string
+    balanceAfter: number
     createdAt: Date
     userId: string
     _count: TransactionCountAggregateOutputType | null
@@ -4126,6 +4137,7 @@ export namespace Prisma {
     type?: boolean
     phoneNumber?: boolean
     description?: boolean
+    balanceAfter?: boolean
     createdAt?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4147,6 +4159,7 @@ export namespace Prisma {
     type?: boolean
     phoneNumber?: boolean
     description?: boolean
+    balanceAfter?: boolean
     createdAt?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4168,6 +4181,7 @@ export namespace Prisma {
     type?: boolean
     phoneNumber?: boolean
     description?: boolean
+    balanceAfter?: boolean
     createdAt?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4189,11 +4203,12 @@ export namespace Prisma {
     type?: boolean
     phoneNumber?: boolean
     description?: boolean
+    balanceAfter?: boolean
     createdAt?: boolean
     userId?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "txRef" | "orderRef" | "flwRef" | "amount" | "chargedAmount" | "appfee" | "status" | "authModelUsed" | "currency" | "paymentType" | "type" | "phoneNumber" | "description" | "createdAt" | "userId", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "txRef" | "orderRef" | "flwRef" | "amount" | "chargedAmount" | "appfee" | "status" | "authModelUsed" | "currency" | "paymentType" | "type" | "phoneNumber" | "description" | "balanceAfter" | "createdAt" | "userId", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -4225,6 +4240,7 @@ export namespace Prisma {
       type: $Enums.TransType
       phoneNumber: string
       description: string
+      balanceAfter: number
       createdAt: Date
       userId: string
     }, ExtArgs["result"]["transaction"]>
@@ -4666,6 +4682,7 @@ export namespace Prisma {
     readonly type: FieldRef<"Transaction", 'TransType'>
     readonly phoneNumber: FieldRef<"Transaction", 'String'>
     readonly description: FieldRef<"Transaction", 'String'>
+    readonly balanceAfter: FieldRef<"Transaction", 'Int'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly userId: FieldRef<"Transaction", 'String'>
   }
@@ -5091,18 +5108,8 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
-  }
-
-  export type UserAvgAggregateOutputType = {
-    balance: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    balance: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -5112,7 +5119,6 @@ export namespace Prisma {
     phoneNumber: string | null
     style: string | null
     image: string | null
-    balance: number | null
     admin: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5126,7 +5132,6 @@ export namespace Prisma {
     phoneNumber: string | null
     style: string | null
     image: string | null
-    balance: number | null
     admin: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5140,7 +5145,6 @@ export namespace Prisma {
     phoneNumber: number
     style: number
     image: number
-    balance: number
     admin: number
     createdAt: number
     updatedAt: number
@@ -5149,14 +5153,6 @@ export namespace Prisma {
   }
 
 
-  export type UserAvgAggregateInputType = {
-    balance?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    balance?: true
-  }
-
   export type UserMinAggregateInputType = {
     id?: true
     name?: true
@@ -5164,7 +5160,6 @@ export namespace Prisma {
     phoneNumber?: true
     style?: true
     image?: true
-    balance?: true
     admin?: true
     createdAt?: true
     updatedAt?: true
@@ -5178,7 +5173,6 @@ export namespace Prisma {
     phoneNumber?: true
     style?: true
     image?: true
-    balance?: true
     admin?: true
     createdAt?: true
     updatedAt?: true
@@ -5192,7 +5186,6 @@ export namespace Prisma {
     phoneNumber?: true
     style?: true
     image?: true
-    balance?: true
     admin?: true
     createdAt?: true
     updatedAt?: true
@@ -5238,18 +5231,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -5280,8 +5261,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -5293,14 +5272,11 @@ export namespace Prisma {
     phoneNumber: string | null
     style: string | null
     image: string | null
-    balance: number
     admin: boolean
     createdAt: Date
     updatedAt: Date
     emailVerified: boolean
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -5326,7 +5302,6 @@ export namespace Prisma {
     phoneNumber?: boolean
     style?: boolean
     image?: boolean
-    balance?: boolean
     admin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5345,7 +5320,6 @@ export namespace Prisma {
     phoneNumber?: boolean
     style?: boolean
     image?: boolean
-    balance?: boolean
     admin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5359,7 +5333,6 @@ export namespace Prisma {
     phoneNumber?: boolean
     style?: boolean
     image?: boolean
-    balance?: boolean
     admin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5373,14 +5346,13 @@ export namespace Prisma {
     phoneNumber?: boolean
     style?: boolean
     image?: boolean
-    balance?: boolean
     admin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     emailVerified?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "style" | "image" | "balance" | "admin" | "createdAt" | "updatedAt" | "emailVerified", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "style" | "image" | "admin" | "createdAt" | "updatedAt" | "emailVerified", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     documents?: boolean | User$documentsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
@@ -5406,7 +5378,6 @@ export namespace Prisma {
       phoneNumber: string | null
       style: string | null
       image: string | null
-      balance: number
       admin: boolean
       createdAt: Date
       updatedAt: Date
@@ -5844,7 +5815,6 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"User", 'String'>
     readonly style: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
-    readonly balance: FieldRef<"User", 'Int'>
     readonly admin: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -9686,6 +9656,7 @@ export namespace Prisma {
     type: 'type',
     phoneNumber: 'phoneNumber',
     description: 'description',
+    balanceAfter: 'balanceAfter',
     createdAt: 'createdAt',
     userId: 'userId'
   };
@@ -9700,7 +9671,6 @@ export namespace Prisma {
     phoneNumber: 'phoneNumber',
     style: 'style',
     image: 'image',
-    balance: 'balance',
     admin: 'admin',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -9999,6 +9969,7 @@ export namespace Prisma {
     type?: EnumTransTypeFilter<"Transaction"> | $Enums.TransType
     phoneNumber?: StringFilter<"Transaction"> | string
     description?: StringFilter<"Transaction"> | string
+    balanceAfter?: IntFilter<"Transaction"> | number
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     userId?: StringFilter<"Transaction"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10020,6 +9991,7 @@ export namespace Prisma {
     type?: SortOrder
     phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -10044,6 +10016,7 @@ export namespace Prisma {
     type?: EnumTransTypeFilter<"Transaction"> | $Enums.TransType
     phoneNumber?: StringFilter<"Transaction"> | string
     description?: StringFilter<"Transaction"> | string
+    balanceAfter?: IntFilter<"Transaction"> | number
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     userId?: StringFilter<"Transaction"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10065,6 +10038,7 @@ export namespace Prisma {
     type?: SortOrder
     phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
     _count?: TransactionCountOrderByAggregateInput
@@ -10093,6 +10067,7 @@ export namespace Prisma {
     type?: EnumTransTypeWithAggregatesFilter<"Transaction"> | $Enums.TransType
     phoneNumber?: StringWithAggregatesFilter<"Transaction"> | string
     description?: StringWithAggregatesFilter<"Transaction"> | string
+    balanceAfter?: IntWithAggregatesFilter<"Transaction"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     userId?: StringWithAggregatesFilter<"Transaction"> | string
   }
@@ -10107,7 +10082,6 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"User"> | string | null
     style?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
-    balance?: IntFilter<"User"> | number
     admin?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -10125,7 +10099,6 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     style?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10146,7 +10119,6 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"User"> | string | null
     style?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
-    balance?: IntFilter<"User"> | number
     admin?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -10164,16 +10136,13 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     style?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -10186,7 +10155,6 @@ export namespace Prisma {
     phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     style?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
-    balance?: IntWithAggregatesFilter<"User"> | number
     admin?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -10594,6 +10562,7 @@ export namespace Prisma {
     type: $Enums.TransType
     phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTransactionsInput
   }
@@ -10614,6 +10583,7 @@ export namespace Prisma {
     type: $Enums.TransType
     phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
     userId: string
   }
@@ -10634,6 +10604,7 @@ export namespace Prisma {
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
     phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
   }
@@ -10654,6 +10625,7 @@ export namespace Prisma {
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
     phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
@@ -10674,6 +10646,7 @@ export namespace Prisma {
     type: $Enums.TransType
     phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
     userId: string
   }
@@ -10694,6 +10667,7 @@ export namespace Prisma {
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
     phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10713,6 +10687,7 @@ export namespace Prisma {
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
     phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
@@ -10724,7 +10699,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10742,7 +10716,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10760,7 +10733,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10778,7 +10750,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10796,7 +10767,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10810,7 +10780,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10824,7 +10793,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11358,6 +11326,7 @@ export namespace Prisma {
     type?: SortOrder
     phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
   }
@@ -11365,6 +11334,7 @@ export namespace Prisma {
   export type TransactionAvgOrderByAggregateInput = {
     amount?: SortOrder
     chargedAmount?: SortOrder
+    balanceAfter?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
@@ -11383,6 +11353,7 @@ export namespace Prisma {
     type?: SortOrder
     phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
   }
@@ -11403,6 +11374,7 @@ export namespace Prisma {
     type?: SortOrder
     phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
   }
@@ -11410,6 +11382,7 @@ export namespace Prisma {
   export type TransactionSumOrderByAggregateInput = {
     amount?: SortOrder
     chargedAmount?: SortOrder
+    balanceAfter?: SortOrder
   }
 
   export type EnumTransTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -11459,15 +11432,10 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     style?: SortOrder
     image?: SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
-  }
-
-  export type UserAvgOrderByAggregateInput = {
-    balance?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -11477,7 +11445,6 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     style?: SortOrder
     image?: SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11491,15 +11458,10 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     style?: SortOrder
     image?: SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
-  }
-
-  export type UserSumOrderByAggregateInput = {
-    balance?: SortOrder
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -12191,7 +12153,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12208,7 +12169,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12272,7 +12232,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12289,7 +12248,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12371,7 +12329,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12388,7 +12345,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12421,7 +12377,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12438,7 +12393,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12497,6 +12451,7 @@ export namespace Prisma {
     type: $Enums.TransType
     phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
   }
 
@@ -12516,6 +12471,7 @@ export namespace Prisma {
     type: $Enums.TransType
     phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
   }
 
@@ -12647,6 +12603,7 @@ export namespace Prisma {
     type?: EnumTransTypeFilter<"Transaction"> | $Enums.TransType
     phoneNumber?: StringFilter<"Transaction"> | string
     description?: StringFilter<"Transaction"> | string
+    balanceAfter?: IntFilter<"Transaction"> | number
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     userId?: StringFilter<"Transaction"> | string
   }
@@ -12723,7 +12680,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12740,7 +12696,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12773,7 +12728,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12790,7 +12744,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12807,7 +12760,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12824,7 +12776,6 @@ export namespace Prisma {
     phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12857,7 +12808,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12874,7 +12824,6 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12960,6 +12909,7 @@ export namespace Prisma {
     type: $Enums.TransType
     phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
   }
 
@@ -13040,6 +12990,7 @@ export namespace Prisma {
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
     phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13059,6 +13010,7 @@ export namespace Prisma {
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
     phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13078,6 +13030,7 @@ export namespace Prisma {
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
     phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

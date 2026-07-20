@@ -83,7 +83,7 @@ export default function Questionaire({ doctype }: { doctype: string }) {
         </span>
       </div>
 
-      <div className="rounded-lg border border-border/60 overflow-hidden">
+      <div className="rounded border border-border/60 overflow-hidden">
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="relative">
             <Controller
@@ -117,7 +117,7 @@ export default function Questionaire({ doctype }: { doctype: string }) {
               <button
                 aria-label="Generate document"
                 className={cn(
-                  "flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-background text-xs font-medium cursor-pointer",
+                  "flex items-center gap-1.5 rounded bg-foreground px-3 py-1.5 text-background text-xs font-medium cursor-pointer",
                   "hover:bg-orange-500 transition-colors",
                   "disabled:opacity-50 disabled:cursor-not-allowed"
                 )}

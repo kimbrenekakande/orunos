@@ -12,7 +12,13 @@ import baseUrl from "@/lib/base-url";
 import { SimpleEditorMenu } from "@/components/ruixen/simple-editor-menu";
 import { usePDF } from "@react-pdf/renderer";
 import { useState, useEffect } from "react";
+
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/tiptapui/resizable"
+import {usePanelRef} from "react-resizable-panels"
+
 import { mutate } from "swr";
+
+import { Button } from "@/components/tiptapui/button";
 
 export function PlateEditor({ md }: { md: Mdprops }) {
   const router = useRouter();
@@ -76,19 +82,48 @@ export function PlateEditor({ md }: { md: Mdprops }) {
     }
   }
 
+  const panelRef = usePanelRef()
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  
+  const togglePanel = () => {
+    if (panelRef.current?.isCollapsed()) {
+      panelRef.current?.expand()
+    } else {
+      panelRef.current?.collapse()
+    }
+  }
+
+  const COLLAPSED_SIZE = 0
+  
   return (
-    <Plate editor={editor}>
-      <EditorContainer>
-        <Editor variant="default" />
-        <div className="fixed bottom-10 right-10 -translate-x-1/2 z-50 rounded-4xl h-19">
-          <SimpleEditorMenu
-            onSave={SaveEditorText}
-            onDownload={handleDownload}
-            isSaving={isSaving}
-            isDownloading={isDownloading || instance.loading}
-          />
-        </div>
-      </EditorContainer>
-    </Plate>
+    <ResizablePanelGroup orientation="horizontal">
+      <ResizablePanel className="rounded-lg" >
+        <Button className="absolute top-2 right-2" onClick={togglePanel}>FUCK</Button>
+        <Plate editor={editor}>
+          <EditorContainer>
+            <Editor variant="default" />
+            <div className="fixed bottom-10 right-10 -translate-x-1/2 z-50 rounded-4xl h-19">
+              <SimpleEditorMenu
+                onSave={SaveEditorText}
+                onDownload={handleDownload}
+                isSaving={isSaving}
+                isDownloading={isDownloading || instance.loading}
+              />
+            </div>
+          </EditorContainer>
+        </Plate>
+      </ResizablePanel>
+      <ResizableHandle withHandle={true} />
+      <ResizablePanel
+        defaultSize="25%"
+        minSize={15}
+        collapsible
+        collapsedSize={COLLAPSED_SIZE}
+        onResize={(size) => setIsCollapsed(Number(size) === COLLAPSED_SIZE)}
+        panelRef={panelRef}
+      >
+        Two
+      </ResizablePanel>
+    </ResizablePanelGroup>
   );
 }

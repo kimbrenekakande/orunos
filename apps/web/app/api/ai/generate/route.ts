@@ -16,13 +16,13 @@ export async function POST(request: NextRequest) {
   if (!id) return NextResponse.json({ error: 'Document ID is required', status: 400 });
   if (!questions) return NextResponse.json({ error: 'Prompt is required', status: 400 });
 
-  
+
   const docProps: DocProps = {
     documentId: id,
     questions: questions,
   }
 
-  
+
   if (references && Array.isArray(references) && references.length > 0) {
     const ai = new GoogleGenAI({
       apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,

@@ -1,16 +1,16 @@
 import { tool,generateText } from "./braintrust"
 import { createGroq } from '@ai-sdk/groq'
 import { deepseek } from '@ai-sdk/deepseek';
-
-const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY,
-});
 import { google, type GoogleLanguageModelOptions } from '@ai-sdk/google';
 import {z} from "zod"
 import { outlineSchema, SectionLog } from "../types"
 import { serverSession } from "../server-session";
-
 import prisma from '@/lib/prisma';
+import baseUrl from "../base-url";
+
+const groq = createGroq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 export const outlineTool = tool({
   description: "Generates an outline for the document based on the document type and provided questions to best answer the questions provided",
@@ -111,7 +111,7 @@ export const writeTool = tool({
       }
     }
 
-    const saveResult = await prisma.document.update({
+    const saveDocument = await prisma.document.update({
       where : { id : docPlan.id},
       data : {
         title : docPlan.title,
@@ -120,7 +120,34 @@ export const writeTool = tool({
       }
     })
 
-    if (!saveResult) return { status: "failure", message: "Document creation failed" }
+    const getType = await prisma.docType.findUnique({
+      where : {type : saveDocument.docTypeId}
+    })
+
+    if (!getType) throw new Error("Failed to fetch Document Type")
+    
+
+    const saveTransaction = await fetch(`${baseUrl}/api/transactions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        paymentDetails: {
+          amount: getType.price,
+          chargedAmount: getType.price,
+          status: "successful",
+          currency: "UGX",
+          paymentType: "wallet",
+          phoneNumber: user?.phoneNumber,
+          description: DocumentType,
+        },
+      }),
+    })
+
+    if (!saveDocument) return { status: "failure", message: "Document creation failed" }
+    if (!saveTransaction) throw new Error("Transaction not saved")
+    
     return { status: "success", message: "Document created successfully" }
   },
 });
@@ -137,7 +164,7 @@ export const writeTool = tool({
 
 
 // export const searchTool = tool({
-//   description: "Searches the web for information on a given topic using Serper.dev API",
+//   description: "Searches the web for i nformation on a given topic using Serper.dev API",
 //   inputSchema: z.object({
 //     // The model sometimes calls this tool with `{ search: "...", type: "search" }`
 //     // instead of `{ query: "..." }`. Support both to avoid tool_use_failed.

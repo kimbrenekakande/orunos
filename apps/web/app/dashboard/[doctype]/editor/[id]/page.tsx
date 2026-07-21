@@ -5,6 +5,7 @@ import { redirect } from "next/navigation"; //or use unauthorized
 import { DocPoller } from "./polling";
 import { Metadata } from "next";
 
+
 type Props = {
   params : Promise<{ doctype: string; id: string }>,
   searchParams : Promise<{ source : string }>
@@ -30,7 +31,9 @@ export default async function Page({ params, searchParams } : Props) {
 	console.log(id)
 	const {source} = await searchParams
 
-	return(
-    <DocPoller id={id} from={source} />
+  return (
+    <div className="-m-8">
+      <DocPoller id={id} from={source} />
+    </div>
   )
 }

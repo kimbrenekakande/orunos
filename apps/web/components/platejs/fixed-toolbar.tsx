@@ -6,7 +6,7 @@ import { Toolbar } from './toolbar';
 
 export function FixedToolbar(props: React.ComponentProps<typeof Toolbar>) {
   return (
-    <div className="sticky top-0 left-0 z-50 w-full overflow-x-auto rounded-t-lg border-b border-b-border bg-background/95 backdrop-blur-sm supports-backdrop-blur:bg-background/60">
+    <div className="sticky  ml-8 scrollbar-hide top-4 left-0 z-60 w-full overflow-x-auto border-b border-b-border bg-background/95 backdrop-blur-sm supports-backdrop-blur:bg-background/60">
       <Toolbar
         {...(props as any)}
         className={cn(

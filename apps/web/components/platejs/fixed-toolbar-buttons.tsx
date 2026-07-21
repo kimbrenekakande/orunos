@@ -23,6 +23,7 @@ import { EmojiToolbarButton } from './emoji-toolbar-button';
 import { FontColorToolbarButton } from './font-color-toolbar-button';
 import { FontSizeToolbarButton } from './font-size-toolbar-button';
 import { RedoToolbarButton, UndoToolbarButton } from './history-toolbar-button';
+import { TogglePlaneButton } from './customs/toggle-plate-button'; // custom button
 import {
   IndentToolbarButton,
   OutdentToolbarButton,
@@ -52,7 +53,7 @@ export function FixedToolbarButtons() {
   return (
     <>
       {/* First Row - Main Formatting */}
-      <div className="flex w-full flex-wrap items-center gap-1">
+      <div className="flex w-full flex-wrap items-center gap-1 px-8">
         {/* Undo/Redo */}
         <ToolbarGroup>
           <UndoToolbarButton />
@@ -75,9 +76,9 @@ export function FixedToolbarButtons() {
           <MarkToolbarButton nodeType={KEYS.strikethrough} tooltip="Strikethrough">
             <StrikethroughIcon className="size-4" />
           </MarkToolbarButton>
-          <MarkToolbarButton nodeType={KEYS.code} tooltip="Code (⌘+E)">
+          {/*<MarkToolbarButton nodeType={KEYS.code} tooltip="Code (⌘+E)">
             <Code2Icon className="size-4" />
-          </MarkToolbarButton>
+          </MarkToolbarButton>*/}
           <MarkToolbarButton nodeType={KEYS.highlight} tooltip="Highlight">
             <HighlighterIcon className="size-4" />
           </MarkToolbarButton>
@@ -118,19 +119,19 @@ export function FixedToolbarButtons() {
           <LinkToolbarButton />
           <TableToolbarButton />
           <MediaToolbarButton nodeType={KEYS.img} />
-          <EmojiToolbarButton />
         </ToolbarGroup>
 
         <div className="flex-1" />
 
         {/* Right-aligned actions */}
         <ToolbarGroup>
-          <AIToolbarButton tooltip="AI commands">
+          {/*<AIToolbarButton tooltip="AI commands">
             <WandSparklesIcon className="size-4" />
-          </AIToolbarButton>
+          </AIToolbarButton>*/}
           <CommentToolbarButton />
-          <ModeToolbarButton />
-          <MoreToolbarButton />
+          {/*<ModeToolbarButton />
+          <MoreToolbarButton />*/}
+          <TogglePlaneButton />
         </ToolbarGroup>
       </div>
 

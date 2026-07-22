@@ -27,7 +27,7 @@ export default async function Home() {
   return (
     <div className="">
       <div className="mx-0 sm:mx-8 mt-8 sm:mt-12">
-        <h2 className="text-xl sm:text-3xl text-center sm:text-left font-nexa">Good {getTimeOfDay()}, {firstName}</h2>
+        <h2 className="text-xl sm:text-3xl text-center sm:text-left font-header">Good {getTimeOfDay()}, {firstName}</h2>
         <p className="text-sm text-muted-foreground mt-1 text-center sm:text-left">
           {user.email}
         </p>

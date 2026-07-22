@@ -25,6 +25,7 @@
     "@efferd": "https://efferd.com/r/{name}.json",
     "@magicui": "https://magicui.design/r/{name}",
     "@kokonutui": "https://kokonutui.com/r/{name}.json",
-    "@coss": "https://coss.com/ui/r/{name}.json"
+    "@coss": "https://coss.com/ui/r/{name}.json",
+    "@ai-elements": "https://ai-sdk.dev/elements/api/registry/{name}.json"
   }
 }

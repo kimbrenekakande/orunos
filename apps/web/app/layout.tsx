@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Geist, Geist_Mono, Inter, EB_Garamond } from "next/font/google";
 import localFont from "next/font/local"
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider"
 
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
+  subsets: ["latin"],
+});
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -75,7 +79,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <meta name="apple-mobile-web-app-title" content="orunos" />
-      <body className={`${inter.variable} ${nexa.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${inter.variable} ${nexa.variable} ${geistMono.variable} ${ebGaramond.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system"  enableSystem disableTransitionOnChange >
             {children}
         </ThemeProvider>

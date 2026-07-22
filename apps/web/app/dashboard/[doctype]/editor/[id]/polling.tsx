@@ -66,9 +66,10 @@ export function DocPoller({ id, from } : props) {
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="h-screen w-full scrollbar-thumb-transparent">
       <PlateEditor key={`${data.id}-${data.updatedAt}`} md={Document} />
       <Toaster />
     </div>
   );
 }
+ 

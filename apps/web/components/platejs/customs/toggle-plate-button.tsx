@@ -2,6 +2,7 @@ import { useEditorRef } from "platejs/react";
 import { ArrowsClockwiseIcon, WarningCircleIcon, FileTextIcon } from "@phosphor-icons/react"
 import { ToolbarButton } from "../toolbar";
 
+
 export function TogglePlaneButton() {
   const editor = useEditorRef();
   

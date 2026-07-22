@@ -23,6 +23,7 @@ import { SuggestionToolbarButton } from './suggestion-toolbar-button';
 import { ToolbarGroup } from './toolbar';
 import { TurnIntoToolbarButton } from './turn-into-toolbar-button';
 
+
 export function FloatingToolbarButtons() {
   const readOnly = useEditorReadOnly();
 

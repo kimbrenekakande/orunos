@@ -12,6 +12,7 @@ import baseUrl from "@/lib/base-url";
 import { SimpleEditorMenu } from "@/components/ruixen/simple-editor-menu";
 import { usePDF } from "@react-pdf/renderer";
 import { useState, useEffect } from "react";
+import { SidePanel } from "../platejs/customs/side-panel";
 
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/tiptapui/resizable"
 import {usePanelRef} from "react-resizable-panels"
@@ -19,6 +20,10 @@ import {usePanelRef} from "react-resizable-panels"
 import { mutate } from "swr";
 
 import { Button } from "@/components/tiptapui/button";
+
+export function togglePanel() {
+  togglePanelRef?.();
+}
 
 export function PlateEditor({ md }: { md: Mdprops }) {
   const router = useRouter();
@@ -96,9 +101,9 @@ export function PlateEditor({ md }: { md: Mdprops }) {
   const COLLAPSED_SIZE = 0
   
   return (
-    <ResizablePanelGroup orientation="horizontal">
-      <ResizablePanel className="rounded-lg" >
-        <Button className="absolute top-2 right-2" onClick={togglePanel}>FUCK</Button>
+    <ResizablePanelGroup orientation="horizontal" className="">
+      <ResizablePanel className="rounded" >
+        <Button className="absolute top-2 right-2 z-50" onClick={togglePanel}>FUCK</Button>
         <Plate editor={editor}>
           <EditorContainer>
             <Editor variant="default" />
@@ -116,13 +121,12 @@ export function PlateEditor({ md }: { md: Mdprops }) {
       <ResizableHandle withHandle={true} />
       <ResizablePanel
         defaultSize="25%"
-        minSize={15}
         collapsible
         collapsedSize={COLLAPSED_SIZE}
         onResize={(size) => setIsCollapsed(Number(size) === COLLAPSED_SIZE)}
         panelRef={panelRef}
       >
-        Two
+        <SidePanel/>
       </ResizablePanel>
     </ResizablePanelGroup>
   );

@@ -23,8 +23,8 @@ import { EmojiToolbarButton } from './emoji-toolbar-button';
 import { FontColorToolbarButton } from './font-color-toolbar-button';
 import { FontSizeToolbarButton } from './font-size-toolbar-button';
 import { RedoToolbarButton, UndoToolbarButton } from './history-toolbar-button';
-import { TogglePlaneButton } from './customs/toggle-plate-button'; // custom button
-import { GoHomeButton } from './customs/home';
+import { TogglePlaneButton } from './customs/buttons/toggle-plate-button'; // custom button
+import { GoHomeButton } from './customs/buttons/home-button'; 
 
 import {
   IndentToolbarButton,

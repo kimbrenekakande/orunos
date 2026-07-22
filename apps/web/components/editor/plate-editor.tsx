@@ -21,6 +21,8 @@ import { mutate } from "swr";
 
 import { Button } from "@/components/tiptapui/button";
 
+let togglePanelRef: (() => void) | null = null;
+
 export function togglePanel() {
   togglePanelRef?.();
 }
@@ -88,9 +90,9 @@ export function PlateEditor({ md }: { md: Mdprops }) {
   }
 
   const panelRef = usePanelRef()
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  // const [isCollapsed, setIsCollapsed] = useState(true)
   
-  const togglePanel = () => {
+  togglePanelRef = () => {
     if (panelRef.current?.isCollapsed()) {
       panelRef.current?.expand()
     } else {
@@ -98,12 +100,11 @@ export function PlateEditor({ md }: { md: Mdprops }) {
     }
   }
 
-  const COLLAPSED_SIZE = 0
+  // const COLLAPSED_SIZE = "0%"
   
   return (
-    <ResizablePanelGroup orientation="horizontal" className="">
+    <ResizablePanelGroup orientation="horizontal">
       <ResizablePanel className="rounded" >
-        <Button className="absolute top-2 right-2 z-50" onClick={togglePanel}>FUCK</Button>
         <Plate editor={editor}>
           <EditorContainer>
             <Editor variant="default" />
@@ -122,8 +123,7 @@ export function PlateEditor({ md }: { md: Mdprops }) {
       <ResizablePanel
         defaultSize="25%"
         collapsible
-        collapsedSize={COLLAPSED_SIZE}
-        onResize={(size) => setIsCollapsed(Number(size) === COLLAPSED_SIZE)}
+        // onResize={(size) => setIsCollapsed(Number(size) === COLLAPSED_SIZE)}
         panelRef={panelRef}
       >
         <SidePanel/>

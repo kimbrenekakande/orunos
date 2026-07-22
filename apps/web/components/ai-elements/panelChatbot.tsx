@@ -102,7 +102,7 @@ const InputDemo = () => {
 
   return (
     <div className="w-full size-full h-full">
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full w-full">
         <Conversation>
           <ConversationContent>
             {messages.map((message) => (

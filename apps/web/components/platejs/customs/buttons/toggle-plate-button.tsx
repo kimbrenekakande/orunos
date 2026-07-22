@@ -1,6 +1,7 @@
 import { useEditorRef } from "platejs/react";
-import { ArrowsClockwiseIcon, WarningCircleIcon, FileTextIcon } from "@phosphor-icons/react"
-import { ToolbarButton } from "../toolbar";
+import { WarningCircleIcon } from "@phosphor-icons/react"
+import { ToolbarButton } from "../../toolbar";
+import { togglePanel } from "@/components/editor/plate-editor";
 
 
 export function TogglePlaneButton() {
@@ -9,8 +10,7 @@ export function TogglePlaneButton() {
   return (
     <ToolbarButton
       onClick = {() => {
-        // Custom action to toggle the plane 
-        editor.tf.insertText("this is the shit")
+        togglePanel()
       }}
       tooltip="toggle plane tool"
     >

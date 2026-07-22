@@ -6,6 +6,7 @@ import useSWR from "swr";
 import baseUrl from "@/lib/base-url";
 import { LoaderIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ThinkingOrb } from "thinking-orbs"
 
 
 type props = {
@@ -35,18 +36,13 @@ export function DocPoller({ id, from } : props) {
   if (isLoading || data?.status === "GENERATING"){
     if (from === "form"){
       return (
-        <div className="h-full w-full flex flex-col justify-center items-center gap-4">
-          <LoaderIcon
-            role="status"
-            aria-label="Loading"
-            className={cn("size-12 animate-spin text-orange-500")}
-            // {...props}
-          />
+        <div className="h-screen w-full flex flex-col justify-center items-center gap-4">
+          <ThinkingOrb state="working" size={64} speed={3.0} theme="auto" />
         </div>
       )
     } else {
       return (
-        <div className="h-full w-full flex flex-col justify-center items-center">
+        <div className="h-screen w-full flex flex-col justify-center items-center">
           <LoaderIcon
             role="status"
             aria-label="Loading"

@@ -1,7 +1,7 @@
 import { useEditorRef } from "platejs/react";
 
 import { HouseIcon } from "@phosphor-icons/react";
-import { ToolbarButton } from "../toolbar";
+import { ToolbarButton } from "../../toolbar";
 
 import { redirect } from 'next/navigation';
 

@@ -1,6 +1,6 @@
 import { Page, Text, View, Document, Image, Link } from "@react-pdf/renderer";
 import { styles } from "@/styles/pdfstyles";
-import { authClient } from "@/lib/auth-client"
+import clientSession from "@/lib/client-session"
 import React from "react";
 import { MyDocProps } from "@/lib/types";
 import {marked} from "marked"
@@ -9,7 +9,7 @@ import baseUrl from "@/lib/base-url";
 //Generating && Download PDF
 export const MyDoc = ({ title, content }: MyDocProps) => {
 
-  const {data} =  authClient.useSession()
+  const data = clientSession
   const author = data?.user
 
   // Some content sources include control/zero-width characters that can break `marked` parsing.

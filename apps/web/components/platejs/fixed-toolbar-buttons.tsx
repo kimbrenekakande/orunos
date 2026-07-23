@@ -19,12 +19,16 @@ import { useEditorReadOnly } from 'platejs/react';
 import { AIToolbarButton } from './ai-toolbar-button';
 import { AlignToolbarButton } from './align-toolbar-button';
 import { CommentToolbarButton } from './comment-toolbar-button';
-import { EmojiToolbarButton } from './emoji-toolbar-button';
+// import { EmojiToolbarButton } from './emoji-toolbar-button';
 import { FontColorToolbarButton } from './font-color-toolbar-button';
 import { FontSizeToolbarButton } from './font-size-toolbar-button';
 import { RedoToolbarButton, UndoToolbarButton } from './history-toolbar-button';
-import { TogglePlaneButton } from './customs/buttons/toggle-plate-button'; // custom button
+// import { TogglePlaneButton } from './customs/buttons/toggle-plate-button'; // custom button
 import { GoHomeButton } from './customs/buttons/home-button'; 
+import { SaveChangesButton } from './customs/buttons/save-button';
+import { ExportToolbarButton } from './export-toolbar-button';
+
+
 
 import {
   IndentToolbarButton,
@@ -132,9 +136,11 @@ export function FixedToolbarButtons() {
             <WandSparklesIcon className="size-4" />
           </AIToolbarButton>*/}
           <CommentToolbarButton />
+          <SaveChangesButton />
+          <ExportToolbarButton />
           {/*<ModeToolbarButton />
           <MoreToolbarButton />*/}
-          <TogglePlaneButton />
+          {/*<TogglePlaneButton />*/}
         </ToolbarGroup>
       </div>
 

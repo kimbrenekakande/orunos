@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import { ReactNode } from 'react';
+import type { TPlateEditor } from 'platejs/react';
+
 
 export interface Mdprops {
   id : string
@@ -80,3 +82,13 @@ export type Doc = {
   createdAt: Date
   updatedAt: Date
 }
+
+
+// custom interface to extend TPlateEditor with custom fields
+export interface EditorTypeWithCustomFields extends TPlateEditor {
+  documentData: {
+    documentId: string;
+    documentTitle: string;
+  }
+}
+

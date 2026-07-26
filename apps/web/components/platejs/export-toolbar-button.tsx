@@ -62,6 +62,7 @@ export function ExportToolbarButton(props: DropdownMenuProps) {
 
   // exportToMarkdown — Serialize the Plate document to a Markdown string
   const exportToDOCX = async () => {
+    // console.log(content)
     createAndDownloadDocx(content, documentTitle as string)
   };
 
@@ -91,7 +92,7 @@ export function ExportToolbarButton(props: DropdownMenuProps) {
             Export as Image
           </DropdownMenuItem>*/}
           <DropdownMenuItem onSelect={exportToDOCX}>
-            Export as Markdown
+            Export as DOCX
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

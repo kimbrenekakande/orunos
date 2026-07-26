@@ -218,97 +218,7 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
     });
   };
 
-  // Fallback for inline markdown that `marked` failed to tokenize (e.g. `**bold**` still in text).
-  // React-PDF supports nested <Text> with different styles, so we can render it safely here.
-  function renderInlineFallback(text: string): React.ReactNode[] | string {
-    const patterns: Array<{
-      kind: "code" | "bold" | "strike" | "em";
-      regex: RegExp;
-    }> = [
-      { kind: "code", regex: /`([^`]+)`/g },
-      { kind: "bold", regex: /\*\*([^*]+?)\*\*/g },
-      { kind: "strike", regex: /~~([^~]+?)~~/g },
-      { kind: "em", regex: /\*([^*]+?)\*/g },
-    ];
-
-    // Find the earliest match among all patterns.
-    const findNext = (input: string) => {
-      let best:
-        | {
-            kind: "code" | "bold" | "strike" | "em";
-            match: RegExpExecArray;
-            index: number;
-          }
-        | null = null;
-
-      for (const p of patterns) {
-        p.regex.lastIndex = 0;
-        const m = p.regex.exec(input);
-        if (!m) continue;
-        const idx = m.index ?? 0;
-        if (!best || idx < best.index) best = { kind: p.kind, match: m, index: idx };
-      }
-      return best;
-    };
-
-    // Fast path: no patterns.
-    const anyRegex = /`[^`]+`|\*\*[^*]+?\*\*|~~[^~]+?~~|\*[^*]+?\*/;
-    if (!anyRegex.test(text)) return text;
-
-    const out: React.ReactNode[] = [];
-    let cursor = 0;
-    while (cursor < text.length) {
-      const next = findNext(text.slice(cursor));
-      if (!next) {
-        out.push(text.slice(cursor));
-        break;
-      }
-
-      const absoluteIndex = cursor + next.index;
-      if (absoluteIndex > cursor) out.push(text.slice(cursor, absoluteIndex));
-
-      const full = next.match[0];
-      const inner = next.match[1] ?? "";
-
-      switch (next.kind) {
-        case "code":
-          out.push(
-            <Text key={`code-${absoluteIndex}`} style={styles.inlineCode}>
-              {inner}
-            </Text>
-          );
-          break;
-        case "bold":
-          out.push(
-            <Text key={`bold-${absoluteIndex}`} style={styles.strong}>
-              {inner}
-            </Text>
-          );
-          break;
-        case "strike":
-          out.push(
-            <Text key={`strike-${absoluteIndex}`} style={styles.del}>
-              {inner}
-            </Text>
-          );
-          break;
-        case "em":
-          out.push(
-            <Text key={`em-${absoluteIndex}`} style={styles.em}>
-              {inner}
-            </Text>
-          );
-          break;
-      }
-
-      // Advance cursor past the matched token.
-      const advanceBy = full.length;
-      cursor = absoluteIndex + advanceBy;
-    }
-
-    return out;
-  }
-
+  
   // Render marked inline tokens without relying on regex fallback.
   // This keeps table cell layout stable and correctly styles tokens like `**bold**`.
   function renderInlineTokens(tokens: any[]): React.ReactNode[] {
@@ -361,21 +271,6 @@ export const MyDoc = ({ title, content }: MyDocProps) => {
 
   return (
     <Document >
-      {/*Cover Page*/}
-      {/*<Page size="A4" style={styles.cover}>
-        <Text style={styles.coverTitle}>
-          {title}
-        </Text>
-        <View style={{ marginTop: 30 }}>
-          <Text style={styles.authorInfo}>
-            {author?.name || "Author Name"}
-          </Text>
-          <Text style={styles.authorInfo}>
-            {author?.email || "author@email.com"}
-          </Text>
-        </View>
-      </Page>*/}
-
       <Page size="A4" style={styles.page} wrap>
         <View>
           {primitives}

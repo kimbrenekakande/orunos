@@ -9,90 +9,63 @@ from firecrawl import Firecrawl
 
 from app.core.models import groq, profileDataRetrieverModel, deepseek
 from app.core.prompts import draft_prompt
-from app.core.schemas import (
-    CompanyReport,
-    ProfileData,
-    SearchResult,
-    emailReq,
-    # leadReq,
-    leadsSearchState,
-)
+from app.core.schemas import (DocState)
 from lib.extraction import ProfileDataExtraction
+from langgraph.types import Command
 
 load_dotenv()
 
 
-async def search_node(state: leadsSearchState):
-    exa = Exa(api_key=os.getenv("EXA_API_KEY"))
-
-    results = exa.search_and_contents(
-        query=f"Generate Leads of  companies or organizations in the the {state.industry} industry of {state.country}",
-        exclude_domains=state.exclude,
-        category="company",
-        num_results=100,
-        type="deep",
+async def plan_node(state : DocState):
+    "plan the document layout and structure based on doctype"
+    # ouput should be the first drafts for sections 
+    response = deepseek.invoke( 
+        input=f"""
+            Create a ${state.docType} document plan based on APA academic documents standards.
+            your document are supposed to be able to satisfy the question below:
+            qn : ${state.question}
+        """,
     )
 
-    for r in results.results:
-        state.leads.append(
-            SearchResult(id=None, name=r.title, url=r.url, profile=r.text)
-        )
+async def ref_node(state : DocState):
+    """ route to the text node based on the the presence of refferences"""
+    if state.refs:
+        go2 = "rag"
+    else:
+        go2 = "withoutRef"
 
-    if results.results:
-        print("Exa Generation Completed")
-
-    return state
-
-
-async def analyze_node(state: leadsSearchState):
-
-    firecrawl_api_key = os.getenv("FIRECRAWL_API_KEY")
-    if firecrawl_api_key is None:
-        raise ValueError("FIRECRAWL_API_KEY environment variable is not set")
-    firecraw = Firecrawl(api_key=firecrawl_api_key)
-
-    for lead in list(state.leads):
-        if lead.url and lead.profile:
-            get_data: ProfileData = await ProfileDataExtraction(profile=lead.profile)
-            
-            if get_data.email:
-                lead.email = get_data.email
-            if get_data.location:
-                lead.location = get_data.location
-
-        try:
-            if not lead.email and lead.url:
-                data = firecraw.scrape(lead.url, formats=["markdown"])
-                lead.profile = data.markdown
-
-                if lead.profile:
-                    response: ProfileData = await ProfileDataExtraction(profile=lead.profile)
-                    if response.email:
-                        lead.email = response.email
-                    if response.location:
-                        lead.location = response.location
-        except Exception as e:
-            print(
-                f"[analyze_node] Failed to extract data for {lead.name} ({lead.url}): {e}"
-            )
-
-        if not lead.email or "@" not in lead.email:
-            state.leads.remove(lead)
+    # gotta return a command to the path assigned to go2
+    return(Command(goto=go2))
 
 
-def _parse_extracted_content(extracted_content):
-    """Parse crawled extracted_content (a JSON string) into a dict.
+async def rag_node(state: DocState):
+    """Generate  a recusive RAG on the attached refferences"""
+    # 
 
-    When chunking is enabled, the JSON string may contain a list of results
-    (one per chunk) — this takes the first element.
-    """
-    parsed = json.loads(extracted_content)
-    if isinstance(parsed, list):
-        return parsed[0] if parsed else {}
-    return parsed
+async def without_ref_draft_node(state : DocState):
+    "plan the document layout and structure based on doctype"
+    # ouput should be the first drafts for sections 
+    response = deepseek.invoke( 
+        input=f"""
+            Create a ${state.docType} document plan based on APA academic documents standards.
+            your document are supposed to be able to satisfy the question below:
+            qn : ${state.question}
+        """,
+    )
+
+async def with_ref_draft_node(state : DocState):
+    "plan the document layout and structure based on doctype"
+    # ouput should be the first drafts for sections 
+    response = deepseek.invoke( 
+        input=f"""
+            Create a ${state.docType} document plan based on APA academic documents standards.
+            your document are supposed to be able to satisfy the question below:
+            qn : ${state.question}
+        """,
+    )
 
 
-async def research_node(state: leadsSearchState):
+async def research_node(state: DocState):
 
     llm_extraction_strategy = LLMExtractionStrategy(
         llm_config=LLMConfig(
@@ -100,7 +73,6 @@ async def research_node(state: leadsSearchState):
             provider="deepseek/deepseek-chat",
             api_token=os.getenv("DEEPSEEK_API_KEY"),
         ),
-        schema=CompanyReport.model_json_schema(),
         extraction_type="schema",
         instruction="Extract a detailed lead report from the company website. provide as much info as posiible in the profile field ",
         chunk_token_threshold=1200,
@@ -178,19 +150,3 @@ async def research_node(state: leadsSearchState):
             if response:
                 lead.email = response.email
                 lead.location = response.location
-
-
-async def draft_node(state: emailReq):
-    mktCorp = {
-        "name": "Eagle Info Solutions",
-        "website": "www.eagleinfosolutions.com",
-        "email": "info@eagleinfosolutions.com",
-        "location": "Nalubega complex, Room L28. Opp Watoto Churh",
-        "services": "Eagle Info Solutions is a computer retail and repair company dedicated to providing top-notch technology solutions to various industries.",
-    }
-    for company in state.companies:
-
-        
-        response = deepseek.invoke( input=draft_prompt(mktCorp, company))
-        company.draft = response.text
-    return state

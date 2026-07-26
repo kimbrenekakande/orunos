@@ -50,10 +50,7 @@ export async function POST(req: NextRequest) {
         let toolName = toolNameParam;
 
         if (!toolName) {
-          const { object: AIToolName } = await generateObject({
-            enum: isSelecting
-              ? ['generate', 'edit', 'comment']
-              : ['generate', 'comment'],
+          const { object: AIToolName } = await generateObject({ enum: isSelecting ? ['generate', 'edit', 'comment'] : ['generate', 'comment'],
             model: groq(model || 'llama-3.3-70b-versatile'),
             output: 'enum',
             prompt: getChooseToolPrompt(messagesRaw),

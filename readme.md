@@ -1,298 +1,347 @@
 # Orunos
 
-**Your Academic Copilot** — Your Academic Copilot — Create Authentic Academic Documents with AI that understands your stylometry.
+**Your Academic Copilot** — Create authentic academic documents with AI that understands your writing style.
 
-Orunos is a comprehensive academic document creation platform designed for researchers, students, and academics. Generate well-formatted papers, theses, reports, and publications with AI-assisted writing, automatic citations, and professional PDF export tailored to academic standards.
+Orunos helps researchers, students, and academics produce well-formatted papers, theses, reports, and publications using AI-powered writing assistance, automatic citations, and professional PDF export tailored to academic standards.
 
 ---
 
 ![Orunos Banner](./apps/web/public/images/landing.jpeg)
 
----
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Development](#development)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
-
----
-
 ## Overview
 
-Orunos is a full-stack monorepo application that provides:
+Writing academic documents is slow and tedious. You spend hours formatting, managing citations, and polishing language. Orunos takes that burden off your shoulders. It's a platform that lets you focus on your ideas while it handles the repetitive stuff—formatting, bibliography, language refinement, and even content generation. You can work from your browser or on your phone, and everything stays in sync. Whether you're a student pulling an all-nighter on a coursework or a researcher preparing a journal submission, Orunos is the copilot you wish you had.
 
-- **AI-powered academic writing assistance** — Generate content, improve academic language, and get writing suggestions
-- **Rich text editing** — Plate.js-based editor with support for tables, equations, citations, and more
-- **Citation management** — Automatic citation generation across 10,000+ academic sources
-- **Document templates** — Pre-built templates for coursework, fieldwork, theses, and research papers
-- **Multi-platform access** — Web application (Next.js) and mobile app (Expo React Native)
-- **User authentication** — Secure authentication with Better Auth, email verification, and social login
+## System Architecture
 
----
+```mermaid
+flowchart LR
+    Web["Web Client (Next.js)"]
+    Mobile["Mobile Client (Expo)"]
+    API["Next.js API Server"]
+    Agents["Python Agents Service"]
+    DB[("LibSQL Database")]
+    AI["External AI Providers"]
+
+    Web --> API
+    Mobile --> API
+    API --> DB
+    API --> Agents
+    Agents --> AI
+
+    style Web fill:#1e1b4b,stroke:#6366f1,stroke-width:2px,color:#fff
+    style Mobile fill:#1e1b4b,stroke:#6366f1,stroke-width:2px,color:#fff
+    style API fill:#2e1065,stroke:#8b5cf6,stroke-width:2px,color:#fff
+    style Agents fill:#2e1065,stroke:#8b5cf6,stroke-width:2px,color:#fff
+    style DB fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#fff
+    style AI fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fff
+```
+
+A Next.js API server acts as the backbone, handling authentication, document management, and user requests. For complex AI tasks, it offloads work to a Python agents service that coordinates with external models like DeepSeek and Groq. All structured data lives in a LibSQL database, and the frontend is available as a progressive web app or a native mobile experience via Expo.
 
 ## Features
 
-### Academic Document Editor
+### AI-Powered Writing and Formatting
 
-Powered by **Plate.js** (Slate-based rich text editor) with AI-enhanced features:
+Communicate with the AI to generate sections, rewrite paragraphs, or get suggestions. The assistant understands academic tone and can even mimic your stylometry after analyzing your previous documents.
 
-- **AI-powered content generation** — Generate academic text with AI assistance
-- **Smart formatting** — Follows APA, MLA, Chicago, and other academic style guides
-- **Tables, figures, and equations** — Full support for academic content types
-- **Citation management** — Automatic bibliography generation
-- **AI peer review** — Get feedback and suggestions for improvement
-- **Mathematical equations** — LaTeX-style equation editing
-- **Table of contents** — Automatic section numbering and navigation
-- **Context-aware suggestions** — Academic language improvements
-- **Abstract generation** — AI-driven summary creation
+```mermaid
+sequenceDiagram
+    actor User
+    participant Server as Next.js API
+    participant Agents as Python Agents
+    participant LLM as AI Provider
 
-### Professional PDF Export
-
-- Academic paper formatting with proper margins and typography
-- Thesis and dissertation templates
-- Journal submission-ready layouts
-- Conference paper formats
-- Research poster generation
-
-### Document Management
-
-- Create, edit, and organize academic documents
-- Version history and revision tracking
-- Export to multiple formats (PDF, DOCX, LaTeX, Markdown)
-- Collaborative writing and co-author support
-
-### User Interface
-
-- Responsive design for all screen sizes
-- Dark/light mode support
-- Accessible components (WCAG compliant)
-- Keyboard shortcuts for power users
-- Modern UI with shadcn/ui and custom components
-
-### Authentication & Security
-
-- Email/password authentication
-- Social login (Google OAuth)
-- Email verification
-- Session management with cookies
-- Cross-domain cookie support for mobile apps
-- Secure token storage
-
----
-
-## Technology Stack
-
-### Core Technologies
-
-| Category | Technology | Version |
-|----------|-----------|---------|
-| **Package Manager** | Bun | 1.3.3 |
-| **Build Tool** | Turborepo | 2.7.3 |
-| **Language** | TypeScript | 5.9.3 |
-
-### Web Application (`apps/web`)
-
-| Category | Technology | Version |
-|----------|-----------|---------|
-| **Framework** | Next.js | 16.0.10 |
-| **UI Library** | React | 19.2.3 |
-| **Styling** | Tailwind CSS | 4.x |
-| **UI Components** | shadcn/ui, Radix UI | Latest |
-| **State Management** | Zustand | 5.0.8 |
-| **Forms** | React Hook Form | 7.68.0 |
-| **Validation** | Zod | 4.1.13 |
-| **Rich Text Editor** | Plate.js | 51.1.3 |
-| **AI Integration** | AI SDK | 6.0.99 |
-| **AI Providers** | DeepSeek, Groq, OpenAI | Latest |
-| **Database ORM** | Prisma | 7.2.0 |
-| **Database** | LibSQL (SQLite) | Latest |
-| **Authentication** | Better Auth | 1.4.15 |
-| **File Uploads** | UploadThing | 7.7.4 |
-| **Email** | Resend | 6.7.0 |
-| **Charts** | Recharts | 2.15.4 |
-| **PDF** | @react-pdf/renderer, pdf-lib | Latest |
-| **Animations** | Framer Motion, GSAP | Latest |
-| **Icons** | Lucide, Tabler Icons | Latest |
-| **Monitoring** | Sentry | 10.x |
-
-### Mobile Application (`apps/mobile`)
-
-| Category | Technology | Version |
-|----------|-----------|---------|
-| **Framework** | Expo | 54.0.33 |
-| **Navigation** | Expo Router | 6.0.23 |
-| **UI Library** | React Native | 0.81.5 |
-| **Styling** | Uniwind (Tailwind for RN) | Latest |
-| **UI Components** | HeroUI Native | 1.0.0-rc.1 |
-| **Authentication** | Better Auth Expo | 1.4.18 |
-| **Secure Storage** | Expo SecureStore | 15.0.8 |
-| **Navigation** | React Navigation | 7.x |
-| **Gestures** | React Native Gesture Handler | 2.28.0 |
-| **Animations** | React Native Reanimated | 4.1.1 |
-
-### Development Tools
-
-| Tool | Purpose |
-|------|---------|
-| ESLint | Code linting |
-| TypeScript | Type checking |
-| Metro | React Native bundler |
-| Prisma | Database migrations |
-
----
-
-## Project Structure
-
-```
-orunos/
-├── apps/
-│   ├── web/                          # Next.js web application
-│   │   ├── app/                      # App Router pages & layouts
-│   │   │   ├── (auth)/               # Auth pages (login, signup)
-│   │   │   ├── (others)/             # Other public pages
-│   │   │   ├── api/                  # API routes
-│   │   │   │   ├── ai/               # AI-related endpoints
-│   │   │   │   ├── auth/             # Auth endpoints
-│   │   │   │   ├── papers/           # Document endpoints
-│   │   │   │   └── uploadthing/      # File upload endpoint
-│   │   │   └── dashboard/            # Protected dashboard pages
-│   │   │       ├── [doctype]/        # Dynamic document type pages
-│   │   │       ├── billing/          # Billing pages
-│   │   │       └── settings/         # User settings
-│   │   ├── components/               # React components
-│   │   │   ├── auth/                 # Auth-related components
-│   │   │   ├── dashboard/            # Dashboard components
-│   │   │   ├── editor/               # Plate.js editor components
-│   │   │   ├── emails/               # React Email components
-│   │   │   ├── platejs/              # Plate.js custom plugins
-│   │   │   ├── tiptapui/             # UI components
-│   │   │   └── ui/                   # shadcn/ui components
-│   │   ├── lib/                      # Utility libraries
-│   │   │   ├── actions/              # Server actions
-│   │   │   ├── ai/                   # AI utilities
-│   │   │   ├── auth.tsx              # Better Auth configuration
-│   │   │   ├── prisma.ts             # Prisma client
-│   │   │   └── utils.ts              # General utilities
-│   │   ├── prisma/                   # Database schema & migrations
-│   │   │   ├── schema.prisma         # Database schema
-│   │   │   └── migrations/           # Migration files
-│   │   ├── server/                   # Server-side logic
-│   │   ├── styles/                   # Global styles
-│   │   ├── hooks/                    # Custom React hooks
-│   │   └── utils/                    # Utility functions
-│   │
-│   └── mobile/                       # Expo React Native app
-│       ├── app/                      # Expo Router pages
-│       │   ├── (auth)/               # Auth screens
-│       │   │   ├── login.tsx
-│       │   │   └── signup.tsx
-│       │   ├── (tabs)/               # Tab navigation
-│       │   │   ├── index.tsx         # Home screen
-│       │   │   ├── documents.tsx     # Documents list
-│       │   │   └── settings.tsx      # Settings
-│       │   └── _layout.tsx           # Root layout
-│       ├── components/               # React Native components
-│       │   └── ui/                   # UI components
-│       ├── hooks/                    # Custom hooks
-│       ├── lib/                      # Utilities
-│       │   ├── auth-client.ts        # Better Auth client
-│       │   ├── next-url.ts           # API base URL
-│       │   └── theme.ts              # Theme configuration
-│       ├── assets/                   # Images, fonts, etc.
-│       └── scripts/                  # Build scripts
-│
-├── packages/                         # Shared packages (future)
-│
-├── .tables/                          # Database table configurations
-│
-├── package.json                      # Root package.json (workspaces)
-├── turbo.json                        # Turborepo configuration
-├── bun.lock                          # Bun lockfile
-└── readme.md                         # This file
+    User->>Server: Send document context and prompt
+    Server->>Agents: Forward generation task
+    Agents->>LLM: Request content generation
+    LLM->>Agents: Stream response
+    Agents->>Server: Structured output
+    Server->>User: Present generated text
 ```
 
----
+### Professional Document Editor
 
-## Getting Started
+A rich text editor built on Plate.js handles tables, equations, citations, and footnotes. It supports APA, MLA, Chicago, and other style guides, and includes an automatic table of contents and abstract generator. Everything is designed for dense academic content, not casual note-taking.
 
-### Prerequisites
+### Citation Management
 
-Before you begin, ensure you have the following installed:
+Orunos can automatically pull citations from over 10,000 academic sources. As you write, it builds your bibliography in the background, updates inline references, and ensures your citations follow the required style guide. You can also import existing BibTeX or RIS files.
 
-- **Node.js** 18+ (recommended: use [nvm](https://github.com/nvm-sh/nvm))
-- **Bun** 1.3.3+ ([Install Guide](https://bun.sh/docs/installation))
-- **Git** for version control
+### Mobile Companion App
 
-Optional for mobile development:
-- **Expo CLI** (`npm install -g expo-cli`)
-- **Xcode** (for iOS development on macOS)
-- **Android Studio** (for Android development)
+The Expo-based mobile app gives you access to your documents on the go. View, edit, and sync with the web version. It supports dark mode, native gestures, and secure authentication.
 
-### Installation
+### Secure Authentication and Billing
 
-1. **Clone the repository**
+Email/password and Google OAuth authentication are handled by Better Auth. Sessions persist securely across devices. A built-in billing system lets you top up credits for premium AI usage.
 
+```mermaid
+sequenceDiagram
+    actor User
+    participant Server
+    participant DB
+
+    User->>Server: POST /api/auth/sign-in (email, password)
+    Server->>DB: Validate credentials
+    DB-->>Server: Session created
+    Server-->>User: Set session cookie
+    User->>Server: GET /api/auth/session
+    Server-->>User: Return user profile
+```
+
+## Technologies Used
+
+| Category | Technology |
+|----------|------------|
+| **Frontend (Web)** | Next.js, React, Tailwind CSS, Plate.js, Zustand |
+| **Frontend (Mobile)** | Expo, React Native, Uniwind, HeroUI Native |
+| **Backend** | Next.js API routes, Python FastAPI, LangChain |
+| **Database** | LibSQL (Turso), Prisma ORM |
+| **AI/ML** | DeepSeek, Groq, OpenAI, AI SDK |
+| **Auth** | Better Auth |
+| **Payments** | (integrated billing system) |
+| **File Upload** | UploadThing |
+| **Monorepo** | Turborepo, Bun workspaces |
+| **Monitoring** | Sentry |
+
+## API Documentation
+
+### Authentication
+
+All endpoints under `/api/auth/*` are managed by Better Auth. You can use the standard client SDK or direct HTTP calls.
+
+#### `GET /api/auth/session`
+Retrieve the current user session.
+
+**Response**:
+```json
+{
+  "user": {
+    "id": "user_123",
+    "email": "user@example.com",
+    "name": "John Doe"
+  },
+  "session": {
+    "id": "sess_456",
+    "expires": "2026-03-01T00:00:00Z"
+  }
+}
+```
+
+### Documents
+
+#### `GET /api/papers/all`
+Fetch all documents belonging to the authenticated user.
+
+**Response**:
+```json
+{
+  "documents": [
+    {
+      "id": "doc_1",
+      "title": "My Research Paper",
+      "docTypeId": "research",
+      "status": "DRAFT",
+      "createdAt": "2026-01-15T10:30:00Z"
+    }
+  ]
+}
+```
+
+#### `GET /api/papers/fetch`
+Fetch a single document by ID.
+
+**Request** (query):
+`?id=doc_1`
+
+**Response**:
+```json
+{
+  "document": {
+    "id": "doc_1",
+    "title": "My Research Paper",
+    "content": "...",
+    "docTypeId": "research",
+    "status": "DRAFT"
+  }
+}
+```
+
+**Errors**:
+- `404` Document not found.
+
+#### `POST /api/papers/update`
+Update document content or metadata.
+
+**Request**:
+```json
+{
+  "id": "doc_1",
+  "title": "Updated Title",
+  "content": "New content..."
+}
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "document": { ... }
+}
+```
+
+#### `DELETE /api/papers/delete`
+Permanently delete a document. Requires `id` in body.
+
+**Request**:
+```json
+{
+  "id": "doc_1"
+}
+```
+
+**Response**:
+```json
+{
+  "success": true
+}
+```
+
+### AI Generation
+
+#### `POST /api/ai/generate`
+Generate academic content using AI. The request includes the document context and user prompt.
+
+**Request**:
+```json
+{
+  "docId": "doc_1",
+  "prompt": "Write an introduction about climate change",
+  "style": "apa"
+}
+```
+
+**Response** (streamed/JSON):
+```json
+{
+  "generatedText": "According to the Intergovernmental Panel on Climate Change..."
+}
+```
+
+#### `POST /api/ai/command`
+Execute a specific AI command (e.g., "rewrite", "expand", "summarize").
+
+**Request**:
+```json
+{
+  "docId": "doc_1",
+  "command": "rewrite",
+  "selection": "The current section..."
+}
+```
+
+#### `POST /api/ai/copilot`
+Activate the AI copilot for real-time suggestions.
+
+### File Uploads
+
+#### `POST /api/uploadthing`
+Upload files (images, attachments) to use in documents. Returns a URL.
+
+### Python Agents Service
+
+#### `POST /api/v1/fast`
+Initiate a document generation task (long-running).
+
+**Request**:
+```json
+{
+  "docID": "doc_1",
+  "docType": "research",
+  "question": "What is the impact of AI on education?"
+}
+```
+
+**Response** (initial):
+```json
+{
+  "status": "started",
+  "docID": "doc_1"
+}
+```
+
+#### `POST /api/v1/email`
+Generate cold outreach emails for leads.
+
+**Request**:
+```json
+{
+  "companies": [
+    {
+      "name": "Acme Corp",
+      "profile": "A fast-growing tech company..."
+    }
+  ]
+}
+```
+
+**Response**:
+```json
+{
+  "emails": ["Dear Acme Corp..."]
+}
+```
+
+**Authentication**: All API endpoints (except `/api/auth/*` public ones) require a valid session cookie or API key (`x-api-key` header for the Python service).
+
+## Environment Variables
+
+Create a `.env.local` file in `apps/web`:
+
+```
+DATABASE_URL="file:./dev.db"
+PROD="false"
+BETTER_AUTH_SECRET="your-secret"
+GOOGLE_CLIENT_ID="..."
+GOOGLE_CLIENT_SECRET="..."
+RESEND_API_KEY="..."
+UPLOADTHING_TOKEN="..."
+DEEPSEEK_API_KEY="..."
+GROQ_API_KEY="..."
+OPENAI_API_KEY="..."
+SENTRY_ORG="..."
+SENTRY_PROJECT="orunos"
+```
+
+For the mobile app (`apps/mobile/.env`):
+```
+API_URL="http://localhost:3000"
+```
+
+For the Python agents service (`apps/agents/.env`):
+```
+SECRET_KEY="shared-api-key"
+DEEPSEEK_API_KEY="..."
+EXA_API_KEY="..."
+```
+
+## Installation
+
+1. **Clone the repo**
    ```bash
-   git clone https://github.com/yourusername/orunos.git
+   git clone https://github.com/kimbrenekakande/orunos.git
    cd orunos
    ```
 
-2. **Install dependencies**
-
+2. **Install dependencies** (Bun required)
    ```bash
    bun install
    ```
 
-3. **Set up environment variables**
+3. **Set up environment variables** as shown above.
 
-   Create a `.env.local` file in the `apps/web` directory:
-
-   ```bash
-   # apps/web/.env.local
-
-   # Database
-   DATABASE_URL="file:./dev.db"
-   PROD="false"
-
-   # Better Auth
-   BETTER_AUTH_SECRET="your-secret-key-here"
-
-   # Google OAuth (optional)
-   GOOGLE_CLIENT_ID="your-google-client-id"
-   GOOGLE_CLIENT_SECRET="your-google-client-secret"
-
-   # Resend (email)
-   RESEND_API_KEY="your-resend-api-key"
-
-   # UploadThing (file uploads)
-   UPLOADTHING_TOKEN="your-uploadthing-token"
-
-   # AI Providers
-   DEEPSEEK_API_KEY="your-deepseek-api-key"
-   GROQ_API_KEY="your-groq-api-key"
-   OPENAI_API_KEY="your-openai-api-key"
-
-   # Sentry (monitoring)
-   SENTRY_ORG="your-sentry-org"
-   SENTRY_PROJECT="orunos"
-   ```
-
-   For mobile app, create `.env` in `apps/mobile`:
-
-   ```bash
-   # apps/mobile/.env
-   API_URL="http://localhost:3000"
-   ```
-
-4. **Set up the database**
-
+4. **Initialize the database**
    ```bash
    cd apps/web
    bun prisma generate
@@ -300,290 +349,30 @@ Optional for mobile development:
    ```
 
 5. **Run the development servers**
-
-   From the root directory:
-
    ```bash
-   # Run both web and mobile dev servers
+   # From the root
    bun dev
    ```
+   The web app will be at `http://localhost:3000`. The mobile dev server runs concurrently (Expo) and can be opened on a simulator or via QR code.
 
-   Or run them separately:
+## Usage
 
-   ```bash
-   # Web app only
-   cd apps/web
-   bun dev
+- **Web**: Open your browser to the local address, sign up with email or Google, and start a new document from the dashboard.
+- **Mobile**: After starting the dev server, press `a` for Android emulator or `i` for iOS simulator (or scan the QR code with Expo Go). The mobile app connects to the same backend.
 
-   # Mobile app only
-   cd apps/mobile
-   bun dev
-   ```
-
-6. **Open in browser**
-
-   - Web: [http://localhost:3000](http://localhost:3000)
-   - Mobile: Scan QR code from Expo DevTools or open in simulator
+For a complete walkthrough, see the [web app README](./apps/web/README.md) and [mobile README](./apps/mobile/README.md).
 
 ---
 
-## Development
-
-### Available Scripts
-
-From the **root directory**:
-
-```bash
-bun dev          # Start all development servers
-bun build        # Build all applications
-bun lint         # Run ESLint on all projects
-bun check-types  # Run TypeScript type checking
-bun clean        # Clean build artifacts
-```
-
-From **apps/web**:
-
-```bash
-bun dev          # Start Next.js development server
-bun build        # Build for production
-bun start        # Start production server
-bun lint         # Run ESLint
-bun check-types  # Type check
-bun prisma:generate  # Generate Prisma client
-bun prisma:migrate   # Run database migrations
-bun email        # Start React Email preview server
-```
-
-From **apps/mobile**:
-
-```bash
-bun start        # Start Expo development server
-bun android      # Run on Android emulator
-bun ios          # Run on iOS simulator
-bun lint         # Run ESLint
-```
-
-### Database Management
-
-```bash
-# Generate Prisma Client
-cd apps/web
-bun prisma generate
-
-# Push schema changes to database
-bun prisma db push
-
-# Create a new migration
-bun prisma migrate dev --name migration_name
-
-# Reset database
-bun prisma migrate reset
-
-# Open Prisma Studio (database GUI)
-bun prisma studio
-```
-
-### Code Style
-
-The project uses:
-- **ESLint** for code linting
-- **TypeScript** for type safety
-- **Prettier** (via ESLint) for code formatting
-
-Run linting:
-
-```bash
-bun lint
-```
-
----
-
-## Deployment
-
-### Web Application (Next.js)
-
-The web app is configured for deployment on **Vercel** with Sentry monitoring.
-
-1. **Build for production**
-
-   ```bash
-   cd apps/web
-   bun build
-   ```
-
-2. **Deploy to Vercel**
-
-   ```bash
-   vercel deploy --prod
-   ```
-
-3. **Environment variables**
-
-   Set all environment variables in your Vercel project settings.
-
-### Mobile Application (Expo)
-
-1. **Build for production**
-
-   ```bash
-   cd apps/mobile
-   eas build --platform ios
-   eas build --platform android
-   ```
-
-2. **Submit to stores**
-
-   ```bash
-   eas submit --platform ios
-   eas submit --platform android
-   ```
-
-### Database (Production)
-
-For production, the app uses **Turso** (LibSQL):
-
-```bash
-# Set production database URL
-TURSO_DATABASE_URL="libsql://your-db.turso.io"
-TURSO_AUTH_TOKEN="your-auth-token"
-PROD="true"
-```
-
----
-
-## Database Schema
-
-The application uses the following core entities:
-
-### User Management
-- **User** — User accounts with balance
-- **Session** — User sessions for authentication
-- **Account** — OAuth provider accounts
-- **Verification** — Email verification codes
-
-### Document Management
-- **Document** — Academic documents with title, content, and status
-- **DocType** — Document types (coursework, fieldwork, thesis, etc.)
-
-### Transactions
-- **Transaction** — User balance transactions (deposits, withdrawals)
-
----
-
-## API Reference
-
-### Authentication
-
-- `POST /api/auth/*` — Better Auth endpoints
-- `GET /api/auth/session` — Get current session
-
-### Documents
-
-- `GET /api/papers/all` — Fetch all user documents
-- `GET /api/papers/fetch` — Fetch specific document
-- `POST /api/papers/update` — Update document
-- `DELETE /api/papers/delete` — Delete document
-
-### AI
-
-- `POST /api/ai/generate` — Generate content with AI
-- `POST /api/ai/command` — Execute AI commands
-- `POST /api/ai/copilot` — AI copilot assistance
-
-### File Uploads
-
-- `POST /api/uploadthing` — Upload files
-
----
-
-## Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. **Fork the repository**
-2. **Create a feature branch**
-
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-
-3. **Commit your changes**
-
-   ```bash
-   git commit -m "Add amazing feature"
-   ```
-
-4. **Push to the branch**
-
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-
-5. **Open a Pull Request**
-
-### Development Guidelines
-
-- Follow existing code style and conventions
-- Write meaningful commit messages
-- Add tests for new features
-- Update documentation as needed
-- Ensure all linting checks pass
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-**Database connection errors:**
-```bash
-# Regenerate Prisma client
-cd apps/web
-bun prisma generate
-bun prisma db push
-```
-
-**Mobile app can't connect to API:**
-- Ensure both web and mobile servers are running
-- Check `API_URL` in mobile `.env`
-- For Android emulator, use `http://10.0.2.2:3000`
-- For physical devices, use your machine's IP address
-
-**Build errors:**
-```bash
-# Clean and reinstall
-rm -rf node_modules apps/*/node_modules packages/*/node_modules
-rm bun.lock
-bun install
-```
-
----
-
-## License
-
-This project is proprietary software. All rights reserved.
-
----
-
-## Acknowledgments
-
-- [Next.js](https://nextjs.org/) — React framework
-- [Expo](https://expo.dev/) — React Native framework
-- [Better Auth](https://better-auth.com/) — Authentication
-- [Plate.js](https://platejs.org/) — Rich text editor
-- [shadcn/ui](https://ui.shadcn.com/) — UI components
-- [Prisma](https://www.prisma.io/) — Database ORM
-- [Turborepo](https://turbo.build/repo) — Build system
-- [Bun](https://bun.sh/) — JavaScript runtime
-
----
-
-## Support
-
-For support and questions:
-- Create an issue on GitHub
-- Contact: support@orunos.com
-
----
-
-*Last updated: February 2026*
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+[![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)](https://expo.dev/)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![Bun](https://img.shields.io/badge/Bun-F9F1E0?style=for-the-badge&logo=bun&logoColor=black)](https://bun.sh/)
+[![Turborepo](https://img.shields.io/badge/Turborepo-EF4444?style=for-the-badge&logo=turborepo&logoColor=white)](https://turbo.build/)
+
+[![Readme was generated by Dokugen](https://img.shields.io/badge/Readme%20was%20generated%20by-Dokugen-brightgreen)](https://dokugen.samueltuoyo.com)

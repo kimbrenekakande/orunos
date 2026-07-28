@@ -12,7 +12,7 @@ async def spinup_actions(app:FastAPI):
     yield
 
 app = FastAPI(lifespan=spinup_actions)
-app.middleware("http")(authentication)
+# app.middleware("http")(authentication)
 app.include_router(fast.router)
 app.include_router(deep.router)
 

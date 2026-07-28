@@ -6,12 +6,13 @@ from app.core.schemas import DocState
 router = APIRouter(prefix="/api/v1", tags=["Generation"])
 
 
-@router.post("/fast")
+@router.get("/fast")
 async def get_leads(body:  DocState):
     initial_state: DocState = DocState(
-        docID = body.id,
+        docID = body.docID,
         docType = body.docType,
-        question =body.question,
+        question =body.question
     )
     x = await graph.ainvoke(initial_state)
+
     return x

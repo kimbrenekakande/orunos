@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.agents.fastdoc import graph
+from app.agents.fastdocs import graph
 from app.core.schemas import DocState
 
 router = APIRouter(prefix="/api/v1", tags=["Generation"])
@@ -14,5 +14,4 @@ async def get_leads(body:  DocState):
         question =body.question,
     )
     x = await graph.ainvoke(initial_state)
-
     return x

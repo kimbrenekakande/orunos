@@ -3,7 +3,6 @@ import dotenv
 from langchain.chat_models import init_chat_model
 from langchain_deepseek import ChatDeepSeek
 
-from app.core.schemas import ProfileData
 
 dotenv.load_dotenv()
 
@@ -21,4 +20,4 @@ deepseek  = ChatDeepSeek(
 
 )
 
-profileDataRetrieverModel = deepseek.with_structured_output(ProfileData)
+# profileDataRetrieverModel = deepseek.with_structured_output(ProfileData)

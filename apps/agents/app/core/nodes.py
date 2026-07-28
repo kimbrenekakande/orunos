@@ -2,18 +2,17 @@ import json
 import os
 from typing import cast
 
-from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, LLMConfig, LLMExtractionStrategy
 from dotenv import load_dotenv
 from exa_py import Exa
 from firecrawl import Firecrawl
 
-from app.core.models import groq, profileDataRetrieverModel, deepseek
+from app.core.models import groq, deepseek
 from app.core.prompts import draft_prompt
 from app.core.schemas import (DocState)
-from lib.extraction import ProfileDataExtraction
 from langgraph.types import Command
 
 load_dotenv()
+
 
 
 async def plan_node(state : DocState):
@@ -36,7 +35,6 @@ async def ref_node(state : DocState):
 
     # gotta return a command to the path assigned to go2
     return(Command(goto=go2))
-
 
 async def rag_node(state: DocState):
     """Generate  a recusive RAG on the attached refferences"""
@@ -63,7 +61,6 @@ async def with_ref_draft_node(state : DocState):
             qn : ${state.question}
         """,
     )
-
 
 async def research_node(state: DocState):
 

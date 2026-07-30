@@ -24,7 +24,7 @@ model Document {
   id        String    @id @default(cuid())
   docTypeId String
   docType   DocType   @relation(fields: [docTypeId], references: [type])
-  title     String
+  title     String?
   question  String
   answer    String?
   status    DocStatus

@@ -80,14 +80,7 @@ async def without_ref_draft_node(state : DocState):
 
 async def with_ref_draft_node(state : DocState):
     "plan the document layout and structure based on doctype"
-    # ouput should be the first drafts for sections 
-    # response = deepseek.invoke( 
-    #     input=f"""
-    #         Create a ${state.docType} document plan based on APA academic documents standards.
-    #         your document are supposed to be able to satisfy the question below:
-    #         qn : ${state.question}
-    #     """,
-    # )
+    
     return state
 
 

@@ -1727,7 +1727,7 @@ export namespace Prisma {
   export type DocumentGroupByOutputType = {
     id: string
     docTypeId: string
-    title: string
+    title: string | null
     question: string
     answer: string | null
     status: $Enums.DocStatus
@@ -1837,7 +1837,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       docTypeId: string
-      title: string
+      title: string | null
       question: string
       answer: string | null
       status: $Enums.DocStatus
@@ -9804,7 +9804,7 @@ export namespace Prisma {
     NOT?: DocumentWhereInput | DocumentWhereInput[]
     id?: StringFilter<"Document"> | string
     docTypeId?: StringFilter<"Document"> | string
-    title?: StringFilter<"Document"> | string
+    title?: StringNullableFilter<"Document"> | string | null
     question?: StringFilter<"Document"> | string
     answer?: StringNullableFilter<"Document"> | string | null
     status?: EnumDocStatusFilter<"Document"> | $Enums.DocStatus
@@ -9819,7 +9819,7 @@ export namespace Prisma {
   export type DocumentOrderByWithRelationInput = {
     id?: SortOrder
     docTypeId?: SortOrder
-    title?: SortOrder
+    title?: SortOrderInput | SortOrder
     question?: SortOrder
     answer?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -9837,7 +9837,7 @@ export namespace Prisma {
     OR?: DocumentWhereInput[]
     NOT?: DocumentWhereInput | DocumentWhereInput[]
     docTypeId?: StringFilter<"Document"> | string
-    title?: StringFilter<"Document"> | string
+    title?: StringNullableFilter<"Document"> | string | null
     question?: StringFilter<"Document"> | string
     answer?: StringNullableFilter<"Document"> | string | null
     status?: EnumDocStatusFilter<"Document"> | $Enums.DocStatus
@@ -9852,7 +9852,7 @@ export namespace Prisma {
   export type DocumentOrderByWithAggregationInput = {
     id?: SortOrder
     docTypeId?: SortOrder
-    title?: SortOrder
+    title?: SortOrderInput | SortOrder
     question?: SortOrder
     answer?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -9873,7 +9873,7 @@ export namespace Prisma {
     NOT?: DocumentScalarWhereWithAggregatesInput | DocumentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Document"> | string
     docTypeId?: StringWithAggregatesFilter<"Document"> | string
-    title?: StringWithAggregatesFilter<"Document"> | string
+    title?: StringNullableWithAggregatesFilter<"Document"> | string | null
     question?: StringWithAggregatesFilter<"Document"> | string
     answer?: StringNullableWithAggregatesFilter<"Document"> | string | null
     status?: EnumDocStatusWithAggregatesFilter<"Document"> | $Enums.DocStatus
@@ -10385,7 +10385,7 @@ export namespace Prisma {
 
   export type DocumentCreateInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -10399,7 +10399,7 @@ export namespace Prisma {
   export type DocumentUncheckedCreateInput = {
     id?: string
     docTypeId: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -10411,7 +10411,7 @@ export namespace Prisma {
 
   export type DocumentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -10425,7 +10425,7 @@ export namespace Prisma {
   export type DocumentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     docTypeId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -10438,7 +10438,7 @@ export namespace Prisma {
   export type DocumentCreateManyInput = {
     id?: string
     docTypeId: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -10450,7 +10450,7 @@ export namespace Prisma {
 
   export type DocumentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -10462,7 +10462,7 @@ export namespace Prisma {
   export type DocumentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     docTypeId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12259,7 +12259,7 @@ export namespace Prisma {
 
   export type DocumentCreateWithoutDocTypeInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12271,7 +12271,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedCreateWithoutDocTypeInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12312,7 +12312,7 @@ export namespace Prisma {
     NOT?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
     id?: StringFilter<"Document"> | string
     docTypeId?: StringFilter<"Document"> | string
-    title?: StringFilter<"Document"> | string
+    title?: StringNullableFilter<"Document"> | string | null
     question?: StringFilter<"Document"> | string
     answer?: StringNullableFilter<"Document"> | string | null
     status?: EnumDocStatusFilter<"Document"> | $Enums.DocStatus
@@ -12404,7 +12404,7 @@ export namespace Prisma {
 
   export type DocumentCreateWithoutUserInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12417,7 +12417,7 @@ export namespace Prisma {
   export type DocumentUncheckedCreateWithoutUserInput = {
     id?: string
     docTypeId: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12835,7 +12835,7 @@ export namespace Prisma {
 
   export type DocumentCreateManyDocTypeInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12847,7 +12847,7 @@ export namespace Prisma {
 
   export type DocumentUpdateWithoutDocTypeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12859,7 +12859,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedUpdateWithoutDocTypeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12871,7 +12871,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedUpdateManyWithoutDocTypeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12884,7 +12884,7 @@ export namespace Prisma {
   export type DocumentCreateManyUserInput = {
     id?: string
     docTypeId: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12940,7 +12940,7 @@ export namespace Prisma {
 
   export type DocumentUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12953,7 +12953,7 @@ export namespace Prisma {
   export type DocumentUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     docTypeId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12965,7 +12965,7 @@ export namespace Prisma {
   export type DocumentUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     docTypeId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus

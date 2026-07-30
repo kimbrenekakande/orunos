@@ -23,7 +23,7 @@ function TemplateCard({ template }: { template: { name: string; type: string; im
 	return (
 		<div className="p-4 relative">
 			<Link
-				href={`dashboard/${template.type}`}
+				href={`/dashboard/${template.type}`}
 				className={`cursor-pointer ${!template.ready ? "pointer-events-none" : ""}`}
 				onClick={() => handleClick()}
 			>

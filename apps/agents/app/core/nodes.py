@@ -75,6 +75,7 @@ async def without_ref_draft_node(state : DocState):
                 Maintain an authoritative, academic tone throughout.
             """,
         )
+        print(f"status : ${section.title}")
         section.content = cast(str, response.content)
     return state
 

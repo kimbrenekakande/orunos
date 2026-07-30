@@ -24,6 +24,8 @@ export async function createAndDownloadDocx(content: string, title = "document.d
 
   // Parse markdown to tokens 
   const tree: Token[] = marked.lexer(content);
+  console.log("-------THE TREE------")
+  console.log(tree)
 
 
   // Helper: recursively convert marked inline tokens to docx TextRun[]

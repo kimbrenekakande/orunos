@@ -13,7 +13,7 @@ import {
 
 import { Textarea } from "@/components/ui/textarea";
 import { Field, FieldError } from "@/components/ui/field";
-import { startCreation } from "@/server/creator";
+import { useRouter } from "next/navigation";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,6 +26,7 @@ const formSchema = z.object({
 });
 
 export default function Questionaire({ doctype, canAfford }: { doctype: string; canAfford: boolean }) {
+  const router = useRouter();
   const [files, setFiles] = useState<File[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -51,15 +52,23 @@ export default function Questionaire({ doctype, canAfford }: { doctype: string; 
   async function onSubmit(data: { doctype: string; qnz: string }) {
     setIsSubmitting(true);
     try {
-      const formData = new FormData();
-      formData.append("doctype", data.doctype);
-      formData.append("qnz", data.qnz);
-
-      files.forEach((file) => {
-        formData.append("files", file);
+      const res = await fetch("/api/ai/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          paperType: data.doctype,
+          prompt: data.qnz,
+        }),
       });
 
-      await startCreation(formData);
+      if (!res.ok) {
+        const err = await res.json();
+        console.error(err.error);
+        return;
+      }
+
+      const { docTypeId, docId } = await res.json();
+      router.push(`/dashboard/${docTypeId}/editor/${docId}?source=form`);
     } finally {
       setIsSubmitting(false);
     }

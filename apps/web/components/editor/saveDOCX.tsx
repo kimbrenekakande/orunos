@@ -1,4 +1,3 @@
-import { Content } from "@radix-ui/react-popover";
 import {
   HeadingLevel,
   Document,
@@ -25,6 +24,7 @@ export async function createAndDownloadDocx(content: string, title = "document.d
   // Parse markdown to tokens 
   const tree: Token[] = marked.lexer(content);
   console.log("-------THE TREE------")
+  console.log(tree)
   console.log(tree)
 
 
@@ -79,8 +79,8 @@ export async function createAndDownloadDocx(content: string, title = "document.d
               before: 240,
               after : 120
             },
-            keepLines: true,
-            keepNext : true,
+            // keepLines: true,
+            // keepNext : true,
           })
         
         // body text
@@ -88,9 +88,9 @@ export async function createAndDownloadDocx(content: string, title = "document.d
           return new Paragraph({
             children: token.tokens ? inlineToRuns(token.tokens) : token.text,
             indent: {
-              firstLine : 720, //first paragraph line indent 
+              // firstLine : 720, //first paragraph line indent 
             },
-            keepLines: true,
+            // keepLines: true,
           })
 
         // list

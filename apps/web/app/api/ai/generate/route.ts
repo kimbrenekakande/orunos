@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { serverSession } from "@/lib/server-session";
 import { prisma } from "@/lib/prisma-client";
-
+import { inngest } from "@/lib/inngest/client";
 
 export const maxDuration = 120;
-const agentsURL = "http://127.0.0.1:8000/api/v1"
 
 export async function POST(request: NextRequest) {
   const session = await serverSession()
@@ -29,6 +28,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: `Invalid document type: "${documentType}"`, status: 400 });
   }
 
+  
   // Create placeholder document
   const doc = await prisma.document.create({
     data: {
@@ -42,29 +42,17 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  // Kick off agents microservice (don't block the response)
-  fetch(`${agentsURL}/fast`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      docID : doc.id,
-      docType: doc.docTypeId,
-      question: questions,
-    }),
-  })
-    .then(async (res) => {
-      if (!res.ok) throw new Error(`Agents responded with ${res.status}`);
-      const data = await res.json();
-      const sections = data.sections.join("/n");
-
-      await prisma.document.update({
-        where: { id: doc.id },
-        data: {
-          title: data.title,
-          answer: sections,
-        },
-      });
-    })
-    .catch(console.error);
+  // trigger inngest function to make a call to the agents microservice
+  await inngest.send(
+    {
+      name: "app/doc.created",
+      data: {
+        id: doc.id,
+        type: doc.docTypeId,
+        qns : doc.question
+      },
+    }
+  );
+  
   return NextResponse.json({ docTypeId: doc.docTypeId, docId: doc.id });
 }

@@ -77,6 +77,7 @@ export const auth = betterAuth({
 			phoneNumber: {
 				type: "string",
 				input: true,
+				required: false,
 			},
 			style: {
 				type: "string",

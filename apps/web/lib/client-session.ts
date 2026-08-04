@@ -1,7 +1,13 @@
-import { authClient } from "@/lib/auth-client"
+import { authClient } from "@/lib/auth-client";
 
-const { data: session } = await authClient.getSession()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let clientSession: any = null;
 
-const clientSession = session
+try {
+	const { data: session } = await authClient.getSession();
+	clientSession = session;
+} catch {
+	// Session fetch unavailable during build/prerender
+}
 
-export default clientSession
+export default clientSession;

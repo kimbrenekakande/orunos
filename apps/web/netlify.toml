@@ -1,2 +1,4 @@
 [functions]
-  timeout = 120
+
+[functions."*"]
+timeout = 120

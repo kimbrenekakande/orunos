@@ -1,281 +1,508 @@
 "use client";
 
 export default function TermsPage() {
-  return (
-    <div className="flex-1 py-16 md:py-24">
-      <div className="container px-4 md:px-6">
-        <div className="mx-auto max-w-3xl">
-          <h1
-            className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-8"
-            className="font-nexa"
-          >
-            Terms of Service
-          </h1>
+	return (
+		<div className="flex-1 py-16 md:py-24">
+			<div className="container px-4 md:px-6">
+				<div className="mx-auto max-w-3xl">
+					<h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-8 font-nexa">
+						Terms of Service
+					</h1>
 
-          <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8 text-muted-foreground">
-            <p className="text-sm text-muted-foreground">
-              Last updated: March 2026
-            </p>
+					<div className="prose prose-neutral dark:prose-invert max-w-none space-y-8 text-muted-foreground">
+						<p className="text-sm text-muted-foreground">
+							Last updated: March 2026
+						</p>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">1. Acceptance of Terms</h2>
-              <p className="leading-relaxed">
-                Welcome to Orunos. By accessing and using our platform, you accept and agree to be bound by these Terms of Service (&quot;Terms&quot;), our Privacy Policy, and all other policies referenced herein. If you do not agree to these Terms, you should not use Orunos.
-              </p>
-              <p className="leading-relaxed mt-3">
-                These Terms constitute a legally binding agreement between you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and Orunos (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) governing your use of the Orunos platform, including all features, tools, AI assistance, citation generation, and document editing capabilities.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								1. Acceptance of Terms
+							</h2>
+							<p className="leading-relaxed">
+								Welcome to Orunos. By accessing and using our platform, you
+								accept and agree to be bound by these Terms of Service
+								(&quot;Terms&quot;), our Privacy Policy, and all other policies
+								referenced herein. If you do not agree to these Terms, you
+								should not use Orunos.
+							</p>
+							<p className="leading-relaxed mt-3">
+								These Terms constitute a legally binding agreement between you
+								(&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and
+								Orunos (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;)
+								governing your use of the Orunos platform, including all
+								features, tools, AI assistance, citation generation, and
+								document editing capabilities.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">2. Description of Service</h2>
-              <p className="leading-relaxed">
-                Orunos is an AI-powered academic copilot designed specifically for graduate researchers, PhD candidates, and scholars. Our platform provides:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li>Citation generation across 10,000+ academic sources</li>
-                <li>Literature synthesis and summarization</li>
-                <li>Academic document formatting (APA, MLA, Chicago, Harvard, IEEE, and more)</li>
-                <li>Grammar and style optimization for scholarly writing</li>
-                <li>Research paper structuring and outlining</li>
-                <li>Plagiarism detection and avoidance suggestions</li>
-                <li>Reference management and bibliography creation</li>
-              </ul>
-              <p className="leading-relaxed mt-3">
-                Orunos is designed to assist and enhance your academic work, not to replace critical thinking, research rigor, or scholarly judgment.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								2. Description of Service
+							</h2>
+							<p className="leading-relaxed">
+								Orunos is an AI-powered academic copilot designed specifically
+								for graduate researchers, PhD candidates, and scholars. Our
+								platform provides:
+							</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>Citation generation across 10,000+ academic sources</li>
+								<li>Literature synthesis and summarization</li>
+								<li>
+									Academic document formatting (APA, MLA, Chicago, Harvard,
+									IEEE, and more)
+								</li>
+								<li>Grammar and style optimization for scholarly writing</li>
+								<li>Research paper structuring and outlining</li>
+								<li>Plagiarism detection and avoidance suggestions</li>
+								<li>Reference management and bibliography creation</li>
+							</ul>
+							<p className="leading-relaxed mt-3">
+								Orunos is designed to assist and enhance your academic work, not
+								to replace critical thinking, research rigor, or scholarly
+								judgment.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">3. Academic Integrity & Ethical Use</h2>
-              <p className="leading-relaxed">
-                As an academic tool, Orunos is committed to upholding the highest standards of academic integrity. You agree to:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li>Use Orunos as a research and writing aid, not as a substitute for your own work</li>
-                <li>Review and verify all citations generated by Orunos before submission</li>
-                <li>Properly attribute all ideas, research, and content that originate from Orunos-assisted work</li>
-                <li>Comply with your institution&apos;s academic integrity policies</li>
-                <li>Not submit Orunos-generated content as entirely your own original work without appropriate attribution</li>
-                <li>Not use Orunos to generate fake or fraudulent academic credentials</li>
-              </ul>
-              <p className="leading-relaxed mt-3">
-                <strong className="text-foreground">Important:</strong> Orunos citations are generated from database matches and may contain errors. You must verify all citations against original sources before including them in any academic submission. Incorrect citations can result in academic penalties, including accusations of plagiarism.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								3. Academic Integrity & Ethical Use
+							</h2>
+							<p className="leading-relaxed">
+								As an academic tool, Orunos is committed to upholding the
+								highest standards of academic integrity. You agree to:
+							</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>
+									Use Orunos as a research and writing aid, not as a substitute
+									for your own work
+								</li>
+								<li>
+									Review and verify all citations generated by Orunos before
+									submission
+								</li>
+								<li>
+									Properly attribute all ideas, research, and content that
+									originate from Orunos-assisted work
+								</li>
+								<li>
+									Comply with your institution&apos;s academic integrity
+									policies
+								</li>
+								<li>
+									Not submit Orunos-generated content as entirely your own
+									original work without appropriate attribution
+								</li>
+								<li>
+									Not use Orunos to generate fake or fraudulent academic
+									credentials
+								</li>
+							</ul>
+							<p className="leading-relaxed mt-3">
+								<strong className="text-foreground">Important:</strong> Orunos
+								citations are generated from database matches and may contain
+								errors. You must verify all citations against original sources
+								before including them in any academic submission. Incorrect
+								citations can result in academic penalties, including
+								accusations of plagiarism.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">4. User Accounts & Eligibility</h2>
-              <p className="leading-relaxed">
-                To use Orunos, you must create an account. You agree to:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li>Provide accurate, current, and complete registration information</li>
-                <li>Maintain the security of your account credentials</li>
-                <li>Accept responsibility for all activities that occur under your account</li>
-                <li>Notify us immediately of any unauthorized access or security breach</li>
-                <li>Be at least 13 years of age (or the minimum age required by your jurisdiction)</li>
-                <li>Not share your account with multiple users unless you have a valid institutional license</li>
-              </ul>
-              <p className="leading-relaxed mt-3">
-                Educational institutions may purchase institutional licenses for group access. Institutional administrators agree to ensure compliance with these Terms by all authorized users.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								4. User Accounts & Eligibility
+							</h2>
+							<p className="leading-relaxed">
+								To use Orunos, you must create an account. You agree to:
+							</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>
+									Provide accurate, current, and complete registration
+									information
+								</li>
+								<li>Maintain the security of your account credentials</li>
+								<li>
+									Accept responsibility for all activities that occur under your
+									account
+								</li>
+								<li>
+									Notify us immediately of any unauthorized access or security
+									breach
+								</li>
+								<li>
+									Be at least 13 years of age (or the minimum age required by
+									your jurisdiction)
+								</li>
+								<li>
+									Not share your account with multiple users unless you have a
+									valid institutional license
+								</li>
+							</ul>
+							<p className="leading-relaxed mt-3">
+								Educational institutions may purchase institutional licenses for
+								group access. Institutional administrators agree to ensure
+								compliance with these Terms by all authorized users.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">5. Subscription Plans & Billing</h2>
-              <p className="leading-relaxed">
-                Orunos offers both free and premium subscription plans:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li><strong className="text-foreground">Free Tier:</strong> Limited citation generations and document edits per month</li>
-                <li><strong className="text-foreground">Researcher ($12/month):</strong> Unlimited citations, advanced formatting, priority support</li>
-                <li><strong className="text-foreground">Institution ($50/user/month):</strong> Multi-seat access, admin dashboard, compliance reporting</li>
-              </ul>
-              <p className="leading-relaxed mt-3">
-                Subscriptions automatically renew unless cancelled at least 7 days before the end of your billing period. Prices do not include applicable taxes. You authorize us to charge your payment method for all fees incurred.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								5. Subscription Plans & Billing
+							</h2>
+							<p className="leading-relaxed">
+								Orunos offers both free and premium subscription plans:
+							</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>
+									<strong className="text-foreground">Free Tier:</strong>{" "}
+									Limited citation generations and document edits per month
+								</li>
+								<li>
+									<strong className="text-foreground">
+										Researcher ($12/month):
+									</strong>{" "}
+									Unlimited citations, advanced formatting, priority support
+								</li>
+								<li>
+									<strong className="text-foreground">
+										Institution ($50/user/month):
+									</strong>{" "}
+									Multi-seat access, admin dashboard, compliance reporting
+								</li>
+							</ul>
+							<p className="leading-relaxed mt-3">
+								Subscriptions automatically renew unless cancelled at least 7
+								days before the end of your billing period. Prices do not
+								include applicable taxes. You authorize us to charge your
+								payment method for all fees incurred.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">6. Refund Policy</h2>
-              <p className="leading-relaxed">
-                We offer a 14-day money-back guarantee for annual subscriptions and a 7-day guarantee for monthly subscriptions. To request a refund, contact support@orunos.com with your account details. Refunds are processed within 10 business days to your original payment method.
-              </p>
-              <p className="leading-relaxed mt-3">
-                Refunds are not available for: (a) subscriptions after the guarantee period, (b) usage of premium features during the refund period, (c) institutional licenses, or (d) one-time purchases.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								6. Refund Policy
+							</h2>
+							<p className="leading-relaxed">
+								We offer a 14-day money-back guarantee for annual subscriptions
+								and a 7-day guarantee for monthly subscriptions. To request a
+								refund, contact support@orunos.com with your account details.
+								Refunds are processed within 10 business days to your original
+								payment method.
+							</p>
+							<p className="leading-relaxed mt-3">
+								Refunds are not available for: (a) subscriptions after the
+								guarantee period, (b) usage of premium features during the
+								refund period, (c) institutional licenses, or (d) one-time
+								purchases.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">7. Intellectual Property</h2>
-              <p className="leading-relaxed">
-                <strong className="text-foreground">Orunos Property:</strong> The Orunos platform, including our AI models, algorithms, database, user interface, and all proprietary technology, are owned by Orunos and protected by intellectual property laws. You may not copy, modify, distribute, sell, or lease any part of Orunos without our explicit written consent.
-              </p>
-              <p className="leading-relaxed mt-3">
-                <strong className="text-foreground">Your Content:</strong> You retain ownership of all documents, research materials, and content you upload to Orunos (&quot;User Content&quot;). By uploading User Content, you grant Orunos a limited, non-exclusive license to process, analyze, and store your content solely to provide our services.
-              </p>
-              <p className="leading-relaxed mt-3">
-                <strong className="text-foreground">AI-Generated Content:</strong> Content generated by Orunos AI (including citations, summaries, and suggestions) may be used for your personal or academic purposes. However, you acknowledge that such content may not be unique and should be properly reviewed and attributed where appropriate.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								7. Intellectual Property
+							</h2>
+							<p className="leading-relaxed">
+								<strong className="text-foreground">Orunos Property:</strong>{" "}
+								The Orunos platform, including our AI models, algorithms,
+								database, user interface, and all proprietary technology, are
+								owned by Orunos and protected by intellectual property laws. You
+								may not copy, modify, distribute, sell, or lease any part of
+								Orunos without our explicit written consent.
+							</p>
+							<p className="leading-relaxed mt-3">
+								<strong className="text-foreground">Your Content:</strong> You
+								retain ownership of all documents, research materials, and
+								content you upload to Orunos (&quot;User Content&quot;). By
+								uploading User Content, you grant Orunos a limited,
+								non-exclusive license to process, analyze, and store your
+								content solely to provide our services.
+							</p>
+							<p className="leading-relaxed mt-3">
+								<strong className="text-foreground">
+									AI-Generated Content:
+								</strong>{" "}
+								Content generated by Orunos AI (including citations, summaries,
+								and suggestions) may be used for your personal or academic
+								purposes. However, you acknowledge that such content may not be
+								unique and should be properly reviewed and attributed where
+								appropriate.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">8. AI-Generated Content & Accuracy</h2>
-              <p className="leading-relaxed">
-                Orunos uses artificial intelligence to generate citations, summaries, and writing suggestions. While we strive for accuracy, AI-generated content may:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li>Contain factual errors or inaccuracies</li>
-                <li>Generate incorrect or incomplete citations</li>
-                <li>Misinterpret source material</li>
-                <li>Produce content that inadvertently resembles existing publications</li>
-              </ul>
-              <p className="leading-relaxed mt-3">
-                <strong className="text-foreground">You bear full responsibility</strong> for reviewing, verifying, and validating all AI-generated content before using it in academic submissions, publications, or professional work. Orunos is not liable for any academic penalties, professional consequences, or legal issues arising from your use of AI-generated content.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								8. AI-Generated Content & Accuracy
+							</h2>
+							<p className="leading-relaxed">
+								Orunos uses artificial intelligence to generate citations,
+								summaries, and writing suggestions. While we strive for
+								accuracy, AI-generated content may:
+							</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>Contain factual errors or inaccuracies</li>
+								<li>Generate incorrect or incomplete citations</li>
+								<li>Misinterpret source material</li>
+								<li>
+									Produce content that inadvertently resembles existing
+									publications
+								</li>
+							</ul>
+							<p className="leading-relaxed mt-3">
+								<strong className="text-foreground">
+									You bear full responsibility
+								</strong>{" "}
+								for reviewing, verifying, and validating all AI-generated
+								content before using it in academic submissions, publications,
+								or professional work. Orunos is not liable for any academic
+								penalties, professional consequences, or legal issues arising
+								from your use of AI-generated content.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">9. Data Security & Privacy</h2>
-              <p className="leading-relaxed">
-                We take data security seriously, especially given the sensitive nature of academic research. We implement industry-standard encryption (AES-256 for data at rest, TLS 1.3 for data in transit) and security practices to protect your information.
-              </p>
-              <p className="leading-relaxed mt-3">
-                Your documents, research, and unpublished work are processed securely and are <strong className="text-foreground">never shared, sold, or used to train public AI models</strong>. We may use anonymized data internally to improve our services. For detailed information, please review our Privacy Policy.
-              </p>
-              <p className="leading-relaxed mt-3">
-                If you are working with sensitive research data, unpublished findings, or confidential material, we recommend using our Enterprise plan with enhanced security features including dedicated infrastructure and custom data retention policies.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								9. Data Security & Privacy
+							</h2>
+							<p className="leading-relaxed">
+								We take data security seriously, especially given the sensitive
+								nature of academic research. We implement industry-standard
+								encryption (AES-256 for data at rest, TLS 1.3 for data in
+								transit) and security practices to protect your information.
+							</p>
+							<p className="leading-relaxed mt-3">
+								Your documents, research, and unpublished work are processed
+								securely and are{" "}
+								<strong className="text-foreground">
+									never shared, sold, or used to train public AI models
+								</strong>
+								. We may use anonymized data internally to improve our services.
+								For detailed information, please review our Privacy Policy.
+							</p>
+							<p className="leading-relaxed mt-3">
+								If you are working with sensitive research data, unpublished
+								findings, or confidential material, we recommend using our
+								Enterprise plan with enhanced security features including
+								dedicated infrastructure and custom data retention policies.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">10. Prohibited Uses</h2>
-              <p className="leading-relaxed">
-                You may NOT use Orunos to:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li>Generate fake or fraudulent citations for academic work</li>
-                <li>Create content that could be used for academic dishonesty or plagiarism</li>
-                <li>Generate content that infringes on intellectual property rights</li>
-                <li>Submit AI-generated work as entirely original without proper attribution</li>
-                <li>Create fake academic credentials, publications, or research</li>
-                <li>Generate harmful, defamatory, or illegal content</li>
-                <li>Attempt to reverse engineer, hack, or exploit our AI systems</li>
-                <li>Use the service for any unlawful purpose</li>
-                <li>Resell or redistribute Orunos services without authorization</li>
-                <li>Share account access with unauthorized users (except under institutional licenses)</li>
-              </ul>
-              <p className="leading-relaxed mt-3">
-                Violation of these prohibitions may result in immediate account suspension, termination, and reporting to relevant academic institutions or authorities.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								10. Prohibited Uses
+							</h2>
+							<p className="leading-relaxed">You may NOT use Orunos to:</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>Generate fake or fraudulent citations for academic work</li>
+								<li>
+									Create content that could be used for academic dishonesty or
+									plagiarism
+								</li>
+								<li>
+									Generate content that infringes on intellectual property
+									rights
+								</li>
+								<li>
+									Submit AI-generated work as entirely original without proper
+									attribution
+								</li>
+								<li>
+									Create fake academic credentials, publications, or research
+								</li>
+								<li>Generate harmful, defamatory, or illegal content</li>
+								<li>
+									Attempt to reverse engineer, hack, or exploit our AI systems
+								</li>
+								<li>Use the service for any unlawful purpose</li>
+								<li>
+									Resell or redistribute Orunos services without authorization
+								</li>
+								<li>
+									Share account access with unauthorized users (except under
+									institutional licenses)
+								</li>
+							</ul>
+							<p className="leading-relaxed mt-3">
+								Violation of these prohibitions may result in immediate account
+								suspension, termination, and reporting to relevant academic
+								institutions or authorities.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">11. Third-Party Services & Integrations</h2>
-              <p className="leading-relaxed">
-                Orunos may integrate with third-party services, including reference management systems (Zotero, Mendeley, EndNote), academic databases, and productivity tools. We are not responsible for the privacy practices, terms, or content of third-party services. You agree to comply with third-party terms when using integrations.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								11. Third-Party Services & Integrations
+							</h2>
+							<p className="leading-relaxed">
+								Orunos may integrate with third-party services, including
+								reference management systems (Zotero, Mendeley, EndNote),
+								academic databases, and productivity tools. We are not
+								responsible for the privacy practices, terms, or content of
+								third-party services. You agree to comply with third-party terms
+								when using integrations.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">12. Disclaimer of Warranties</h2>
-              <p className="leading-relaxed">
-                ORUNOS IS PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li>The service will be uninterrupted, secure, or error-free</li>
-                <li>AI-generated content will be accurate, complete, or reliable</li>
-                <li>Citations will match the correct sources</li>
-                <li>The service will meet your specific academic or professional requirements</li>
-              </ul>
-              <p className="leading-relaxed mt-3">
-                You use Orunos at your own risk. Any content you generate using Orunos should be independently verified.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								12. Disclaimer of Warranties
+							</h2>
+							<p className="leading-relaxed">
+								ORUNOS IS PROVIDED &quot;AS IS&quot; AND &quot;AS
+								AVAILABLE&quot; WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS
+								OR IMPLIED. WE DO NOT WARRANT THAT:
+							</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>
+									The service will be uninterrupted, secure, or error-free
+								</li>
+								<li>
+									AI-generated content will be accurate, complete, or reliable
+								</li>
+								<li>Citations will match the correct sources</li>
+								<li>
+									The service will meet your specific academic or professional
+									requirements
+								</li>
+							</ul>
+							<p className="leading-relaxed mt-3">
+								You use Orunos at your own risk. Any content you generate using
+								Orunos should be independently verified.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">13. Limitation of Liability</h2>
-              <p className="leading-relaxed">
-                TO THE MAXIMUM EXTENT PERMITTED BY LAW, ORUNOS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li>Your use or inability to use Orunos</li>
-                <li>Any AI-generated content, including incorrect citations</li>
-                <li>Academic penalties or professional consequences from using Orunos-generated content</li>
-                <li>Data loss or security breaches</li>
-                <li>Any errors or interruptions in service</li>
-              </ul>
-              <p className="leading-relaxed mt-3">
-                Our total liability shall not exceed the amount you paid for your subscription in the 12 months preceding the claim.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								13. Limitation of Liability
+							</h2>
+							<p className="leading-relaxed">
+								TO THE MAXIMUM EXTENT PERMITTED BY LAW, ORUNOS SHALL NOT BE
+								LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR
+								PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS,
+								DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:
+							</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>Your use or inability to use Orunos</li>
+								<li>Any AI-generated content, including incorrect citations</li>
+								<li>
+									Academic penalties or professional consequences from using
+									Orunos-generated content
+								</li>
+								<li>Data loss or security breaches</li>
+								<li>Any errors or interruptions in service</li>
+							</ul>
+							<p className="leading-relaxed mt-3">
+								Our total liability shall not exceed the amount you paid for
+								your subscription in the 12 months preceding the claim.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">14. Indemnification</h2>
-              <p className="leading-relaxed">
-                You agree to indemnify, defend, and hold harmless Orunos and its officers, directors, employees, and agents from any claims, damages, losses, liabilities, costs, or expenses (including reasonable legal fees) arising out of your:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li>Violation of these Terms</li>
-                <li>Use of Orunos in violation of academic integrity policies</li>
-                <li>Submission of AI-generated content without proper verification</li>
-                <li>Infringement of any intellectual property or other rights</li>
-              </ul>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								14. Indemnification
+							</h2>
+							<p className="leading-relaxed">
+								You agree to indemnify, defend, and hold harmless Orunos and its
+								officers, directors, employees, and agents from any claims,
+								damages, losses, liabilities, costs, or expenses (including
+								reasonable legal fees) arising out of your:
+							</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>Violation of these Terms</li>
+								<li>
+									Use of Orunos in violation of academic integrity policies
+								</li>
+								<li>
+									Submission of AI-generated content without proper verification
+								</li>
+								<li>
+									Infringement of any intellectual property or other rights
+								</li>
+							</ul>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">15. Account Termination</h2>
-              <p className="leading-relaxed">
-                You may cancel your subscription at any time through your account settings. Upon cancellation, your access to premium features will continue until the end of your current billing period.
-              </p>
-              <p className="leading-relaxed mt-3">
-                We may suspend or terminate your account immediately if you:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-3">
-                <li>Violate these Terms</li>
-                <li>Engage in academic dishonesty using Orunos</li>
-                <li>Use the service for illegal purposes</li>
-                <li>Fail to pay subscription fees</li>
-                <li>Attempt to compromise our systems or security</li>
-              </ul>
-              <p className="leading-relaxed mt-3">
-                Upon termination, you will lose access to your account and all stored documents. We recommend exporting your data before termination.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								15. Account Termination
+							</h2>
+							<p className="leading-relaxed">
+								You may cancel your subscription at any time through your
+								account settings. Upon cancellation, your access to premium
+								features will continue until the end of your current billing
+								period.
+							</p>
+							<p className="leading-relaxed mt-3">
+								We may suspend or terminate your account immediately if you:
+							</p>
+							<ul className="list-disc pl-6 space-y-2 mt-3">
+								<li>Violate these Terms</li>
+								<li>Engage in academic dishonesty using Orunos</li>
+								<li>Use the service for illegal purposes</li>
+								<li>Fail to pay subscription fees</li>
+								<li>Attempt to compromise our systems or security</li>
+							</ul>
+							<p className="leading-relaxed mt-3">
+								Upon termination, you will lose access to your account and all
+								stored documents. We recommend exporting your data before
+								termination.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">16. Changes to Terms</h2>
-              <p className="leading-relaxed">
-                We may modify these Terms at any time. We will provide notice of material changes by posting the updated Terms on our website and updating the &quot;Last Updated&quot; date. Your continued use of Orunos after such changes constitutes acceptance of the new Terms.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								16. Changes to Terms
+							</h2>
+							<p className="leading-relaxed">
+								We may modify these Terms at any time. We will provide notice of
+								material changes by posting the updated Terms on our website and
+								updating the &quot;Last Updated&quot; date. Your continued use
+								of Orunos after such changes constitutes acceptance of the new
+								Terms.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">17. Governing Law</h2>
-              <p className="leading-relaxed">
-                These Terms shall be governed by and construed in accordance with the laws of the State of California, United States, without regard to its conflict of law provisions. Any disputes arising under these Terms shall be resolved exclusively in the state or federal courts located in San Francisco County, California.
-              </p>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								17. Governing Law
+							</h2>
+							<p className="leading-relaxed">
+								These Terms shall be governed by and construed in accordance
+								with the laws of the State of California, United States, without
+								regard to its conflict of law provisions. Any disputes arising
+								under these Terms shall be resolved exclusively in the state or
+								federal courts located in San Francisco County, California.
+							</p>
+						</section>
 
-            <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">18. Contact Information</h2>
-              <p className="leading-relaxed">
-                If you have questions, concerns, or requests regarding these Terms of Service, please contact us:
-              </p>
-              <ul className="list-none pl-0 space-y-2 mt-3">
-                <li><strong className="text-foreground">Email:</strong> support@orunos.com</li>
-                <li><strong className="text-foreground">Mailing Address:</strong> Orunos Inc., San Francisco, CA 94102</li>
-                <li><strong className="text-foreground">Support:</strong> help.orunos.com</li>
-              </ul>
-            </section>
+						<section>
+							<h2 className="text-xl font-semibold text-foreground mb-3">
+								18. Contact Information
+							</h2>
+							<p className="leading-relaxed">
+								If you have questions, concerns, or requests regarding these
+								Terms of Service, please contact us:
+							</p>
+							<ul className="list-none pl-0 space-y-2 mt-3">
+								<li>
+									<strong className="text-foreground">Email:</strong>{" "}
+									support@orunos.com
+								</li>
+								<li>
+									<strong className="text-foreground">Mailing Address:</strong>{" "}
+									Orunos Inc., San Francisco, CA 94102
+								</li>
+								<li>
+									<strong className="text-foreground">Support:</strong>{" "}
+									help.orunos.com
+								</li>
+							</ul>
+						</section>
 
-            <p className="text-sm text-muted-foreground pt-8 border-t">
-              By using Orunos, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+						<p className="text-sm text-muted-foreground pt-8 border-t">
+							By using Orunos, you acknowledge that you have read, understood,
+							and agree to be bound by these Terms of Service.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }

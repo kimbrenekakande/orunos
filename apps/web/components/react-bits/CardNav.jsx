@@ -1,3 +1,5 @@
+"use client";
+
 import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
@@ -173,7 +175,7 @@ const CardNav = ({
 							width={50}
 							height={50}
 							alt={logoAlt}
-							className="logo"
+							className="logo w-[50px] h-[50px]"
 						/>
 					</div>
 

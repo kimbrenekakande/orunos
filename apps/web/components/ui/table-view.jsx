@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma"
 import { FileText, Clock, MoreHorizontal } from "lucide-react"
 import { DeleteDocument } from "@/components/ui/delete-document"
 
-export async function TableView({ user }) {
+export async function TableView({ user, docs }) {
   const all = await prisma.document.findMany({
     where: {
       userId: user.id,
@@ -27,24 +27,24 @@ export async function TableView({ user }) {
   }
 
   return (
-    <Table>
+    <Table className="table-fixed">
       <TableHeader>
         <TableRow className="border-b border-border/60 hover:bg-transparent">
-          <TableHead className="h-12 text-[10px] uppercase tracking-[0.1em] text-muted-foreground font-semibold w-full">Document</TableHead>
-          <TableHead className="h-12 text-[10px] uppercase tracking-[0.1em] text-muted-foreground font-semibold text-center">Type</TableHead>
-          <TableHead className="h-12 text-[10px] uppercase tracking-[0.1em] text-muted-foreground font-semibold text-center">
+          <TableHead className="h-12 text-[10px] uppercase tracking-[0.1em] text-muted-foreground font-semibold w-[50%]">Document</TableHead>
+          <TableHead className="h-12 text-[10px] uppercase tracking-[0.1em] text-muted-foreground font-semibold text-center w-[15%]">Type</TableHead>
+          <TableHead className="h-12 text-[10px] uppercase tracking-[0.1em] text-muted-foreground font-semibold text-center w-[15%]">
             <div className="flex items-center justify-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-muted-foreground/40" />
               Status
             </div>
           </TableHead>
-          <TableHead className="h-12 text-[10px] uppercase tracking-[0.1em] text-muted-foreground font-semibold text-center">
+          <TableHead className="h-12 text-[10px] uppercase tracking-[0.1em] text-muted-foreground font-semibold text-center w-[15%]">
             <div className="flex items-center justify-center gap-1.5">
               <Clock className="h-3 w-3" />
               Modified
             </div>
           </TableHead>
-          <TableHead className="h-12 pr-4">
+          <TableHead className="h-12 pr-4 w-[5%]">
             <div className="flex justify-end">
               <MoreHorizontal className="h-[14px] w-[14px] text-muted-foreground/40" />
             </div>
@@ -62,10 +62,10 @@ export async function TableView({ user }) {
                 href={`/dashboard/coursework/editor/${paper.id}?source=table`} 
                 className="flex items-center gap-3.5 text-sm font-medium text-foreground/90 hover:text-foreground transition-colors duration-150"
               >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted/80 group-hover:bg-muted transition-colors duration-150 shrink-0">
+                <div className="flex items-center justify-center w-8 h-8 rounded bg-muted/80 group-hover:bg-muted transition-colors duration-150 shrink-0">
                   <FileText className="h-4 w-4 text-muted-foreground/70" />
                 </div>
-                <span className="truncate min-w-0 flex-1 w-full max-w-[calc(100vw-160px)] sm:max-w-none">{paper.question.charAt(0).toUpperCase() + paper.question.slice(1)}</span>
+                <span className="truncate min-w-0 flex-1" title={paper.question}>{paper.question.charAt(0).toUpperCase() + paper.question.slice(1)}</span>
               </Link>
             </TableCell>
             <TableCell className="py-3.5 text-center">

@@ -1,0 +1,11 @@
+{
+  "name": "agents",
+  "private": true,
+  "scripts": {
+    "dev": "uv run python -m fastapi dev app/main.py",
+    "build": "uv run ruff check .",
+    "lint": "uv run ruff check .",
+    "clean": "find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null; true"
+  }
+}
+

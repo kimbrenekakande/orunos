@@ -136,6 +136,7 @@ function BentoGridItem({ item }: { item: BentoItem }) {
             src={image}
             alt={title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105 opacity-80 dark:opacity-60"
           />
           <div className="absolute inset-0 bg-black/60 dark:bg-black/70" />
@@ -162,7 +163,7 @@ function BentoGridItem({ item }: { item: BentoItem }) {
 
           <h3
             className="text-xl font-semibold tracking-tight mb-2"
-            style={{fontFamily : 'var(--font-nexa-regular)'}}
+            className="font-nexa"
           >
             {title}
           </h3>

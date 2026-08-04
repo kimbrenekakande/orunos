@@ -73,6 +73,10 @@ export const auth = betterAuth({
 			balance: {
 				type: "number",
 				input: true,
+      },
+			phoneNumber: {
+				type: "string",
+				input: true,
 			},
 			style: {
 				type: "string",
@@ -86,8 +90,8 @@ export const auth = betterAuth({
   },
 
   plugins: [
-    nextCookies(),
     expo(),
+    nextCookies(),
   ]
 });
 

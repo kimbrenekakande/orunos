@@ -1,13 +1,15 @@
 import { ToolLoopAgent, stepCountIs } from "./braintrust";
-import { writeTool, outlineTool } from "./tools"
+import { outlineTool,writeTool, writeCachedTool } from "./tools"
 import { createGroq } from '@ai-sdk/groq';
 import { serverSession } from "@/lib/server-session";
+import { DocProps } from "@/lib/types";
+
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-export async function doCreator(documentType: string, docQnz: string) {
+export async function doCreator( docProps: DocProps ) {
   
   const session = await serverSession();
   const user = session?.user;
@@ -17,7 +19,7 @@ export async function doCreator(documentType: string, docQnz: string) {
   const documentAgent = new ToolLoopAgent({
     model: groq('llama-3.3-70b-versatile'),
     instructions: `
-      You are an agent that specializes in writing university ${documentType} academic documents.
+      You are an agent that specializes in writing university ${docProps.documentId} academic documents.
       Generate an outline suited to best answer the questions provided,
       Use the tools at your disposal to generate the documents.
       When using a tool, you MUST NOT provide any introductory text,explanations, or conversational filler. 
@@ -29,17 +31,17 @@ export async function doCreator(documentType: string, docQnz: string) {
       ${style ? `You should write in the stylometry below :  ${style} ` : ''}
     `,
     tools: {
-      write: writeTool,
       outline: outlineTool,
+      write: writeTool,
     },
     stopWhen: stepCountIs(3),
   });
   
   const flow = await documentAgent.generate({
-    prompt: docQnz,
+    prompt: docProps.questions,
   });
   
   return flow;
-};
+}; 
 
 

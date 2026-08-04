@@ -58,7 +58,7 @@ export default function ContactPage() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
               <CheckCircle2 className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
-            <CardTitle className="text-2xl" style={{ fontFamily: 'var(--font-nexa-regular)' }}>
+            <CardTitle className="text-2xl" className="font-nexa">
               Message Sent!
             </CardTitle>
             <CardDescription>
@@ -84,7 +84,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-2xl text-center mb-12">
           <h1
             className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
-            style={{ fontFamily: 'var(--font-nexa-regular)' }}
+            className="font-nexa"
           >
             Get in Touch
           </h1>
@@ -96,7 +96,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-5xl grid gap-8 md:grid-cols-2">
           <Card className="bg-transparent">
             <CardHeader>
-              <CardTitle style={{ fontFamily: 'var(--font-nexa-regular)' }}>
+              <CardTitle className="font-nexa">
                 Send us a Message
               </CardTitle>
               <CardDescription>
@@ -169,7 +169,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             <Card className="bg-transparent">
               <CardHeader>
-                <CardTitle style={{ fontFamily: 'var(--font-nexa-regular)' }}>
+                <CardTitle className="font-nexa">
                   Contact Information
                 </CardTitle>
                 <CardDescription>
@@ -194,7 +194,7 @@ export default function ContactPage() {
 
             <Card className="bg-transparent">
               <CardHeader>
-                <CardTitle style={{ fontFamily: 'var(--font-nexa-regular)' }}>
+                <CardTitle className="font-nexa">
                   Frequently Asked Questions
                 </CardTitle>
               </CardHeader>

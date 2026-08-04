@@ -1,52 +1,58 @@
 import { NextRequest, NextResponse } from "next/server";
-import { doCreator } from "@/lib/ai/agents";
-import { createPartFromUri, createUserContent, GoogleGenAI } from '@google/genai';
+import { serverSession } from "@/lib/server-session";
+import { prisma } from "@/lib/prisma-client";
+import { inngest } from "@/lib/inngest/client";
 
 export const maxDuration = 120;
 
 export async function POST(request: NextRequest) {
+  const session = await serverSession()
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized', status: 401 })
+  }
+  const user = session.user
+
   const body = await request.json();
-  const id = body.id;
   const documentType = body.paperType;
   const questions = body.prompt;
-  const references = body.references;
 
-  if (!id) return NextResponse.json({ error: 'Document ID is required', status: 400 });
+  if (!documentType) return NextResponse.json({ error: 'Document type is required', status: 400 });
   if (!questions) return NextResponse.json({ error: 'Prompt is required', status: 400 });
-  
 
-  const promptParts = [
-    `Document ID : ${id}`,
-    `questions : ${questions}`
-  ]
+  // Validate doc type exists
+  const type = await prisma.docType.findUnique({
+    where: { type: documentType },
+  });
 
-
-  if (references != 0) {
-    const ai = new GoogleGenAI({
-      apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-    });
-
-    const referencedocuments = createUserContent(
-      references.map((doc: { uri: string; mimeType: string }) => createPartFromUri(doc.uri, doc.mimeType))
-    )
-
-    const cache = await ai.caches.create({
-      model: 'gemini-1.5-flash-001',
-      config: {
-        'contents': referencedocuments,
-        'systemInstruction': 'You are an analytics expert.',
-        'ttl': '86400s',
-      }
-    });
-
-    const cachedName = cache.name
-    if (cachedName) promptParts.push(`cachedContent : ${cachedName}`)
+  if (!type) {
+    return NextResponse.json({ error: `Invalid document type: "${documentType}"`, status: 400 });
   }
+
   
-  const promptQnz = `${promptParts.join("\n")}`
+  // Create placeholder document
+  const doc = await prisma.document.create({
+    data: {
+      title: "",
+      question: questions,
+      answer: "",
+      cost: type.price,
+      status: "GENERATING",
+      userId: user.id,
+      docTypeId: type.type,
+    },
+  });
 
-  const maker = await doCreator(documentType, promptQnz)
-
-  console.log('Agent result:',"\n", maker)
-  return NextResponse.json({status : 'document created successfully'});
+  // trigger inngest function to make a call to the agents microservice
+  await inngest.send(
+    {
+      name: "app/doc.created",
+      data: {
+        id: doc.id,
+        type: doc.docTypeId,
+        qns : doc.question
+      },
+    }
+  );
+  
+  return NextResponse.json({ docTypeId: doc.docTypeId, docId: doc.id });
 }

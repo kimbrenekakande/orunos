@@ -48,7 +48,7 @@ export function useUploadFile({
 
       onUploadComplete?.(res[0]);
 
-      return uploadedFile;
+      return res[0];
     } catch (error) {
       const errorMessage = getErrorMessage(error);
 
@@ -70,6 +70,7 @@ export function useUploadFile({
         size: file.size,
         type: file.type,
         url: URL.createObjectURL(file),
+        ufsUrl: URL.createObjectURL(file),
       } as UploadedFile;
 
       // Simulate upload progress

@@ -191,7 +191,7 @@ export class PrismaClient<
    * 
    * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
 
@@ -318,8 +318,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.5.0
-   * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
+   * Prisma Client JS version: 7.8.0
+   * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
    */
   export type PrismaVersion = {
     client: string
@@ -1727,7 +1727,7 @@ export namespace Prisma {
   export type DocumentGroupByOutputType = {
     id: string
     docTypeId: string
-    title: string
+    title: string | null
     question: string
     answer: string | null
     status: $Enums.DocStatus
@@ -1837,7 +1837,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       docTypeId: string
-      title: string
+      title: string | null
       question: string
       answer: string | null
       status: $Enums.DocStatus
@@ -3844,35 +3844,75 @@ export namespace Prisma {
 
   export type TransactionAvgAggregateOutputType = {
     amount: number | null
+    chargedAmount: number | null
+    balanceAfter: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
     amount: number | null
+    chargedAmount: number | null
+    balanceAfter: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
     id: string | null
+    transactionId: string | null
+    txRef: string | null
+    orderRef: string | null
+    flwRef: string | null
     amount: number | null
+    chargedAmount: number | null
+    appfee: string | null
+    status: string | null
+    authModelUsed: string | null
+    currency: string | null
+    paymentType: string | null
     type: $Enums.TransType | null
+    phoneNumber: string | null
     description: string | null
+    balanceAfter: number | null
     createdAt: Date | null
     userId: string | null
   }
 
   export type TransactionMaxAggregateOutputType = {
     id: string | null
+    transactionId: string | null
+    txRef: string | null
+    orderRef: string | null
+    flwRef: string | null
     amount: number | null
+    chargedAmount: number | null
+    appfee: string | null
+    status: string | null
+    authModelUsed: string | null
+    currency: string | null
+    paymentType: string | null
     type: $Enums.TransType | null
+    phoneNumber: string | null
     description: string | null
+    balanceAfter: number | null
     createdAt: Date | null
     userId: string | null
   }
 
   export type TransactionCountAggregateOutputType = {
     id: number
+    transactionId: number
+    txRef: number
+    orderRef: number
+    flwRef: number
     amount: number
+    chargedAmount: number
+    appfee: number
+    status: number
+    authModelUsed: number
+    currency: number
+    paymentType: number
     type: number
+    phoneNumber: number
     description: number
+    balanceAfter: number
     createdAt: number
     userId: number
     _all: number
@@ -3881,35 +3921,75 @@ export namespace Prisma {
 
   export type TransactionAvgAggregateInputType = {
     amount?: true
+    chargedAmount?: true
+    balanceAfter?: true
   }
 
   export type TransactionSumAggregateInputType = {
     amount?: true
+    chargedAmount?: true
+    balanceAfter?: true
   }
 
   export type TransactionMinAggregateInputType = {
     id?: true
+    transactionId?: true
+    txRef?: true
+    orderRef?: true
+    flwRef?: true
     amount?: true
+    chargedAmount?: true
+    appfee?: true
+    status?: true
+    authModelUsed?: true
+    currency?: true
+    paymentType?: true
     type?: true
+    phoneNumber?: true
     description?: true
+    balanceAfter?: true
     createdAt?: true
     userId?: true
   }
 
   export type TransactionMaxAggregateInputType = {
     id?: true
+    transactionId?: true
+    txRef?: true
+    orderRef?: true
+    flwRef?: true
     amount?: true
+    chargedAmount?: true
+    appfee?: true
+    status?: true
+    authModelUsed?: true
+    currency?: true
+    paymentType?: true
     type?: true
+    phoneNumber?: true
     description?: true
+    balanceAfter?: true
     createdAt?: true
     userId?: true
   }
 
   export type TransactionCountAggregateInputType = {
     id?: true
+    transactionId?: true
+    txRef?: true
+    orderRef?: true
+    flwRef?: true
     amount?: true
+    chargedAmount?: true
+    appfee?: true
+    status?: true
+    authModelUsed?: true
+    currency?: true
+    paymentType?: true
     type?: true
+    phoneNumber?: true
     description?: true
+    balanceAfter?: true
     createdAt?: true
     userId?: true
     _all?: true
@@ -4003,9 +4083,21 @@ export namespace Prisma {
 
   export type TransactionGroupByOutputType = {
     id: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
+    balanceAfter: number
     createdAt: Date
     userId: string
     _count: TransactionCountAggregateOutputType | null
@@ -4031,9 +4123,21 @@ export namespace Prisma {
 
   export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    transactionId?: boolean
+    txRef?: boolean
+    orderRef?: boolean
+    flwRef?: boolean
     amount?: boolean
+    chargedAmount?: boolean
+    appfee?: boolean
+    status?: boolean
+    authModelUsed?: boolean
+    currency?: boolean
+    paymentType?: boolean
     type?: boolean
+    phoneNumber?: boolean
     description?: boolean
+    balanceAfter?: boolean
     createdAt?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4041,9 +4145,21 @@ export namespace Prisma {
 
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    transactionId?: boolean
+    txRef?: boolean
+    orderRef?: boolean
+    flwRef?: boolean
     amount?: boolean
+    chargedAmount?: boolean
+    appfee?: boolean
+    status?: boolean
+    authModelUsed?: boolean
+    currency?: boolean
+    paymentType?: boolean
     type?: boolean
+    phoneNumber?: boolean
     description?: boolean
+    balanceAfter?: boolean
     createdAt?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4051,9 +4167,21 @@ export namespace Prisma {
 
   export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    transactionId?: boolean
+    txRef?: boolean
+    orderRef?: boolean
+    flwRef?: boolean
     amount?: boolean
+    chargedAmount?: boolean
+    appfee?: boolean
+    status?: boolean
+    authModelUsed?: boolean
+    currency?: boolean
+    paymentType?: boolean
     type?: boolean
+    phoneNumber?: boolean
     description?: boolean
+    balanceAfter?: boolean
     createdAt?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4061,14 +4189,26 @@ export namespace Prisma {
 
   export type TransactionSelectScalar = {
     id?: boolean
+    transactionId?: boolean
+    txRef?: boolean
+    orderRef?: boolean
+    flwRef?: boolean
     amount?: boolean
+    chargedAmount?: boolean
+    appfee?: boolean
+    status?: boolean
+    authModelUsed?: boolean
+    currency?: boolean
+    paymentType?: boolean
     type?: boolean
+    phoneNumber?: boolean
     description?: boolean
+    balanceAfter?: boolean
     createdAt?: boolean
     userId?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "type" | "description" | "createdAt" | "userId", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "txRef" | "orderRef" | "flwRef" | "amount" | "chargedAmount" | "appfee" | "status" | "authModelUsed" | "currency" | "paymentType" | "type" | "phoneNumber" | "description" | "balanceAfter" | "createdAt" | "userId", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -4086,9 +4226,21 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      transactionId: string
+      txRef: string
+      orderRef: string
+      flwRef: string
       amount: number
+      chargedAmount: number
+      appfee: string
+      status: string
+      authModelUsed: string
+      currency: string
+      paymentType: string
       type: $Enums.TransType
+      phoneNumber: string
       description: string
+      balanceAfter: number
       createdAt: Date
       userId: string
     }, ExtArgs["result"]["transaction"]>
@@ -4516,9 +4668,21 @@ export namespace Prisma {
    */
   interface TransactionFieldRefs {
     readonly id: FieldRef<"Transaction", 'String'>
+    readonly transactionId: FieldRef<"Transaction", 'String'>
+    readonly txRef: FieldRef<"Transaction", 'String'>
+    readonly orderRef: FieldRef<"Transaction", 'String'>
+    readonly flwRef: FieldRef<"Transaction", 'String'>
     readonly amount: FieldRef<"Transaction", 'Int'>
+    readonly chargedAmount: FieldRef<"Transaction", 'Int'>
+    readonly appfee: FieldRef<"Transaction", 'String'>
+    readonly status: FieldRef<"Transaction", 'String'>
+    readonly authModelUsed: FieldRef<"Transaction", 'String'>
+    readonly currency: FieldRef<"Transaction", 'String'>
+    readonly paymentType: FieldRef<"Transaction", 'String'>
     readonly type: FieldRef<"Transaction", 'TransType'>
+    readonly phoneNumber: FieldRef<"Transaction", 'String'>
     readonly description: FieldRef<"Transaction", 'String'>
+    readonly balanceAfter: FieldRef<"Transaction", 'Int'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly userId: FieldRef<"Transaction", 'String'>
   }
@@ -4944,27 +5108,17 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
-  }
-
-  export type UserAvgAggregateOutputType = {
-    balance: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    balance: number | null
   }
 
   export type UserMinAggregateOutputType = {
     id: string | null
     name: string | null
     email: string | null
+    phoneNumber: string | null
     style: string | null
     image: string | null
-    balance: number | null
     admin: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4975,9 +5129,9 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    phoneNumber: string | null
     style: string | null
     image: string | null
-    balance: number | null
     admin: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4988,9 +5142,9 @@ export namespace Prisma {
     id: number
     name: number
     email: number
+    phoneNumber: number
     style: number
     image: number
-    balance: number
     admin: number
     createdAt: number
     updatedAt: number
@@ -4999,21 +5153,13 @@ export namespace Prisma {
   }
 
 
-  export type UserAvgAggregateInputType = {
-    balance?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    balance?: true
-  }
-
   export type UserMinAggregateInputType = {
     id?: true
     name?: true
     email?: true
+    phoneNumber?: true
     style?: true
     image?: true
-    balance?: true
     admin?: true
     createdAt?: true
     updatedAt?: true
@@ -5024,9 +5170,9 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    phoneNumber?: true
     style?: true
     image?: true
-    balance?: true
     admin?: true
     createdAt?: true
     updatedAt?: true
@@ -5037,9 +5183,9 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    phoneNumber?: true
     style?: true
     image?: true
-    balance?: true
     admin?: true
     createdAt?: true
     updatedAt?: true
@@ -5085,18 +5231,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -5127,8 +5261,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -5137,16 +5269,14 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber: string | null
     style: string | null
     image: string | null
-    balance: number
     admin: boolean
     createdAt: Date
     updatedAt: Date
     emailVerified: boolean
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -5169,9 +5299,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phoneNumber?: boolean
     style?: boolean
     image?: boolean
-    balance?: boolean
     admin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5187,9 +5317,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phoneNumber?: boolean
     style?: boolean
     image?: boolean
-    balance?: boolean
     admin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5200,9 +5330,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phoneNumber?: boolean
     style?: boolean
     image?: boolean
-    balance?: boolean
     admin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5213,16 +5343,16 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    phoneNumber?: boolean
     style?: boolean
     image?: boolean
-    balance?: boolean
     admin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     emailVerified?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "style" | "image" | "balance" | "admin" | "createdAt" | "updatedAt" | "emailVerified", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "style" | "image" | "admin" | "createdAt" | "updatedAt" | "emailVerified", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     documents?: boolean | User$documentsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
@@ -5245,9 +5375,9 @@ export namespace Prisma {
       id: string
       name: string
       email: string
+      phoneNumber: string | null
       style: string | null
       image: string | null
-      balance: number
       admin: boolean
       createdAt: Date
       updatedAt: Date
@@ -5682,9 +5812,9 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly phoneNumber: FieldRef<"User", 'String'>
     readonly style: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
-    readonly balance: FieldRef<"User", 'Int'>
     readonly admin: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -9512,9 +9642,21 @@ export namespace Prisma {
 
   export const TransactionScalarFieldEnum: {
     id: 'id',
+    transactionId: 'transactionId',
+    txRef: 'txRef',
+    orderRef: 'orderRef',
+    flwRef: 'flwRef',
     amount: 'amount',
+    chargedAmount: 'chargedAmount',
+    appfee: 'appfee',
+    status: 'status',
+    authModelUsed: 'authModelUsed',
+    currency: 'currency',
+    paymentType: 'paymentType',
     type: 'type',
+    phoneNumber: 'phoneNumber',
     description: 'description',
+    balanceAfter: 'balanceAfter',
     createdAt: 'createdAt',
     userId: 'userId'
   };
@@ -9526,9 +9668,9 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
+    phoneNumber: 'phoneNumber',
     style: 'style',
     image: 'image',
-    balance: 'balance',
     admin: 'admin',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -9662,7 +9804,7 @@ export namespace Prisma {
     NOT?: DocumentWhereInput | DocumentWhereInput[]
     id?: StringFilter<"Document"> | string
     docTypeId?: StringFilter<"Document"> | string
-    title?: StringFilter<"Document"> | string
+    title?: StringNullableFilter<"Document"> | string | null
     question?: StringFilter<"Document"> | string
     answer?: StringNullableFilter<"Document"> | string | null
     status?: EnumDocStatusFilter<"Document"> | $Enums.DocStatus
@@ -9677,7 +9819,7 @@ export namespace Prisma {
   export type DocumentOrderByWithRelationInput = {
     id?: SortOrder
     docTypeId?: SortOrder
-    title?: SortOrder
+    title?: SortOrderInput | SortOrder
     question?: SortOrder
     answer?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -9695,7 +9837,7 @@ export namespace Prisma {
     OR?: DocumentWhereInput[]
     NOT?: DocumentWhereInput | DocumentWhereInput[]
     docTypeId?: StringFilter<"Document"> | string
-    title?: StringFilter<"Document"> | string
+    title?: StringNullableFilter<"Document"> | string | null
     question?: StringFilter<"Document"> | string
     answer?: StringNullableFilter<"Document"> | string | null
     status?: EnumDocStatusFilter<"Document"> | $Enums.DocStatus
@@ -9710,7 +9852,7 @@ export namespace Prisma {
   export type DocumentOrderByWithAggregationInput = {
     id?: SortOrder
     docTypeId?: SortOrder
-    title?: SortOrder
+    title?: SortOrderInput | SortOrder
     question?: SortOrder
     answer?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -9731,7 +9873,7 @@ export namespace Prisma {
     NOT?: DocumentScalarWhereWithAggregatesInput | DocumentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Document"> | string
     docTypeId?: StringWithAggregatesFilter<"Document"> | string
-    title?: StringWithAggregatesFilter<"Document"> | string
+    title?: StringNullableWithAggregatesFilter<"Document"> | string | null
     question?: StringWithAggregatesFilter<"Document"> | string
     answer?: StringNullableWithAggregatesFilter<"Document"> | string | null
     status?: EnumDocStatusWithAggregatesFilter<"Document"> | $Enums.DocStatus
@@ -9813,9 +9955,21 @@ export namespace Prisma {
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     id?: StringFilter<"Transaction"> | string
+    transactionId?: StringFilter<"Transaction"> | string
+    txRef?: StringFilter<"Transaction"> | string
+    orderRef?: StringFilter<"Transaction"> | string
+    flwRef?: StringFilter<"Transaction"> | string
     amount?: IntFilter<"Transaction"> | number
+    chargedAmount?: IntFilter<"Transaction"> | number
+    appfee?: StringFilter<"Transaction"> | string
+    status?: StringFilter<"Transaction"> | string
+    authModelUsed?: StringFilter<"Transaction"> | string
+    currency?: StringFilter<"Transaction"> | string
+    paymentType?: StringFilter<"Transaction"> | string
     type?: EnumTransTypeFilter<"Transaction"> | $Enums.TransType
+    phoneNumber?: StringFilter<"Transaction"> | string
     description?: StringFilter<"Transaction"> | string
+    balanceAfter?: IntFilter<"Transaction"> | number
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     userId?: StringFilter<"Transaction"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -9823,9 +9977,21 @@ export namespace Prisma {
 
   export type TransactionOrderByWithRelationInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -9836,19 +10002,43 @@ export namespace Prisma {
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
+    transactionId?: StringFilter<"Transaction"> | string
+    txRef?: StringFilter<"Transaction"> | string
+    orderRef?: StringFilter<"Transaction"> | string
+    flwRef?: StringFilter<"Transaction"> | string
     amount?: IntFilter<"Transaction"> | number
+    chargedAmount?: IntFilter<"Transaction"> | number
+    appfee?: StringFilter<"Transaction"> | string
+    status?: StringFilter<"Transaction"> | string
+    authModelUsed?: StringFilter<"Transaction"> | string
+    currency?: StringFilter<"Transaction"> | string
+    paymentType?: StringFilter<"Transaction"> | string
     type?: EnumTransTypeFilter<"Transaction"> | $Enums.TransType
+    phoneNumber?: StringFilter<"Transaction"> | string
     description?: StringFilter<"Transaction"> | string
+    balanceAfter?: IntFilter<"Transaction"> | number
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     userId?: StringFilter<"Transaction"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "id">
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
     _count?: TransactionCountOrderByAggregateInput
@@ -9863,9 +10053,21 @@ export namespace Prisma {
     OR?: TransactionScalarWhereWithAggregatesInput[]
     NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Transaction"> | string
+    transactionId?: StringWithAggregatesFilter<"Transaction"> | string
+    txRef?: StringWithAggregatesFilter<"Transaction"> | string
+    orderRef?: StringWithAggregatesFilter<"Transaction"> | string
+    flwRef?: StringWithAggregatesFilter<"Transaction"> | string
     amount?: IntWithAggregatesFilter<"Transaction"> | number
+    chargedAmount?: IntWithAggregatesFilter<"Transaction"> | number
+    appfee?: StringWithAggregatesFilter<"Transaction"> | string
+    status?: StringWithAggregatesFilter<"Transaction"> | string
+    authModelUsed?: StringWithAggregatesFilter<"Transaction"> | string
+    currency?: StringWithAggregatesFilter<"Transaction"> | string
+    paymentType?: StringWithAggregatesFilter<"Transaction"> | string
     type?: EnumTransTypeWithAggregatesFilter<"Transaction"> | $Enums.TransType
+    phoneNumber?: StringWithAggregatesFilter<"Transaction"> | string
     description?: StringWithAggregatesFilter<"Transaction"> | string
+    balanceAfter?: IntWithAggregatesFilter<"Transaction"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     userId?: StringWithAggregatesFilter<"Transaction"> | string
   }
@@ -9877,9 +10079,9 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     style?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
-    balance?: IntFilter<"User"> | number
     admin?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -9894,9 +10096,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     style?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9914,9 +10116,9 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     style?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
-    balance?: IntFilter<"User"> | number
     admin?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -9931,18 +10133,16 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     style?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -9952,9 +10152,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     style?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
-    balance?: IntWithAggregatesFilter<"User"> | number
     admin?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -10185,7 +10385,7 @@ export namespace Prisma {
 
   export type DocumentCreateInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -10199,7 +10399,7 @@ export namespace Prisma {
   export type DocumentUncheckedCreateInput = {
     id?: string
     docTypeId: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -10211,7 +10411,7 @@ export namespace Prisma {
 
   export type DocumentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -10225,7 +10425,7 @@ export namespace Prisma {
   export type DocumentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     docTypeId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -10238,7 +10438,7 @@ export namespace Prisma {
   export type DocumentCreateManyInput = {
     id?: string
     docTypeId: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -10250,7 +10450,7 @@ export namespace Prisma {
 
   export type DocumentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -10262,7 +10462,7 @@ export namespace Prisma {
   export type DocumentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     docTypeId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -10347,63 +10547,147 @@ export namespace Prisma {
   }
 
   export type TransactionCreateInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTransactionsInput
   }
 
   export type TransactionUncheckedCreateInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
     userId: string
   }
 
   export type TransactionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
   }
 
   export type TransactionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransactionCreateManyInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
     userId: string
   }
 
   export type TransactionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
@@ -10412,9 +10696,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10429,9 +10713,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10446,9 +10730,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10463,9 +10747,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10480,9 +10764,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10493,9 +10777,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10506,9 +10790,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11028,37 +11312,77 @@ export namespace Prisma {
 
   export type TransactionCountOrderByAggregateInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
   }
 
   export type TransactionAvgOrderByAggregateInput = {
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    balanceAfter?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
   }
 
   export type TransactionMinOrderByAggregateInput = {
     id?: SortOrder
+    transactionId?: SortOrder
+    txRef?: SortOrder
+    orderRef?: SortOrder
+    flwRef?: SortOrder
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    appfee?: SortOrder
+    status?: SortOrder
+    authModelUsed?: SortOrder
+    currency?: SortOrder
+    paymentType?: SortOrder
     type?: SortOrder
+    phoneNumber?: SortOrder
     description?: SortOrder
+    balanceAfter?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
   }
 
   export type TransactionSumOrderByAggregateInput = {
     amount?: SortOrder
+    chargedAmount?: SortOrder
+    balanceAfter?: SortOrder
   }
 
   export type EnumTransTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -11105,26 +11429,22 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrder
     style?: SortOrder
     image?: SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
   }
 
-  export type UserAvgOrderByAggregateInput = {
-    balance?: SortOrder
-  }
-
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrder
     style?: SortOrder
     image?: SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11135,17 +11455,13 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    phoneNumber?: SortOrder
     style?: SortOrder
     image?: SortOrder
-    balance?: SortOrder
     admin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
-  }
-
-  export type UserSumOrderByAggregateInput = {
-    balance?: SortOrder
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -11834,9 +12150,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11850,9 +12166,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11913,9 +12229,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11929,9 +12245,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11943,7 +12259,7 @@ export namespace Prisma {
 
   export type DocumentCreateWithoutDocTypeInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -11955,7 +12271,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedCreateWithoutDocTypeInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -11996,7 +12312,7 @@ export namespace Prisma {
     NOT?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
     id?: StringFilter<"Document"> | string
     docTypeId?: StringFilter<"Document"> | string
-    title?: StringFilter<"Document"> | string
+    title?: StringNullableFilter<"Document"> | string | null
     question?: StringFilter<"Document"> | string
     answer?: StringNullableFilter<"Document"> | string | null
     status?: EnumDocStatusFilter<"Document"> | $Enums.DocStatus
@@ -12010,9 +12326,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12026,9 +12342,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12058,9 +12374,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12074,9 +12390,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12088,7 +12404,7 @@ export namespace Prisma {
 
   export type DocumentCreateWithoutUserInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12101,7 +12417,7 @@ export namespace Prisma {
   export type DocumentUncheckedCreateWithoutUserInput = {
     id?: string
     docTypeId: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12120,18 +12436,42 @@ export namespace Prisma {
   }
 
   export type TransactionCreateWithoutUserInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
   }
 
   export type TransactionUncheckedCreateWithoutUserInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
   }
 
@@ -12249,9 +12589,21 @@ export namespace Prisma {
     OR?: TransactionScalarWhereInput[]
     NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
     id?: StringFilter<"Transaction"> | string
+    transactionId?: StringFilter<"Transaction"> | string
+    txRef?: StringFilter<"Transaction"> | string
+    orderRef?: StringFilter<"Transaction"> | string
+    flwRef?: StringFilter<"Transaction"> | string
     amount?: IntFilter<"Transaction"> | number
+    chargedAmount?: IntFilter<"Transaction"> | number
+    appfee?: StringFilter<"Transaction"> | string
+    status?: StringFilter<"Transaction"> | string
+    authModelUsed?: StringFilter<"Transaction"> | string
+    currency?: StringFilter<"Transaction"> | string
+    paymentType?: StringFilter<"Transaction"> | string
     type?: EnumTransTypeFilter<"Transaction"> | $Enums.TransType
+    phoneNumber?: StringFilter<"Transaction"> | string
     description?: StringFilter<"Transaction"> | string
+    balanceAfter?: IntFilter<"Transaction"> | number
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     userId?: StringFilter<"Transaction"> | string
   }
@@ -12325,9 +12677,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12341,9 +12693,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12373,9 +12725,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12389,9 +12741,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12405,9 +12757,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12421,9 +12773,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    phoneNumber?: string | null
     style?: string | null
     image?: string | null
-    balance?: number
     admin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12453,9 +12805,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12469,9 +12821,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     style?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: IntFieldUpdateOperationsInput | number
     admin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12483,7 +12835,7 @@ export namespace Prisma {
 
   export type DocumentCreateManyDocTypeInput = {
     id?: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12495,7 +12847,7 @@ export namespace Prisma {
 
   export type DocumentUpdateWithoutDocTypeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12507,7 +12859,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedUpdateWithoutDocTypeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12519,7 +12871,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedUpdateManyWithoutDocTypeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12532,7 +12884,7 @@ export namespace Prisma {
   export type DocumentCreateManyUserInput = {
     id?: string
     docTypeId: string
-    title: string
+    title?: string | null
     question: string
     answer?: string | null
     status: $Enums.DocStatus
@@ -12542,10 +12894,22 @@ export namespace Prisma {
   }
 
   export type TransactionCreateManyUserInput = {
-    id: string
+    id?: string
+    transactionId: string
+    txRef: string
+    orderRef: string
+    flwRef: string
     amount: number
+    chargedAmount: number
+    appfee: string
+    status: string
+    authModelUsed: string
+    currency: string
+    paymentType: string
     type: $Enums.TransType
+    phoneNumber: string
     description: string
+    balanceAfter?: number
     createdAt?: Date | string
   }
 
@@ -12576,7 +12940,7 @@ export namespace Prisma {
 
   export type DocumentUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12589,7 +12953,7 @@ export namespace Prisma {
   export type DocumentUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     docTypeId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12601,7 +12965,7 @@ export namespace Prisma {
   export type DocumentUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     docTypeId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     question?: StringFieldUpdateOperationsInput | string
     answer?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDocStatusFieldUpdateOperationsInput | $Enums.DocStatus
@@ -12612,25 +12976,61 @@ export namespace Prisma {
 
   export type TransactionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    txRef?: StringFieldUpdateOperationsInput | string
+    orderRef?: StringFieldUpdateOperationsInput | string
+    flwRef?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
+    chargedAmount?: IntFieldUpdateOperationsInput | number
+    appfee?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    authModelUsed?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    paymentType?: StringFieldUpdateOperationsInput | string
     type?: EnumTransTypeFieldUpdateOperationsInput | $Enums.TransType
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    balanceAfter?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

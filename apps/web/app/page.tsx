@@ -1,8 +1,6 @@
-"use client"
-
 import { cn } from "@udecode/cn";
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 import CardNav from "@/components/react-bits/CardNav";
 import LogoCloud from "@/components/logo-cloud";
@@ -20,8 +18,6 @@ import { Footer } from "@/components/footer";
 
 
 const App = () => {
-  const router = useRouter();
-  
   return (
     <div className="w-screen flex flex-col gap-24">
       <CardNav
@@ -55,20 +51,21 @@ const App = () => {
             </AnimatedShinyText>
           </div>
           <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold" style={{fontFamily : 'var(--font-nexa-regular)'}}> Your Academic Copilot </h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-header"> Your Academic Copilot </h1>
             {/*<TypewriterEffectSmooth words={typer_words}/>*/}
           </div>
-          <p className="sm:max-w-1/2 text-white text-center text-sm sm:text-base mx-2" style={{fontFamily : 'var(--font-inter)'}}>
+          <p className="sm:max-w-1/2 text-white text-center text-sm sm:text-base mx-2">
             Built for graduate researchers, PhD candidates, and scholars who need precision.
             Generate citations across 10,000+ sources, synthesize literature, and write academic documents with rigor.
           </p>
-          <HoverArrowButton
-            text="Get Started"
-            duration={0.3}
-            iconSize={20}
-            className="bg-black text-white dark:bg-white dark:text-black"
-            onClick={() => router.push("/dashboard")}
-          />
+          <Link href="/dashboard">
+            <HoverArrowButton
+              text="Get Started"
+              duration={0.3}
+              iconSize={20}
+              className="bg-black text-white dark:bg-white dark:text-black"
+            />
+          </Link>
         </div>
         
         <div className=" mt-16 items-end">
@@ -87,7 +84,7 @@ const App = () => {
       
       <div id="feature-section" className="flex flex-col mx-2 sm:mx-8">
         <div className="flex flex-col gap-5">
-          <h2 className="text-2xl md:text-4xl lg:text-5xl" style={{fontFamily : 'var(--font-nexa-regular)'}}>Create your <FlipWords words={flipper_words} /> <br/> easily with the best research and citations.</h2>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-header">Create your <FlipWords words={flipper_words} /> <br/> easily with the best research and citations.</h2>
           <p className="text-muted-foreground text-lg">
             With Orunos, you can easily create citations and references for your research papers,articles, and other academic work. <br /> Our citation generator is designed to help you save time and ensure accuracy in your citations.
           </p>

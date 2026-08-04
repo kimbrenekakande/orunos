@@ -4,9 +4,16 @@ import { ArrowRight, Paperclip, Trash2, LoaderIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
+import { CircleAlertIcon } from "lucide-react";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/tiptapui/alert";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Field, FieldError } from "@/components/ui/field";
-import { startCreation } from "@/server/creator";
+import { useRouter } from "next/navigation";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +25,8 @@ const formSchema = z.object({
   qnz: z.string().min(5, "Must be more than 5 characters"),
 });
 
-export default function Questionaire({ doctype }: { doctype: string }) {
+export default function Questionaire({ doctype, canAfford }: { doctype: string; canAfford: boolean }) {
+  const router = useRouter();
   const [files, setFiles] = useState<File[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -44,15 +52,23 @@ export default function Questionaire({ doctype }: { doctype: string }) {
   async function onSubmit(data: { doctype: string; qnz: string }) {
     setIsSubmitting(true);
     try {
-      const formData = new FormData();
-      formData.append("doctype", data.doctype);
-      formData.append("qnz", data.qnz);
-
-      files.forEach((file) => {
-        formData.append("files", file);
+      const res = await fetch("/api/ai/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          paperType: data.doctype,
+          prompt: data.qnz,
+        }),
       });
 
-      await startCreation(formData);
+      if (!res.ok) {
+        const err = await res.json();
+        console.error(err.error);
+        return;
+      }
+
+      const { docTypeId, docId } = await res.json();
+      router.push(`/dashboard/${docTypeId}/editor/${docId}?source=form`);
     } finally {
       setIsSubmitting(false);
     }
@@ -67,14 +83,14 @@ export default function Questionaire({ doctype }: { doctype: string }) {
             alt="Logo"
             height={18}
             width={18}
-            className="dark:hidden"
+            className="dark:hidden w-[18px] h-[18px]"
           />
           <Image
             src="/brand/logo_white.png"
             alt="Logo"
             height={18}
             width={18}
-            className="hidden dark:block"
+            className="hidden dark:block w-[18px] h-[18px]"
           />
           <span className="text-xs text-muted-foreground">Free during BETA</span>
         </div>
@@ -83,7 +99,17 @@ export default function Questionaire({ doctype }: { doctype: string }) {
         </span>
       </div>
 
-      <div className="rounded-lg border border-border/60 overflow-hidden">
+      {!canAfford && (
+        <Alert variant="error">
+          <CircleAlertIcon />
+          <AlertTitle>Insufficient balance!</AlertTitle>
+          <AlertDescription>
+            Your balance is insufficient to proceed. Please top up to continue.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      <div className="rounded border border-border/60 overflow-hidden">
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="relative">
             <Controller
@@ -117,11 +143,11 @@ export default function Questionaire({ doctype }: { doctype: string }) {
               <button
                 aria-label="Generate document"
                 className={cn(
-                  "flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-background text-xs font-medium cursor-pointer",
+                  "flex items-center gap-1.5 rounded bg-foreground px-3 py-1.5 text-background text-xs font-medium cursor-pointer",
                   "hover:bg-orange-500 transition-colors",
                   "disabled:opacity-50 disabled:cursor-not-allowed"
                 )}
-                disabled={isSubmitting}
+                disabled={isSubmitting || !canAfford}
                 type="submit"
               >
                 {isSubmitting ? (

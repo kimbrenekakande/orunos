@@ -24,7 +24,7 @@ model Document {
   id        String    @id @default(cuid())
   docTypeId String
   docType   DocType   @relation(fields: [docTypeId], references: [type])
-  title     String
+  title     String?
   question  String
   answer    String?
   status    DocStatus
@@ -51,14 +51,27 @@ model DocType {
 }
 
 model Transaction {
-  id          String    @id
-  amount      Int
-  type        TransType // 'deposit' or 'charge'
-  description String
-  createdAt   DateTime  @default(now())
-  userId      String
-  user        User      @relation(fields: [userId], references: [id])
+  id                String @id @default(cuid())
+  transactionId     String
+  txRef             String
+  orderRef          String
+  flwRef            String
+  amount            Int
+  chargedAmount     Int
+  appfee            String
+  status            String
+  authModelUsed     String
+  currency          String
+  paymentType       String
+  type              TransType // 'deposit' or 'charge'
+  phoneNumber       String
+  description       String
+  balanceAfter      Int         @default(0)
+  createdAt         DateTime  @default(now())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
 
+  @@unique([id])
   @@index([userId])
 }
 
@@ -67,9 +80,9 @@ model User {
   id            String        @id
   name          String
   email         String
+  phoneNumber   String?
   style         String?
   image         String?
-  balance       Int           @default(0)
   documents     Document[] //Custom field
   transactions  Transaction[] //Custom field
   admin         Boolean       @default(false) //Custom Field

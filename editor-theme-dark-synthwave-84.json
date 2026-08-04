@@ -1,0 +1,188 @@
+{
+  "theme": {
+    "name": "Dark Synthwave '84",
+    "type": "dark",
+    "description": "A dark synthwave-inspired theme for the Platejs editor with vibrant purples and neon accents",
+    "version": "1.0.0"
+  },
+  "light_mode": {
+    "colors": {
+      "background": "oklch(1 0 0)",
+      "foreground": "oklch(0.145 0 0)",
+      "card": "oklch(1 0 0)",
+      "card-foreground": "oklch(0.145 0 0)",
+      "popover": "oklch(1 0 0)",
+      "popover-foreground": "oklch(0.145 0 0)",
+      "primary": "oklch(0.205 0 0)",
+      "primary-foreground": "oklch(0.985 0 0)",
+      "secondary": "oklch(0.97 0 0)",
+      "secondary-foreground": "oklch(0.205 0 0)",
+      "muted": "oklch(0.97 0 0)",
+      "muted-foreground": "oklch(0.556 0 0)",
+      "accent": "oklch(0.97 0 0)",
+      "accent-foreground": "oklch(0.205 0 0)",
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "border": "oklch(0.922 0 0)",
+      "input": "oklch(0.922 0 0)",
+      "ring": "oklch(0.708 0 0)",
+      "brand": "oklch(0.623 0.214 259.815)",
+      "highlight": "oklch(0.852 0.199 91.936)"
+    },
+    "charts": {
+      "chart-1": "oklch(0.646 0.222 41.116)",
+      "chart-2": "oklch(0.6 0.118 184.704)",
+      "chart-3": "oklch(0.398 0.07 227.392)",
+      "chart-4": "oklch(0.828 0.189 84.429)",
+      "chart-5": "oklch(0.769 0.188 70.08)"
+    },
+    "sidebar": {
+      "background": "oklch(0.985 0 0)",
+      "foreground": "oklch(0.145 0 0)",
+      "primary": "oklch(0.205 0 0)",
+      "primary-foreground": "oklch(0.985 0 0)",
+      "accent": "oklch(0.97 0 0)",
+      "accent-foreground": "oklch(0.205 0 0)",
+      "border": "oklch(0.922 0 0)",
+      "ring": "oklch(0.708 0 0)"
+    }
+  },
+  "dark_mode": {
+    "colors": {
+      "background": "oklch(0.145 0 0)",
+      "foreground": "oklch(0.985 0 0)",
+      "card": "oklch(0.205 0 0)",
+      "card-foreground": "oklch(0.985 0 0)",
+      "popover": "oklch(0.205 0 0)",
+      "popover-foreground": "oklch(0.985 0 0)",
+      "primary": "oklch(0.922 0 0)",
+      "primary-foreground": "oklch(0.205 0 0)",
+      "secondary": "oklch(0.269 0 0)",
+      "secondary-foreground": "oklch(0.985 0 0)",
+      "muted": "oklch(0.269 0 0)",
+      "muted-foreground": "oklch(0.708 0 0)",
+      "accent": "oklch(0.269 0 0)",
+      "accent-foreground": "oklch(0.985 0 0)",
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "border": "oklch(1 0 0 / 10%)",
+      "input": "oklch(1 0 0 / 15%)",
+      "ring": "oklch(0.556 0 0)",
+      "brand": "oklch(0.707 0.165 254.624)",
+      "highlight": "oklch(0.852 0.199 91.936)"
+    },
+    "charts": {
+      "chart-1": "oklch(0.488 0.243 264.376)",
+      "chart-2": "oklch(0.696 0.17 162.48)",
+      "chart-3": "oklch(0.769 0.188 70.08)",
+      "chart-4": "oklch(0.627 0.265 303.9)",
+      "chart-5": "oklch(0.645 0.246 16.439)"
+    },
+    "sidebar": {
+      "background": "oklch(0.205 0 0)",
+      "foreground": "oklch(0.985 0 0)",
+      "primary": "oklch(0.488 0.243 264.376)",
+      "primary-foreground": "oklch(0.985 0 0)",
+      "accent": "oklch(0.269 0 0)",
+      "accent-foreground": "oklch(0.985 0 0)",
+      "border": "oklch(1 0 0 / 10%)",
+      "ring": "oklch(0.556 0 0)"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "sans": "var(--font-geist-sans)",
+      "mono": "var(--font-geist-mono)"
+    },
+    "sizes": {
+      "base": "1rem",
+      "sm": "0.875rem",
+      "md": "1rem",
+      "lg": "1.125rem"
+    }
+  },
+  "spacing": {
+    "radius": "0.625rem",
+    "radius-sm": "calc(var(--radius) - 4px)",
+    "radius-md": "calc(var(--radius) - 2px)",
+    "radius-lg": "var(--radius)",
+    "radius-xl": "calc(var(--radius) + 4px)"
+  },
+  "editor_styles": {
+    "container": {
+      "default": "h-full",
+      "demo": "h-[650px]",
+      "comment": "flex flex-wrap justify-between gap-1 px-1 py-0.5 text-sm",
+      "select": "group rounded-md border border-input ring-offset-background"
+    },
+    "editor": {
+      "default": "size-full px-3 pt-4 pb-10 text-base sm:px-[max(16px,calc(40%-350px))] w-[calc(100%-1px)]",
+      "demo": "size-full px-16 pt-4 pb-72 text-base sm:px-[max(64px,calc(50%-350px))]",
+      "fullWidth": "size-full px-16 pt-4 pb-72 text-base sm:px-24",
+      "ai": "w-full px-0 text-base md:text-sm",
+      "aiChat": "max-h-[min(70vh,320px)] w-full max-w-[700px] overflow-y-auto px-3 py-2 text-base md:text-sm",
+      "comment": "rounded-none border-none bg-transparent text-sm",
+      "select": "px-3 py-2 text-base data-readonly:w-fit"
+    }
+  },
+  "animations": {
+    "shiny-text": "shiny-text 8s infinite",
+    "keyframes": {
+      "shiny-text": {
+        "0%, 90%, 100%": {
+          "background-position": "calc(-100% - var(--shiny-width)) 0"
+        },
+        "30%, 60%": {
+          "background-position": "calc(100% + var(--shiny-width)) 0"
+        }
+      }
+    }
+  },
+  "oklch_color_scheme": {
+    "description": "Color values in OKLch color space format (L C H)",
+    "format": "oklch(lightness chroma hue)",
+    "dark_mode_brand_purple": {
+      "value": "oklch(0.707 0.165 254.624)",
+      "lightness": 0.707,
+      "chroma": 0.165,
+      "hue": 254.624,
+      "description": "Primary brand purple with synthwave vibes"
+    },
+    "light_mode_brand_purple": {
+      "value": "oklch(0.623 0.214 259.815)",
+      "lightness": 0.623,
+      "chroma": 0.214,
+      "hue": 259.815,
+      "description": "Lighter brand purple for light mode"
+    },
+    "highlight_neon": {
+      "value": "oklch(0.852 0.199 91.936)",
+      "lightness": 0.852,
+      "chroma": 0.199,
+      "hue": 91.936,
+      "description": "Neon yellow/green accent"
+    },
+    "destructive_red": {
+      "value": "oklch(0.704 0.191 22.216)",
+      "lightness": 0.704,
+      "chroma": 0.191,
+      "hue": 22.216,
+      "description": "Warning/error red"
+    }
+  },
+  "design_system": {
+    "platform": "Platejs Editor (Rich Text Editor)",
+    "framework": "React",
+    "styling_framework": "Tailwind CSS v4.x",
+    "color_model": "OKLch (Oklch color space)",
+    "design_tokens_library": "Shadcn UI inspired",
+    "dark_mode_support": true,
+    "light_mode_support": true
+  },
+  "usage_notes": {
+    "note1": "Colors are defined in OKLch color space for better perceptual uniformity",
+    "note2": "Dark mode is activated via the .dark class on parent element",
+    "note3": "Brand color uses purple hues (259.815° - 254.624°) for synthwave aesthetic",
+    "note4": "The theme includes 5 chart colors for data visualization",
+    "note5": "Sidebar has its own color palette for UI organization",
+    "note6": "All spacing uses relative calculations based on base radius of 0.625rem"
+  }
+}

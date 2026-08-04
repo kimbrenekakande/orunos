@@ -20,7 +20,7 @@ export function DisciplinesSection() {
 	return (
 		<div className="w-full space-y-8 px-2 sm:px-8">
 			<div className="mx-auto max-w-3xl text-center">
-				<h2 className="text-balance font-medium text-2xl md:text-4xl lg:text-5xl" style={{fontFamily : 'var(--font-nexa-regular)'}}>
+				<h2 className="text-balance font-medium text-2xl md:text-4xl lg:text-5xl font-header">
 					Write. Cite. Learn.
 				</h2>
 				<p className="mt-4 text-balance text-muted-foreground md:text-base">

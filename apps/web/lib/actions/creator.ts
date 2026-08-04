@@ -3,6 +3,7 @@
 import  prisma  from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { serverSession } from "@/lib/server-session";
+import { buildDoctypeCandidates } from "@/lib/doctype";
 
 export async function startCreation(formData: FormData) {
   const session = await serverSession();
@@ -15,15 +16,7 @@ export async function startCreation(formData: FormData) {
   const tempType = formData.get("doctype") as string;
   if (!tempType) throw new Error("Document type is required");
 
-  const normalizedDoctype = tempType.trim().toLowerCase();
-  const doctypeCandidates = Array.from(
-    new Set([
-      normalizedDoctype,
-      normalizedDoctype.replace(/-/g, "_"),
-      normalizedDoctype.replace(/\s+/g, "_"),
-      normalizedDoctype.replace(/s$/, ""),
-    ])
-  );
+  const doctypeCandidates = buildDoctypeCandidates(tempType);
 
   const docType = await prisma.docType.findFirst({
     where: {
@@ -64,6 +57,7 @@ export async function startCreation(formData: FormData) {
       docTypeId: docType.type
     },
   });
+
 
   redirect(`/dashboard/${docType.type}/editor/${newDoc.id}`);
 }

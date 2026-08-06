@@ -6,9 +6,7 @@ import { auth } from "./auth"
 export const authClient = createAuthClient({
   baseUrl: process.env.NEXT_PUBLIC_APP_URL, // Make sure this is set in your .env
   plugins: [
-    inferAdditionalFields<typeof auth>({
-      balance: 0,
-    }),
+    inferAdditionalFields<typeof auth>(),
     nextCookies()
   ]
 })

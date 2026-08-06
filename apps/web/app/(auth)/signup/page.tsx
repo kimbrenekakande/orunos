@@ -54,7 +54,6 @@ export default function SignUpPage() {
 				callbackURL: "/dashboard",
 				style: "",
 				image: "",
-				balance: 0,
 			});
 
 			if (error) {

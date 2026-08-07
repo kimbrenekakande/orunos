@@ -2,45 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
-
-const footerLinks = [
-	{
-		title: "Company",
-		links: [
-			{ href: "#", label: "Blog" },
-			{ href: "#", label: "About" },
-			{ href: "#", label: "Press" },
-			{ href: "#", label: "Careers" },
-		],
-	},
-	{
-		title: "Community",
-		links: [
-			{ href: "#", label: "2023 Creator Report" },
-			{ href: "#", label: "Developers" },
-			{ href: "#", label: "What’s Trending" },
-			{ href: "#", label: "Report a Violation" },
-		],
-	},
-	{
-		title: "Support",
-		links: [
-			{ href: "#", label: "Help Topics" },
-			{ href: "#", label: "Getting Started" },
-			{ href: "#", label: "Features & How-tos" },
-			{ href: "#", label: "FAQs" },
-		],
-	},
-	{
-		title: "Legal",
-		links: [
-			{ href: "#", label: "Terms & Conditions" },
-			{ href: "#", label: "Privacy Notice" },
-			{ href: "#", label: "Cookie Notice" },
-			{ href: "#", label: "Transparency Report" },
-		],
-	},
-];
+import Link from "next/link";
 
 const socialLinks = [
 	{ icon: Home, href: "#" },
@@ -49,21 +11,53 @@ const socialLinks = [
 	{ icon: Home, href: "#" },
 ];
 
+const footerLinks = [
+	{
+		title: "Company",
+		links: [
+			{ href: "/about", label: "About" },
+			{ href: "/blog", label: "Blog" },
+			{ href: "/careers", label: "Careers" },
+			{ href: "/pricing", label: "Pricing" },
+		],
+	},
+	{
+		title: "Support",
+		links: [
+			{ href: "/contact", label: "Contact Us" },
+			{ href: "/login", label: "Log In" },
+			{ href: "/signup", label: "Sign Up" },
+		],
+	},
+	{
+		title: "Legal",
+		links: [
+			{ href: "/terms", label: "Terms & Conditions" },
+			{ href: "/policy", label: "Privacy Policy" },
+		],
+	},
+];
+
 export function Footer() {
 	return (
 		<footer className="border-t">
 			<div className="">
 				{/* Grid container with headings and links */}
-				<div className="grid grid-cols-2 gap-8 py-8 md:grid-cols-4 mx-8">
-					{footerLinks.map((item) => (
-						<div key={item.title}>
-							<h3 className="mb-4 text-lg font-bold font-nexa">{item.title}</h3>
+				<div className="flex justify-between gap-8 py-8 mx-8">
+					{footerLinks.map((item, idx) => (
+						<div
+							key={item.title}
+							className={idx === footerLinks.length - 1 ? "text-right" : ""}
+						>
+							<h3 className="mb-4 text-lg font-bold font-header">
+								{item.title}
+							</h3>
 							<ul className="space-y-2 text-muted-foreground text-sm">
 								{item.links.map((link) => (
 									<li key={link.label}>
-										<a className="hover:text-foreground" href={link.href}>
+										<Link className="hover:text-foreground" href={link.href}>
 											{link.label}
-										</a>
+										</Link>
 									</li>
 								))}
 							</ul>
@@ -73,24 +67,24 @@ export function Footer() {
 				<div className="h-px bg-border" />
 				{/* Social Buttons + App Links */}
 				<div className="flex flex-wrap items-center justify-between gap-4 py-5 mx-8">
-					<div className="flex items-center gap-2">
+					<div className="flex items-center gap-2 hidden">
 						{socialLinks.map(({ icon: Icon, href }, index) => (
 							<Button
 								asChild
-								key={`social-${href}-${index}`} // More descriptive prefix
+								key={`social-${href}-${index}`}
 								size="icon-sm"
 								variant="outline"
 							>
-								<a href={href}>
+								<Link href={href}>
 									<Icon />
-								</a>
+								</Link>
 							</Button>
 						))}
 					</div>
 
 					<div className="flex gap-4 bg-red">
 						<Button asChild className="h-11">
-							<a href="#">
+							<Link href="#">
 								<PlayStoreIcon className="size-5" />
 								<div className="flex flex-col items-start justify-center pr-2 text-left">
 									<span className="font-light text-[10px] leading-none tracking-tighter">
@@ -100,12 +94,12 @@ export function Footer() {
 										Google Play
 									</p>
 								</div>
-							</a>
+							</Link>
 						</Button>
 
 						{/*hidden*/}
 						<Button asChild className="h-11 hidden">
-							<a href="#">
+							<Link href="#">
 								<AppleIcon className="size-5" />
 								<div className="flex flex-col items-start justify-center pr-2 text-left">
 									<span className="text-[10px] leading-none tracking-tighter">
@@ -113,7 +107,7 @@ export function Footer() {
 									</span>
 									<p className="font-bold text-base leading-none">App Store</p>
 								</div>
-							</a>
+							</Link>
 						</Button>
 					</div>
 				</div>

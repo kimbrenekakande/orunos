@@ -34,19 +34,25 @@ export default function PrecisionCard({
 	rightButton,
 }: PrecisionCardProps) {
 	return (
-		<div className="h-[50vh] flex  md:flex-row p-4  items-center justify-center w-screen text-center">
+		<div
+			className="h-[50vh] flex md:flex-row p-4 items-center justify-center w-screen text-center relative"
+			style={{
+				backgroundImage: "url(/images/precision-bg.jpg)",
+				backgroundSize: "cover",
+				backgroundPosition: "center",
+			}}
+		>
+			<div className="absolute inset-0 bg-black/60" />
 			{/* Left Card */}
-			<Card className="w-full bg-transparent border-none">
+			<Card className="w-full bg-transparent border-none relative z-10">
 				<CardHeader>
-					<h3 className="text-muted-foreground text-lg font-medium">
-						{leftSubtitle}
-					</h3>
-					<CardTitle className="text-2xl md:text-4xl lg:text-5xl font-nexa">
+					<h3 className="text-white/70 text-lg font-medium">{leftSubtitle}</h3>
+					<CardTitle className="text-2xl md:text-4xl lg:text-5xl font-header text-white">
 						{leftTitle}
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					<p className="text-lg text-muted-foreground">{leftDescription}</p>
+					<p className="text-lg text-white/80">{leftDescription}</p>
 
 					<div className="flex flex-wrap gap-2 w-full justify-center ">
 						{tags.map((tag) => (

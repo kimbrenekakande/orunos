@@ -177,7 +177,8 @@ export default function BillingPage({
 										</p>
 										<p className="text-4xl font-bold font-mono tracking-tight">
 											UGX{" "}
-											{transactions[0]?.balanceAfter.toLocaleString("en-US")}
+											{transactions[0]?.balanceAfter?.toLocaleString("en-US") ||
+												"0"}
 										</p>
 									</div>
 									<div className="flex size-12 items-center justify-center rounded-full bg-primary-foreground/15">

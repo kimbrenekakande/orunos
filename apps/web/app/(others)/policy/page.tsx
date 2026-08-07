@@ -5,7 +5,7 @@ export default function PolicyPage() {
 		<div className="flex-1 py-16 md:py-24">
 			<div className="container px-4 md:px-6">
 				<div className="mx-auto max-w-3xl">
-					<h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-8 font-nexa">
+					<h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-8 font-header">
 						Privacy Policy
 					</h1>
 

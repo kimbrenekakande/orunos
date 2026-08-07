@@ -73,7 +73,7 @@ const App = () => {
 					</p>
 					<Link href="/dashboard">
 						<HoverArrowButton
-							text="Get Started"
+							text="Start Writing"
 							duration={0.3}
 							iconSize={20}
 							className="bg-black text-white dark:bg-white dark:text-black"

@@ -1,38 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, MapPin, Phone, Send, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/tiptapui/input";
 import { Textarea } from "@/components/tiptapui/textarea";
 import { Label } from "@/components/dashboard/label";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/tiptapui/card";
 
 const contactInfo = [
 	{
 		icon: Mail,
 		label: "Email",
 		value: "support@orunos.com",
-		description: "We'll reply within 24 hours",
 	},
 	{
 		icon: Phone,
 		label: "Phone",
-		value: "+1 (555) 123-4567",
-		description: "Mon-Fri from 9am to 6pm EST",
+		value: "+256 705 664 501",
 	},
 	{
 		icon: MapPin,
 		label: "Office",
-		value: "San Francisco, CA",
-		description: "Come say hello at our office",
+		value: "Kampala, Uganda",
 	},
 ];
 
@@ -52,24 +42,24 @@ export default function ContactPage() {
 
 	if (isSubmitted) {
 		return (
-			<div className="flex-1 flex items-center justify-center p-4">
-				<Card className="w-full max-w-md text-center bg-transparent">
-					<CardHeader>
-						<div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
-							<CheckCircle2 className="h-8 w-8 text-green-600 dark:text-green-400" />
+			<div className="flex-1 flex items-center justify-center py-16 md:py-24">
+				<div className="container px-4 md:px-6">
+					<div className="mx-auto max-w-lg text-center">
+						<div className="inline-flex items-center justify-center size-16 rounded-full bg-orange-500/10 mb-10">
+							<CheckCircle2 className="size-7 text-orange-500" />
 						</div>
-						<CardTitle className="text-2xl font-nexa">Message Sent!</CardTitle>
-						<CardDescription>
-							Thank you for reaching out. We&apos;ll get back to you as soon as
-							possible.
-						</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<Button onClick={() => setIsSubmitted(false)} className="w-full">
-							Send Another Message
+						<h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl font-header mb-4">
+							Message sent
+						</h1>
+						<p className="text-muted-foreground leading-relaxed mb-8">
+							Thank you for reaching out. We&apos;ll get back to you within 24
+							hours.
+						</p>
+						<Button onClick={() => setIsSubmitted(false)} variant="outline">
+							Send another message
 						</Button>
-					</CardContent>
-				</Card>
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -77,144 +67,100 @@ export default function ContactPage() {
 	return (
 		<div className="flex-1 py-16 md:py-24">
 			<div className="container px-4 md:px-6">
-				<div className="mx-auto max-w-2xl text-center mb-12">
-					<h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl font-nexa">
-						Get in Touch
-					</h1>
-					<p className="mt-4 text-muted-foreground text-lg">
-						Have questions about Orunos? We&apos;d love to hear from you. Send
-						us a message and we&apos;ll respond as soon as possible.
-					</p>
-				</div>
+				<div className="mx-auto max-w-3xl">
+					{/* Header */}
+					<div className="mb-16">
+						<h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl font-header mb-6">
+							Get in touch
+						</h1>
+						<p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+							Have questions about Orunos? We&apos;d love to hear from you. Send
+							us a message and we&apos;ll respond as soon as possible.
+						</p>
+					</div>
 
-				<div className="mx-auto max-w-5xl grid gap-8 md:grid-cols-2">
-					<Card className="bg-transparent">
-						<CardHeader>
-							<CardTitle className="font-nexa">Send us a Message</CardTitle>
-							<CardDescription>
-								Fill out the form below and we&apos;ll get back to you within 24
-								hours.
-							</CardDescription>
-						</CardHeader>
-						<CardContent>
-							<form onSubmit={handleSubmit} className="space-y-6">
-								<div className="grid gap-4 sm:grid-cols-2">
-									<div className="space-y-2">
-										<Label htmlFor="firstName">First name</Label>
-										<Input id="firstName" placeholder="John" required />
+					{/* Contact info */}
+					<div className="mb-16">
+						<h2 className="text-sm font-semibold text-orange-500 uppercase tracking-wider mb-6">
+							Reach us directly
+						</h2>
+						<div className="grid gap-6 sm:grid-cols-3">
+							{contactInfo.map((item) => (
+								<div key={item.label} className="flex items-center gap-4">
+									<div className="flex items-center justify-center size-10 rounded bg-black text-white dark:bg-white dark:text-black shrink-0">
+										<item.icon className="size-4" />
 									</div>
-									<div className="space-y-2">
-										<Label htmlFor="lastName">Last name</Label>
-										<Input id="lastName" placeholder="Doe" required />
+									<div>
+										<p className="text-sm text-muted-foreground">
+											{item.label}
+										</p>
+										<p className="font-medium">{item.value}</p>
 									</div>
+								</div>
+							))}
+						</div>
+					</div>
+
+					{/* Form */}
+					<div className="border-t pt-16">
+						<h2 className="text-sm font-semibold text-orange-500 uppercase tracking-wider mb-8">
+							Send us a message
+						</h2>
+						<form onSubmit={handleSubmit} className="space-y-6">
+							<div className="grid gap-4 sm:grid-cols-2">
+								<div className="space-y-2">
+									<Label htmlFor="firstName">First name</Label>
+									<Input id="firstName" placeholder="John" required />
 								</div>
 								<div className="space-y-2">
-									<Label htmlFor="email">Email</Label>
-									<Input
-										id="email"
-										type="email"
-										placeholder="john@example.com"
-										required
-									/>
+									<Label htmlFor="lastName">Last name</Label>
+									<Input id="lastName" placeholder="Doe" required />
 								</div>
-								<div className="space-y-2">
-									<Label htmlFor="subject">Subject</Label>
-									<Input
-										id="subject"
-										placeholder="How can we help you?"
-										required
-									/>
-								</div>
-								<div className="space-y-2">
-									<Label htmlFor="message">Message</Label>
-									<Textarea
-										id="message"
-										placeholder="Tell us more about what you need..."
-										className="min-h-30"
-										required
-									/>
-								</div>
-								<Button type="submit" className="w-full" disabled={isLoading}>
-									{isLoading ? (
-										<span className="flex items-center gap-2">
-											<span className="animate-spin rounded-full h-4 w-4 border-b-2 border-current" />
-											Sending...
-										</span>
-									) : (
-										<span className="flex items-center gap-2">
-											<Send className="h-4 w-4" />
-											Send Message
-										</span>
-									)}
-								</Button>
-							</form>
-						</CardContent>
-					</Card>
-
-					<div className="space-y-6">
-						<Card className="bg-transparent">
-							<CardHeader>
-								<CardTitle className="font-nexa">Contact Information</CardTitle>
-								<CardDescription>
-									Prefer to reach out directly? Here&apos;s how you can contact
-									us.
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="space-y-6">
-								{contactInfo.map((item) => (
-									<div key={item.label} className="flex gap-4">
-										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted">
-											<item.icon className="h-5 w-5 text-muted-foreground" />
-										</div>
-										<div>
-											<p className="font-medium">{item.label}</p>
-											<p className="text-sm text-muted-foreground">
-												{item.value}
-											</p>
-											<p className="text-xs text-muted-foreground">
-												{item.description}
-											</p>
-										</div>
-									</div>
-								))}
-							</CardContent>
-						</Card>
-
-						<Card className="bg-transparent">
-							<CardHeader>
-								<CardTitle className="font-nexa">
-									Frequently Asked Questions
-								</CardTitle>
-							</CardHeader>
-							<CardContent className="space-y-4">
-								<div>
-									<p className="font-medium text-sm">
-										What are your support hours?
-									</p>
-									<p className="text-sm text-muted-foreground">
-										Our support team is available Monday through Friday, 9am to
-										6pm EST.
-									</p>
-								</div>
-								<div>
-									<p className="font-medium text-sm">
-										How quickly do you respond?
-									</p>
-									<p className="text-sm text-muted-foreground">
-										We typically respond within 24 hours during business days.
-									</p>
-								</div>
-								<div>
-									<p className="font-medium text-sm">
-										Do you offer enterprise pricing?
-									</p>
-									<p className="text-sm text-muted-foreground">
-										Yes! Contact us for custom enterprise solutions tailored to
-										your organization&apos;s needs.
-									</p>
-								</div>
-							</CardContent>
-						</Card>
+							</div>
+							<div className="space-y-2">
+								<Label htmlFor="email">Email</Label>
+								<Input
+									id="email"
+									type="email"
+									placeholder="john@example.com"
+									required
+								/>
+							</div>
+							<div className="space-y-2">
+								<Label htmlFor="subject">Subject</Label>
+								<Input
+									id="subject"
+									placeholder="How can we help you?"
+									required
+								/>
+							</div>
+							<div className="space-y-2">
+								<Label htmlFor="message">Message</Label>
+								<Textarea
+									id="message"
+									placeholder="Tell us more about what you need..."
+									className="min-h-32"
+									required
+								/>
+							</div>
+							<Button
+								type="submit"
+								className="w-full cursor-pointer"
+								disabled={isLoading}
+							>
+								{isLoading ? (
+									<span className="flex items-center gap-2">
+										<span className="animate-spin rounded-full h-4 w-4 border-b-2 border-current" />
+										Sending...
+									</span>
+								) : (
+									<span className="flex items-center gap-2">
+										<Send className="h-4 w-4" />
+										Send message
+									</span>
+								)}
+							</Button>
+						</form>
 					</div>
 				</div>
 			</div>

@@ -4,7 +4,7 @@ export const items = [
 		bgColor: "black",
 		textColor: "#fff",
 		links: [
-			{ label: "Blog", ariaLabel: "About Careers", href: "/about" },
+			{ label: "Blog", ariaLabel: "Read our blog", href: "/blog" },
 			{ label: "Company", ariaLabel: "About Company", href: "/about" },
 		],
 	},
@@ -14,7 +14,7 @@ export const items = [
 		textColor: "#fff",
 		links: [
 			{ label: "Log In", ariaLabel: "Log into your account", href: "/login" },
-			{ label: "Sign Up", ariaLabel: "Create your account", href: "/signup" },
+			{ label: "Careers", ariaLabel: "View open positions", href: "/careers" },
 		],
 	},
 	{

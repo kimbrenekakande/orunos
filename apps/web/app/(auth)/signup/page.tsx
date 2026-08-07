@@ -14,13 +14,14 @@ import { useRouter } from "next/navigation";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 const signupSchema = z.object({
 	firstName: z.string().min(2, "First name must be at least 2 characters"),
 	lastName: z.string().min(2, "Last name must be at least 2 characters"),
 	email: z.string().email("Please enter a valid email address"),
-	password: z.string()
+	password: z
+		.string()
 		.min(8, "Password must be at least 8 characters")
 		.regex(/[A-Z]/, "Password must contain at least one uppercase letter")
 		.regex(/[a-z]/, "Password must contain at least one lowercase letter")
@@ -43,7 +44,7 @@ export default function SignUpPage() {
 		},
 	});
 
-		async function onSubmit(data: SignUpFormData) {
+	async function onSubmit(data: SignUpFormData) {
 		setIsLoading(true);
 		try {
 			const name = `${data.firstName} ${data.lastName}`;
@@ -73,16 +74,24 @@ export default function SignUpPage() {
 		<div className="flex-1 flex items-center justify-center bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="bg-transparent m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5"
+				className="bg-transparent m-auto h-fit w-full max-w-sm overflow-hidden rounded border shadow-md shadow-zinc-950/5"
 			>
-				<div className="bg-transparent -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
+				<div className="bg-transparent -m-px rounded border p-8 pb-6">
 					<div className="text-center">
 						<Link href="/" aria-label="go home" className="mx-auto block w-fit">
+							<Image
+								src="/brand/logo_black.png"
+								height={50}
+								width={50}
+								alt="Orunos"
+								className="dark:hidden"
+							/>
 							<Image
 								src="/brand/logo_white.png"
 								height={50}
 								width={50}
-								alt="orunos brand Logo in white"
+								alt="Orunos"
+								className="hidden dark:block"
 							/>
 						</Link>
 						<p className="text-sm mt-8">Create an account to get started</p>
@@ -186,7 +195,11 @@ export default function SignUpPage() {
 								/>
 							</Field>
 						</FieldGroup>
-						<Button className="w-full cursor-pointer" type="submit" disabled={form.formState.isSubmitting || isLoading}>
+						<Button
+							className="w-full cursor-pointer"
+							type="submit"
+							disabled={form.formState.isSubmitting || isLoading}
+						>
 							{isLoading ? "Signing up..." : "Sign Up"}
 						</Button>
 					</div>
@@ -200,7 +213,13 @@ export default function SignUpPage() {
 					</div>
 
 					<div className="grid grid-cols-2 gap-3">
-						<Button type="button" variant="outline" onClick={() => socialsignIn("google")} disabled={isLoading} className="cursor-pointer">
+						<Button
+							type="button"
+							variant="outline"
+							onClick={() => socialsignIn("google")}
+							disabled={isLoading}
+							className="cursor-pointer"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="0.98em"
@@ -226,7 +245,12 @@ export default function SignUpPage() {
 							</svg>
 							<span>Google</span>
 						</Button>
-						<Button type="button" variant="outline" disabled={isLoading} className="cursor-pointer">
+						<Button
+							type="button"
+							variant="outline"
+							disabled={isLoading}
+							className="cursor-pointer"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="1em"

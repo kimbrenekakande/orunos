@@ -59,7 +59,7 @@ export default function PrecisionCard({
 							<Badge
 								key={tag}
 								variant="secondary"
-								className="text-xs px-3 py-1"
+								className="text-xs px-3 py-1 text-white border-white/30"
 							>
 								{tag}
 							</Badge>

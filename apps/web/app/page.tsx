@@ -76,7 +76,7 @@ const App = () => {
 							text="Start Writing"
 							duration={0.3}
 							iconSize={20}
-							className="bg-black text-white dark:bg-white dark:text-black"
+							className="bg-white text-black"
 						/>
 					</Link>
 				</div>

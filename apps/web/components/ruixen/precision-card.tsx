@@ -4,6 +4,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/tiptapui/card";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/tiptapui/badge";
 import { CheckCircle } from "lucide-react";
@@ -67,12 +68,14 @@ export default function PrecisionCard({
 					</div>
 
 					<div className="flex justify-center gap-4">
-						<Button
-							className="px-16 py-6 mt-2 rounded cursor-pointer"
-							variant="default"
-						>
-							{leftButton}
-						</Button>
+						<Link href="/dashboard">
+							<Button
+								className="px-16 py-6 mt-2 rounded cursor-pointer bg-orange-500 text-white hover:bg-orange-600"
+								variant="default"
+							>
+								{leftButton}
+							</Button>
+						</Link>
 					</div>
 				</CardContent>
 			</Card>

@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
+import Link from "next/link";
 
 const CardNav = ({
 	logoAlt = "Logo",
@@ -72,7 +73,7 @@ const CardNav = ({
 		tl.to(
 			cardsRef.current,
 			{ y: 0, opacity: 1, duration: 0.4, ease, stagger: 0.08 },
-			"-=0.1"
+			"-=0.1",
 		);
 
 		return tl;
@@ -179,13 +180,13 @@ const CardNav = ({
 						/>
 					</div>
 
-					<button
-						type="button"
-						className="card-nav-cta-button hidden md:inline-flex border-0 rounded px-4 items-center h-full font-medium cursor-pointer transition-colors duration-300"
+					<Link
+						href="/login"
+						className="card-nav-cta-button hidden md:inline-flex border-0 rounded px-4 items-center h-full font-medium cursor-pointer transition-colors duration-300 no-underline"
 						style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
 					>
-						Get Started
-					</button>
+						Log In
+					</Link>
 				</div>
 
 				<div

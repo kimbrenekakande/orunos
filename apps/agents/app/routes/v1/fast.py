@@ -7,7 +7,7 @@ router = APIRouter(prefix="/api/v1", tags=["Generation"])
 
 
 @router.post("/fast", response_model=DocState, status_code=status.HTTP_201_CREATED)
-async def get_leads(body:  DocState):
+async def fast_gen(body:  DocState):
     initial_state: DocState = DocState(
         docID = body.docID,
         docType = body.docType,

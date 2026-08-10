@@ -5,3 +5,10 @@ publish = ".next"
 
 [functions."*"]
 timeout = 120
+
+[[plugins]]
+package = "netlify-plugin-inngest"
+
+[plugins.inputs]
+host = "https://orunos.com"
+path = "/api/inngest"

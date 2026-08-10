@@ -69,10 +69,6 @@ export const auth = betterAuth({
 
 	user: {
 		additionalFields: {
-			balance: {
-				type: "number",
-				input: true,
-			},
 			phoneNumber: {
 				type: "string",
 				input: true,

@@ -1,4 +1,4 @@
-import baseUrl from "@/lib/base-url";
+import baseUrl from "@/lib/base-urls";
 import { mutate } from "swr";
 import { redirect } from "next/navigation";
 import { useEditorRef } from "platejs/react";

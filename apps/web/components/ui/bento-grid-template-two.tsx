@@ -158,7 +158,7 @@ function BentoGridItem({ item }: { item: BentoItem }) {
 						</span>
 					)}
 
-					<h3 className="text-xl font-semibold tracking-tight mb-2 font-nexa">
+					<h3 className="text-xl font-semibold tracking-tight mb-2 font-header">
 						{title}
 					</h3>
 

@@ -13,7 +13,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/tiptapui/alert-dialog"
 import { Trash2Icon } from "lucide-react"
-import baseUrl from "@/lib/base-url"
+import baseUrl from "@/lib/base-urls"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { toast } from "sonner"

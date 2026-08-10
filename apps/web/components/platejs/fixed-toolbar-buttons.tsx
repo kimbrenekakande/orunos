@@ -50,6 +50,7 @@ import { TableToolbarButton } from './table-toolbar-button';
 import { ToggleToolbarButton } from './toggle-toolbar-button';
 import { ToolbarGroup, ToolbarSeparator } from './toolbar';
 // import { TurnIntoToolbarButton } from './turn-into-toolbar-button';
+import { BlockButton } from "./block-button"
 
 export function FixedToolbarButtons() {
   const readOnly = useEditorReadOnly();
@@ -126,6 +127,7 @@ export function FixedToolbarButtons() {
           <LinkToolbarButton />
           <TableToolbarButton />
           <MediaToolbarButton nodeType={KEYS.img} />
+          <BlockButton />
         </ToolbarGroup>
 
         <div className="flex-1" />

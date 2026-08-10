@@ -44,7 +44,7 @@ import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/platejs/input";
 import { Label } from "@/components/ui/label";
 import { redirect } from "next/navigation";
-import baseUrl from "@/lib/base-url";
+import baseUrl from "@/lib/base-urls";
 import { Transaction } from "@/lib/types";
 import { useRouter } from "next/navigation";
 

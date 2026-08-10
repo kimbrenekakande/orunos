@@ -3,7 +3,7 @@
 import { Toaster } from "sonner";
 import { PlateEditor } from "@/components/editor/plate-editor";
 import useSWR from "swr";
-import baseUrl from "@/lib/base-url";
+import baseUrl from "@/lib/base-urls";
 import { LoaderIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThinkingOrb } from "thinking-orbs"

@@ -1,6 +1,6 @@
 import axios from "axios";
 import useSWR from "swr";
-import baseUrl from "./base-url";
+import baseUrl from "./base-urls";
 
 export function axiosInstance() {
   baseURL: baseUrl;

@@ -1,7 +1,8 @@
 import { inngest } from "./client";
 import { prisma } from "../prisma-client";
+import { agentsUrl } from "@/lib/base-urls"
 
-const agentsURL = "http://127.0.0.1:8000/api/v1"; //agents-service url
+const agentsURL = `${agentsUrl}/api/v1`; //agents-service url
 
 export const docGeneration = inngest.createFunction(
 	{ id: "doc-gen", triggers: { event: "app/doc.created" } },

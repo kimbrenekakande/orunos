@@ -6,7 +6,7 @@ import {z} from "zod"
 import { outlineSchema, SectionLog } from "../types"
 import { serverSession } from "../server-session";
 import prisma from '@/lib/prisma';
-import baseUrl from "../base-url";
+import baseUrl from "../base-urls";
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,

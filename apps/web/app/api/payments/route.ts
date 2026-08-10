@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { flw } from "@/lib/flutterwave";
-import baseUrl from "@/lib/base-url";
+import baseUrl from "@/lib/base-urls";
 import { serverSession } from "@/lib/server-session";
 
 export async function POST(request: NextRequest) {

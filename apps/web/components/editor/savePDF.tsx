@@ -4,7 +4,7 @@ import clientSession from "@/lib/client-session";
 import React from "react";
 import { MyDocProps } from "@/lib/types";
 import { marked } from "marked";
-import baseUrl from "@/lib/base-url";
+import baseUrl from "@/lib/base-urls";
 
 //Generating && Download PDF
 export const MyDoc = ({ title, content }: MyDocProps) => {

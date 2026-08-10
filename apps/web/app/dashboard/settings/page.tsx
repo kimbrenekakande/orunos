@@ -24,7 +24,7 @@ import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { Field } from "@/components/ui/field";
 
-import baseUrl from "@/lib/base-url";
+import baseUrl from "@/lib/base-urls";
 import { updateUploadHistory } from "@platejs/media/react";
 
 export default function SettingsPage() {

@@ -50,7 +50,7 @@ import { TableToolbarButton } from './table-toolbar-button';
 import { ToggleToolbarButton } from './toggle-toolbar-button';
 import { ToolbarGroup, ToolbarSeparator } from './toolbar';
 // import { TurnIntoToolbarButton } from './turn-into-toolbar-button';
-import { BlockButton } from "./block-button"
+import { BlockButton } from "./customs/buttons/block-button"
 
 export function FixedToolbarButtons() {
   const readOnly = useEditorReadOnly();

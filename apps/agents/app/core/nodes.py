@@ -1,15 +1,10 @@
 
-import json
-import os
 from typing import cast
 
 from dotenv import load_dotenv
-from exa_py import Exa
-from firecrawl import Firecrawl
 
-from app.core.models import groq, deepseek
-from app.core.prompts import draft_prompt
-from app.core.schemas import DocState, Section, DocPlan
+from app.core.models import deepseek
+from app.core.schemas import DocState, DocPlan
 from langgraph.types import Command
 
 load_dotenv()

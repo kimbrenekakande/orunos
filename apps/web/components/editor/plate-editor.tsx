@@ -23,6 +23,8 @@ import { usePanelRef } from "react-resizable-panels";
 
 import { mutate } from "swr";
 
+import { useSelectedText } from "@/lib/store";
+
 import { Button } from "@/components/tiptapui/button";
 
 let togglePanelRef: (() => void) | null = null;
@@ -34,6 +36,7 @@ export function togglePanel() {
 export function PlateEditor({ md }: { md: Mdprops }) {
 	const { id, title, content } = md;
 	const { data, isPending, error, refetch } = authClient.useSession();
+	const setSelectedText = useSelectedText((s) => s.setSelectedText);
 
 	// initialize editor with content from markdown
 	const editor = usePlateEditor({
@@ -57,11 +60,19 @@ export function PlateEditor({ md }: { md: Mdprops }) {
 		}
 	};
 	// const COLLAPSED_SIZE = "0%"
+	// 0778 262 498
 
 	return (
 		<ResizablePanelGroup orientation="horizontal">
 			<ResizablePanel className="rounded">
-				<Plate editor={editor}>
+				<Plate
+					editor={editor}
+					onSelectionChange={({ editor, selection }) => {
+						const text = selection ? editor.api.string(selection) : "";
+						setSelectedText(text);
+						console.log(text);
+					}}
+				>
 					<EditorContainer>
 						<Editor variant="default" />
 					</EditorContainer>

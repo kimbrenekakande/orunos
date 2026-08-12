@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 
-from app.middleware.auth import authentication
 from app.routes.v1 import fast, deep
 
 load_dotenv()

@@ -36,7 +36,7 @@ export default function PrecisionCard({
 }: PrecisionCardProps) {
 	return (
 		<div
-			className="h-[50vh] flex md:flex-row p-4 items-center justify-center w-screen text-center relative"
+			className="h-[50vh] flex md:flex-row p-4 items-center justify-center w-full text-center relative"
 			style={{
 				backgroundImage: "url(/images/precision-bg.jpg)",
 				backgroundSize: "cover",
@@ -47,7 +47,9 @@ export default function PrecisionCard({
 			{/* Left Card */}
 			<Card className="w-full bg-transparent border-none relative z-10">
 				<CardHeader>
-					<h3 className="text-white/70 text-lg font-medium">{leftSubtitle}</h3>
+					<h3 className="text-white/60 text-xs uppercase tracking-widest font-semibold">
+						{leftSubtitle}
+					</h3>
 					<CardTitle className="text-2xl md:text-4xl lg:text-5xl font-header text-white">
 						{leftTitle}
 					</CardTitle>
@@ -83,7 +85,9 @@ export default function PrecisionCard({
 			{/* Right Card - I have hidden this (unwanted) */}
 			<Card className="hidden w-full max-w-md bg-black text-white dark:bg-white dark:text-black shadow-lg rounded-2xl border-none">
 				<CardHeader>
-					<CardTitle className="text-2xl font-semibold">{rightTitle}</CardTitle>
+					<CardTitle className="text-2xl md:text-4xl lg:text-5xl font-header">
+						{rightTitle}
+					</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-6">
 					<p className="text-sm text-gray-500">{rightDescription}</p>

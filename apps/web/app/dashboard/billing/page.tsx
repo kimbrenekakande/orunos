@@ -141,7 +141,9 @@ export default function BillingPage({
 		<div className="flex flex-col gap-6 p-6 md:p-8">
 			{/* Header */}
 			<div className="flex flex-col gap-2">
-				<h1 className="text-3xl font-bold tracking-tight">Billing & Wallet</h1>
+				<h1 className="text-3xl font-bold tracking-tight font-header">
+					Billing & Wallet
+				</h1>
 				<p className="text-muted-foreground">
 					Manage your wallet, billing, and payment methods
 				</p>

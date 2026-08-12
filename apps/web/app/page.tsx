@@ -18,7 +18,7 @@ import { Footer } from "@/components/footer";
 
 const App = () => {
 	return (
-		<div className="w-screen flex flex-col gap-24">
+		<div className="w-full flex flex-col gap-24">
 			<CardNav
 				items={items}
 				menuColor="#000"
@@ -43,7 +43,7 @@ const App = () => {
 				>
 					<div
 						className={cn(
-							"group rounded border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+							"group rounded border border-black/5 bg-neutral-100 text-base text-white transition-all ease-out hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
 						)}
 					>
 						<AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 border border-gray-700 dark:border-gray-700">
@@ -60,13 +60,12 @@ const App = () => {
 						</AnimatedShinyText>
 					</div>
 					<div className="flex flex-col items-center justify-center text-center">
-						<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-header text-white">
+						<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-header text-white !leading-[1.05] !tracking-[-0.02em]">
 							{" "}
 							Your Academic Copilot{" "}
 						</h1>
-						{/*<TypewriterEffectSmooth words={typer_words}/>*/}
 					</div>
-					<p className="sm:max-w-1/2 text-white text-center text-sm sm:text-base mx-2">
+					<p className="sm:max-w-[50%] text-white text-center text-base sm:text-lg mx-2">
 						Built for graduate researchers, PhD candidates, and scholars who
 						need precision. Generate citations across 10,000+ sources,
 						synthesize literature, and write academic documents with rigor.
@@ -89,7 +88,6 @@ const App = () => {
 								around the world.
 							</span>
 							<br />
-							{/*<span className="font-semibold">Used by students from leading universities.</span>*/}
 						</h2>
 						<div className="h-30">
 							<LogoCloud />
@@ -104,9 +102,9 @@ const App = () => {
 						Create your <FlipWords words={flipper_words} /> <br /> easily with
 						the best research and citations.
 					</h2>
-					<p className="text-muted-foreground text-lg">
+					<p className="text-muted-foreground text-base">
 						With Orunos, you can easily create citations and references for your
-						research papers,articles, and other academic work. <br /> Our
+						research papers, articles, and other academic work. <br /> Our
 						citation generator is designed to help you save time and ensure
 						accuracy in your citations.
 					</p>
@@ -130,16 +128,27 @@ const App = () => {
 
 			<div className="h-full flex items-center sm:mx-8">
 				<PrecisionCard
-					leftSubtitle="Why Reliability Matters"
-					leftTitle="Don't Replace Learning, Accelerate it"
-					leftDescription="Modern digital systems demand reliability and scalability from day one. With adaptive infrastructure and intelligent monitoring, we ensure every deployment performs flawlessly at scale."
-					tags={["Sciences", "Law", "Civil", "Engneering", "Social Sciences"]}
+					leftSubtitle="Why Academic Rigor Matters"
+					leftTitle="Don't Replace Learning, Accelerate It"
+					leftDescription="Academic writing demands precision, proper citations, and scholarly integrity. Orunos ensures every document meets the highest standards — from literature synthesis to properly formatted references."
+					tags={[
+						"Sciences",
+						"Law",
+						"Engineering",
+						"Social Sciences",
+						"Humanities",
+					]}
 					leftButton="Get Started"
-					rightTitle="Redefining Digital Excellence."
-					rightDescription="Empowering teams to innovate faster, deploy safer, and deliver exceptional user experiences — all powered by automation and real-time intelligence."
-					rightItems={["Uptime", "Scalability", "Innovation", "Performance"]}
-					certificationText="ISO Certified Infrastructure"
-					rightButton="Explore Solutions →"
+					rightTitle="Scholarly Excellence, Simplified."
+					rightDescription="Focus on your research while Orunos handles citations, references, and document structure — all powered by AI trained on academic standards."
+					rightItems={[
+						"10,000+ Sources",
+						"Citation Accuracy",
+						"Plagiarism-Free",
+						"Export Ready",
+					]}
+					certificationText="Trusted by Researchers Worldwide"
+					rightButton="Start Writing →"
 				/>
 			</div>
 

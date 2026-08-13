@@ -41,9 +41,13 @@ import {
   MessageContent,
   MessageResponse,
 } from "@/components/ai-elements/message";
+import { useSelectedText } from "@/lib/store";
+
 
 const PromptInputAttachmentsDisplay = () => {
   const attachments = usePromptInputAttachments();
+
+
 
   if (attachments.files.length === 0) {
     return null;
@@ -70,11 +74,13 @@ const models = [
   { id: "claude-opus-4-20250514", name: "Claude 4 Opus" },
 ];
 
-const InputDemo = () => {
+const ChatInput = () => {
   const [text, setText] = useState<string>("");
   const [model, setModel] = useState<string>(models[0].id);
   const [useWebSearch, setUseWebSearch] = useState<boolean>(false);
+  const { selectedText, setSelectedText } = useSelectedText();
 
+  
   const { messages, status, sendMessage } = useChat();
 
   const handleSubmit = (message: PromptInputMessage) => {
@@ -127,21 +133,18 @@ const InputDemo = () => {
           <ConversationScrollButton />
         </Conversation>
 
-        <PromptInput
-          onSubmit={handleSubmit}
-          className="mt-4 border-t"
-          globalDrop
-          multiple
-        >
+        <PromptInput onSubmit={handleSubmit} className="mt-4 border-t" globalDrop multiple>
           <PromptInputHeader >
             <PromptInputAttachmentsDisplay />
           </PromptInputHeader>
           <PromptInputBody >
             <PromptInputTextarea
               onChange={(e) => setText(e.target.value)}
-              value={text}
+              value={selectedText}
             />
           </PromptInputBody >
+
+          {/*The footer of the chat input area for things like model choosing and tools*/}
           <PromptInputFooter>
             <PromptInputTools>
               <PromptInputActionMenu>
@@ -185,4 +188,4 @@ const InputDemo = () => {
   );
 };
 
-export default InputDemo;
+export default ChatInput;

@@ -103,7 +103,7 @@
     "@uploadthing/react": "7.3.3",
     "@vercel/otel": "^2.1.2",
     "add": "^2.0.9",
-    "ai": "^6.0.180",
+    "ai": "^6.0.253",
     "ai-elements": "^1.9.0",
     "axios": "^1.18.1",
     "better-auth": "^1.6.11",

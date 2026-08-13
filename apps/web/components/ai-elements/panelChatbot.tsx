@@ -1,173 +1,179 @@
 "use client";
 
 import {
-  Attachment,
-  AttachmentPreview,
-  AttachmentRemove,
-  Attachments,
+	Attachment,
+	AttachmentPreview,
+	AttachmentRemove,
+	Attachments,
 } from "@/components/ai-elements/attachments";
 import {
-  PromptInput,
-  PromptInputActionAddAttachments,
-  PromptInputActionAddScreenshot,
-  PromptInputActionMenu,
-  PromptInputActionMenuContent,
-  PromptInputActionMenuTrigger,
-  PromptInputBody,
-  PromptInputButton,
-  PromptInputHeader,
-  type PromptInputMessage,
-  PromptInputSelect,
-  PromptInputSelectContent,
-  PromptInputSelectItem,
-  PromptInputSelectTrigger,
-  PromptInputSelectValue,
-  PromptInputSubmit,
-  PromptInputTextarea,
-  PromptInputFooter,
-  PromptInputTools,
-  usePromptInputAttachments,
+	PromptInput,
+	PromptInputActionAddAttachments,
+	PromptInputActionAddScreenshot,
+	PromptInputActionMenu,
+	PromptInputActionMenuContent,
+	PromptInputActionMenuTrigger,
+	PromptInputBody,
+	PromptInputButton,
+	PromptInputHeader,
+	type PromptInputMessage,
+	PromptInputSelect,
+	PromptInputSelectContent,
+	PromptInputSelectItem,
+	PromptInputSelectTrigger,
+	PromptInputSelectValue,
+	PromptInputSubmit,
+	PromptInputTextarea,
+	PromptInputFooter,
+	PromptInputTools,
+	usePromptInputAttachments,
 } from "@/components/ai-elements/prompt-input";
 import { GlobeIcon } from "lucide-react";
 import { useState } from "react";
 import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
 import {
-  Conversation,
-  ConversationContent,
-  ConversationScrollButton,
+	Conversation,
+	ConversationContent,
+	ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
 import {
-  Message,
-  MessageContent,
-  MessageResponse,
+	Message,
+	MessageContent,
+	MessageResponse,
 } from "@/components/ai-elements/message";
 import { useSelectedText } from "@/lib/store";
 
-
 const PromptInputAttachmentsDisplay = () => {
-  const attachments = usePromptInputAttachments();
+	const attachments = usePromptInputAttachments();
 
+	if (attachments.files.length === 0) {
+		return null;
+	}
 
-
-  if (attachments.files.length === 0) {
-    return null;
-  }
-
-  return (
-    <Attachments variant="inline">
-      {attachments.files.map((attachment) => (
-        <Attachment
-          data={attachment}
-          key={attachment.id}
-          onRemove={() => attachments.remove(attachment.id)}
-        >
-          <AttachmentPreview />
-          <AttachmentRemove />
-        </Attachment>
-      ))}
-    </Attachments>
-  );
+	return (
+		<Attachments variant="inline">
+			{attachments.files.map((attachment) => (
+				<Attachment
+					data={attachment}
+					key={attachment.id}
+					onRemove={() => attachments.remove(attachment.id)}
+				>
+					<AttachmentPreview />
+					<AttachmentRemove />
+				</Attachment>
+			))}
+		</Attachments>
+	);
 };
 
-const models = [
-  { id: "gpt-4o", name: "GPT-4o" },
-  { id: "claude-opus-4-20250514", name: "Claude 4 Opus" },
-];
-
 const ChatInput = () => {
-  const [text, setText] = useState<string>("");
-  const [model, setModel] = useState<string>(models[0].id);
-  const [useWebSearch, setUseWebSearch] = useState<boolean>(false);
-  const { selectedText, setSelectedText } = useSelectedText();
+	const [text, setText] = useState<string>("");
+	const [useWebSearch, setUseWebSearch] = useState<boolean>(false);
+	const { selectedText, setSelectedText } = useSelectedText();
 
-  
-  const { messages, status, sendMessage } = useChat();
+	const { messages, status, sendMessage } = useChat({
+		transport: new DefaultChatTransport({
+			api: "/api/ai/chat",
+		}),
+	});
 
-  const handleSubmit = (message: PromptInputMessage) => {
-    const hasText = Boolean(message.text);
-    const hasAttachments = Boolean(message.files?.length);
+	// Prefill the input when text is selected in the editor (adjust state during render)
+	const [prevSelectedText, setPrevSelectedText] = useState(selectedText);
+	if (selectedText !== prevSelectedText) {
+		setPrevSelectedText(selectedText);
+		if (selectedText) {
+			setText((prev) => (prev ? `${prev} ${selectedText}` : selectedText));
+		}
+	}
 
-    if (!(hasText || hasAttachments)) {
-      return;
-    }
+	const handleSubmit = (message: PromptInputMessage) => {
+		const hasText = Boolean(message.text);
+		const hasAttachments = Boolean(message.files?.length);
 
-    sendMessage(
-      {
-        text: message.text || "Sent with attachments",
-        files: message.files,
-      },
-      {
-        body: {
-          model: model,
-          webSearch: useWebSearch,
-        },
-      }
-    );
-    setText("");
-  };
+		if (!(hasText || hasAttachments)) {
+			return;
+		}
 
-  return (
-    <div className="w-full size-full h-full">
-      <div className="flex flex-col h-full w-full">
-        <Conversation>
-          <ConversationContent>
-            {messages.map((message) => (
-              <Message from={message.role} key={message.id}>
-                <MessageContent>
-                  {message.parts.map((part, i) => {
-                    switch (part.type) {
-                      case "text":
-                        return (
-                          <MessageResponse key={`${message.id}-${i}`}>
-                            {part.text}
-                          </MessageResponse>
-                        );
-                      default:
-                        return null;
-                    }
-                  })}
-                </MessageContent>
-              </Message>
-            ))}
-          </ConversationContent>
-          <ConversationScrollButton />
-        </Conversation>
+		sendMessage(
+			{
+				text: message.text || "Sent with attachments",
+				files: message.files,
+			},
+			{
+				body: {
+					webSearch: useWebSearch,
+				},
+			},
+		);
+		setText("");
+		setSelectedText("");
+	};
 
-        <PromptInput onSubmit={handleSubmit} className="mt-4 border-t" globalDrop multiple>
-          <PromptInputHeader >
-            <PromptInputAttachmentsDisplay />
-          </PromptInputHeader>
-          <PromptInputBody >
-            <PromptInputTextarea
-              onChange={(e) => setText(e.target.value)}
-              value={selectedText}
-            />
-          </PromptInputBody >
+	return (
+		<div className="w-full size-full h-full">
+			<div className="flex flex-col h-full w-full">
+				<Conversation>
+					<ConversationContent>
+						{messages.map((message) => (
+							<Message from={message.role} key={message.id}>
+								<MessageContent>
+									{message.parts.map((part, i) => {
+										switch (part.type) {
+											case "text":
+												return (
+													<MessageResponse key={`${message.id}-${i}`}>
+														{part.text}
+													</MessageResponse>
+												);
+											default:
+												return null;
+										}
+									})}
+								</MessageContent>
+							</Message>
+						))}
+					</ConversationContent>
+					<ConversationScrollButton />
+				</Conversation>
 
-          {/*The footer of the chat input area for things like model choosing and tools*/}
-          <PromptInputFooter>
-            <PromptInputTools>
-              <PromptInputActionMenu>
-                <PromptInputActionMenuTrigger />
-                <PromptInputActionMenuContent>
-                  <PromptInputActionAddAttachments />
-                  <PromptInputActionAddScreenshot />
-                </PromptInputActionMenuContent>
-              </PromptInputActionMenu>
-              <PromptInputButton
-                onClick={() => setUseWebSearch(!useWebSearch)}
-                tooltip={{ content: "Search the web", shortcut: "⌘K" }}
-                variant={useWebSearch ? "default" : "ghost"}
-              >
-                <GlobeIcon size={16} />
-                <span>Search</span>
-              </PromptInputButton>
-              <PromptInputSelect
-                onValueChange={(value) => {
-                  setModel(value);
-                }}
-                value={model}
-              >
+				<PromptInput
+					onSubmit={handleSubmit}
+					className="mt-4 border-t"
+					globalDrop
+					multiple
+				>
+					<PromptInputHeader>
+						<PromptInputAttachmentsDisplay />
+					</PromptInputHeader>
+					<PromptInputBody>
+						<PromptInputTextarea
+							onChange={(e) => setText(e.target.value)}
+							value={text}
+						/>
+					</PromptInputBody>
+
+					{/*The footer of the chat input area for things like model choosing and tools*/}
+					<PromptInputFooter>
+						<PromptInputTools>
+							<PromptInputActionMenu>
+								<PromptInputActionMenuTrigger />
+								<PromptInputActionMenuContent>
+									<PromptInputActionAddAttachments />
+									<PromptInputActionAddScreenshot />
+								</PromptInputActionMenuContent>
+							</PromptInputActionMenu>
+							<PromptInputButton
+								onClick={() => setUseWebSearch(!useWebSearch)}
+								tooltip={{ content: "Search the web", shortcut: "⌘K" }}
+								variant={useWebSearch ? "default" : "ghost"}
+							>
+								<GlobeIcon size={16} />
+								<span>Search</span>
+							</PromptInputButton>
+
+							{/*llm model selector*/}
+							{/*<PromptInputSelect onValueChange={(value) => setModel(value)} value={model}>
                 <PromptInputSelectTrigger>
                   <PromptInputSelectValue />
                 </PromptInputSelectTrigger>
@@ -178,14 +184,14 @@ const ChatInput = () => {
                     </PromptInputSelectItem>
                   ))}
                 </PromptInputSelectContent>
-              </PromptInputSelect>
-            </PromptInputTools>
-            <PromptInputSubmit disabled={!text && !status} status={status} />
-          </PromptInputFooter>
-        </PromptInput>
-      </div>
-    </div>
-  );
+              </PromptInputSelect>*/}
+						</PromptInputTools>
+						<PromptInputSubmit disabled={!text} status={status} />
+					</PromptInputFooter>
+				</PromptInput>
+			</div>
+		</div>
+	);
 };
 
 export default ChatInput;

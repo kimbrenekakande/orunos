@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 
-import { streamText } from "ai";
+import { convertToModelMessages, streamText } from "ai";
 import { createGroq } from "@ai-sdk/groq";
 
 export async function POST(req: NextRequest) {
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
 	try {
 		const result = streamText({
 			model: groq(model),
-			messages,
+			messages: await convertToModelMessages(messages),
 			temperature: 0.1,
 			experimental_telemetry: {
 				isEnabled: true,

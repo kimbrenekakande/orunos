@@ -31,7 +31,7 @@ export function PlateEditor({ md }: { md: Mdprops }) {
 
 	return (
 		<ResizablePanelGroup orientation="horizontal">
-			<ResizablePanel defaultSize="0%" collapsible></ResizablePanel>
+			<ResizablePanel defaultSize="25%" collapsible></ResizablePanel>
 			<ResizableHandle withHandle={true} />
 			<ResizablePanel className="rounded">
 				<Plate
@@ -48,7 +48,7 @@ export function PlateEditor({ md }: { md: Mdprops }) {
 				</Plate>
 			</ResizablePanel>
 			<ResizableHandle withHandle={true} />
-			<ResizablePanel defaultSize="20%" collapsible>
+			<ResizablePanel defaultSize="25%" collapsible>
 				<SidePanel />
 			</ResizablePanel>
 		</ResizablePanelGroup>

@@ -111,69 +111,68 @@ const ChatInput = () => {
 	};
 
 	return (
-		<div className="w-full size-full h-full">
-			<div className="flex flex-col h-full w-full">
-				<Conversation>
-					<ConversationContent>
-						{messages.map((message) => (
-							<Message from={message.role} key={message.id}>
-								<MessageContent>
-									{message.parts.map((part, i) => {
-										switch (part.type) {
-											case "text":
-												return (
-													<MessageResponse key={`${message.id}-${i}`}>
-														{part.text}
-													</MessageResponse>
-												);
-											default:
-												return null;
-										}
-									})}
-								</MessageContent>
-							</Message>
-						))}
-					</ConversationContent>
-					<ConversationScrollButton />
-				</Conversation>
+		<div className="flex min-h-0 w-full flex-1 flex-col">
+			<Conversation>
+				<ConversationContent>
+					{messages.map((message) => (
+						<Message from={message.role} key={message.id}>
+							<MessageContent>
+								{message.parts.map((part, i) => {
+									switch (part.type) {
+										case "text":
+											return (
+												<MessageResponse key={`${message.id}-${i}`}>
+													{part.text}
+												</MessageResponse>
+											);
+										default:
+											return null;
+									}
+								})}
+							</MessageContent>
+						</Message>
+					))}
+				</ConversationContent>
+				<ConversationScrollButton />
+			</Conversation>
 
-				<PromptInput
-					onSubmit={handleSubmit}
-					className="mt-4 border-t"
-					globalDrop
-					multiple
-				>
-					<PromptInputHeader>
-						<PromptInputAttachmentsDisplay />
-					</PromptInputHeader>
-					<PromptInputBody>
-						<PromptInputTextarea
-							onChange={(e) => setText(e.target.value)}
-							value={text}
-						/>
-					</PromptInputBody>
+			<PromptInput
+				onSubmit={handleSubmit}
+				className="mt-4 border-t"
+				globalDrop
+				multiple
+			>
+				<PromptInputHeader>
+					<PromptInputAttachmentsDisplay />
+				</PromptInputHeader>
+				<PromptInputBody>
+					<PromptInputTextarea
+						onChange={(e) => setText(e.target.value)}
+						value={text}
+					/>
+				</PromptInputBody>
 
-					{/*The footer of the chat input area for things like model choosing and tools*/}
-					<PromptInputFooter>
-						<PromptInputTools>
-							<PromptInputActionMenu>
-								<PromptInputActionMenuTrigger />
-								<PromptInputActionMenuContent>
-									<PromptInputActionAddAttachments />
-									<PromptInputActionAddScreenshot />
-								</PromptInputActionMenuContent>
-							</PromptInputActionMenu>
-							<PromptInputButton
-								onClick={() => setUseWebSearch(!useWebSearch)}
-								tooltip={{ content: "Search the web", shortcut: "⌘K" }}
-								variant={useWebSearch ? "default" : "ghost"}
-							>
-								<GlobeIcon size={16} />
-								<span>Search</span>
-							</PromptInputButton>
+				{/*The footer of the chat input area for things like model choosing and tools*/}
+				<PromptInputFooter>
+					<PromptInputTools>
+						<PromptInputActionMenu>
+							<PromptInputActionMenuTrigger />
+							<PromptInputActionMenuContent>
+								<PromptInputActionAddAttachments />
+								<PromptInputActionAddScreenshot />
+							</PromptInputActionMenuContent>
+						</PromptInputActionMenu>
+						<PromptInputButton
+							onClick={() => setUseWebSearch(!useWebSearch)}
+							tooltip={{ content: "Search the web", shortcut: "⌘K" }}
+							variant={useWebSearch ? "default" : "ghost"}
+						>
+							<GlobeIcon size={16} />
+							<span>Search</span>
+						</PromptInputButton>
 
-							{/*llm model selector*/}
-							{/*<PromptInputSelect onValueChange={(value) => setModel(value)} value={model}>
+						{/*llm model selector*/}
+						{/*<PromptInputSelect onValueChange={(value) => setModel(value)} value={model}>
                 <PromptInputSelectTrigger>
                   <PromptInputSelectValue />
                 </PromptInputSelectTrigger>
@@ -185,11 +184,10 @@ const ChatInput = () => {
                   ))}
                 </PromptInputSelectContent>
               </PromptInputSelect>*/}
-						</PromptInputTools>
-						<PromptInputSubmit disabled={!text} status={status} />
-					</PromptInputFooter>
-				</PromptInput>
-			</div>
+					</PromptInputTools>
+					<PromptInputSubmit disabled={!text} status={status} />
+				</PromptInputFooter>
+			</PromptInput>
 		</div>
 	);
 };

@@ -7,6 +7,7 @@ import { MarkdownPlugin } from "@platejs/markdown";
 import { Mdprops } from "@/lib/types";
 import { authClient } from "@/lib/auth-client";
 import { SidePanel } from "../platejs/customs/side-panel";
+import { TocPane } from "../platejs/customs/left-panel";
 import {
 	ResizableHandle,
 	ResizablePanel,
@@ -23,34 +24,37 @@ export function PlateEditor({ md }: { md: Mdprops }) {
 	// initialize editor with content from markdown
 	const editor = usePlateEditor({
 		plugins: EditorKit,
-		value: (editor) => editor.getApi(MarkdownPlugin).markdown.deserialize(content ?? ""),
+		value: (editor) =>
+			editor.getApi(MarkdownPlugin).markdown.deserialize(content ?? ""),
+		onReady: ({ editor }) => {
+			editor.documentData = { documentId: id, documentTitle: title };
+		},
 	});
 
-	// set document data for use in cutom editor buttons
-	editor.documentData = { documentId: id, documentTitle: title };
-
 	return (
-		<ResizablePanelGroup orientation="horizontal">
-			<ResizablePanel defaultSize="25%" collapsible></ResizablePanel>
-			<ResizableHandle withHandle={true} />
-			<ResizablePanel className="rounded">
-				<Plate
-					editor={editor}
-					onSelectionChange={({ editor, selection }) => {
-						const text = selection ? editor.api.string(selection) : "";
-						setSelectedText(text);
-						console.log(text);
-					}}
-				>
+		<Plate
+			editor={editor}
+			onSelectionChange={({ editor, selection }) => {
+				const text = selection ? editor.api.string(selection) : "";
+				setSelectedText(text);
+				console.log(text);
+			}}
+		>
+			<ResizablePanelGroup orientation="horizontal">
+				<ResizablePanel defaultSize="25%" collapsible>
+					<TocPane />
+				</ResizablePanel>
+				<ResizableHandle withHandle={true} />
+				<ResizablePanel className="rounded">
 					<EditorContainer>
 						<Editor variant="default" />
 					</EditorContainer>
-				</Plate>
-			</ResizablePanel>
-			<ResizableHandle withHandle={true} />
-			<ResizablePanel defaultSize="25%" collapsible>
-				<SidePanel />
-			</ResizablePanel>
-		</ResizablePanelGroup>
+				</ResizablePanel>
+				<ResizableHandle withHandle={true} />
+				<ResizablePanel defaultSize="25%" collapsible>
+					<SidePanel />
+				</ResizablePanel>
+			</ResizablePanelGroup>
+		</Plate>
 	);
 }

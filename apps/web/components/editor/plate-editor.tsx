@@ -35,9 +35,16 @@ export function PlateEditor({ md }: { md: Mdprops }) {
 		<Plate
 			editor={editor}
 			onSelectionChange={({ editor, selection }) => {
+				console.log("No Fukin Selection");
+				console.log(selection);
 				const text = selection ? editor.api.string(selection) : "";
-				setSelectedText(text);
-				console.log(text);
+
+				// setting the selection to a global state
+				setSelectedText({
+					text,
+					children: editor.children,
+					selection: selection ?? null,
+				});
 			}}
 		>
 			<ResizablePanelGroup orientation="horizontal">

@@ -79,11 +79,13 @@ const ChatInput = () => {
 	});
 
 	// Prefill the input when text is selected in the editor (adjust state during render)
-	const [prevSelectedText, setPrevSelectedText] = useState(selectedText);
-	if (selectedText !== prevSelectedText) {
-		setPrevSelectedText(selectedText);
-		if (selectedText) {
-			setText((prev) => (prev ? `${prev} ${selectedText}` : selectedText));
+	const [prevSelectedText, setPrevSelectedText] = useState(selectedText.text);
+	if (selectedText.text !== prevSelectedText) {
+		setPrevSelectedText(selectedText.text);
+		if (selectedText.text) {
+			setText((prev) =>
+				prev ? `${prev} ${selectedText.text}` : selectedText.text,
+			);
 		}
 	}
 
@@ -107,7 +109,7 @@ const ChatInput = () => {
 			},
 		);
 		setText("");
-		setSelectedText("");
+		setSelectedText({ text: "", children: null, selection: null });
 	};
 
 	return (

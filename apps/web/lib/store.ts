@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import type { TRange, Value } from "platejs";
 
 type PlateText = {
 	content: string;
@@ -41,13 +42,25 @@ export const useContent = create<Content>()((set) => ({
 	setContent: (content: string) => set({ content }),
 }));
 
-// Selected text from the Plate editor — updated automatically on selection change
+// Selected content from the Plate editor — captured as the full editor state
+// (document value + selection range), not just the stripped plain text.
+// Keeping the raw `children` + `selection` lets us pass them straight to
+// /api/ai/command, which expects `ctx = { children, selection, toolName }`.
+export type EditorSelection = {
+	/** Plain-text fallback of the selection (for prefill / display). */
+	text: string;
+	/** Full Slate document value — preserves formatting, marks, and MDX nodes. */
+	children: Value | null;
+	/** Current Slate selection range, or null when collapsed/cleared. */
+	selection: TRange | null;
+};
+
 type SelectedText = {
-	selectedText: string;
-	setSelectedText: (text: string) => void;
+	selectedText: EditorSelection;
+	setSelectedText: (selection: EditorSelection) => void;
 };
 
 export const useSelectedText = create<SelectedText>()((set) => ({
-	selectedText: "",
-	setSelectedText: (text: string) => set({ selectedText: text }),
+	selectedText: { text: "", children: null, selection: null },
+	setSelectedText: (selection) => set({ selectedText: selection }),
 }));

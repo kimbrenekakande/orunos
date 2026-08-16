@@ -34,7 +34,11 @@ const ctxSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-	const { messages, model = "llama-3.3-70b-versatile" } = await req.json();
+	const {
+		messages,
+		model = "llama-3.3-70b-versatile",
+		ctx: clientCtx,
+	} = await req.json();
 	const groq = createGroq({ apiKey: process.env.GROQ_API_KEY });
 
 	if (!process.env.GROQ_API_KEY) {
@@ -47,21 +51,32 @@ export async function POST(req: NextRequest) {
 	try {
 		const result = streamText({
 			model: groq(model),
+			system:
+				"You are an AI assistant inside a document editor. You have an `edit` tool that applies changes to the user's document. Call it only when the user explicitly requests a document change (e.g. 'do this', 'rewrite this', 'fix grammar', 'make it shorter', 'add a summary'). For questions or general conversation, answer directly and do not call the tool.",
 			messages: await convertToModelMessages(messages),
 			temperature: 0.1,
 			tools: {
 				// Custom tool to call api/ai/command to have editing control
 				edit: tool({
-					description: "Apply Edits in the editor based based on selection",
+					description:
+						"Apply an edit or change to the user's document. Use only when the user asks to modify document content (e.g. rewrite, fix, shorten, summarize into the document).",
 					inputSchema: z.object({
 						ctx: ctxSchema,
 					}),
-					execute: async ({ ctx }) => {
-						// Forward the client-provided ctx to the command route.
+					execute: async ({ ctx: modelCtx }) => {
+						// Forward the real editor state (from the client) plus the
+						// toolName chosen by the model to the command route.
 						await fetch(`${req.nextUrl.origin}/api/ai/command`, {
 							method: "POST",
 							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify({ ctx, messages }),
+							body: JSON.stringify({
+								ctx: {
+									children: clientCtx?.children ?? modelCtx.children,
+									selection: clientCtx?.selection ?? modelCtx.selection,
+									toolName: modelCtx.toolName,
+								},
+								messages,
+							}),
 						});
 					},
 				}),

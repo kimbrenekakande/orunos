@@ -105,6 +105,10 @@ const ChatInput = () => {
 			{
 				body: {
 					webSearch: useWebSearch,
+					ctx: {
+						children: selectedText.children,
+						selection: selectedText.selection,
+					},
 				},
 			},
 		);

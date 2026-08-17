@@ -24,9 +24,10 @@ import {
 } from "@/components/ai-elements/prompt-input";
 import { TextSelect } from "lucide-react";
 import { useState } from "react";
-import { AIChatPlugin, AIPlugin } from "@platejs/ai/react";
-import { useEditorRef, usePluginOption } from "platejs/react";
-import { Button } from "@/components/tiptapui/button";
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
+import { AIChatPlugin } from "@platejs/ai/react";
+import { useEditorRef } from "platejs/react";
 import {
 	Conversation,
 	ConversationContent,
@@ -123,16 +124,13 @@ const classify = (
 
 const ChatInput = () => {
 	const editor = useEditorRef();
-	const chat = usePluginOption(AIChatPlugin, "chat");
-	const { messages, status } = chat;
-	const toolName = usePluginOption(AIChatPlugin, "toolName");
-	const mode = usePluginOption(AIChatPlugin, "mode");
+	const { messages, status, sendMessage, setMessages } = useChat({
+		transport: new DefaultChatTransport({
+			api: "/api/ai/chat",
+		}),
+	});
 	const [text, setText] = useState<string>("");
-	const [editResolved, setEditResolved] = useState(true);
 	const { selectedText, resetSelectedText } = useSelectedText();
-
-	const pendingEdit =
-		status === "ready" && toolName === "edit" && mode === "chat" && !editResolved;
 
 	const handleSubmit = (message: PromptInputMessage) => {
 		const hasText = Boolean(message.text);
@@ -146,30 +144,50 @@ const ChatInput = () => {
 		const hasSelection = Boolean(selectedText.text.trim());
 		const toolName = classify(prompt, hasSelection);
 
-		setEditResolved(false);
+		if (toolName === "generate") {
+			// Conversation → answer in the panel chat. Send the selection as
+			// context so the model knows what we're talking about.
+			sendMessage(
+				{ text: prompt },
+				{ body: { ctx: { text: selectedText.text } } },
+			);
+		} else {
+			// Action (edit/comment) → keep the message visible in the panel, then
+			// drive the editor's AI chat so the edit is applied and the editor's
+			// own floating toolbar shows the Accept / Discard popup. We resolve the
+			// toolName here because the command route's auto-classification uses
+			// `generateObject`, which Groq's llama-3.3-70b-versatile does not
+			// support.
+			setMessages((prev) => [
+				...prev,
+				{
+					id: crypto.randomUUID(),
+					role: "user" as const,
+					parts: [{ type: "text" as const, text: prompt }],
+				},
+				{
+					id: crypto.randomUUID(),
+					role: "assistant" as const,
+					parts: [
+						{
+							type: "text" as const,
+							text:
+								"Applied the edit — review and accept or discard it in the editor.",
+						},
+					],
+				},
+			]);
 
-		// Delegate to the editor's AI chat (AIChatPlugin). It builds `ctx` from the
-		// live editor state and applies edits back to the document. We resolve the
-		// toolName here because the command route's auto-classification uses
-		// `generateObject`, which Groq's llama-3.3-70b-versatile does not support
-		// (it requires `response_format: json_schema`).
-		editor.getApi(AIChatPlugin).aiChat.submit(prompt, {
-			mode: "chat",
-			toolName,
-		});
+			editor.getApi(AIChatPlugin).aiChat.show();
+			editor.getApi(AIChatPlugin).aiChat.submit(prompt, {
+				mode: "chat",
+				toolName,
+			});
+			editor.tf.focus();
+		}
 
 		setText("");
 		resetSelectedText();
-	};
-
-	const handleAccept = () => {
-		editor.getTransforms(AIChatPlugin).aiChat.accept();
-		setEditResolved(true);
-	};
-
-	const handleDiscard = () => {
-		editor.getTransforms(AIPlugin).ai.undo();
-		setEditResolved(true);
 	};
 
 	return (
@@ -197,18 +215,6 @@ const ChatInput = () => {
 				</ConversationContent>
 				<ConversationScrollButton />
 			</Conversation>
-
-			{pendingEdit && (
-				<div className="flex items-center gap-2 border-t px-4 py-2">
-					<span className="text-xs text-muted-foreground">AI suggestion</span>
-					<Button size="sm" onClick={handleAccept}>
-						Accept
-					</Button>
-					<Button size="sm" variant="outline" onClick={handleDiscard}>
-						Discard
-					</Button>
-				</div>
-			)}
 
 			<PromptInput
 				onSubmit={handleSubmit}

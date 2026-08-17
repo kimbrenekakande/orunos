@@ -46,7 +46,7 @@ export const aiChatPlugin = AIChatPlugin.extend({
     }, [toolName]);
 
     useChatChunk({
-      onChunk: ({ chunk, isFirst, nodes }) => {
+      onChunk: ({ chunk, isFirst, nodes, text: content }) => {
         if (chunkProcessingRef.current) return;
         chunkProcessingRef.current = true;
 
@@ -54,6 +54,7 @@ export const aiChatPlugin = AIChatPlugin.extend({
         queueMicrotask(() => {
           try {
             const currentMode = modeRef.current;
+            const currentToolName = toolNameRef.current;
 
             if (isFirst && currentMode === "insert") {
               editor.tf.withoutSaving(() => {
@@ -86,31 +87,25 @@ export const aiChatPlugin = AIChatPlugin.extend({
                 { split: isFirst },
               );
             }
+
+            if (currentToolName === "edit" && currentMode === "chat") {
+              withAIBatch(
+                editor,
+                () => {
+                  applyAISuggestions(editor, content);
+                },
+                { split: isFirst },
+              );
+            }
           } finally {
             chunkProcessingRef.current = false; // ✅ resets after work, not before
           }
         });
       },
 
-      onFinish: ({ content }) => {
+      onFinish: () => {
         // ✅ Defer setOption calls too — they also trigger state updates
         queueMicrotask(() => {
-          const currentToolName = toolNameRef.current;
-          const currentMode = modeRef.current;
-
-          // Apply edits once with the full replacement text (instead of per-chunk),
-          // which keeps the suggestion diff aligned and avoids garbled text.
-          if (currentToolName === "edit" && currentMode === "chat" && content) {
-            const chatSelection = editor.getOption(
-              AIChatPlugin,
-              "chatSelection",
-            );
-            if (chatSelection) {
-              editor.tf.setSelection(chatSelection);
-            }
-            applyAISuggestions(editor, content);
-          }
-
           editor.setOption(AIChatPlugin, "streaming", false);
           editor.setOption(AIChatPlugin, "_blockChunks", "");
           editor.setOption(AIChatPlugin, "_blockPath", null);

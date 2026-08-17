@@ -14,24 +14,19 @@ import {
 	PromptInputActionMenuContent,
 	PromptInputActionMenuTrigger,
 	PromptInputBody,
-	PromptInputButton,
 	PromptInputHeader,
 	type PromptInputMessage,
-	PromptInputSelect,
-	PromptInputSelectContent,
-	PromptInputSelectItem,
-	PromptInputSelectTrigger,
-	PromptInputSelectValue,
 	PromptInputSubmit,
 	PromptInputTextarea,
 	PromptInputFooter,
 	PromptInputTools,
 	usePromptInputAttachments,
 } from "@/components/ai-elements/prompt-input";
-import { GlobeIcon } from "lucide-react";
+import { TextSelect } from "lucide-react";
 import { useState } from "react";
-import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
+import { AIChatPlugin, AIPlugin } from "@platejs/ai/react";
+import { useEditorRef, usePluginOption } from "platejs/react";
+import { Button } from "@/components/tiptapui/button";
 import {
 	Conversation,
 	ConversationContent,
@@ -67,27 +62,77 @@ const PromptInputAttachmentsDisplay = () => {
 	);
 };
 
-const ChatInput = () => {
-	const [text, setText] = useState<string>("");
-	const [useWebSearch, setUseWebSearch] = useState<boolean>(false);
-	const { selectedText, setSelectedText } = useSelectedText();
+const SelectionBadge = () => {
+	const { selectedText } = useSelectedText();
+	const { text, from, to } = selectedText;
 
-	const { messages, status, sendMessage } = useChat({
-		transport: new DefaultChatTransport({
-			api: "/api/ai/chat",
-		}),
-	});
-
-	// Prefill the input when text is selected in the editor (adjust state during render)
-	const [prevSelectedText, setPrevSelectedText] = useState(selectedText.text);
-	if (selectedText.text !== prevSelectedText) {
-		setPrevSelectedText(selectedText.text);
-		if (selectedText.text) {
-			setText((prev) =>
-				prev ? `${prev} ${selectedText.text}` : selectedText.text,
-			);
-		}
+	if (!text.trim()) {
+		return null;
 	}
+
+	return (
+		<div
+			className="flex w-full items-center justify-between gap-1.5 rounded-md border border-orange-500/40 bg-orange-500/10 px-2 py-1 text-xs text-orange-500"
+			title={`Selection: characters ${from} → ${to}`}
+		>
+			<span className="flex items-center gap-1.5 font-medium">
+				<TextSelect className="size-3.5 shrink-0" />
+				Selected
+			</span>
+			<span className="rounded bg-orange-500/15 px-1.5 py-px font-mono text-[11px] tabular-nums">
+				{from} → {to}
+			</span>
+		</div>
+	);
+};
+
+const classify = (
+	message: string,
+	hasSelection: boolean,
+): "edit" | "generate" | "comment" => {
+	// Nothing selected → nothing to edit; answer in chat.
+	if (!hasSelection) return "generate";
+
+	// Strip polite prefixes so "can you make this shorter" reads as "make this shorter".
+	const m = message
+		.trim()
+		.replace(
+			/^(please|pls|can you|could you|would you|will you|can u|could u|would u)\s*/i,
+			"",
+		);
+
+	// Explicit comment / review requests → attach a comment to the selection.
+	if (/\b(review|comment|feedback|annotat|critique)\b/i.test(m))
+		return "comment";
+
+	// Questions and explanations are conversation → answer in chat, leave the
+	// document untouched.
+	if (
+		/^(what|whats|what's|why|how|when|where|who|which|is|are|does|do|did|explain|describe|define|tell me|summarize|elaborate|clarify|analyze|evaluate|discuss|compare)\b/i.test(
+			m,
+		) ||
+		/\b(meaning|means|mean by|explanation|definition)\b/i.test(m)
+	) {
+		return "generate";
+	}
+
+	// Any other instruction ("change this", "make it shorter", "translate this",
+	// "write it in Mandarin", etc.) is an action → apply it to the selection.
+	return "edit";
+};
+
+const ChatInput = () => {
+	const editor = useEditorRef();
+	const chat = usePluginOption(AIChatPlugin, "chat");
+	const { messages, status } = chat;
+	const toolName = usePluginOption(AIChatPlugin, "toolName");
+	const mode = usePluginOption(AIChatPlugin, "mode");
+	const [text, setText] = useState<string>("");
+	const [editResolved, setEditResolved] = useState(true);
+	const { selectedText, resetSelectedText } = useSelectedText();
+
+	const pendingEdit =
+		status === "ready" && toolName === "edit" && mode === "chat" && !editResolved;
 
 	const handleSubmit = (message: PromptInputMessage) => {
 		const hasText = Boolean(message.text);
@@ -97,23 +142,34 @@ const ChatInput = () => {
 			return;
 		}
 
-		sendMessage(
-			{
-				text: message.text || "Sent with attachments",
-				files: message.files,
-			},
-			{
-				body: {
-					webSearch: useWebSearch,
-					ctx: {
-						children: selectedText.children,
-						selection: selectedText.selection,
-					},
-				},
-			},
-		);
+		const prompt = message.text || "Sent with attachments";
+		const hasSelection = Boolean(selectedText.text.trim());
+		const toolName = classify(prompt, hasSelection);
+
+		setEditResolved(false);
+
+		// Delegate to the editor's AI chat (AIChatPlugin). It builds `ctx` from the
+		// live editor state and applies edits back to the document. We resolve the
+		// toolName here because the command route's auto-classification uses
+		// `generateObject`, which Groq's llama-3.3-70b-versatile does not support
+		// (it requires `response_format: json_schema`).
+		editor.getApi(AIChatPlugin).aiChat.submit(prompt, {
+			mode: "chat",
+			toolName,
+		});
+
 		setText("");
-		setSelectedText({ text: "", children: null, selection: null });
+		resetSelectedText();
+	};
+
+	const handleAccept = () => {
+		editor.getTransforms(AIChatPlugin).aiChat.accept();
+		setEditResolved(true);
+	};
+
+	const handleDiscard = () => {
+		editor.getTransforms(AIPlugin).ai.undo();
+		setEditResolved(true);
 	};
 
 	return (
@@ -142,6 +198,18 @@ const ChatInput = () => {
 				<ConversationScrollButton />
 			</Conversation>
 
+			{pendingEdit && (
+				<div className="flex items-center gap-2 border-t px-4 py-2">
+					<span className="text-xs text-muted-foreground">AI suggestion</span>
+					<Button size="sm" onClick={handleAccept}>
+						Accept
+					</Button>
+					<Button size="sm" variant="outline" onClick={handleDiscard}>
+						Discard
+					</Button>
+				</div>
+			)}
+
 			<PromptInput
 				onSubmit={handleSubmit}
 				className="mt-4 border-t"
@@ -149,6 +217,7 @@ const ChatInput = () => {
 				multiple
 			>
 				<PromptInputHeader>
+					<SelectionBadge />
 					<PromptInputAttachmentsDisplay />
 				</PromptInputHeader>
 				<PromptInputBody>
@@ -168,28 +237,6 @@ const ChatInput = () => {
 								<PromptInputActionAddScreenshot />
 							</PromptInputActionMenuContent>
 						</PromptInputActionMenu>
-						<PromptInputButton
-							onClick={() => setUseWebSearch(!useWebSearch)}
-							tooltip={{ content: "Search the web", shortcut: "⌘K" }}
-							variant={useWebSearch ? "default" : "ghost"}
-						>
-							<GlobeIcon size={16} />
-							<span>Search</span>
-						</PromptInputButton>
-
-						{/*llm model selector*/}
-						{/*<PromptInputSelect onValueChange={(value) => setModel(value)} value={model}>
-                <PromptInputSelectTrigger>
-                  <PromptInputSelectValue />
-                </PromptInputSelectTrigger>
-                <PromptInputSelectContent>
-                  {models.map((model) => (
-                    <PromptInputSelectItem key={model.id} value={model.id}>
-                      {model.name}
-                    </PromptInputSelectItem>
-                  ))}
-                </PromptInputSelectContent>
-              </PromptInputSelect>*/}
 					</PromptInputTools>
 					<PromptInputSubmit disabled={!text} status={status} />
 				</PromptInputFooter>

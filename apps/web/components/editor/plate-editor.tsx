@@ -18,8 +18,8 @@ import { useSelectedText } from "@/lib/store";
 
 export function PlateEditor({ md }: { md: Mdprops }) {
 	const { id, title, content } = md;
-	const { data, isPending, error, refetch } = authClient.useSession();
-	const { selectedText, setSelectedText } = useSelectedText();
+	// const { data, isPending, error, refetch } = authClient.useSession();
+	const { setSelectedText } = useSelectedText();
 
 	// initialize editor with content from markdown
 	const editor = usePlateEditor({
@@ -39,11 +39,32 @@ export function PlateEditor({ md }: { md: Mdprops }) {
 				console.log(selection);
 				const text = selection ? editor.api.string(selection) : "";
 
+				// Character offsets of the selection within the whole document.
+				let from = 0;
+				let to = 0;
+
+				if (selection && text) {
+					const docStart = editor.api.start([]);
+					const [startPoint, endPoint] = editor.api.edges(selection) ?? [];
+
+					if (docStart && startPoint) {
+						const startRange = editor.api.range(docStart, startPoint);
+						if (startRange) from = editor.api.string(startRange).length;
+					}
+
+					if (docStart && endPoint) {
+						const endRange = editor.api.range(docStart, endPoint);
+						if (endRange) to = editor.api.string(endRange).length;
+					}
+				}
+
 				// setting the selection to a global state
 				setSelectedText({
 					text,
 					children: editor.children,
 					selection: selection ?? null,
+					from,
+					to,
 				});
 			}}
 		>

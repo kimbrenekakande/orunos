@@ -53,14 +53,28 @@ export type EditorSelection = {
 	children: Value | null;
 	/** Current Slate selection range, or null when collapsed/cleared. */
 	selection: TRange | null;
+	/** Start character offset of the selection within the full document. */
+	from: number;
+	/** End character offset of the selection within the full document. */
+	to: number;
 };
 
 type SelectedText = {
 	selectedText: EditorSelection;
 	setSelectedText: (selection: EditorSelection) => void;
+	resetSelectedText: () => void;
+};
+
+const EMPTY_SELECTION: EditorSelection = {
+	text: "",
+	children: null,
+	selection: null,
+	from: 0,
+	to: 0,
 };
 
 export const useSelectedText = create<SelectedText>()((set) => ({
-	selectedText: { text: "", children: null, selection: null },
+	selectedText: EMPTY_SELECTION,
 	setSelectedText: (selection) => set({ selectedText: selection }),
+	resetSelectedText: () => set({ selectedText: EMPTY_SELECTION }),
 }));

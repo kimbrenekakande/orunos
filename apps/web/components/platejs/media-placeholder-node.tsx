@@ -83,10 +83,13 @@ export const PlaceholderElement = withHOC(
 
     const replaceCurrentPlaceholder = React.useCallback(
       (file: File) => {
-        void uploadFile(file);
+        const documentId = (
+          editor as unknown as { documentData: { documentId: string } }
+        ).documentData.documentId;
+        void uploadFile(file, { documentId });
         api.placeholder.addUploadingFile(element.id as string, file);
       },
-      [api.placeholder, element.id, uploadFile]
+      [api.placeholder, element.id, editor, uploadFile]
     );
 
     React.useEffect(() => {

@@ -31,13 +31,14 @@ export function useUploadFile({
   const [progress, setProgress] = React.useState<number>(0);
   const [isUploading, setIsUploading] = React.useState(false);
 
-  async function uploadThing(file: File) {
+  async function uploadThing(file: File, input: { documentId: string }) {
     setIsUploading(true);
     setUploadingFile(file);
 
     try {
       const res = await uploadFiles('editorUploader', {
         ...props,
+        input,
         files: [file],
         onUploadProgress: ({ progress }) => {
           setProgress(Math.min(progress, 100));
@@ -61,34 +62,9 @@ export function useUploadFile({
 
       onUploadError?.(error);
 
-      // Mock upload for unauthenticated users
-      // toast.info('User not logged in. Mocking upload process.');
-      const mockUploadedFile = {
-        key: 'mock-key-0',
-        appUrl: `https://mock-app-url.com/${file.name}`,
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        url: URL.createObjectURL(file),
-        ufsUrl: URL.createObjectURL(file),
-      } as UploadedFile;
+      setUploadingFile(undefined);
 
-      // Simulate upload progress
-      let progress = 0;
-
-      const simulateProgress = async () => {
-        while (progress < 100) {
-          await new Promise((resolve) => setTimeout(resolve, 50));
-          progress += 2;
-          setProgress(Math.min(progress, 100));
-        }
-      };
-
-      await simulateProgress();
-
-      setUploadedFile(mockUploadedFile);
-
-      return mockUploadedFile;
+      return undefined;
     } finally {
       setProgress(0);
       setIsUploading(false);

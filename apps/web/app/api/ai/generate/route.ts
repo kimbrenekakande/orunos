@@ -17,21 +17,10 @@ export async function POST(request: NextRequest) {
 		const documentType = body.paperType;
 		const questions = body.prompt;
 
-		if (!documentType)
-			return NextResponse.json(
-				{ error: "Document type is required" },
-				{ status: 400 },
-			);
-		if (!questions)
-			return NextResponse.json(
-				{ error: "Prompt is required" },
-				{ status: 400 },
-			);
-
-		// Validate doc type exists
-		const type = await prisma.docType.findUnique({
-			where: { type: documentType },
-		});
+		// Validate 
+		if (!documentType) return NextResponse.json({ error: "Document type is required" },{ status: 400 });
+		if (!questions) return NextResponse.json( { error: "Prompt is required" },{ status: 400 });
+		const type = await prisma.docType.findUnique({ where: { type: documentType }});
 
 		if (!type) {
 			return NextResponse.json(

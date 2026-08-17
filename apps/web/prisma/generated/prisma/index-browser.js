@@ -117,6 +117,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.RefScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  type: 'type',
+  url: 'url',
+  documentId: 'documentId'
+};
+
 exports.Prisma.DocumentScalarFieldEnum = {
   id: 'id',
   docTypeId: 'docTypeId',
@@ -230,6 +238,7 @@ exports.TransType = exports.$Enums.TransType = {
 };
 
 exports.Prisma.ModelName = {
+  Ref: 'Ref',
   Document: 'Document',
   DocType: 'DocType',
   Transaction: 'Transaction',

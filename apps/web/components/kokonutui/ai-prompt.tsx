@@ -14,6 +14,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Field, FieldError } from "@/components/ui/field";
 import { useRouter } from "next/navigation";
+import { useUploadThing } from "@/hooks/use-upload-file";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +30,7 @@ export default function Questionaire({ doctype, canAfford }: { doctype: string; 
   const router = useRouter();
   const [files, setFiles] = useState<File[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { startUpload } = useUploadThing("editorUploader");
 
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
@@ -68,6 +70,11 @@ export default function Questionaire({ doctype, canAfford }: { doctype: string; 
       }
 
       const { docTypeId, docId } = await res.json();
+
+      if (files.length > 0) {
+        await startUpload(files, { documentId: docId });
+      }
+
       router.push(`/dashboard/${docTypeId}/editor/${docId}?source=form`);
     } finally {
       setIsSubmitting(false);

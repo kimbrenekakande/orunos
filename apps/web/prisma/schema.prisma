@@ -20,6 +20,15 @@ enum DocStatus {
   READY
 }
 
+model Ref {
+  id         String   @id @default(cuid())
+  key        String
+  type       String
+  url        String
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id])
+}
+
 model Document {
   id        String    @id @default(cuid())
   docTypeId String
@@ -29,6 +38,7 @@ model Document {
   answer    String?
   status    DocStatus
   cost      Int
+  refs      Ref[] //reffs for the academic documents
   userId    String
   user      User      @relation(fields: [userId], references: [id])
   createdAt DateTime  @default(now())

@@ -23,11 +23,12 @@ import {
 	usePromptInputAttachments,
 } from "@/components/ai-elements/prompt-input";
 import { TextSelect } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
+import { DefaultChatTransport, type UIMessage } from "ai";
+import { useParams } from "next/navigation";
 import { AIChatPlugin } from "@platejs/ai/react";
-import { useEditorRef } from "platejs/react";
+import { useEditorRef, usePluginOption } from "platejs/react";
 import {
 	Conversation,
 	ConversationContent,
@@ -39,6 +40,37 @@ import {
 	MessageResponse,
 } from "@/components/ai-elements/message";
 import { useSelectedText } from "@/lib/store";
+
+const CHAT_STORAGE_PREFIX = "orunos-chat:";
+
+function loadChat(documentId: string): UIMessage[] {
+	if (typeof window === "undefined") return [];
+	try {
+		const raw = localStorage.getItem(`${CHAT_STORAGE_PREFIX}${documentId}`);
+		return raw ? (JSON.parse(raw) as UIMessage[]) : [];
+	} catch {
+		return [];
+	}
+}
+
+function saveChat(documentId: string, messages: UIMessage[]) {
+	if (typeof window === "undefined") return;
+	try {
+		localStorage.setItem(
+			`${CHAT_STORAGE_PREFIX}${documentId}`,
+			JSON.stringify(messages),
+		);
+	} catch {
+		// Ignore write failures (e.g. storage full / private mode).
+	}
+}
+
+function editStatusText(status: string | undefined): string {
+	if (status === "error") return "The edit failed — please try again.";
+	if (status === "ready")
+		return "Applied the edit — review and accept or discard it in the editor.";
+	return "Applying the edit…";
+}
 
 const PromptInputAttachmentsDisplay = () => {
 	const attachments = usePromptInputAttachments();
@@ -124,13 +156,42 @@ const classify = (
 
 const ChatInput = () => {
 	const editor = useEditorRef();
+	const params = useParams<{ id: string }>();
+	const documentId = params?.id ?? "default";
+
+	const initialMessages = useMemo(() => loadChat(documentId), [documentId]);
+
 	const { messages, status, sendMessage, setMessages } = useChat({
+		id: `${CHAT_STORAGE_PREFIX}${documentId}`,
+		messages: initialMessages,
 		transport: new DefaultChatTransport({
 			api: "/api/ai/chat",
 		}),
 	});
 	const [text, setText] = useState<string>("");
 	const { selectedText, resetSelectedText } = useSelectedText();
+
+	// Track the editor's own AI chat status so we can report edit progress
+	// accurately ("Applying…" → "Applied…") instead of a static message.
+	const editorChat = usePluginOption(AIChatPlugin, "chat");
+	const editorStatus = editorChat.status;
+	const [pendingEditId, setPendingEditId] = useState<string | null>(null);
+
+	// Derive the pending edit message's text from the live editor status.
+	const displayMessages = useMemo(() => {
+		if (!pendingEditId) return messages;
+		const statusText = editStatusText(editorStatus);
+		return messages.map((m) =>
+			m.id === pendingEditId
+				? { ...m, parts: [{ type: "text" as const, text: statusText }] }
+				: m,
+		);
+	}, [messages, pendingEditId, editorStatus]);
+
+	// Persist the conversation so it survives tab switches and page reloads.
+	useEffect(() => {
+		saveChat(documentId, displayMessages);
+	}, [documentId, displayMessages]);
 
 	const handleSubmit = (message: PromptInputMessage) => {
 		const hasText = Boolean(message.text);
@@ -158,25 +219,40 @@ const ChatInput = () => {
 			// toolName here because the command route's auto-classification uses
 			// `generateObject`, which Groq's llama-3.3-70b-versatile does not
 			// support.
-			setMessages((prev) => [
-				...prev,
-				{
-					id: crypto.randomUUID(),
-					role: "user" as const,
-					parts: [{ type: "text" as const, text: prompt }],
-				},
-				{
-					id: crypto.randomUUID(),
-					role: "assistant" as const,
-					parts: [
-						{
-							type: "text" as const,
-							text:
-								"Applied the edit — review and accept or discard it in the editor.",
-						},
-					],
-				},
-			]);
+			const applyingId = crypto.randomUUID();
+			setMessages((prev) => {
+				// Commit the previous pending edit's final text so it doesn't revert
+				// back to "Applying…" once we track the new message.
+				const committed = pendingEditId
+					? prev.map((m) =>
+							m.id === pendingEditId
+								? {
+										...m,
+										parts: [
+											{
+												type: "text" as const,
+												text: editStatusText(editorStatus),
+											},
+										],
+									}
+								: m,
+						)
+					: prev;
+				return [
+					...committed,
+					{
+						id: crypto.randomUUID(),
+						role: "user" as const,
+						parts: [{ type: "text" as const, text: prompt }],
+					},
+					{
+						id: applyingId,
+						role: "assistant" as const,
+						parts: [{ type: "text" as const, text: "Applying the edit…" }],
+					},
+				];
+			});
+			setPendingEditId(applyingId);
 
 			editor.getApi(AIChatPlugin).aiChat.show();
 			editor.getApi(AIChatPlugin).aiChat.submit(prompt, {
@@ -194,7 +270,7 @@ const ChatInput = () => {
 		<div className="flex min-h-0 w-full flex-1 flex-col">
 			<Conversation>
 				<ConversationContent>
-					{messages.map((message) => (
+					{displayMessages.map((message) => (
 						<Message from={message.role} key={message.id}>
 							<MessageContent>
 								{message.parts.map((part, i) => {
